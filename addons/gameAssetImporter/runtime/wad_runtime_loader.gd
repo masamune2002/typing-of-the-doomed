@@ -10,14 +10,14 @@ const loader_scene_path: String = "res://addons/godotWad/WAD_Loader.tscn"
 @export var import_name: String = "doom_runtime"
 
 ## Map name inside the WAD (e.g. "MAP01"). Leave empty to auto-pick first map.
-@export var map_name: String = ""
+@export var map_name: String = "E1M1"
 
 ## Optional extra params for the loader (if needed).
 @export var extra_params: PackedStringArray = []
 
 var _loader: WAD_Map
 
-func load_wad(wad_path: String, map_idx : int) -> void:
+func load_wad(wad_path: String, map_idx : int) -> Node3D:
 	if loader_scene_path == "":
 		push_error("WadRuntimeLoader: loader_scene_path is empty.")
 		return
@@ -36,7 +36,6 @@ func load_wad(wad_path: String, map_idx : int) -> void:
 	for p in extra_params:
 		params.append(p)
 
-	# This mirrors: cur.initialize(param, curGameName, nameLabel.text.to_lower())
 	_loader.initialize(params, game_name, import_name.to_lower())
 
 	# 3) Decide which map to load
@@ -52,7 +51,7 @@ func load_wad(wad_path: String, map_idx : int) -> void:
 			return
 
 	# 4) Build the map node (like itemSelected() but without preview/caches)
-	var meta: Dictionary = {}  # you can fill this if needed later
+	var meta: Dictionary = {}
 	var map_node: Node3D = null
 
 	if _loader.has_method("createMap"):
@@ -67,10 +66,11 @@ func load_wad(wad_path: String, map_idx : int) -> void:
 		push_error("WadRuntimeLoader: createMap returned null.")
 		return
 
-	# 5) Re-parent the map under this node so you can move it / manage it easily.
+	# 5) Re-parent the map under this node
 	if map_node.get_parent() != null:
 		map_node.get_parent().remove_child(map_node)
 	add_child(map_node)
 
 	# Optional: position/rotate the map
 	map_node.position = Vector3.ZERO
+	return map_node

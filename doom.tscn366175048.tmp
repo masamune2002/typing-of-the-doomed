@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkha3o263f6i"]
+[gd_scene load_steps=11 format=3 uid="uid://bkha3o263f6i"]
 
 [ext_resource type="Script" uid="uid://da6aryja7ot8g" path="res://doom.gd" id="1_1041k"]
+[ext_resource type="Script" uid="uid://bm46w883xumd4" path="res://addons/gameAssetImporter/runtime/wad_runtime_loader.gd" id="1_kq8a0"]
 [ext_resource type="PackedScene" uid="uid://cqax7xvwu4hpk" path="res://addons/godotWad/scenes/player/player_template.tscn" id="3_eeb5o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1041k"]
@@ -13,7 +14,7 @@ background_mode = 2
 sky = SubResource("Sky_eeb5o")
 ambient_light_source = 3
 
-[sub_resource type="Shader" id="Shader_1041k"]
+[sub_resource type="Shader" id="Shader_eeb5o"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -65,9 +66,9 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eeb5o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0l477"]
 render_priority = 0
-shader = SubResource("Shader_1041k")
+shader = SubResource("Shader_eeb5o")
 shader_parameter/pixelSize = Vector2(1, 1)
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/alpha_scissor_threshold = 0.145
@@ -82,8 +83,10 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="QuadMesh" id="QuadMesh_0l477"]
-material = SubResource("ShaderMaterial_eeb5o")
+[sub_resource type="QuadMesh" id="QuadMesh_b03ef"]
+material = SubResource("ShaderMaterial_0l477")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1041k"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_1041k")
@@ -91,10 +94,16 @@ script = ExtResource("1_1041k")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0l477")
 
+[node name="WadRuntimeLoader" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3832178)
+script = ExtResource("1_kq8a0")
+map_name = "E1M1"
+metadata/_custom_type_script = "uid://bm46w883xumd4"
+
 [node name="CharacterBody3D" parent="." instance=ExtResource("3_eeb5o")]
 
 [node name="AnimatedSprite3D" parent="CharacterBody3D/visual" index="0"]
-mesh = SubResource("QuadMesh_0l477")
+mesh = SubResource("QuadMesh_b03ef")
 
 [node name="weapons" parent="CharacterBody3D/visual/gunManager" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9599415e-19, 0.001, 0)
@@ -122,6 +131,11 @@ offset_bottom = 24.0
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(2.3333333, 4.75)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1041k")
 
 [editable path="CharacterBody3D"]
 [editable path="CharacterBody3D/visual/gunManager"]

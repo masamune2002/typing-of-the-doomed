@@ -21,39 +21,39 @@ static func drawPoint2D(tree : SceneTree,position : Vector2):
 	point.position = position - point.size*0.5
 	point.color = Color.RED
 	point.z_index = 3
-	
+
 	if is_instance_valid(curPoint):
 		curPoint.queue_free()
-	
+
 	curPoint = point
-	
+
 	tree.get_root().add_child(point)
 
 static func bindConsole(tree):
-	
+
 	if Engine.is_editor_hint():
 		return
-	
+
 	if tree.has_meta("bindedConsole"):
 		return tree.get_meta("bindedConsole")
-	
+
 	var node = Node.new()
 	node.set_script(load("res://addons/gameAssetImporter/scenes/console/consoleActivateBind.gd"))
 	tree.get_root().add_child(node)
 	return node
-	
-	
+
+
 static func fetchConsole(tree : SceneTree) -> Node:
 	if tree.has_meta("consoleNode"):
 		return tree.get_meta("consoleNode")
-		
+
 	var consoleNode : Node = load("res://addons/gameAssetImporter/scenes/console/consoleWindow.tscn").instantiate()
 	consoleNode.visible = false
-	
+
 	tree.get_root().call_deferred("add_child",consoleNode)
 	tree.set_meta("consoleNode",consoleNode)
 	#consoleNode.popup_centered_ratio()
-	
+
 	return consoleNode
 
 static func registerConsoleCommands(tree:SceneTree,script):
@@ -89,14 +89,12 @@ static func rgbToHSV(r: float, g: float, b: float) -> Array:
 
 static  func printFileAsHex(filePath : StringName):
 		var data = FileAccess.get_file_as_bytes(filePath)
-	
+
 		var file
-		
+
 		var hex = ""
-		
+
 		for i in data:
 			hex += "%0x," % i
-		
+
 		print(hex)
-		
-		

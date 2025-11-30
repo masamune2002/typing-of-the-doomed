@@ -173,12 +173,12 @@ class GodotMIDIPlayerChannelStatusRPN:
 	var selected_msb:int
 	## 選択済みLSB
 	var selected_lsb:int
-	
+
 	## ピッチベンド
 	var pitch_bend_sensitivity:float
 	var pitch_bend_sensitivity_msb:float
 	var pitch_bend_sensitivity_lsb:float
-	
+
 	## モジュレーション
 	var modulation_sensitivity:float
 	var modulation_sensitivity_msb:float
@@ -192,11 +192,11 @@ class GodotMIDIPlayerChannelStatusRPN:
 	func initialize( ) -> void:
 		self.selected_msb = 0
 		self.selected_lsb = 0
-		
+
 		self.pitch_bend_sensitivity = 2.0
 		self.pitch_bend_sensitivity_msb = 2.0
 		self.pitch_bend_sensitivity_lsb = 0.0
-		
+
 		self.modulation_sensitivity = 0.25
 		self.modulation_sensitivity_msb = 0.25
 		self.modulation_sensitivity_lsb = 0.0
@@ -289,7 +289,7 @@ var chorus_power:float = 0.7
 var prepared_to_play:bool = false
 ## AudioServerを初期化しているか？
 var is_audio_server_inited:bool = false
-# 
+#
 var _previous_time:float
 
 # -----------------------------------------------------------------------------
@@ -371,17 +371,17 @@ func _ready( ):
 	self.is_audio_server_inited = true
 
 	self.channel_status = []
-	
-	
+
+
 	for i in range( max_channel ):
 		var drum_track:bool = ( i == drum_track_channel )
 		var _bank:int = 0
 		if drum_track:
 			_bank = Bank.drum_track_bank
 		self.channel_status.append( GodotMIDIPlayerChannelStatus.new( i, _bank, drum_track ) )
-		
+
 		var channel = self.channel_status[i]
-		
+
 		channel.reverb = 0.0
 		channel.tremolo = 0
 		channel.chorus = 0
@@ -389,10 +389,10 @@ func _ready( ):
 		self._apply_channel_chorus(channel)
 		self._apply_channel_pan(channel)
 		self._apply_channel_hold(channel)
-		
-		
-		
-		
+
+
+
+
 
 	self.set_max_polyphony( self.max_polyphony )
 	self.set_volume_db( self.volume_db )
@@ -460,7 +460,7 @@ func _init_track( ) -> void:
 				var p = track.pointer
 				if track.length <= p: continue
 				finished = false
-				
+
 				var e:SMF.MIDIEventChunk = track.events[p]
 				var e_time:int = e.time
 				if e_time == time:
