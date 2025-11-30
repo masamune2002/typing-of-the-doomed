@@ -1,0 +1,332 @@
+[gd_resource type="AudioBusLayout" load_steps=49 format=3 uid="uid://csaauunoxt3so"]
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_g28q7"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_n8wo2"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_5t1r3"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_cenje"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_dqt2m"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_7kkex"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_k2ilm"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_2g6t7"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_y2dp7"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_dapn3"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_e2wrs"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_ro4dx"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_51bpa"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_2mq3o"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_5tfch"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_sjxdv"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_hnxjo"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_3r1kf"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_nf0co"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_w8t7n"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_7h8fu"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_2lqp5"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_pu3yg"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_sk1wo"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_shvw8"]
+pan = -0.62204725
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_hupnq"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_5iqlm"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_qi87n"]
+pan = 0.63779527
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_g8vdu"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_82uw8"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_dudgq"]
+pan = 0.007874016
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8b5om"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_5nxv1"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_5dmdw"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_eys4n"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_gdhk2"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_38164"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_qx66n"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_hmdts"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_k2fq8"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_5ssjn"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_eh100"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_ssgoq"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_4m1gc"]
+wet = 0.0
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_q3w2f"]
+wet = 0.0
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_5bpin"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_xnns3"]
+wet = 0.0
+
+[resource]
+bus/1/name = &"arlez80_GMP_MASTER_BUS"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = -20.0
+bus/1/send = &"Master"
+bus/2/name = &"arlez80_GMP_CHANNEL_BUS0"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -2.0760744
+bus/2/send = &"arlez80_GMP_MASTER_BUS"
+bus/2/effect/0/effect = SubResource("AudioEffectChorus_sk1wo")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectPanner_shvw8")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectReverb_hupnq")
+bus/2/effect/2/enabled = true
+bus/3/name = &"arlez80_GMP_CHANNEL_BUS1"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = -2.0760744
+bus/3/send = &"arlez80_GMP_MASTER_BUS"
+bus/3/effect/0/effect = SubResource("AudioEffectChorus_5iqlm")
+bus/3/effect/0/enabled = true
+bus/3/effect/1/effect = SubResource("AudioEffectPanner_qi87n")
+bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectReverb_g8vdu")
+bus/3/effect/2/enabled = true
+bus/4/name = &"arlez80_GMP_CHANNEL_BUS2"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = -2.0760744
+bus/4/send = &"arlez80_GMP_MASTER_BUS"
+bus/4/effect/0/effect = SubResource("AudioEffectChorus_82uw8")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectPanner_dudgq")
+bus/4/effect/1/enabled = true
+bus/4/effect/2/effect = SubResource("AudioEffectReverb_8b5om")
+bus/4/effect/2/enabled = true
+bus/5/name = &"arlez80_GMP_CHANNEL_BUS3"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = -2.0760744
+bus/5/send = &"arlez80_GMP_MASTER_BUS"
+bus/5/effect/0/effect = SubResource("AudioEffectChorus_5nxv1")
+bus/5/effect/0/enabled = true
+bus/5/effect/1/effect = SubResource("AudioEffectPanner_5dmdw")
+bus/5/effect/1/enabled = true
+bus/5/effect/2/effect = SubResource("AudioEffectReverb_eys4n")
+bus/5/effect/2/enabled = true
+bus/6/name = &"arlez80_GMP_CHANNEL_BUS4"
+bus/6/solo = false
+bus/6/mute = false
+bus/6/bypass_fx = false
+bus/6/volume_db = -2.0760744
+bus/6/send = &"arlez80_GMP_MASTER_BUS"
+bus/6/effect/0/effect = SubResource("AudioEffectChorus_gdhk2")
+bus/6/effect/0/enabled = true
+bus/6/effect/1/effect = SubResource("AudioEffectPanner_38164")
+bus/6/effect/1/enabled = true
+bus/6/effect/2/effect = SubResource("AudioEffectReverb_qx66n")
+bus/6/effect/2/enabled = true
+bus/7/name = &"arlez80_GMP_CHANNEL_BUS5"
+bus/7/solo = false
+bus/7/mute = false
+bus/7/bypass_fx = false
+bus/7/volume_db = -2.0760744
+bus/7/send = &"arlez80_GMP_MASTER_BUS"
+bus/7/effect/0/effect = SubResource("AudioEffectChorus_hmdts")
+bus/7/effect/0/enabled = true
+bus/7/effect/1/effect = SubResource("AudioEffectPanner_k2fq8")
+bus/7/effect/1/enabled = true
+bus/7/effect/2/effect = SubResource("AudioEffectReverb_5ssjn")
+bus/7/effect/2/enabled = true
+bus/8/name = &"arlez80_GMP_CHANNEL_BUS6"
+bus/8/solo = false
+bus/8/mute = false
+bus/8/bypass_fx = false
+bus/8/volume_db = -2.0760744
+bus/8/send = &"arlez80_GMP_MASTER_BUS"
+bus/8/effect/0/effect = SubResource("AudioEffectChorus_eh100")
+bus/8/effect/0/enabled = true
+bus/8/effect/1/effect = SubResource("AudioEffectPanner_ssgoq")
+bus/8/effect/1/enabled = true
+bus/8/effect/2/effect = SubResource("AudioEffectReverb_4m1gc")
+bus/8/effect/2/enabled = true
+bus/9/name = &"arlez80_GMP_CHANNEL_BUS7"
+bus/9/solo = false
+bus/9/mute = false
+bus/9/bypass_fx = false
+bus/9/volume_db = -2.0760744
+bus/9/send = &"arlez80_GMP_MASTER_BUS"
+bus/9/effect/0/effect = SubResource("AudioEffectChorus_q3w2f")
+bus/9/effect/0/enabled = true
+bus/9/effect/1/effect = SubResource("AudioEffectPanner_5bpin")
+bus/9/effect/1/enabled = true
+bus/9/effect/2/effect = SubResource("AudioEffectReverb_xnns3")
+bus/9/effect/2/enabled = true
+bus/10/name = &"arlez80_GMP_CHANNEL_BUS8"
+bus/10/solo = false
+bus/10/mute = false
+bus/10/bypass_fx = false
+bus/10/volume_db = -2.0760744
+bus/10/send = &"arlez80_GMP_MASTER_BUS"
+bus/10/effect/0/effect = SubResource("AudioEffectChorus_j3pel")
+bus/10/effect/0/enabled = true
+bus/10/effect/1/effect = SubResource("AudioEffectPanner_g28q7")
+bus/10/effect/1/enabled = true
+bus/10/effect/2/effect = SubResource("AudioEffectReverb_n8wo2")
+bus/10/effect/2/enabled = true
+bus/11/name = &"arlez80_GMP_CHANNEL_BUS9"
+bus/11/solo = false
+bus/11/mute = false
+bus/11/bypass_fx = false
+bus/11/volume_db = -2.0760744
+bus/11/send = &"arlez80_GMP_MASTER_BUS"
+bus/11/effect/0/effect = SubResource("AudioEffectChorus_5t1r3")
+bus/11/effect/0/enabled = true
+bus/11/effect/1/effect = SubResource("AudioEffectPanner_cenje")
+bus/11/effect/1/enabled = true
+bus/11/effect/2/effect = SubResource("AudioEffectReverb_dqt2m")
+bus/11/effect/2/enabled = true
+bus/12/name = &"arlez80_GMP_CHANNEL_BUS10"
+bus/12/solo = false
+bus/12/mute = false
+bus/12/bypass_fx = false
+bus/12/volume_db = -2.0760744
+bus/12/send = &"arlez80_GMP_MASTER_BUS"
+bus/12/effect/0/effect = SubResource("AudioEffectChorus_7kkex")
+bus/12/effect/0/enabled = true
+bus/12/effect/1/effect = SubResource("AudioEffectPanner_k2ilm")
+bus/12/effect/1/enabled = true
+bus/12/effect/2/effect = SubResource("AudioEffectReverb_2g6t7")
+bus/12/effect/2/enabled = true
+bus/13/name = &"arlez80_GMP_CHANNEL_BUS11"
+bus/13/solo = false
+bus/13/mute = false
+bus/13/bypass_fx = false
+bus/13/volume_db = -2.0760744
+bus/13/send = &"arlez80_GMP_MASTER_BUS"
+bus/13/effect/0/effect = SubResource("AudioEffectChorus_y2dp7")
+bus/13/effect/0/enabled = true
+bus/13/effect/1/effect = SubResource("AudioEffectPanner_dapn3")
+bus/13/effect/1/enabled = true
+bus/13/effect/2/effect = SubResource("AudioEffectReverb_e2wrs")
+bus/13/effect/2/enabled = true
+bus/14/name = &"arlez80_GMP_CHANNEL_BUS12"
+bus/14/solo = false
+bus/14/mute = false
+bus/14/bypass_fx = false
+bus/14/volume_db = -2.0760744
+bus/14/send = &"arlez80_GMP_MASTER_BUS"
+bus/14/effect/0/effect = SubResource("AudioEffectChorus_ro4dx")
+bus/14/effect/0/enabled = true
+bus/14/effect/1/effect = SubResource("AudioEffectPanner_51bpa")
+bus/14/effect/1/enabled = true
+bus/14/effect/2/effect = SubResource("AudioEffectReverb_2mq3o")
+bus/14/effect/2/enabled = true
+bus/15/name = &"arlez80_GMP_CHANNEL_BUS13"
+bus/15/solo = false
+bus/15/mute = false
+bus/15/bypass_fx = false
+bus/15/volume_db = -2.0760744
+bus/15/send = &"arlez80_GMP_MASTER_BUS"
+bus/15/effect/0/effect = SubResource("AudioEffectChorus_5tfch")
+bus/15/effect/0/enabled = true
+bus/15/effect/1/effect = SubResource("AudioEffectPanner_sjxdv")
+bus/15/effect/1/enabled = true
+bus/15/effect/2/effect = SubResource("AudioEffectReverb_hnxjo")
+bus/15/effect/2/enabled = true
+bus/16/name = &"arlez80_GMP_CHANNEL_BUS14"
+bus/16/solo = false
+bus/16/mute = false
+bus/16/bypass_fx = false
+bus/16/volume_db = -2.0760744
+bus/16/send = &"arlez80_GMP_MASTER_BUS"
+bus/16/effect/0/effect = SubResource("AudioEffectChorus_3r1kf")
+bus/16/effect/0/enabled = true
+bus/16/effect/1/effect = SubResource("AudioEffectPanner_nf0co")
+bus/16/effect/1/enabled = true
+bus/16/effect/2/effect = SubResource("AudioEffectReverb_w8t7n")
+bus/16/effect/2/enabled = true
+bus/17/name = &"arlez80_GMP_CHANNEL_BUS15"
+bus/17/solo = false
+bus/17/mute = false
+bus/17/bypass_fx = false
+bus/17/volume_db = -2.0760744
+bus/17/send = &"arlez80_GMP_MASTER_BUS"
+bus/17/effect/0/effect = SubResource("AudioEffectChorus_7h8fu")
+bus/17/effect/0/enabled = true
+bus/17/effect/1/effect = SubResource("AudioEffectPanner_2lqp5")
+bus/17/effect/1/enabled = true
+bus/17/effect/2/effect = SubResource("AudioEffectReverb_pu3yg")
+bus/17/effect/2/enabled = true

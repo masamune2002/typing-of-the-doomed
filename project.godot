@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Typing of the DOOMed"
+run/main_scene="uid://bkha3o263f6i"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/gSheet/plugin.cfg", "res://addons/gameAssetImporter/plugin.cfg", "res://addons/godotWad/plugin.cfg", "res://addons/midi/plugin.cfg", "res://addons/object-inspector/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_repeat=1
+textures/vram_compression/import_etc2_astc=true
