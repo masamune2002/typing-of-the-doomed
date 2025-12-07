@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bohnrg5v3wf52"]
+
+[ext_resource type="Script" uid="uid://bsvi50tmhwy3s" path="res://rail/scenes/Utils/Utils.gd" id="1_5w1m7"]
+
+[node name="Utils" type="Node"]
+script = ExtResource("1_5w1m7")

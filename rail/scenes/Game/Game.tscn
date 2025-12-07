@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://go002387gynf"]
+
+[ext_resource type="Script" uid="uid://bmxn8vxori74m" path="res://rail/scenes/Game/Game.gd" id="1_bfl7k"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_bfl7k")

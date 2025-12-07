@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://cqax7xvwu4hpk"]
 
 [ext_resource type="PackedScene" uid="uid://dm4psfgy7p5y8" path="res://addons/godotWad/scenes/player/playerBase.tscn" id="1"]
-[ext_resource type="Script" path="res://addons/godotWad/scenes/player/debug/playerGenerator.gd" id="2"]
+[ext_resource type="Script" uid="uid://3hj8coaqulp5" path="res://addons/godotWad/scenes/player/debug/playerGenerator.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://br07pau6iijsu" path="res://addons/godotWad/scenes/quad3Dsprite.tscn" id="2_66ies"]
 [ext_resource type="Resource" uid="uid://vng5p7sbik57" path="res://addons/godotWad/scenes/enemies/templates/sprites/guysprites.tres" id="3"]
-[ext_resource type="Script" path="res://addons/godotWad/scenes/player/playerSounds.gd" id="5"]
+[ext_resource type="Script" uid="uid://oe0rxfrry60i" path="res://addons/godotWad/scenes/player/playerSounds.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://c2ghunf5b5s4q" path="res://addons/godotWad/scenes/player/doomHud.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cqedrxebbbduy" path="res://addons/godotWad/scenes/player/ColorOverlay.tscn" id="7"]
 
-[sub_resource type="Shader" id="Shader_jfad3"]
+[sub_resource type="Shader" id="Shader_tl1ay"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -60,25 +60,25 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvugl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l1q46"]
 render_priority = 0
-shader = SubResource("Shader_jfad3")
+shader = SubResource("Shader_tl1ay")
 shader_parameter/pixelSize = Vector2(1, 1)
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/alpha_scissor_threshold = 0.145
-shader_parameter/roughness = null
-shader_parameter/metallic_texture_channel = null
-shader_parameter/specular = null
-shader_parameter/metallic = null
-shader_parameter/emission = null
-shader_parameter/emission_energy = null
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/emission = Color(0, 0, 0, 1)
+shader_parameter/emission_energy = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = null
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
-shader_parameter/uv2_offset = null
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ykmww"]
-material = SubResource("ShaderMaterial_jvugl")
+[sub_resource type="QuadMesh" id="QuadMesh_xilyx"]
+material = SubResource("ShaderMaterial_l1q46")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pbyni"]
 size = Vector3(31.94, 55, 31.94)
@@ -93,14 +93,17 @@ hudIndex = 1
 
 [node name="AnimatedSprite3D" parent="visual" index="0" instance=ExtResource("2_66ies")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
-mesh = SubResource("QuadMesh_ykmww")
+mesh = SubResource("QuadMesh_xilyx")
 skeleton = NodePath("../..")
 
 [node name="weapons" parent="visual/gunManager" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95994e-19, 0.001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9599415e-19, 0.001, 0)
 
 [node name="cameraAttach" parent="visual" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40.2655, 0)
+
+[node name="UI" parent="." index="2"]
+visible = false
 
 [node name="ColorOverlay" parent="UI" index="1" instance=ExtResource("7")]
 layout_mode = 1
@@ -145,14 +148,29 @@ offset_bottom = 23.0
 layout_mode = 1
 
 [node name="Label" parent="UI/HUDS/HUD2/v/h/armor" index="0"]
-scale = Vector2(2.74359, 4.75)
+layout_mode = 0
+offset_top = 0.0
+offset_bottom = 24.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1e-05, 1e-05)
 text = ""
 
 [node name="Label" parent="UI/HUDS/HUD2/v/h/hp" index="0"]
-scale = Vector2(2.74359, 4.75)
+layout_mode = 0
+offset_top = 0.0
+offset_bottom = 24.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1e-05, 1e-05)
 
 [node name="Label" parent="UI/HUDS/HUD2/HBoxContainer/VBoxContainer/ammo" index="0"]
-scale = Vector2(2.33333, 4.75)
+layout_mode = 0
+offset_top = 0.0
+offset_bottom = 24.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(1e-05, 1e-05)
 
 [node name="CollisionShape3D" parent="." index="4"]
 top_level = false
@@ -182,3 +200,4 @@ omni_range = 7.187
 [editable path="UI/HUDS/HUD2/v/h/armor"]
 [editable path="UI/HUDS/HUD2/v/h/hp"]
 [editable path="UI/HUDS/HUD2/HBoxContainer/VBoxContainer/ammo"]
+[editable path="Player"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0gco8e8c0rn7"]
+
+[ext_resource type="Script" uid="uid://bbq6d7bhkuwuo" path="res://rail/scenes/Player/Player.gd" id="1_3lpl6"]
+[ext_resource type="Resource" uid="uid://daauuedurkxeh" path="res://rail/resources/PlayerCharacters/Kendra.tres" id="2_fohv4"]
+[ext_resource type="PackedScene" uid="uid://drsu578fk2had" path="res://rail/scenes/UI/PlayerUI/PlayerUI.tscn" id="2_picwg"]
+[ext_resource type="PackedScene" uid="uid://d4cinue0vcobg" path="res://rail/scenes/Weapons/TypingGun/TypingGun.tscn" id="3_nsgye"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3g5eu"]
+size = Vector3(1, 2.9878235, 1)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_3lpl6")
+playerCharacter = ExtResource("2_fohv4")
+
+[node name="Hud" parent="." instance=ExtResource("2_picwg")]
+unique_name_in_owner = true
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.852897, 0)
+
+[node name="TypingGun" parent="CameraRig" instance=ExtResource("3_nsgye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124, -0.156, -0.185)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CameraRig"]
+
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5019975, 0)
+shape = SubResource("BoxShape3D_3g5eu")

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dckj2xtq6emry"
+path="res://.godot/imported/male_skeleton_first_anatomy_study.OBJ-4178822c7e13963e6609ad748d745926.mesh"
+
+[deps]
+
+files=["res://.godot/imported/male_skeleton_first_anatomy_study.OBJ-4178822c7e13963e6609ad748d745926.mesh"]
+
+source_file="res://rail/assets/models/skeleton/male_skeleton_first_anatomy_study.OBJ"
+dest_files=["res://.godot/imported/male_skeleton_first_anatomy_study.OBJ-4178822c7e13963e6609ad748d745926.mesh", "res://.godot/imported/male_skeleton_first_anatomy_study.OBJ-4178822c7e13963e6609ad748d745926.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

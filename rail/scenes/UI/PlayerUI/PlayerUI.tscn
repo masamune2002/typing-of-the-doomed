@@ -1,0 +1,168 @@
+[gd_scene load_steps=6 format=3 uid="uid://drsu578fk2had"]
+
+[ext_resource type="Script" uid="uid://cuvkh6kojpw0t" path="res://rail/scenes/UI/PlayerUI/PlayerUI.gd" id="1_cmhnt"]
+[ext_resource type="PackedScene" uid="uid://dbuj42a3cavrl" path="res://rail/scenes/UI/DialogBox/DialogBox.tscn" id="2_qocgs"]
+[ext_resource type="PackedScene" uid="uid://c315mn8xsnbqr" path="res://rail/scenes/UI/HealthBar/HealthBar.tscn" id="3_l3r88"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dbvop"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_re1wv"]
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cmhnt")
+
+[node name="DialogBoxMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 493.0
+offset_bottom = 189.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="DialogBox" parent="DialogBoxMarginContainer" instance=ExtResource("2_qocgs")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="YouWinMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="YouWinPanel" type="Panel" parent="YouWinMarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="YouWinMarginContainer/YouWinPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="YouWinLabel" type="Label" parent="YouWinMarginContainer/YouWinPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_dbvop")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="YouWinMarginContainer/YouWinPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="YouWinLabel2" type="Label" parent="YouWinMarginContainer/YouWinPanel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "You've managed to defeat the legions of the undead and survive the night.
+
+The world will see another sunrise.
+
+Press Space to restart"
+label_settings = SubResource("LabelSettings_dbvop")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="GameOverPanel" type="Panel" parent="GameOverMarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverMarginContainer/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverLabel" type="Label" parent="GameOverMarginContainer/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverLabel2" type="Label" parent="GameOverMarginContainer/GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "You have perished, and under the boot of the forces of Hell, the Earth burns.
+
+Press Space to restart"
+label_settings = SubResource("LabelSettings_re1wv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LoadingMarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="LoadingPanel" type="Panel" parent="LoadingMarginContainer"]
+layout_mode = 2
+
+[node name="LoadingLabel" type="Label" parent="LoadingMarginContainer/LoadingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "LOADING..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
+offset_right = 263.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HealthBar" parent="HealthMarginContainer" instance=ExtResource("3_l3r88")]
+layout_mode = 2

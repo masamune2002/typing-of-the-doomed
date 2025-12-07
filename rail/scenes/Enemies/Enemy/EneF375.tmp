@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch0dj1op8wxji"]
+
+[ext_resource type="Script" path="res://scenes/Enemies/Enemy/Enemy.gd" id="1_dulo0"]
+[ext_resource type="Script" path="res://assets/resources/StateMachine.gd" id="2_rst4h"]
+[ext_resource type="Script" path="res://scenes/Enemies/Zombie/States/Inactive.gd" id="3_cidvn"]
+[ext_resource type="Script" path="res://scenes/Enemies/Zombie/States/Idle.gd" id="4_lgwfw"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_dulo0")
+
+[node name="EnemyMeshContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="EnemyTargetLabel" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+no_depth_test = true
+text = "42"
+
+[node name="StateMachine" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_rst4h")
+
+[node name="Inactive" type="Node" parent="StateMachine"]
+script = ExtResource("3_cidvn")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_lgwfw")

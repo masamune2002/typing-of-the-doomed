@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=3 format=3 uid="uid://cnos5gomwfb86"]
+
+[ext_resource type="Texture2D" uid="uid://dxf3hiu5xn6dc" path="res://assets/images/fern.png" id="1_iv6vb"]
+[ext_resource type="Script" uid="uid://675lcrog1wph" path="res://resources/PlayerCharacter.gd" id="1_jsoly"]
+
+[resource]
+script = ExtResource("1_jsoly")
+portrait = ExtResource("1_iv6vb")
+name = "Fern"
+startingHealth = 3

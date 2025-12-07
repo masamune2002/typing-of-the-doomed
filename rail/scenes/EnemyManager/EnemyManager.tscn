@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4hq4j7wyb1c5"]
+
+[ext_resource type="Script" uid="uid://v374fg7n5fq8" path="res://rail/scenes/EnemyManager/EnemyManager.gd" id="1_ks1a6"]
+
+[node name="EnemyManager" type="Node"]
+script = ExtResource("1_ks1a6")

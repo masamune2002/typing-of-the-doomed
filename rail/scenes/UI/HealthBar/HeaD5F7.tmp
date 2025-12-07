@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://c315mn8xsnbqr"]
+
+[ext_resource type="Script" path="res://scenes/UI/HealthBar/HealthBar.gd" id="1_sa0r5"]
+[ext_resource type="Texture2D" uid="uid://cxis457p4tr6a" path="res://assets/images/health.png" id="2_icifi"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sa0r5")
+maxHealth = 3
+hitPointTexture = ExtResource("2_icifi")
+hitPointSize = 16
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HitPointsContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer/HitPointsContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HitPointsContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_icifi")
+expand_mode = 4
+stretch_mode = 4

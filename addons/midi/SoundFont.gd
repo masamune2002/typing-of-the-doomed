@@ -232,7 +232,7 @@ func read_file( path:String ) -> SoundFontParseResult:
 func read_data( data:PackedByteArray ) -> SoundFontParseResult:
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
 	stream.set_data_array( data )
-	stream.big_endian = false 
+	stream.big_endian = false
 
 	var result: = SoundFontParseResult.new( )
 	result.data = self._read( stream )
@@ -418,7 +418,7 @@ func _read_pdta_bag( stream:StreamPeerBuffer ) -> Array[SoundFontBag]:
 
 	while 0 < chunk_stream.get_available_bytes( ):
 		var bag:SoundFontBag = SoundFontBag.new( )
-	
+
 		bag.gen_ndx = chunk_stream.get_u16( )
 		bag.mod_ndx = chunk_stream.get_u16( )
 		bags.append( bag )
@@ -440,7 +440,7 @@ func _read_pdta_mod( stream:StreamPeerBuffer ) -> Array[SoundFontModule]:
 
 	while 0 < chunk_stream.get_available_bytes( ):
 		var mod:SoundFontModule = SoundFontModule.new( )
-	
+
 		mod.src_oper = SoundFontPresetDataModulator.new( chunk_stream.get_u16( ) )
 		mod.dest_oper = chunk_stream.get_u16( )
 		mod.amount = chunk_stream.get_u16( )
@@ -467,7 +467,7 @@ func _read_pdta_gen( stream:StreamPeerBuffer ) -> Array[SoundFontGenerator]:
 	#while 0 < chunk_stream.get_available_bytes( ):
 	for i in range( chunk_stream.get_available_bytes( ) / 4 ):
 		var gen:SoundFontGenerator = SoundFontGenerator.new( )
-		
+
 		gen.gen_oper = chunk_stream.get_u16( )
 		var uamount:int = chunk_stream.get_u16( )
 		gen.uamount = uamount
@@ -488,7 +488,7 @@ func _read_pdta_inst( stream:StreamPeerBuffer ) -> Array[SoundFontInstrument]:
 
 	while 0 < chunk_stream.get_available_bytes( ):
 		var inst:SoundFontInstrument = SoundFontInstrument.new( )
-	
+
 		inst.name = chunk_stream.get_string( 20 )
 		inst.inst_bag_ndx = chunk_stream.get_u16( )
 		insts.append( inst )
@@ -506,7 +506,7 @@ func _read_pdta_shdr( stream:StreamPeerBuffer ) -> Array[SoundFontSampleHeader]:
 
 	while 0 < chunk_stream.get_available_bytes( ):
 		var shdr:SoundFontSampleHeader = SoundFontSampleHeader.new( )
-	
+
 		shdr.name = chunk_stream.get_string( 20 )
 		shdr.start = chunk_stream.get_u32( )
 		shdr.end = chunk_stream.get_u32( )

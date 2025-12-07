@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=3 format=3 uid="uid://daauuedurkxeh"]
+
+[ext_resource type="Texture2D" uid="uid://bx17q1wl3b0tn" path="res://assets/images/kendra.png" id="1_yhic3"]
+[ext_resource type="Script" uid="uid://675lcrog1wph" path="res://resources/PlayerCharacter.gd" id="2_nkk6b"]
+
+[resource]
+script = ExtResource("2_nkk6b")
+portrait = ExtResource("1_yhic3")
+name = "Kendra"
+startingHealth = 3

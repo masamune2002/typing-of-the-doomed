@@ -23,7 +23,7 @@ signal physicsProc
 @export var maxArmor = 100
 var iFameDict : Dictionary = {}
 var pPos = position
- 
+
 @onready var hp = 100
 @onready var armor = initialArmor
 
@@ -116,29 +116,29 @@ func _ready():
 	changeHeight(height)
 	#changeHeight(1)
 	eyeHeight = height * eyeHeightRatio
-	
+
 	if Engine.is_editor_hint():
 		return
-	
+
 	EGLO.bindConsole(get_tree())
 	var console = EGLO.fetchConsole(get_tree())
 	console.close.connect(enableInput)
 	console.open.connect(disableInput)
-	
+
 	if ammoLimits != null:
 		ammoCapDict = ammoLimits.getAsDict()
-		
+
 		for i in ammoCapDict.keys():
 			if inventory.has(i):
 				inventory[i]["max"] =ammoCapDict[i]["amt"]
-	
+
 	weaponManager =$visual/gunManager
-	
+
 	camera = get_node_or_null("Camera3D")
 	if get_tree().get_first_node_in_group("gameMode")!= null:
 		#$UI.theme = get_tree().get_first_node_in_group("gameMode").theme
 		weaponManager.get_node("ui").theme =  get_tree().get_first_node_in_group("gameMode").theme
-	
+
 	#weaponManager.weaponPickupSignal.connect(test)
 	weaponManager.weaponPickupSignal.connect(emit_signal.bind("weaponPickupSignal"))
 	weaponManagerInitialY = weaponManager.position.y
@@ -155,8 +155,8 @@ func _ready():
 	if !InputMap.has_action("turnLeft"):InputMap.add_action("turnLeft")
 	if !InputMap.has_action("forward"):InputMap.add_action("forward")
 	if !InputMap.has_action("backward"):InputMap.add_action("backward")
-	
-	
+
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	set_meta("height",WADG.getShapeHeight($"CollisionShape3D"))
@@ -167,7 +167,7 @@ func _ready():
 		curMap = level
 		if curMap.spawnsReady == false:
 			pSpawnsReady = false
-		
+
 		var possibleSpawns = level.getSpawns(0)
 		if possibleSpawns.is_empty():
 			continue
@@ -181,30 +181,30 @@ func _ready():
 			teleport(pos,rot)
 
 	grabCameraFocus()
-	
-	
+
+
 var teleportCooldown = 0
 
 func grabCameraFocus():
 	var cam = null
-	
+
 	if is_instance_valid(camera):
 		return
-	
+
 	if get_tree().get_nodes_in_group("globalCam").size()== 0:
 		cam = createCamera()
 		return
 	else:
-		
+
 		#for i in get_tree().get_nodes_in_group("globalCam"):
 		#	i.active = false
-			
+
 		cam = get_tree().get_nodes_in_group("globalCam")[0]
 		#cam.active = true
 		if !is_instance_valid(cam):
 			breakpoint
-		
-			
+
+
 	cameraSet(cam)
 
 
@@ -214,9 +214,9 @@ func createCamera():
 	camera.collides = true
 	camera.dist = 0
 	camera.name = "backup"
-		
+
 	var camPar = get_parent()
-		
+
 	if get_parent() == null:
 		camPar = get_tree().get_root()
 
@@ -227,7 +227,7 @@ func createCamera():
 func cameraSet(cam : Node):
 
 	camera =cam
-	
+
 	#rotation = Vector3.ZERO
 	camera.rotationChildrenY = [weaponManager]
 	camera.rotationChildrenYprocess = [weaponManager]
@@ -236,55 +236,55 @@ func cameraSet(cam : Node):
 	remoteTransform.remote_path = remoteTransform.get_path_to(cam)
 
 func teleport(pos,rot=null,cooldown = 0):
-	
-	
-	
+
+
+
 	if teleportCooldown > 0:
 		return
-	
+
 	teleportCooldown = cooldown
 	position = pos + Vector3(0,height/2.0,0)
 
-		
+
 	if camera != null:
 		if "rotH" in camera and rot != null:
-			camera.rotH = 0#rad_to_deg(rot.y) 
+			camera.rotH = 0#rad_to_deg(rot.y)
 			camera.rotV = 0#rad_to_deg(rot.x)
 			camera.initialRot = Vector2(rad_to_deg(rot.y), rad_to_deg(rot.x))
 
 
 func _process(delta: float) -> void:
-	
+
 	if Engine.is_editor_hint():
 		return
-	
+
 	if processInput and ready and InputMap.has_action("shoot"):
-		if Input.is_action_pressed("forward"):  dir.z = -1 
+		if Input.is_action_pressed("forward"):  dir.z = -1
 		if Input.is_action_pressed("backward"): dir.z = 1
 		if Input.is_action_pressed("ui_right") or Input.is_action_pressed("strafeRight"):dir.x = 1
 		if Input.is_action_pressed("ui_left") or Input.is_action_pressed("strafeLeft"):dir.x =  -1
-		
+
 		#if !pOnGround:
 		#	dir.x *= airSpeed
 		#	dir.z *= airSpeed
-		
+
 	var veloXY = Vector3(velocity.x,0,velocity.z).length()
 	var angleInc = (delta*veloXY)
 	bobAngle = bobAngle+angleInc
 	sprite.basis =  sprite.basis.looking_at(-facingDir)
-	
+
 	#$visual/AnimatedSprite3D.rotate_y()
 
 func _input(event):
-	
+
 	if processInput == false:
 		return
-	
+
 	if Engine.is_editor_hint():
 		return
-	
+
 	var just_pressed = event.is_pressed() and !event.is_echo()
-	
+
 	if Input.is_key_pressed(KEY_M) and just_pressed:
 		if is_instance_valid(curMap):
 			curMap.nextMap()
@@ -297,8 +297,8 @@ func _input(event):
 		if Input.is_key_pressed(KEY_W) and just_pressed:
 			get_tree().quit()
 
-		
-	
+
+
 	if dead:
 		return
 
@@ -311,35 +311,35 @@ var curAngle = 180
 
 
 
-	
+
 
 func _physics_process(delta):
-	
+
 	if !is_inside_tree():
 		return
-	
+
 	camOffsetY = clamp(camOffsetY,-0.5*eyeHeight,0.9*height)
-	
+
 	if camOffsetY < 0:
 		camOffsetY = min(0,camOffsetY+delta*5)
-	
+
 	if camOffsetY > 0:
 		camOffsetY = max(0,camOffsetY-delta*5)
-	
-	
-	
+
+
+
 	if Engine.is_editor_hint():
 		return
 
-	
-	
+
+
 	#setSpriteDir()
 
 	if camera != null:
 		camera.fov = SETTINGS.getSetting(get_tree(),"fov")
-	
-	
-	
+
+
+
 	if camera != null:
 		if camera.dist >= 1:
 			weaponManager.visible = false
@@ -347,68 +347,68 @@ func _physics_process(delta):
 		else:
 			weaponManager.visible = true
 			sprite.visible = false
-	
+
 	#camera.translation.z += 0.1
-	
+
 	var curHud = $UI/HUDS.get_child(hudIndex)
-	
+
 	for i in iFameDict:
 		iFameDict[i] -= delta
 		if iFameDict[i] <= 0:
 			iFameDict.erase(i)
-	
-	
+
+
 	for i in $UI/HUDS.get_children():
 		if i != curHud:
 			i.visible = false
 		else:
 			i.visible = true
-	
+
 	var veloXY = Vector3(velocity.x,0,velocity.z).length()
-	
+
 
 	#$movement.isOnGround()
 	teleportCooldown -= delta * 1000
-	
+
 	if invinciblbeTimeout >0 :
 		invinciblbeTimeout -= delta
 		if invinciblbeTimeout <= 0:
 			invinciblbeTimeout = -1
 			invincible = false
-	
+
 	if curHud != null:
-		
+
 		var hpLabel = curHud.find_child("hp",true,false)
 		var armorLabel = curHud.find_child("armor",true,false)
 		var ammoLabel = curHud.find_child("ammo",true,false)
-		
+
 		if hpLabel != null:
-			
+
 			var tHp = hp
 			if tHp > 0.0 and tHp < 1.0:
 				tHp = 1.0
-			
+
 			if hpLabel.has_method("setText"):
 				hpLabel.setText(str(int(tHp)))
 			else:
 				hpLabel.text = str(int(tHp))
-		
+
 
 		if armorLabel != null:
 			var armorSet = str(int(armor))
 			if armor <= 0:
 				armorSet = ""
-				
+
 			if armorLabel.has_method("setText"):
 				armorLabel.setText(armorSet)
 			else:
 				armorLabel.text = armorSet
 
-		
-		
-		
-		
-		
+
+
+
+
+
 		if weaponManager.curGun != null:
 			var t = weaponManager.curGun.ammoType
 			if weaponManager.curGun.magSize < 0:
@@ -434,28 +434,28 @@ func _physics_process(delta):
 					ammoLabel.setText("")
 			else:
 				ammoLabel.text = ""
-		
-		
+
+
 		updateKeyUI()
-	
+
 	if is_instance_valid(curMap):
 		if !pSpawnsReady and curMap.spawnsReady:
 			var spawns = curMap.getSpawns(0)
 			if spawns == null:
 				return
 			if !spawns.is_empty():
-				
+
 				var posAndRot = curMap.getSpawns(0)[0]
 				if posAndRot != null:
 					var pos = posAndRot["pos"]
 					var rot = posAndRot["rot"]
 					pSpawnsReady = true
 					teleport(pos,rot)
-		
+
 		var a = Time.get_ticks_msec()
 		var posXZ = Vector2(global_position.x,global_position.z)
 		var p = WADG.getSectorInfoForPoint(curMap,posXZ)
-		
+
 		if p != null:
 			if p.has("light"):
 				if weaponManager.curGun != null:
@@ -464,15 +464,15 @@ func _physics_process(delta):
 					if  weaponSprite != null:
 						if "modulate" in weaponSprite:
 							var l : float = 0.0
-								
+
 							if p["light"] != 0:
 								l = 255.0/p["light"]
 
 							weaponSprite.modulate = p["light"]/255.0
-							
-		
-		
-		
+
+
+
+
 
 	if !is_instance_valid(curMap):
 		for level in get_tree().get_nodes_in_group("level"):
@@ -480,17 +480,17 @@ func _physics_process(delta):
 			var posAndRot = level.getSpawns(0)
 			if posAndRot.is_empty():
 				return
-			
+
 			posAndRot = posAndRot[0]
 			var pos = posAndRot["pos"]
 			var rot = posAndRot["rot"]
 			teleport(pos,rot)
-			
+
 			for i in inventory.keys():
 				if inventory[i].has("persistant"):
 					if inventory[i]["persistant"] == false:
 						inventory.erase(i)
-						
+
 
 	if Engine.is_editor_hint():
 		return
@@ -499,19 +499,19 @@ func _physics_process(delta):
 	if hp <= 0:
 		die()
 
-	
+
 	var spr = null
-	
+
 	if weaponManager!=null:
 		if curHud !=null:
 			spr = weaponManager.getUIsprite()
 			#var weaponIconTexture = getChilded(curHud,"weaponIcon")
 			var weaponIconTexture = find_child("weaponIcon",true,false)
-			
+
 			if weaponIconTexture != null:
 				weaponIconTexture.texture = spr
 
-		
+
 	#interactHoldTime = max(0,interactHoldTime-delta)
 
 	if Input.is_action_just_pressed("interact"):
@@ -519,33 +519,33 @@ func _physics_process(delta):
 	else: #interactHoldTime <= 0:
 		interactPressed = false
 
-	
-		
+
+
 		#if Input.get_action_strength("forward") != 0: dir.z -= 1 * Input.get_action_strength("forward")
 		#if Input.get_action_strength("backward") != 0: dir.z += 1 * Input.get_action_strength("backward")
 		#if Input.get_action_strength("strafeRight") != 0: dir.x += 1 * Input.get_action_strength("strafeRight")
 		#if Input.get_action_strength("strafeLeft") != 0: dir.x -= 1 * Input.get_action_strength("strafeLeft")
-		
-		
-		
 
-	
+
+
+
+
 	if dir != Vector3.ZERO:
 		inputPressedThisTick = true
 	else:
 		inputPressedThisTick = false
-	
+
 	if processInput:
-		if Input.is_action_just_pressed("jump"): 
+		if Input.is_action_just_pressed("jump"):
 			if onGround:
 				$jumpPlayer.play()
 				dir.y = 1
 				if $AnimationPlayer.has_animation("jump"):
 					$AnimationPlayer.play("jump")
-	
-	
+
+
 	var beforePos = Vector3(global_position.x,0, global_position.z)
-	
+
 	#var jumpVelo = 800
 	#var forwardSpeed = 1.5625
 	#var sideSpeed: float = 1.5625
@@ -553,28 +553,28 @@ func _physics_process(delta):
 	if camera != null:
 		var movementBasisX  = camera.get_node("h/v").global_transform.basis.x
 		var movementBasisZ  = camera.get_node("h").global_transform.basis.z
-	
+
 		#velocity += movementBasisZ*forwardSpeed*dir.z
 
-		
-		#if dir.x ==-2 or dir.x == 2: 
+
+		#if dir.x ==-2 or dir.x == 2:
 		#	velocity +=  movementBasisX*forwardSpeed*dir.x*0.5
 		#else:
 		#	velocity += movementBasisX*sideSpeed*dir.x
-	
+
 	#velocity.y += dir.y * jumpVelo *delta
-	
-	
+
+
 		velocity += $movement.dirToAcc(movementBasisZ,movementBasisX,dir,delta)
 	var ppos = global_transform
 	$movement.move(delta)
 	#emit_signal("physicsProc",delta,ppos)
 	$visual.tick(delta,ppos)
-	
-	
+
+
 	if camera != null:
 		camera.pingTransforms()
-	
+
 	if speedMeter != null:
 		speedMeter.text = str((Vector3(global_position.x,0, global_position.z)-beforePos).length())
 
@@ -592,42 +592,42 @@ func _physics_process(delta):
 			var to = $AnimationPlayer.get_animation_list()
 			$AnimationPlayer.play("idle")
 	footsteps()
-	
-	
-	
+
+
+
 	veloXY = Vector3(velocity.x,0,velocity.z).length()
 	var angleInc = (delta*veloXY)
 	#if veloXY > 0.05:
-	
-	
+
+
 
 	var ang = rad_to_deg(bobAngle)
-	
+
 	prev_time = Time.get_ticks_msec()
 	next_time = prev_time + (delta  * 1000)
-	
-	
+
+
 	dir = Vector3.ZERO
 	ppos = position
-	
-	
+
+
 
 func die():
-	
+
 	if dead:
 		return
-	
-	
-	
+
+
+
 	#camera.rotate_z(deg2rad(90))
 	if weaponManager != null:
 		weaponManager.bringDown()
 	dead = true
 	changeHeight(1)
-	
+
 	if weaponManager!= null:
 		pass
-	
+
 	$AnimationPlayer.play("die")
 	$AudioStreamPlayer3D.playDeath()
 	disableInput()
@@ -653,7 +653,7 @@ func footsteps():
 	if footstepDict.has(matType):
 		if position.distance_to(lastStep) < 2 and lastMat == matType:
 			lastMat = matType
-			
+
 			return
 
 		lastMat = matType
@@ -719,46 +719,46 @@ func playMatStepSound(mat):
 
 
 func changeHeight(h):
-	
-	
+
+
 	height= max(0.2,h)
 	eyeHeight = height * eyeHeightRatio
 	if get_node_or_null("Camera3D") != null:
 		$Camera3D.position.y = h*0.732143
-	
+
 	if get_node_or_null("MeshInstance3D") != null:
 		$MeshInstance3D.position.y = h/2
 		$MeshInstance3D.mesh.height = h
 
 	if get_node_or_null("CollisionShape3D") == null:
 		return
-		
+
 	WADG.setCollisionShapeHeight($CollisionShape3D,h)
 
 	$CollisionShape3D.position.y = h/2.0
-		
+
 	emit_signal("heightSetSignal")
 
 func changeThickness(t):
-	
+
 	thickness = t
-	
+
 	if get_node_or_null("CollisionShape3D") == null:
 		return
-	
+
 	WADG.setShapeThickness($CollisionShape3D,t)
-	
+
 	if get_node_or_null("movement") == null:
 		return
-		
+
 	WADG.setShapeThickness($movement/footCast,t)
 	WADG.setShapeThickness($movement/ShapeCastH,t)
 
 
 	emit_signal("thicknessSetSignal")
 
-	
-	
+
+
 
 var ppos = Vector3.ZERO
 var pLL = 0
@@ -767,7 +767,7 @@ func giveLimimted(value,giveAmount,naturalLimit,limitOverride):
 	if limitOverride != -1:
 		if value >= limitOverride:#don't pick up
 			return [value,false]
-				
+
 		if value < limitOverride and (value+giveAmount) > limitOverride:#if we weren't over the limit and now we are then cap value at limimt
 			value = limitOverride
 			return [value,true]
@@ -775,10 +775,10 @@ func giveLimimted(value,giveAmount,naturalLimit,limitOverride):
 			value += giveAmount
 			return [value,true]
 	else:
-		
+
 		if value >= naturalLimit:#don't pick up
 			return [value,false]
-					
+
 			if value < naturalLimit and (value+giveAmount) > naturalLimit:#if we weren't over the limit and now we are then cap value at limit
 				value = naturalLimit
 				return[value,true]
@@ -791,111 +791,111 @@ func giveLimimted(value,giveAmount,naturalLimit,limitOverride):
 
 
 func pickup(dict) -> bool:
-	
+
 	if dict.has("giveName"):
 
 		var gName = dict["giveName"]
 		var gAmount = 0
-		
-		
+
+
 		if dict.has("giveAmount"):
 			gAmount = dict["giveAmount"]
-	
+
 		if gName == ("hp"):
 			var limitOverride = -1
-			
+
 			if dict.has("limit"):
 				limitOverride = dict["limit"]
-				
+
 			var ret = giveLimimted(hp,gAmount,maxHp,limitOverride)
 			hp = ret[0]
-			
+
 			if ret[1] == false:
 				return false
-			
+
 			if colorOverlay:
 				colorOverlay.get_node("AnimationPlayer").play("itemPickup")
 
 
 		elif gName == "armor":
 			var limitOverride = -1
-			
+
 			if dict.has("limit"):
 				limitOverride = dict["limit"]
-				
+
 			var ret = giveLimimted(armor,gAmount,maxArmor,limitOverride)
 			armor = ret[0]
-			
+
 			if ret[1] == false:
 				return false
-			
+
 			if colorOverlay:
 				colorOverlay.get_node("AnimationPlayer").play("itemPickup")
-				
+
 		elif gName == "secret":
 			if !inventory.has(dict["path"]):
 				inventory[dict["path"]] = {"persistant":false}
 				popupText("Secret Discovered")
 				if curMap != null:
 					curMap.secretsFound += 1
-		
+
 		elif gName == "invincible":
 			invincible = gAmount
 			invinciblbeTimeout = dict["limit"]
-			
+
 			if colorOverlay:
 				colorOverlay.get_node("AnimationPlayer").play("itemPickup")
-			
+
 		else:
 			if !inventory.has(gName):
 				inventory[gName] = {"count":0}
-			
+
 			var invItem = inventory[gName]
 
 
 			if inventory[gName].has("max"):
-				
+
 				if invItem["count"] >=invItem["max"]:
 					if invItem.has("rejectWhenFull"):
 						if invItem["rejectWhenFull"] == true:
 							return false
-							
-				if invItem["count"] + gAmount > invItem["max"]: 
+
+				if invItem["count"] + gAmount > invItem["max"]:
 					invItem["count"] = invItem["max"]
 				else:
 					invItem["count"] += gAmount
 			else:
 				invItem["count"] += gAmount
-						
-				
-			
+
+
+
 			inventory[gName]["persistant"] = dict["persistant"]
-			
+
 			var curHud= $UI/HUDS.get_child(hudIndex)
-			
-			
-		
+
+
+
 			for i in uiKeys:
 				if gName == i[0] and curHud != null:
 					var spr = dict["sprite"].duplicate()
 					var uiIcon = getChilded(curHud,i[1])
-					
+
 					if uiIcon != null:
 						uiIcon.texture = spr
 
-				
+
 			if dict.has("uiTexture"):
 				if dict["uiTexture"][0] != null:
 					inventory[gName]["uiTarget"] = dict["uiTexture"][0]
 					inventory[gName]["textureName"] = dict["uiTexture"][1]
-					
+
 				inventory[gName]["gameName"] = dict["uiTexture"][2]
 				inventory[gName]["entityName"] = dict["uiTexture"][3]
 
-			
+
 			if colorOverlay:
 				$UI/ColorOverlay/AnimationPlayer.play("itemPickup")
-	
+
 	return true
 
 
@@ -907,7 +907,7 @@ func updateUIIcons():
 
 
 var invulTime = {}
-var heatTime = {} 
+var heatTime = {}
 
 func popupText(txt : String,dur : float = 1.0):
 	$UI/PopupTxts/Label.text = txt
@@ -917,40 +917,40 @@ func popupText(txt : String,dur : float = 1.0):
 	$UI/PopupTxts/fadeAmim.play("fadeOut")
 
 func takeDamage(damage : Dictionary):
-	
+
 	var source = null
 	if damage.has("source"): source = damage["source"]
-	
-	
+
+
 	if invincible:
 		return
-	
+
 	if damage.is_empty():
 		return
 	if dead:
 		return
-	
+
 	if damage.has("specific"):
 		if damageImunity.has(damage["specific"]):
 			return
-	
-	if damage.has("everyNframe"): 
+
+	if damage.has("everyNframe"):
 		var t = Engine.get_physics_frames() % damage["everyNframe"]
 		if Engine.get_physics_frames() % damage["everyNframe"] != 0:
 			return
-	
+
 	if source != null:
 		if damage.has("iFrameMS"):
 			if iFameDict.has(source):
 				return
-			
+
 			#if iFameDict[source] <= 0:
 			iFameDict[source] = damage["iFrameMS"]
-			
-			
-				
-		
-	
+
+
+
+
+
 	if damage.has("iMS") and damage.has("specific"):
 		if !invulTime.has("specific"):
 			invulTime["specific"] = [Time.get_ticks_msec(),damage["iMS"]]
@@ -960,26 +960,26 @@ func takeDamage(damage : Dictionary):
 				return
 			else:
 				invulTime.erase("specific")
-	
-	
+
+
 	#if !damage.has("specific"):
 	#	heatTime[damage["specific"]] = Phyics.get_frame
 	$AnimationPlayer.play("hurt")
 	$AudioStreamPlayer3D.playHurth()
 	if colorOverlay:
 		$UI/ColorOverlay/AnimationPlayer.play("pain")
-	
+
 
 	var amt = damage["amt"]
 	var arm = damage["amt"] * 0.3
 	amt -= arm
-	
-	
+
+
 	armor = max(0,armor - arm)
 	amt += max(0,arm - armor)
-	
+
 	arm = min(0,arm-armor)
-	
+
 	if damage.has("amt"):
 		hp -= amt
 
@@ -997,7 +997,7 @@ func normalToDegree(normal : Vector3):
 	return rad_to_deg(normal.angle_to(Vector3.UP))
 
 func disableInput():
-	
+
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	processInput = false
@@ -1005,11 +1005,11 @@ func disableInput():
 		if "par" in camera:
 			camera.processInput = false
 
-	
+
 func enableInput():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	processInput = true
-	
+
 	if camera!= null:
 		if "par" in camera:
 			camera.processInput = true
@@ -1023,42 +1023,42 @@ func getChilded(node,nameStr):
 			var r = getChilded(i,nameStr)
 			if r != null:
 				return r
-				
+
 
 func updateKeyUI():
 	var curHud= $UI/HUDS.get_child(hudIndex)
-	
+
 	if curHud == null:
 		return
-	
+
 
 	var uiIcon = find_child("keyR",true,false)
 
-	
+
 	for i in uiKeys:
 		var icon = curHud.find_child(i[1],true,false)
-		
+
 		if icon == null:
 			return
 		if icon.texture == null:
 			continue
-		
+
 		var found = false
 		for item in inventory:
 			if item == i[0]:
 				found = true
-			
+
 		if found == false:
 			icon.texture = null
 
 
 func setSpriteDir() -> void:
-	
+
 
 	if sprite == null:
 		return
 
-	
+
 	if camera == null:
 		return
 
@@ -1066,20 +1066,20 @@ func setSpriteDir() -> void:
 
 	var forward : Vector3 = -camera.global_transform.basis.z
 	var left : Vector3 = camera.global_transform.basis.x
-	
-	var forwardDot : float = forward.dot(cameraForward)
-	
-	
 
-	
+	var forwardDot : float = forward.dot(cameraForward)
+
+
+
+
 	var anim : String = sprite.curAnimation
 	var newAnim  = anim
-	
-	
-	
+
+
+
 	if forwardDot < -0.85:
 		newAnim = "front"
-		
+
 	elif forwardDot > 0.85:
 		newAnim = "back"
 	else:
@@ -1098,67 +1098,67 @@ func setSpriteDir() -> void:
 				newAnim = "frontRight"
 			else:
 				newAnim = "backRight"
-	
+
 	if anim != newAnim:
 		sprite.curAnimation = newAnim
 
 
 
 func viewBob(delta):
-	
-	
+
+
 	if inputPressedThisTick:
 		curAngle += angDelta * Vector3(velocity.x,0,velocity.z).length()*0.006
 	elif weaponManager.weapons.position.y < -0.001:
 		curAngle += angDelta *60*0.006
-		
+
 	var angle_radians = deg_to_rad(curAngle)
 	var mapped_value = (sin(curAngle) + 1) / 2
-	
+
 	weaponManager.weapons.position.y = -0.02* mapped_value
-			
+
 
 
 
 func serializeSave():
 	var ret : Dictionary = {}
 
-	
+
 	ret["posX"] = position.x
 	ret["posY"] = position.y
 	ret["posZ"] = position.z
-	
+
 	ret["rotX"] = rotation.x
 	ret["rotY"] = rotation.y
 	ret["rotZ"] = rotation.z
 	ret["hp"] = hp
 	ret["inventory"] = inventory
-	
+
 	ret["veloX"] = velocity.x
 	ret["veloY"] = velocity.y
 	ret["veloZ"] = velocity.z
-	
+
 	ret["gameName"] = gameName
 	ret["entityName"] = entityName
 	ret["height"] = height
-	
+
 	ret["camPitch"] = camera.pitch.rotation_degrees.x
-	ret["camYaw"]  = camera.yaw.rotation_degrees.y 
+	ret["camYaw"]  = camera.yaw.rotation_degrees.y
 	ret["armor"] = armor
 	ret["desiredParent"] = get_parent().get_path()
 	ret["camEnabled"] = camera.processInput
-	
-	
-	
+
+
+
 	return ret
-	
+
 
 func serializeLoad(data):
-	
+
 	velocity.x = data["veloX"]
 	velocity.y = data["veloY"]
 	velocity.z = data["veloZ"]
-	
+
 	colShape.position = Vector3.ZERO
 	pSpawnsReady = true
 	height = data["height"]
@@ -1167,41 +1167,41 @@ func serializeLoad(data):
 	teleportCooldown = 1000
 	hp = data["hp"]
 	inventory = data["inventory"]
-	
+
 	for i in data["inventory"]:
 		if i == "entityKey":
 			breakpoint
-	
+
 	grabCameraFocus()
 
-	
+
 	camera.rotH = 0
 	camera.rotV = 0
 	camera.initialRot.x = data["camYaw"]
 	camera.initialRot.y = data["camPitch"]
 	camera.processInput = data["camEnabled"]
-	
-	
+
+
 	for i in data["inventory"].values():
 		if i.has("uiTarget"):
 			if i["uiTarget"] != null:
 				setUItexture(i["uiTarget"],i["gameName"],i["entityName"],i["textureName"])
-	
+
 	updateUIIcons()
-	
+
 	#weaponManager.rotation.y = rotation.y
-	
+
 func hideUI():
 	$UI.visible = false
 
 func showUI():
 	$UI.visible = true
-	
+
 func setUItexture(uiTarget,gameName,entName,textureName):
 	var curHud = $UI/HUDS.get_child(hudIndex)
 	var uiIcon = getChilded(curHud,uiTarget)
-		
+
 	var t = ENTG.fetchTexture(get_tree(),textureName,gameName)
-	
+
 	if uiIcon != null:
 		uiIcon.texture = t

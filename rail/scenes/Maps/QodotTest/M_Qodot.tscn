@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://cwau2c4gc6vci"]
+
+[ext_resource type="PackedScene" uid="uid://v0a51ybyo5lc" path="res://scenes/qodot_node_3d.tscn" id="1_lg0ey"]
+[ext_resource type="PackedScene" uid="uid://d0gco8e8c0rn7" path="res://scenes/Player/Player.tscn" id="2_s2qrn"]
+[ext_resource type="Resource" uid="uid://daauuedurkxeh" path="res://resources/PlayerCharacters/Kendra.tres" id="3_564km"]
+[ext_resource type="PackedScene" uid="uid://be8sl7bhrmbur" path="res://scenes/EncounterPoint/EncounterPoint.tscn" id="4_q56gl"]
+[ext_resource type="Script" uid="uid://b0e435ir2m5fv" path="res://resources/EncounterAction.gd" id="5_661ug"]
+[ext_resource type="Script" uid="uid://cnuyc7qo804g3" path="res://resources/Actions/MoveCameraAction.gd" id="6_m4h7c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_50h1h"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_33y8j"]
+sky_material = SubResource("ProceduralSkyMaterial_50h1h")
+
+[sub_resource type="Environment" id="Environment_wi2ds"]
+background_mode = 2
+sky = SubResource("Sky_33y8j")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_kge4h"]
+script = ExtResource("6_m4h7c")
+pathToFollow = NodePath("Path3D")
+
+[sub_resource type="Curve3D" id="Curve3D_i5a05"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, -1.62756, -13.908, 0, 0, 0, 0, 0, 0, 0, -1.5, -50, 0, 0, 0, 0, 0, 0, 4.76837e-07, -1.5, -58.3575, 0, 0, 0, 0, 0, 0, -27.8073, -1.5, -59.975, 0, 0, 0, 0, 0, 0, -27.807, -18.9336, -59.4271, 0, 0, 0, 0, 0, 0, -27.807, -18.934, -62.343, 0, 0, 0, 0, 0, 0, -27.807, -17.5826, -66.7866, 0, 0, 0, 0, 0, 0, -21.417, -17.583, -87.3105, 0, 0, 0, 0, 0, 0, -21.417, -16.9099, -90, 0, 0, 0, 0, 0, 0, -21.417, -16.91, -106.319),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 12
+
+[node name="MQodot" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wi2ds")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.558, 11.4545, -0.864917)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.377, 11.3273, -10.2371)
+
+[node name="QodotNode3D" parent="." instance=ExtResource("1_lg0ey")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("startingWeapon") instance=ExtResource("2_s2qrn")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -124.748, 10.9699, -5.81304)
+moveSpeed = 5.0
+playerCharacter = ExtResource("3_564km")
+startingWeapon = NodePath("CameraRig/TypingGun")
+
+[node name="EncounterPoint" parent="." instance=ExtResource("4_q56gl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -124.563, 11.125, -5.68929)
+startActions = Array[ExtResource("5_661ug")]([SubResource("Resource_kge4h")])
+
+[node name="Path3D" type="Path3D" parent="EncounterPoint"]
+curve = SubResource("Curve3D_i5a05")
+
+[editable path="Player"]

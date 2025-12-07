@@ -765,9 +765,12 @@ func getCreatorScript():
 func spawn(idStr : String, pos = Vector3.ZERO, rot = 0, parentNode : Node = null) -> Node:
 	if parentNode == null:
 		parentNode = mapNode
+	var spawnedNode = ENTG.spawn(get_tree(),idStr,pos,Vector3(0,rot,0),"doom",parentNode)
+	if idStr == 'playerguy':
+		print('spwan', idStr)
+		playerCreated.emit(spawnedNode)
 
-	return ENTG.spawn(get_tree(),idStr,pos,Vector3(0,rot,0),"doom",parentNode)
-	#return $ThingParser.spawn(idStr,pos,Vector3(0,rot-90,0))
+	return spawnedNode
 
 
 func thingCheck(wadArr):

@@ -68,7 +68,6 @@ wet = 0.0
 wet = 0.0
 
 [sub_resource type="AudioEffectPanner" id="AudioEffectPanner_shvw8"]
-pan = -0.62204725
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_hupnq"]
 wet = 0.0
@@ -77,7 +76,6 @@ wet = 0.0
 wet = 0.0
 
 [sub_resource type="AudioEffectPanner" id="AudioEffectPanner_qi87n"]
-pan = 0.63779527
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_g8vdu"]
 wet = 0.0
@@ -86,7 +84,6 @@ wet = 0.0
 wet = 0.0
 
 [sub_resource type="AudioEffectPanner" id="AudioEffectPanner_dudgq"]
-pan = 0.007874016
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8b5om"]
 wet = 0.0

@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dm4psfgy7p5y8"]
+[gd_scene load_steps=13 format=3 uid="uid://dm4psfgy7p5y8"]
 
-[ext_resource type="Script" path="res://addons/godotWad/scenes/player/player.gd" id="1"]
-[ext_resource type="Script" path="res://addons/godotWad/scenes/player/visual.gd" id="2_n4kaj"]
+[ext_resource type="Script" uid="uid://dhde6w74fhthg" path="res://addons/godotWad/scenes/player/player.gd" id="1"]
+[ext_resource type="Script" uid="uid://bv1kgbl3147m8" path="res://addons/godotWad/scenes/player/visual.gd" id="2_n4kaj"]
 [ext_resource type="Resource" uid="uid://cfjb3dfk8io58" path="res://addons/godotWad/resources/ammoCaps.tres" id="2_p44px"]
 [ext_resource type="PackedScene" uid="uid://yqhtv8mrlleh" path="res://addons/godotWad/scenes/player/scenes/creosshair/Crosshair.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://k3yruj1jf1rh" path="res://addons/gameAssetImporter/scenes/perfOverlay/perfInfo.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://c1jshd4cbsids" path="res://addons/godotWad/scenes/player/scenes/weaponManager/weaponManager.tscn" id="4_hpyjv"]
 [ext_resource type="PackedScene" uid="uid://d0p1hm1hxo3nc" path="res://addons/godotWad/scenes/player/movement.tscn" id="6_y2c3e"]
+[ext_resource type="PackedScene" uid="uid://d0gco8e8c0rn7" path="res://rail/scenes/Player/Player.tscn" id="8_7y7d7"]
 
 [sub_resource type="Animation" id="Animation_jwxq8"]
 resource_name = "default"
@@ -40,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_loak2"]
 _data = {
-"default": SubResource("Animation_jwxq8"),
-"fadeOut": SubResource("Animation_gxyao")
+&"default": SubResource("Animation_jwxq8"),
+&"fadeOut": SubResource("Animation_gxyao")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jedgj"]
@@ -177,7 +178,7 @@ text = "ojoioj"
 
 [node name="fadeAmim" type="AnimationPlayer" parent="UI/PopupTxts"]
 libraries = {
-"": SubResource("AnimationLibrary_loak2")
+&"": SubResource("AnimationLibrary_loak2")
 }
 
 [node name="ItemList" type="ItemList" parent="."]
@@ -222,3 +223,5 @@ groundEmergeFix = true
 [node name="jumpPlayer" type="AudioStreamPlayer3D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("8_7y7d7")]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg01ct2ymucr3"]
+
+[ext_resource type="Script" path="res://scenes/RailPath/RailPath.gd" id="1_ypi10"]
+
+[sub_resource type="Curve3D" id="Curve3D_mmo62"]
+
+[node name="RailPath" type="Path3D"]
+curve = SubResource("Curve3D_mmo62")
+script = ExtResource("1_ypi10")
+
+[node name="PathViz" type="MeshInstance3D" parent="."]
+
+[node name="@MeshInstance3D@17606" type="MeshInstance3D" parent="."]

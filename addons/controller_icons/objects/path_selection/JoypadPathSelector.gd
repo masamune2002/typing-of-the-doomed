@@ -39,7 +39,7 @@ func grab_focus() -> void:
 
 func _input(event):
 	if not visible: return
-	
+
 	if event is InputEventJoypadMotion:
 		_input_motion(event)
 	elif event is InputEventJoypadButton:

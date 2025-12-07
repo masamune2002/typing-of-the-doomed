@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbuj42a3cavrl"]
+
+[ext_resource type="Script" uid="uid://feuula8oi1x4" path="res://scenes/UI/DialogBox/DialogBox.gd" id="1_com1j"]
+[ext_resource type="Texture2D" uid="uid://bx17q1wl3b0tn" path="res://assets/images/kendra.png" id="2_qu44x"]
+[ext_resource type="FontFile" uid="uid://b1j5fd2s2etle" path="res://resources/Fonts/Anonymice Powerline Bold.ttf" id="3_mhav2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrpec"]
+bg_color = Color(2.64719e-07, 0.296835, 0.453257, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.598525, 0.598525, 0.598524, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_smvup"]
+font = ExtResource("3_mhav2")
+
+[sub_resource type="SystemFont" id="SystemFont_iun5u"]
+font_names = PackedStringArray("Showcard Gothic")
+font_weight = 600
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_egja8"]
+font = ExtResource("3_mhav2")
+font_size = 18
+
+[node name="DialogBox" type="PanelContainer"]
+offset_right = 655.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrpec")
+script = ExtResource("1_com1j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SpeakerPortrait" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("2_qu44x")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Example"
+label_settings = SubResource("LabelSettings_smvup")
+horizontal_alignment = 1
+
+[node name="DialogTextLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_iun5u")
+text = "What is a man? A miserable little pile of secrets."
+label_settings = SubResource("LabelSettings_egja8")
+vertical_alignment = 1
+autowrap_mode = 2

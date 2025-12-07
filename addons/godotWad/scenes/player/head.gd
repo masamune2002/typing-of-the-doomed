@@ -12,31 +12,31 @@ var hpNode = null
 
 func _ready():
 	hpNode = findHpNode()
-	
-	
+
+
 	hpNode.weaponPickupSignal.connect(pickupFace)
 func findHpNode():
 	var n = self
-	
+
 	while n.get_parent() != null:
 		if "hp" in n:
 			return n
-		
+
 		n= n.get_parent()
 
 
 func pickupFace():
 	texture.current_frame = 6
 	time = 2
-	
+
 func _physics_process(delta):
-	
+
 	if hpNode == null:
 		return
-	
+
 
 	var hp = hpNode.hp
-	
+
 	if hp >= 80:
 		texture = hp80
 	elif hp >= 60:
@@ -49,7 +49,7 @@ func _physics_process(delta):
 		texture = hp1
 	elif hp <= 0:
 		texture = dead
-	
+
 
 	time -= delta
 
@@ -57,8 +57,8 @@ func _physics_process(delta):
 		if texture != null:
 			texture.current_frame =  (texture.current_frame + 1) % min(texture.frames,3)
 			time = 1
-	
-	
-	
+
+
+
 	if texture != null:
 		texture.speed_scale = 0

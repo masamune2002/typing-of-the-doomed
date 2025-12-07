@@ -2,6 +2,8 @@ extends Node3D
 class_name WadRuntimeLoader
 
 const loader_scene_path: String = "res://addons/godotWad/WAD_Loader.tscn"
+signal mapCreated
+signal playerCreated
 
 ## Logical “game name” used by the loader.
 @export var game_name: String = "Doom"
@@ -28,6 +30,8 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 
 	# 1) Instantiate the loader (like makeUI does in _on_gameList_item_selected)
 	_loader = load(loader_scene_path).instantiate()
+	_loader.mapCreated.connect(mapCreated.emit)
+	_loader.playerCreated.connect(playerCreated.emit)
 	add_child(_loader) # many loaders assume they’re in the tree
 
 	# 2) Build the params array (mirrors loaderInit())
@@ -73,4 +77,7 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 
 	# Optional: position/rotate the map
 	map_node.position = Vector3.ZERO
+
+	var player = _loader.spawn('playerguy')
+	add_child(player)
 	return map_node

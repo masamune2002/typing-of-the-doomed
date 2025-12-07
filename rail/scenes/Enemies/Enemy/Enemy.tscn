@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://ch0dj1op8wxji"]
+
+[ext_resource type="Script" uid="uid://dh83kce5m7kxp" path="res://rail/scenes/Enemies/Enemy/Enemy.gd" id="1_dulo0"]
+[ext_resource type="Script" uid="uid://o54nhjr3q5yk" path="res://rail/resources/StateMachine.gd" id="2_rst4h"]
+[ext_resource type="Script" uid="uid://b3ggepua27qai" path="res://rail/scenes/Enemies/Enemy/States/Inactive.gd" id="3_cidvn"]
+[ext_resource type="Script" uid="uid://b68l4ouyw3fbv" path="res://rail/scenes/Enemies/Enemy/States/Idle.gd" id="4_lgwfw"]
+[ext_resource type="Script" uid="uid://balpgqknty8qy" path="res://rail/scenes/Enemies/Enemy/States/Attacking.gd" id="5_a5s41"]
+[ext_resource type="Script" uid="uid://erkvfmwn6a3g" path="res://rail/scenes/Enemies/Enemy/States/Dying.gd" id="6_o4gwa"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_dulo0")
+
+[node name="EnemyMeshContainer" type="Node3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyMeshContainer"]
+root_node = NodePath("../..")
+
+[node name="EnemyTargetLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+no_depth_test = true
+text = "42"
+
+[node name="StateLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19309, 0)
+visible = false
+no_depth_test = true
+modulate = Color(1, 0.482353, 1, 1)
+text = "42"
+font_size = 16
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_rst4h")
+
+[node name="Inactive" type="Node" parent="StateMachine"]
+script = ExtResource("3_cidvn")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_lgwfw")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("5_a5s41")
+
+[node name="Dying" type="Node" parent="StateMachine"]
+script = ExtResource("6_o4gwa")
