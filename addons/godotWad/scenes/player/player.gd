@@ -285,9 +285,9 @@ func _input(event):
 
 	var just_pressed = event.is_pressed() and !event.is_echo()
 
-	if Input.is_key_pressed(KEY_M) and just_pressed:
-		if is_instance_valid(curMap):
-			curMap.nextMap()
+#	if Input.is_key_pressed(KEY_M) and just_pressed:
+#		if is_instance_valid(curMap):
+#			curMap.nextMap()
 
 	if Input.is_key_pressed(KEY_ALT):
 		if Input.is_key_pressed(KEY_ENTER) and just_pressed:

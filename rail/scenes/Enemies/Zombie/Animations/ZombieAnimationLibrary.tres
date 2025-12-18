@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=3 format=3 uid="uid://dyh3kcdorlq3"]
 
-[ext_resource type="Animation" uid="uid://b0m1uium2ifsj" path="res://scenes/Enemies/Zombie/Animations/die.res" id="1_n58qf"]
+[ext_resource type="Animation" uid="uid://b0m1uium2ifsj" path="res://rail/scenes/Enemies/Zombie/Animations/die.res" id="1_n58qf"]
 
 [sub_resource type="Animation" id="Animation_ny86t"]
 length = 0.001

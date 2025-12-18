@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://fx7umhmcn2ln"]
+[gd_scene load_steps=11 format=4 uid="uid://fx7umhmcn2ln"]
 
-[ext_resource type="Script" path="res://scenes/Enemies/Zombie/Zombie.gd" id="1_0mhy8"]
-[ext_resource type="PackedScene" uid="uid://ch0dj1op8wxji" path="res://scenes/Enemies/Enemy/Enemy.tscn" id="1_fflm7"]
-[ext_resource type="Texture2D" uid="uid://b5ev0wfs7utud" path="res://assets/models/zombie/zombie_corpse_0.png" id="2_d16wh"]
-[ext_resource type="Texture2D" uid="uid://dnlem7h1bv3gy" path="res://assets/models/zombie/zombie_corpse_1.png" id="3_842kj"]
-[ext_resource type="Texture2D" uid="uid://52luqa5hna3g" path="res://assets/models/zombie/zombie_corpse_2.png" id="4_j2wv1"]
-[ext_resource type="AnimationLibrary" uid="uid://dyh3kcdorlq3" path="res://scenes/Enemies/Zombie/Animations/ZombieAnimationLibrary.tres" id="6_yvhhg"]
+[ext_resource type="Script" uid="uid://beomlq4rfxfhg" path="res://rail/scenes/Enemies/Zombie/Zombie.gd" id="1_0mhy8"]
+[ext_resource type="PackedScene" uid="uid://ch0dj1op8wxji" path="res://rail/scenes/Enemies/Enemy/Enemy.tscn" id="1_fflm7"]
+[ext_resource type="Texture2D" uid="uid://b5ev0wfs7utud" path="res://rail/assets/models/zombie/zombie_corpse_0.png" id="2_d16wh"]
+[ext_resource type="Texture2D" uid="uid://dnlem7h1bv3gy" path="res://rail/assets/models/zombie/zombie_corpse_1.png" id="3_842kj"]
+[ext_resource type="Texture2D" uid="uid://52luqa5hna3g" path="res://rail/assets/models/zombie/zombie_corpse_2.png" id="4_j2wv1"]
+[ext_resource type="AnimationLibrary" uid="uid://dyh3kcdorlq3" path="res://rail/scenes/Enemies/Zombie/Animations/ZombieAnimationLibrary.tres" id="6_yvhhg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_301lu"]
 
@@ -195,9 +195,6 @@ metallic_texture = ExtResource("3_842kj")
 roughness_texture = ExtResource("3_842kj")
 normal_enabled = true
 normal_texture = ExtResource("4_j2wv1")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_26b5c"]
-size = Vector3(0.720062, 1.15948, 1)
 
 [node name="Zombie" instance=ExtResource("1_fflm7")]
 script = ExtResource("1_0mhy8")
@@ -669,9 +666,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rixja")
 [node name="AnimationPlayer" parent="EnemyMeshContainer" index="1"]
 root_node = NodePath("..")
 libraries = {
-"ZombieAnimationLibrary": ExtResource("6_yvhhg")
+&"ZombieAnimationLibrary": ExtResource("6_yvhhg")
 }
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011734, 0.579742, 0)
-shape = SubResource("BoxShape3D_26b5c")

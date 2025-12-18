@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bkha3o263f6i"]
+[gd_scene load_steps=18 format=3 uid="uid://bkha3o263f6i"]
 
 [ext_resource type="Script" uid="uid://da6aryja7ot8g" path="res://doom.gd" id="1_1041k"]
 [ext_resource type="PackedScene" uid="uid://c4hq4j7wyb1c5" path="res://rail/scenes/EnemyManager/EnemyManager.tscn" id="5_tuk0d"]
@@ -7,6 +7,10 @@
 [ext_resource type="Script" uid="uid://u5cuwct7g52m" path="res://rail/resources/Actions/ActivateEnemiesAction.gd" id="6_tuk0d"]
 [ext_resource type="PackedScene" uid="uid://c40jhux8xnfsg" path="res://rail/scenes/Enemies/Skeleton/Skeleton.tscn" id="7_3nwf0"]
 [ext_resource type="Script" uid="uid://ccik6wen78mos" path="res://rail/resources/Actions/PrintAction.gd" id="7_vyfxj"]
+[ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_x4c1j"]
+[ext_resource type="Script" uid="uid://d2nek84n3bhtq" path="res://rail/resources/Conditions/EnemiesDefeatedCondition.gd" id="8_sluiw"]
+[ext_resource type="PackedScene" uid="uid://fx7umhmcn2ln" path="res://rail/scenes/Enemies/Zombie/Zombie.tscn" id="10_x4c1j"]
+[ext_resource type="Script" uid="uid://dh83kce5m7kxp" path="res://rail/scenes/Enemies/Enemy/Enemy.gd" id="11_sluiw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1041k"]
 
@@ -18,15 +22,20 @@ background_mode = 2
 sky = SubResource("Sky_eeb5o")
 ambient_light_source = 3
 
-[sub_resource type="Resource" id="Resource_x4c1j"]
-script = ExtResource("7_vyfxj")
-stringToPrint = "Collide!"
-metadata/_custom_type_script = "uid://ccik6wen78mos"
-
 [sub_resource type="Resource" id="Resource_q87sj"]
 script = ExtResource("6_tuk0d")
-enemiesToActivate = Array[NodePath]([NodePath("Skeleton")])
+enemiesToActivate = Array[NodePath]([NodePath("Node/Skeleton")])
 metadata/_custom_type_script = "uid://u5cuwct7g52m"
+
+[sub_resource type="Resource" id="Resource_lfbwn"]
+script = ExtResource("7_vyfxj")
+stringToPrint = "Finished encounter"
+metadata/_custom_type_script = "uid://ccik6wen78mos"
+
+[sub_resource type="Resource" id="Resource_4sfe3"]
+script = ExtResource("8_sluiw")
+enemies = Array[NodePath]([NodePath("Node/Skeleton")])
+metadata/_custom_type_script = "uid://d2nek84n3bhtq"
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1041k")
@@ -38,7 +47,16 @@ environment = SubResource("Environment_0l477")
 
 [node name="EncounterPoint" parent="." instance=ExtResource("6_q87sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.926792, 0.78573334, 110.514885)
-startActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_x4c1j"), SubResource("Resource_q87sj")])
+startActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_q87sj")])
+endActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_lfbwn")])
+conditions = Array[ExtResource("7_x4c1j")]([SubResource("Resource_4sfe3")])
 
-[node name="Skeleton" parent="EncounterPoint" instance=ExtResource("7_3nwf0")]
-transform = Transform3D(-2.235, 0, -1.953899e-07, 0, 2.235, 0, 1.953899e-07, 0, -2.235, -0.101989746, -0.32682335, -2.9038696)
+[node name="Node" type="Node3D" parent="EncounterPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
+
+[node name="Skeleton" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Zombie" parent="EncounterPoint/Node" instance=ExtResource("10_x4c1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43316615, 0.5827408)
+script = ExtResource("11_sluiw")

@@ -2,6 +2,7 @@ class_name Enemy
 extends CharacterBody3D
 
 const ANIMATION_NAME_DIE = 'die'
+const ANIMATION_NAME_IDLE = 'idle'
 
 @onready var animationPlayer : AnimationPlayer = $EnemyMeshContainer/AnimationPlayer
 @onready var enemyTargetLabel : Label3D = $EnemyTargetLabel
@@ -40,8 +41,12 @@ func _ready() -> void:
 		weakness.setup(difficulty)
 	add_to_group('Enemies')
 	EventBus.enemySpawned.emit(self)
+	var animationName = animationLibraryName + "/" + ANIMATION_NAME_IDLE
+	animationPlayer.play(animationName)
+	
 
 func activate() -> void:
+	animationPlayer.stop(false)
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE):
@@ -65,7 +70,7 @@ func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant) -> 
 		var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
 		enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText()
 		if hit && weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
-			_die()
+			startDying()
 		return hit
 
 func receiveTypingFire(keyString : String) -> bool:
@@ -73,7 +78,7 @@ func receiveTypingFire(keyString : String) -> bool:
 		targetTypedText.remove_at(0)
 		enemyTargetLabel.text = "".join(targetTypedText)
 		if targetTypedText.size() == 0:
-			_die()
+			startDying()
 		return true
 	return false
 
@@ -163,6 +168,7 @@ func _attack(target : Player) -> void:
 		stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func startDying() -> void:
+	print('started dying')
 	# Ensure we stop any pending attacks/visuals
 	dying = true
 	alive = false
@@ -170,12 +176,16 @@ func startDying() -> void:
 	startedDying.emit(self)
 
 	var animationName = animationLibraryName + "/" + ANIMATION_NAME_DIE
-	print(animationName)
+	print('animationName')
+	print(global_position)
 	animationPlayer.play(animationName)
 	var finishedName: StringName = await animationPlayer.animation_finished
 	if finishedName == animationName:
+		print('finished animation')
+		print(global_position)
 		stateMachine.setState(Enums.ENEMY_STATE.DEAD)
 		died.emit(self)
 
 func _die() -> void:
+	print(global_position)
 	stateMachine.setState(Enums.ENEMY_STATE.DYING)
