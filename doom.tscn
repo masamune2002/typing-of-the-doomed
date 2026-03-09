@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bkha3o263f6i"]
+[gd_scene load_steps=16 format=3 uid="uid://bkha3o263f6i"]
 
 [ext_resource type="Script" uid="uid://da6aryja7ot8g" path="res://doom.gd" id="1_1041k"]
 [ext_resource type="PackedScene" uid="uid://c4hq4j7wyb1c5" path="res://rail/scenes/EnemyManager/EnemyManager.tscn" id="5_tuk0d"]
@@ -9,8 +9,6 @@
 [ext_resource type="Script" uid="uid://ccik6wen78mos" path="res://rail/resources/Actions/PrintAction.gd" id="7_vyfxj"]
 [ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_x4c1j"]
 [ext_resource type="Script" uid="uid://d2nek84n3bhtq" path="res://rail/resources/Conditions/EnemiesDefeatedCondition.gd" id="8_sluiw"]
-[ext_resource type="PackedScene" uid="uid://fx7umhmcn2ln" path="res://rail/scenes/Enemies/Zombie/Zombie.tscn" id="10_x4c1j"]
-[ext_resource type="Script" uid="uid://dh83kce5m7kxp" path="res://rail/scenes/Enemies/Enemy/Enemy.gd" id="11_sluiw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1041k"]
 
@@ -57,6 +55,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
 [node name="Zombieman" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Zombie" parent="EncounterPoint/Node" instance=ExtResource("10_x4c1j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43316615, 0.5827408)
-script = ExtResource("11_sluiw")

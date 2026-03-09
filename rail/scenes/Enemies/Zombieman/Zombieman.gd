@@ -33,10 +33,22 @@ func _ready() -> void:
 	add_to_group('Enemies')
 	EventBus.enemySpawned.emit(self)
 	
-	# Load sprites and set initial state
-	_loadSprites()
 	enemyTargetLabel.hide()
 	stateMachine.setState(Enums.ENEMY_STATE.INACTIVE)
+	
+	# Defer sprite loading until WAD is ready
+	_tryLoadSprites()
+
+func _tryLoadSprites() -> void:
+	# Wait for WAD loader to be ready
+	if Game.wadLoader == null or Game.wadLoader._loader == null:
+		# Retry next frame
+		get_tree().process_frame.connect(_onProcessFrameRetryLoad, CONNECT_ONE_SHOT)
+		return
+	_loadSprites()
+
+func _onProcessFrameRetryLoad() -> void:
+	_tryLoadSprites()
 
 func _loadSprites() -> void:
 	var allFrames = IDLE_FRAMES + ATTACK_FRAMES + DEATH_FRAMES
