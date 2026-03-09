@@ -66,8 +66,10 @@ func _loadSprites() -> void:
 				_sprites[spriteName] = texture
 	
 	_spritesLoaded = _sprites.size() > 0
+	print("Zombieman: loaded ", _sprites.size(), " sprites, _spritesLoaded=", _spritesLoaded)
 	if _spritesLoaded:
 		_updateSprite()
+		print("Zombieman: sprite texture set to ", sprite.texture)
 
 func _process(delta: float) -> void:
 	if !_spritesLoaded:
