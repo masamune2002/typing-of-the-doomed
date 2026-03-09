@@ -148,11 +148,12 @@ func _calculateAngleIndex() -> int:
 	)
 	
 	# Convert to DOOM's 8-angle system (1-8)
-	# 1=front, 2=front-right, 3=right, 4=back-right, 5=back, etc.
-	var index = int(round(angle / (PI / 4.0))) + 1
+	# 1=front (enemy facing camera), 5=back (enemy facing away)
+	# Add 4 to flip since we want to show what the camera sees, not enemy's view
+	var index = int(round(angle / (PI / 4.0))) + 5
 	if index <= 0:
 		index += 8
-	if index > 8:
+	while index > 8:
 		index -= 8
 	
 	return index
