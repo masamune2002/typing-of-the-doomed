@@ -6,4 +6,4 @@ func _ready() -> void:
 	displayName = 'Idle'
 
 func enter(previousState : Enums.ENEMY_STATE) -> void:
-	parent.look_at(Game.getPlayer().position, Vector3.UP, true)
+	parent.look_at(Game.getPlayer().position, Vector3.UP, false)

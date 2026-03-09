@@ -9,4 +9,4 @@ func enter(previousState: Enums.ENEMY_STATE) -> void:
 	if parent is Zombieman:
 		parent._currentAnimation = "idle"
 		parent._currentFrameIndex = 0
-	parent.look_at(Game.getPlayer().position, Vector3.UP, true)
+	parent.look_at(Game.getPlayer().position, Vector3.UP, false)

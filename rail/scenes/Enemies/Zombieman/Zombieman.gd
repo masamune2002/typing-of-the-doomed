@@ -139,7 +139,7 @@ func _calculateAngleIndex() -> int:
 		return 1
 	
 	var toCamera = (camera.global_position - global_position).normalized()
-	var forward = -global_transform.basis.z.normalized()
+	var forward = global_transform.basis.z.normalized()
 	
 	# Calculate angle between camera direction and enemy forward
 	var angle = atan2(
