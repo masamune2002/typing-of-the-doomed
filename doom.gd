@@ -6,6 +6,7 @@ func _ready() -> void:
 	var loader := WadRuntimeLoader.new()
 	add_child(loader)
 	loader.mapCreated.connect(_onMapCreated)
+	Game.setWadLoader(loader)
 	var app_dir = OS.get_executable_path().get_base_dir().get_base_dir().get_base_dir()
 	var file_path = app_dir.path_join("../DOOM.wad")
 	var wad_file = FileAccess.open(file_path, FileAccess.READ)

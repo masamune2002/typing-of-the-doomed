@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://c3zombieman01"]
+
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Zombieman/Zombieman.gd" id="1_zombieman"]
+[ext_resource type="Script" path="res://rail/resources/StateMachine.gd" id="2_statemachine"]
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Zombieman/States/ZombiemanInactive.gd" id="3_inactive"]
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Zombieman/States/ZombiemanIdle.gd" id="4_idle"]
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Zombieman/States/ZombiemanAttacking.gd" id="5_attacking"]
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Zombieman/States/ZombiemanDying.gd" id="6_dying"]
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Enemy/States/Dead.gd" id="7_dead"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.3
+height = 1.0
+
+[node name="Zombieman" type="CharacterBody3D"]
+script = ExtResource("1_zombieman")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+pixel_size = 0.02
+billboard = 1
+
+[node name="EnemyTargetLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+no_depth_test = true
+text = ""
+
+[node name="StateLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+visible = false
+no_depth_test = true
+modulate = Color(1, 0.482353, 1, 1)
+text = ""
+font_size = 16
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_statemachine")
+
+[node name="Inactive" type="Node" parent="StateMachine"]
+script = ExtResource("3_inactive")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_idle")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("5_attacking")
+
+[node name="Dying" type="Node" parent="StateMachine"]
+script = ExtResource("6_dying")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("7_dead")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_1")
