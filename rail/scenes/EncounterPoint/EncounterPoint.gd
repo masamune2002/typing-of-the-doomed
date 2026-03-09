@@ -11,14 +11,29 @@ var active : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#if !Engine.is_editor_hint():
-	#	_hideMeshes()
+	if !Engine.is_editor_hint():
+		# Snap to floor after physics is ready
+		_snapToFloor.call_deferred()
 	var children = get_children()
 	for child in children:
 		if child is Enemy:
 			var enemy : Enemy = child
 			enemy.died.connect(_onEnemyDied)
 			enemies.append(enemy)
+
+func _snapToFloor() -> void:
+	var space_state = get_world_3d().direct_space_state
+	if space_state == null:
+		return
+	
+	var from = global_position + Vector3.UP * 10.0
+	var to = global_position + Vector3.DOWN * 100.0
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = 1  # Adjust mask if floor is on different layer
+	
+	var result = space_state.intersect_ray(query)
+	if result:
+		global_position.y = result.position.y
 
 func _hideMeshes():
 	$EncounterMesh.hide()
