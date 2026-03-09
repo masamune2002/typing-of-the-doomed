@@ -50,7 +50,7 @@ endActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_lfbwn")])
 conditions = Array[ExtResource("7_x4c1j")]([SubResource("Resource_4sfe3")])
 
 [node name="Node" type="Node3D" parent="EncounterPoint"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Zombieman" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
