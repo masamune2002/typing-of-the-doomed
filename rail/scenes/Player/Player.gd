@@ -41,7 +41,6 @@ func _ready() -> void:
 func stopCameraMove(actionToFinish : EncounterAction):
 	_moving = false
 	currentPathFollow = null
-	print('stop')
 	if actionToFinish != null:
 		actionToFinish.finish()
 
@@ -54,19 +53,8 @@ func _physics_process(delta: float) -> void:
 	if !_moving or currentPathFollow == null:
 		return
 
-	# Advance follower a small step to produce a target point ahead
 	currentPathFollow.progress += moveSpeed * delta
 	_moveTarget = currentPathFollow.global_position
-
-	#var toTarget = _moveTarget - global_position
-	#if toTarget.length() > 0.004:
-		#velocity = toTarget.normalized() * moveSpeed
-		#look_at(_moveTarget)
-		#move_and_slide()
-	#else:
-		#velocity = Vector3.ZERO
-	#	if (_moveAction != null && is_instance_valid(_moveAction)):
-	#		_moveAction.finish()
 
 func startCameraMove(pathToFollow: Path3D, newMoveAction : MoveCameraAction) -> void:
 	currentPath = pathToFollow

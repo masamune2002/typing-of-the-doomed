@@ -66,21 +66,11 @@ func deactivate() -> void:
 func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant) -> bool:
 	if !alive || !active || _currentWeaknessType != weaponFireType:
 		return false
-	else:
-		var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
-		enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText()
-		if hit && weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
-			startDying()
-		return hit
-
-func receiveTypingFire(keyString : String) -> bool:
-	if keyString.to_lower() == targetTypedText[0]:
-		targetTypedText.remove_at(0)
-		enemyTargetLabel.text = "".join(targetTypedText)
-		if targetTypedText.size() == 0:
-			startDying()
-		return true
-	return false
+	var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
+	enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText()
+	if hit && weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
+		die()
+	return hit
 
 func startAttack(target : Player) -> void:
 	currentTarget = target
@@ -167,25 +157,5 @@ func _attack(target : Player) -> void:
 		target.receiveHit()
 		stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
-func startDying() -> void:
-	print('started dying')
-	# Ensure we stop any pending attacks/visuals
-	dying = true
-	alive = false
-	cancelTelegraph()
-	startedDying.emit(self)
-
-	var animationName = animationLibraryName + "/" + ANIMATION_NAME_DIE
-	print('animationName')
-	print(global_position)
-	animationPlayer.play(animationName)
-	var finishedName: StringName = await animationPlayer.animation_finished
-	if finishedName == animationName:
-		print('finished animation')
-		print(global_position)
-		stateMachine.setState(Enums.ENEMY_STATE.DEAD)
-		died.emit(self)
-
-func _die() -> void:
-	print(global_position)
+func die() -> void:
 	stateMachine.setState(Enums.ENEMY_STATE.DYING)

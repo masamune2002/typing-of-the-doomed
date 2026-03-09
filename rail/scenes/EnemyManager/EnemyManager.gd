@@ -26,10 +26,10 @@ func _onEncounterStart() -> void:
 func _handlePlayerChanged(newPlayer : Player) -> void:
 	playerRef = newPlayer
 	if !playerRef || playerRef == null:
-		print('Enemy Manager needs player ref')
+		push_warning('Enemy Manager needs player ref')
 		return
 	playerRef.fireWeapon.connect(_handlePlayerFired)
-	_currentFireType = playerRef._currentWeapon.fireType
+	_currentFireType = playerRef.getCurrentFireType()
 
 
 func _handleChangeFireType(newFireType : Enums.WEAPON_FIRE_TYPE) -> void:

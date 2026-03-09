@@ -30,5 +30,5 @@ func removeHitPoints(damage : int) -> void:
 	for i : int in damage:
 		var textureContainer : CenterContainer = hitPointTextures.pop_back()
 		if textureContainer != null:
-			remove_child(textureContainer)
+			hitPointsContainer.remove_child(textureContainer)
 			textureContainer.queue_free()

@@ -27,7 +27,8 @@ func _showCurrentPage() -> void:
 func showNextPage() -> void:
 	if currentPage >= dialog.lines.size() - 1:
 		showingDialog = false
-		dialog.actionToFinish.finished.emit()
+		if dialog.actionToFinish != null:
+			dialog.actionToFinish.finished.emit()
 	else:
 		currentPage += 1
 		_showCurrentPage()

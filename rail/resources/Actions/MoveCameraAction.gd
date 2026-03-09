@@ -11,4 +11,3 @@ func run(encounterPoint: EncounterPoint) -> void:
 		return
 
 	Game.getPlayer().startCameraMove(path, self)
-	print('moving on ' + str(pathToFollow))

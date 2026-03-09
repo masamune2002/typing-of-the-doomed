@@ -48,7 +48,6 @@ func _onCollisionAreaBodyEntered(body: Node3D) -> void:
 
 func _onEnemyDied(enemy : Enemy) -> void:
 	enemies.erase(enemy)
-	enemy.queue_free()
 
 func _runActions(actions : Array[EncounterAction]):
 	for action in actions:

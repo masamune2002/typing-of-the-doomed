@@ -13,7 +13,7 @@ func _ready() -> void:
 	if currentParent is Enemy:
 		parent = currentParent
 	else:
-		print('Error in State Machine. Parent must be of the correct type.')
+		push_error('StateMachine: Parent must be an Enemy')
 	_buildStateDict()
 	if stateDict != null && stateDict.size() > 0:
 		if stateDict[Enums.ENEMY_STATE.INACTIVE] != null:

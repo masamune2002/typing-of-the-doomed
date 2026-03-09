@@ -6,7 +6,7 @@ func _ready() -> void:
 	displayName = 'Dead'
 
 func enter(previousState : Enums.ENEMY_STATE) -> void:
-	parent.died.emit(self)
-	EventBus.enemyKilled.emit(parent)
 	parent.dying = false
 	parent.alive = false
+	parent.died.emit(parent)
+	EventBus.enemyKilled.emit(parent)

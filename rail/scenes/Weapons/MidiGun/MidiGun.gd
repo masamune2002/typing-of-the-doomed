@@ -9,19 +9,16 @@ const MIDI_PITCH_MAX = 127
 func _ready():
 	fireType = Enums.WEAPON_FIRE_TYPE.MIDI
 	OS.open_midi_inputs()
-	print(OS.get_connected_midi_inputs())
 	midiSwitch = _initializeSwitch(midiSwitch)
 
 func fire(event : InputEvent) -> Variant:
 	if canFire(event):
 		return _processMidiEvent(event)
-	print('MIDI Gun can\'t fire!')
 	return null
 
 func _initializeSwitch(switch : Array[InputEventMIDI]):
 	switch.resize(abs(MIDI_PITCH_MIN) + abs(MIDI_PITCH_MAX))
-	for i in range(MIDI_PITCH_MIN, MIDI_PITCH_MAX):
-		switch.fill(null)
+	switch.fill(null)
 	return switch
 
 func canFire(inputEvent : InputEvent):

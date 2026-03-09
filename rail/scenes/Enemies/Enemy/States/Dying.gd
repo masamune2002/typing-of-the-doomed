@@ -9,7 +9,7 @@ func enter(previousState : Enums.ENEMY_STATE) -> void:
 	parent.cancelTelegraph()
 	parent.dying = true
 	parent.alive = false
-	parent.startedDying.emit(self)
+	parent.startedDying.emit(parent)
 	parent.enemyTargetLabel.hide()
 	EventBus.releasePlayerTarget.emit()
 

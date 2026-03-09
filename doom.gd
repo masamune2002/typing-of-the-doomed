@@ -16,4 +16,4 @@ func _ready() -> void:
 	loader.load_wad(file_path, FIRST_MAP_IDX)
 
 func _onMapCreated() -> void:
-	print_debug('loaded map')
+	pass

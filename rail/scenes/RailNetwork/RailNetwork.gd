@@ -39,7 +39,6 @@ func _connect_station_signals() -> void:
 	_dirty = true
 
 func _on_station_changed() -> void:
-	print('station')
 	_dirty = true
 
 # ---- Core generation ----

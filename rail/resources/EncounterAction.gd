@@ -6,7 +6,7 @@ var _finished : bool = false
 signal finished
 
 func run(encounterPoint : EncounterPoint) -> void:
-	print('Not implemented. Nothing to do.')
+	push_warning('EncounterAction.run() not implemented')
 
 func finish():
 	_finished = true

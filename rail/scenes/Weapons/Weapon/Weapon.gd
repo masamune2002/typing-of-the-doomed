@@ -12,7 +12,7 @@ func canFire(event : InputEvent) -> bool:
 	return false
 
 func fire(inputEvent : InputEvent) -> Variant:
-	print('Fire not implemented')
+	push_warning('Weapon.fire() not implemented')
 	return null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
