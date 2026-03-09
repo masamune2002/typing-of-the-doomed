@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b0e435ir2m5fv" path="res://rail/resources/EncounterAction.gd" id="6_3nwf0"]
 [ext_resource type="PackedScene" uid="uid://be8sl7bhrmbur" path="res://rail/scenes/EncounterPoint/EncounterPoint.tscn" id="6_q87sj"]
 [ext_resource type="Script" uid="uid://u5cuwct7g52m" path="res://rail/resources/Actions/ActivateEnemiesAction.gd" id="6_tuk0d"]
-[ext_resource type="PackedScene" uid="uid://c40jhux8xnfsg" path="res://rail/scenes/Enemies/Skeleton/Skeleton.tscn" id="7_3nwf0"]
+[ext_resource type="PackedScene" uid="uid://c3zombieman01" path="res://rail/scenes/Enemies/Zombieman/Zombieman.tscn" id="7_3nwf0"]
 [ext_resource type="Script" uid="uid://ccik6wen78mos" path="res://rail/resources/Actions/PrintAction.gd" id="7_vyfxj"]
 [ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_x4c1j"]
 [ext_resource type="Script" uid="uid://d2nek84n3bhtq" path="res://rail/resources/Conditions/EnemiesDefeatedCondition.gd" id="8_sluiw"]
@@ -24,7 +24,7 @@ ambient_light_source = 3
 
 [sub_resource type="Resource" id="Resource_q87sj"]
 script = ExtResource("6_tuk0d")
-enemiesToActivate = Array[NodePath]([NodePath("Node/Skeleton")])
+enemiesToActivate = Array[NodePath]([NodePath("Node/Zombieman")])
 metadata/_custom_type_script = "uid://u5cuwct7g52m"
 
 [sub_resource type="Resource" id="Resource_lfbwn"]
@@ -34,7 +34,7 @@ metadata/_custom_type_script = "uid://ccik6wen78mos"
 
 [sub_resource type="Resource" id="Resource_4sfe3"]
 script = ExtResource("8_sluiw")
-enemies = Array[NodePath]([NodePath("Node/Skeleton")])
+enemies = Array[NodePath]([NodePath("Node/Zombieman")])
 metadata/_custom_type_script = "uid://d2nek84n3bhtq"
 
 [node name="Main" type="Node3D"]
@@ -54,7 +54,7 @@ conditions = Array[ExtResource("7_x4c1j")]([SubResource("Resource_4sfe3")])
 [node name="Node" type="Node3D" parent="EncounterPoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82, 0)
 
-[node name="Skeleton" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
+[node name="Zombieman" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Zombie" parent="EncounterPoint/Node" instance=ExtResource("10_x4c1j")]
