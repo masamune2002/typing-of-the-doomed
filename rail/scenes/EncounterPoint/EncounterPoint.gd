@@ -26,7 +26,7 @@ func _snapToFloor() -> void:
 	if space_state == null:
 		return
 	
-	var from = global_position + Vector3.UP * 10.0
+	var from = global_position
 	var to = global_position + Vector3.DOWN * 100.0
 	var query = PhysicsRayQueryParameters3D.create(from, to)
 	query.collision_mask = 1  # Adjust mask if floor is on different layer
