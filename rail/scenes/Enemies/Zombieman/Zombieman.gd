@@ -92,6 +92,12 @@ func _process(delta: float) -> void:
 	if !_spritesLoaded:
 		return
 	
+	# Always face the player when active
+	if active and alive:
+		var player = Game.getPlayer()
+		if player and is_instance_valid(player):
+			look_at(player.global_position, Vector3.UP, false)
+	
 	_frameTimer += delta
 	if _frameTimer >= FRAME_DURATION:
 		_frameTimer = 0.0

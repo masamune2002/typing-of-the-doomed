@@ -6,7 +6,6 @@ func _ready() -> void:
 	displayName = 'Attacking'
 
 func enter(previousState: Enums.ENEMY_STATE) -> void:
-	print("ZombiemanAttacking.enter: setting animation to attack")
 	if parent is Zombieman:
 		parent._currentAnimation = "attack"
 		parent._currentFrameIndex = 0

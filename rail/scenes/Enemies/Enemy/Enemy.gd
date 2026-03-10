@@ -41,12 +41,14 @@ func _ready() -> void:
 		weakness.setup(difficulty)
 	add_to_group('Enemies')
 	EventBus.enemySpawned.emit(self)
-	var animationName = animationLibraryName + "/" + ANIMATION_NAME_IDLE
-	animationPlayer.play(animationName)
+	if animationPlayer != null:
+		var animationName = animationLibraryName + "/" + ANIMATION_NAME_IDLE
+		animationPlayer.play(animationName)
 	
 
 func activate() -> void:
-	animationPlayer.stop(false)
+	if animationPlayer != null:
+		animationPlayer.stop(false)
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE):
