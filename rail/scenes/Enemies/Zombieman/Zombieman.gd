@@ -134,6 +134,8 @@ func _updateSprite() -> void:
 	if _sprites.has(spriteName):
 		sprite.texture = _sprites[spriteName]
 		sprite.flip_h = shouldFlip
+	else:
+		print("Zombieman: sprite '", spriteName, "' not found. Available: ", _sprites.keys())
 
 func _calculateAngleIndex() -> int:
 	var camera = get_viewport().get_camera_3d()
