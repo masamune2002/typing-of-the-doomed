@@ -96,7 +96,7 @@ func _process(delta: float) -> void:
 	if active and alive:
 		var player = Game.getPlayer()
 		if player and is_instance_valid(player):
-			look_at(player.global_position, Vector3.UP, false)
+			look_at(player.global_position, Vector3.UP, true)
 	
 	_frameTimer += delta
 	if _frameTimer >= FRAME_DURATION:
