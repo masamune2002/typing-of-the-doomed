@@ -1,7 +1,7 @@
 extends Node
 class_name EnemyManager
 
-@export var attackSecs : int = 30
+@export var attackSecs : int = 5
 
 var playerRef : Player
 var enemies : Array[Enemy] = []
