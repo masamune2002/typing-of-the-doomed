@@ -12,6 +12,7 @@ const FRAME_DURATION = 0.15
 @onready var sprite: Sprite3D = $Sprite3D
 
 var _sprites: Dictionary = {}  # {"POSSA1": Texture2D, ...}
+var _spriteFlip: Dictionary = {}  # {"POSSA6": true, ...} angles that need horizontal flip
 var _currentAnimation: String = "idle"
 var _currentFrameIndex: int = 0
 var _frameTimer: float = 0.0
@@ -53,24 +54,39 @@ func _onProcessFrameRetryLoad() -> void:
 func _loadSprites() -> void:
 	var allFrames = IDLE_FRAMES + ATTACK_FRAMES + DEATH_FRAMES
 	
+	# DOOM sprite naming: angles 2&8, 3&7, 4&6 share sprites (e.g. POSSA2A8)
+	var anglePatterns = [
+		{"name": "1", "angles": [1]},
+		{"name": "2A8", "angles": [2, 8]},
+		{"name": "3A7", "angles": [3, 7]},
+		{"name": "4A6", "angles": [4, 6]},
+		{"name": "5", "angles": [5]},
+	]
+	
 	for frame in allFrames:
-		# Angles 1-5 for most frames (6-8 are mirrored), M only has angle 0
-		var angles = ["1", "2", "3", "4", "5"]
 		if frame == "M":
-			angles = ["0"]
-		
-		for angle in angles:
-			var spriteName = SPRITE_PREFIX + frame + angle
+			# Death frame only has angle 0
+			var spriteName = SPRITE_PREFIX + frame + "0"
 			var texture = Game.fetchSprite(spriteName)
-			print("Zombieman: fetchSprite('", spriteName, "') = ", texture)
 			if texture != null:
 				_sprites[spriteName] = texture
+				for i in range(1, 9):
+					_sprites[SPRITE_PREFIX + frame + str(i)] = texture
+		else:
+			for pattern in anglePatterns:
+				var spriteName = SPRITE_PREFIX + frame + pattern["name"]
+				var texture = Game.fetchSprite(spriteName)
+				if texture != null:
+					# Map this texture to all angles it covers
+					for angle in pattern["angles"]:
+						_sprites[SPRITE_PREFIX + frame + str(angle)] = texture
+						# Mark which angles need flipping (6, 7, 8)
+						if angle >= 6:
+							_spriteFlip[SPRITE_PREFIX + frame + str(angle)] = true
 	
 	_spritesLoaded = _sprites.size() > 0
-	print("Zombieman: loaded ", _sprites.size(), " sprites, _spritesLoaded=", _spritesLoaded)
 	if _spritesLoaded:
 		_updateSprite()
-		print("Zombieman: sprite texture set to ", sprite.texture)
 
 func _process(delta: float) -> void:
 	if !_spritesLoaded:
@@ -114,27 +130,11 @@ func _updateSprite() -> void:
 	
 	var frame = frames[_currentFrameIndex]
 	var angleIndex = _calculateAngleIndex()
-	
-	# Handle final death frame (M) which only has angle 0
-	var angleStr = str(angleIndex)
-	if frame == "M":
-		angleStr = "0"
-	
-	var spriteName = SPRITE_PREFIX + frame + angleStr
-	
-	# Handle mirrored sprites (angles 6-8 mirror 2-4)
-	var shouldFlip = false
-	if angleIndex >= 6 and frame != "M":
-		# Mirror: 6->4, 7->3, 8->2
-		var mirroredAngle = 10 - angleIndex
-		var mirroredName = SPRITE_PREFIX + frame + str(mirroredAngle)
-		if _sprites.has(mirroredName):
-			spriteName = mirroredName
-			shouldFlip = true
+	var spriteName = SPRITE_PREFIX + frame + str(angleIndex)
 	
 	if _sprites.has(spriteName):
 		sprite.texture = _sprites[spriteName]
-		sprite.flip_h = shouldFlip
+		sprite.flip_h = _spriteFlip.has(spriteName)
 	else:
 		print("Zombieman: sprite '", spriteName, "' not found. Available: ", _sprites.keys())
 

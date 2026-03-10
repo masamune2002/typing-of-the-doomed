@@ -10,10 +10,6 @@ func enter(previousState: Enums.ENEMY_STATE) -> void:
 	parent.enemyTargetLabel.hide()
 
 func exit(newState: Enums.ENEMY_STATE) -> void:
-	var fireType = Game.getWeaponFireType()
-	print("ZombiemanInactive.exit: fireType=", fireType)
-	parent.setWeakness(fireType)
-	print("ZombiemanInactive.exit: label text=", parent.enemyTargetLabel.text)
+	parent.setWeakness(Game.getWeaponFireType())
 	parent.active = true
 	parent.enemyTargetLabel.show()
-	print("ZombiemanInactive.exit: label visible=", parent.enemyTargetLabel.visible)

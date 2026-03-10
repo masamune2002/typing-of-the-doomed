@@ -50,14 +50,9 @@ func activate() -> void:
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE):
-	print("setWeakness: fireType=", fireType, " weaknesses.keys()=", weaknesses.keys())
 	if weaknesses.get(fireType) != null:
 		_currentWeaknessType = fireType
-		var labelText = weaknesses.get(_currentWeaknessType).getLabelText()
-		print("setWeakness: setting label to '", labelText, "'")
-		enemyTargetLabel.text = labelText
-	else:
-		print("setWeakness: weakness not found for fireType=", fireType)
+		enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText()
 
 func changeLabel(text : String):
 	enemyTargetLabel.text = text
