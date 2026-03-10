@@ -62,6 +62,7 @@ func _loadSprites() -> void:
 		for angle in angles:
 			var spriteName = SPRITE_PREFIX + frame + angle
 			var texture = Game.fetchSprite(spriteName)
+			print("Zombieman: fetchSprite('", spriteName, "') = ", texture)
 			if texture != null:
 				_sprites[spriteName] = texture
 	
