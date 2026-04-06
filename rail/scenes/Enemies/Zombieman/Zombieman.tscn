@@ -17,17 +17,17 @@ script = ExtResource("1_zombieman")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-pixel_size = 0.02
+pixel_size = 0.04
 billboard = 1
 
 [node name="EnemyTargetLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, 0)
 billboard = 1
 no_depth_test = true
 text = ""
 
 [node name="StateLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 visible = false
 no_depth_test = true
 modulate = Color(1, 0.482353, 1, 1)

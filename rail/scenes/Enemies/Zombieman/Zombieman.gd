@@ -1,13 +1,16 @@
 extends Enemy
 class_name Zombieman
 
-# DOOM sprite naming: POSSxY where x=frame (A-M), Y=angle (1-8, 0=no rotation)
-# A-B: Idle, C-D: Walk, E-G: Attack, H: Pain, I-L: Death, M: Dead on ground
+# DOOM sprite naming: POSSxY where x=frame letter, Y=angle (1-8, 0=no rotation)
+# A-B: Idle, C-D: Walk, E-F: Attack, G: Pain, H-L: Death (L=corpse)
 const SPRITE_PREFIX = "POSS"
 const IDLE_FRAMES = ["A", "B"]
-const ATTACK_FRAMES = ["E", "F", "G"]
-const DEATH_FRAMES = ["I", "J", "K", "L", "M"]
-const FRAME_DURATION = 0.15
+const ATTACK_FRAMES = ["E", "F"]
+const DEATH_FRAMES = ["H", "I", "J", "K", "L"]
+# Frames that only have angle 0 (no rotation variants)
+const ANGLE_ZERO_FRAMES = ["H", "I", "J", "K", "L"]
+# DOOM runs at 35 ticks/sec, idle frames have Dur=10, death frames Dur=5
+const FRAME_DURATION = 10.0 / 35.0  # ~0.286s per frame
 
 @onready var sprite: Sprite3D = $Sprite3D
 
@@ -17,12 +20,16 @@ var _currentAnimation: String = "idle"
 var _currentFrameIndex: int = 0
 var _frameTimer: float = 0.0
 var _spritesLoaded: bool = false
+var _deathComplete: bool = false
 
 func _ready() -> void:
-	difficulty = 1
+	difficulty = 2
 	dying = false
 	alive = true
-	
+	baseDamageMin = 5
+	baseDamageMax = 10
+	attackSound = "DSPISTOL"
+
 	# Setup weaknesses (from base Enemy)
 	var midiScaleWeakness = MidiScaleWeakness.new()
 	var typingWeakness = TypingWeakness.new()
@@ -64,8 +71,8 @@ func _loadSprites() -> void:
 	]
 	
 	for frame in allFrames:
-		if frame == "M":
-			# Death frame only has angle 0
+		if frame in ANGLE_ZERO_FRAMES:
+			# These frames only have angle 0 (no rotation variants)
 			var spriteName = SPRITE_PREFIX + frame + "0"
 			var texture = Game.fetchSprite(spriteName)
 			if texture != null:
@@ -84,12 +91,28 @@ func _loadSprites() -> void:
 						if angle >= 6:
 							_spriteFlip[SPRITE_PREFIX + frame + str(angle)] = true
 	
+	# Fill in missing angles by falling back to nearest available angle
+	# Some frames only have angles 1 and 5 (front/back)
+	for frame in allFrames:
+		if frame in ANGLE_ZERO_FRAMES:
+			continue
+		for angle in range(1, 9):
+			var key = SPRITE_PREFIX + frame + str(angle)
+			if not _sprites.has(key):
+				# Front-facing angles (8,1,2,3) fall back to 1, back-facing (4,5,6,7) to 5
+				var fallback_angle = 1 if angle in [1, 2, 3, 8] else 5
+				var fallback_key = SPRITE_PREFIX + frame + str(fallback_angle)
+				if _sprites.has(fallback_key):
+					_sprites[key] = _sprites[fallback_key]
+					if angle >= 6:
+						_spriteFlip[key] = true
+
 	_spritesLoaded = _sprites.size() > 0
 	if _spritesLoaded:
 		_updateSprite()
 
 func _process(delta: float) -> void:
-	if !_spritesLoaded:
+	if !_spritesLoaded or _deathComplete:
 		return
 	
 	# Always face the player when active
@@ -141,32 +164,14 @@ func _updateSprite() -> void:
 	if _sprites.has(spriteName):
 		sprite.texture = _sprites[spriteName]
 		sprite.flip_h = _spriteFlip.has(spriteName)
+		# Reposition sprite so bottom sits on the floor (texture height may vary per frame)
+		sprite.position.y = (sprite.texture.get_height() / 2.0) * sprite.pixel_size
 	else:
 		print("Zombieman: sprite '", spriteName, "' not found. Available: ", _sprites.keys())
 
 func _calculateAngleIndex() -> int:
-	var camera = get_viewport().get_camera_3d()
-	if camera == null:
-		return 1
-	
-	var toCamera = (camera.global_position - global_position).normalized()
-	var forward = global_transform.basis.z.normalized()
-	
-	# Calculate angle between camera direction and enemy forward
-	var angle = atan2(
-		toCamera.x * forward.z - toCamera.z * forward.x,
-		toCamera.x * forward.x + toCamera.z * forward.z
-	)
-	
-	# Convert to DOOM's 8-angle system (1-8)
-	# 1=front (enemy facing camera), 5=back (enemy facing away)
-	var index = int(round(angle / (PI / 4.0))) + 1
-	if index <= 0:
-		index += 8
-	while index > 8:
-		index -= 8
-	
-	return index
+	# Enemy always faces the player via look_at, so always show front view
+	return 1
 
 # Override base Enemy methods for sprite-based animation
 
@@ -191,6 +196,15 @@ func _startSpriteDeath() -> void:
 	# Wait for death animation to complete
 	var deathDuration = DEATH_FRAMES.size() * FRAME_DURATION
 	await get_tree().create_timer(deathDuration).timeout
+
+	# Lock to corpse sprite (POSSL0 - last frame of death sequence)
+	_deathComplete = true
+	var corpseKey = SPRITE_PREFIX + "L0"
+	if _sprites.has(corpseKey):
+		sprite.texture = _sprites[corpseKey]
+		sprite.flip_h = false
+		sprite.position.y = (sprite.texture.get_height() / 2.0) * sprite.pixel_size
+
 	stateMachine.setState(Enums.ENEMY_STATE.DEAD)
 
 func startAttack(target: Player) -> void:

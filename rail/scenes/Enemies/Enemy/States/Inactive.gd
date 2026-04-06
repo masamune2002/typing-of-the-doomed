@@ -19,7 +19,8 @@ func enter(previousState : Enums.ENEMY_STATE) -> void:
 func exit(newState : Enums.ENEMY_STATE) -> void:
 	parent.setWeakness(Game.getWeaponFireType())
 	parent.active = true
-	parent.enemyTargetLabel.show()
+	if parent.visible_to_player:
+		parent.enemyTargetLabel.show()
 	if _pausedAnimation != null && _pausedAnimation != "":
 		parent.animationPlayer.seek(_pausedAnimationSeekTime, true)
 		parent.animationPlayer.play(_pausedAnimation)

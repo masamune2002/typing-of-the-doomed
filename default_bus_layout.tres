@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=49 format=3 uid="uid://csaauunoxt3so"]
+[gd_resource type="AudioBusLayout" format=3 uid="uid://csaauunoxt3so"]
 
 [sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
 wet = 0.0

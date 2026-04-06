@@ -8,12 +8,20 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Typing of the DOOMed"
 run/main_scene="uid://bkha3o263f6i"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://csaauunoxt3so"
 
 [autoload]
 
@@ -21,6 +29,10 @@ ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 Game="*res://rail/scenes/Game/Game.tscn"
 EventBus="*res://rail/scenes/EventBus/EventBus.tscn"
 Utils="*res://rail/scenes/Utils/Utils.tscn"
+
+[display]
+
+window/size/mode=3
 
 [editor_plugins]
 

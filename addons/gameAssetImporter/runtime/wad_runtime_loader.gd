@@ -5,7 +5,7 @@ const loader_scene_path: String = "res://addons/godotWad/WAD_Loader.tscn"
 signal mapCreated
 signal playerCreated
 
-## Logical “game name” used by the loader.
+## Logical "game name" used by the loader.
 @export var game_name: String = "Doom"
 
 ## Internal name used by ENTG / caches.
@@ -16,6 +16,9 @@ signal playerCreated
 
 ## Optional extra params for the loader (if needed).
 @export var extra_params: PackedStringArray = []
+
+## If true, only load level geometry — skip all WAD entity creation (enemies, items, etc.).
+@export var geometry_only: bool = false
 
 var _loader: WAD_Map
 
@@ -32,7 +35,7 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 	_loader = load(loader_scene_path).instantiate()
 	_loader.mapCreated.connect(mapCreated.emit)
 	_loader.playerCreated.connect(playerCreated.emit)
-	add_child(_loader) # many loaders assume they’re in the tree
+	add_child(_loader) # many loaders assume they're in the tree
 
 	# 2) Build the params array (mirrors loaderInit())
 	var params: Array = []
@@ -54,13 +57,13 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 			push_error("WadRuntimeLoader: loader has no getAllMaps(), please set map_name manually.")
 			return
 
-	# 4) Build the map node (like itemSelected() but without preview/caches)
+	# 4) Build the map node
 	var meta: Dictionary = {}
+	if geometry_only:
+		meta["blankMap"] = true
 	var map_node: Node3D = null
 
 	if _loader.has_method("createMap"):
-		# Use the 4-arg form that makeUI uses for preview:
-		# cur.createMap(txt, curMeta, false, get_tree().get_root())
 		map_node = _loader.createMap(map_name, meta, false, get_tree().get_root())
 	else:
 		push_error("WadRuntimeLoader: loader has no createMap().")
@@ -78,6 +81,31 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 	# Optional: position/rotate the map
 	map_node.position = Vector3.ZERO
 
-	var player = _loader.spawn('playerguy')
-	add_child(player)
+	if not geometry_only:
+		var player = _loader.spawn('playerguy')
+		add_child(player)
+	return map_node
+
+func load_map(new_map_name: String) -> Node3D:
+	if _loader == null:
+		push_error("WadRuntimeLoader: no loader initialized. Call load_wad first.")
+		return null
+
+	map_name = new_map_name
+
+	var meta: Dictionary = {}
+	if geometry_only:
+		meta["blankMap"] = true
+	# Don't reload WAD data, just create the new map
+	meta["reloadWads"] = false
+
+	var map_node: Node3D = _loader.createMap(map_name, meta, false, get_tree().get_root())
+	if map_node == null:
+		push_error("WadRuntimeLoader: createMap returned null for ", map_name)
+		return null
+
+	if map_node.get_parent() != null:
+		map_node.get_parent().remove_child(map_node)
+	add_child(map_node)
+	map_node.position = Vector3.ZERO
 	return map_node

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuvkh6kojpw0t" path="res://rail/scenes/UI/PlayerUI/PlayerUI.gd" id="1_cmhnt"]
 [ext_resource type="PackedScene" uid="uid://dbuj42a3cavrl" path="res://rail/scenes/UI/DialogBox/DialogBox.tscn" id="2_qocgs"]
-[ext_resource type="PackedScene" uid="uid://c315mn8xsnbqr" path="res://rail/scenes/UI/HealthBar/HealthBar.tscn" id="3_l3r88"]
+[ext_resource type="PackedScene" path="res://rail/scenes/UI/StatusBar/StatusBar.tscn" id="3_statusbar"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dbvop"]
 
@@ -151,18 +151,21 @@ text = "LOADING..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HealthMarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -63.0
-offset_right = 263.0
-grow_vertical = 0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+[node name="WeaponSprite" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+stretch_mode = 0
+expand_mode = 1
 
-[node name="HealthBar" parent="HealthMarginContainer" instance=ExtResource("3_l3r88")]
+[node name="StatusBarMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StatusBar" parent="StatusBarMarginContainer" instance=ExtResource("3_statusbar")]
 layout_mode = 2

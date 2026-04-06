@@ -6,6 +6,7 @@ class_name TypingGun
 func _ready() -> void:
 	fireType = Enums.WEAPON_FIRE_TYPE.TYPING
 	showReticle = false
+	fireSound = "DSPISTOL"
 
 func canFire(inputEvent : InputEvent):
 	if inputEvent is InputEventKey and inputEvent.pressed == true:

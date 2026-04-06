@@ -7,4 +7,4 @@
 script = ExtResource("1_jsoly")
 portrait = ExtResource("1_iv6vb")
 name = "Fern"
-startingHealth = 3
+startingHealth = 100

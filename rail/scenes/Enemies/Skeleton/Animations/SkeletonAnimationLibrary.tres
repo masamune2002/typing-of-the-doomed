@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" load_steps=3 format=3 uid="uid://k21rscx5i2ab"]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://k21rscx5i2ab"]
 
 [sub_resource type="Animation" id="Animation_tyocp"]
 resource_name = "Take 001"

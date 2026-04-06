@@ -51,6 +51,7 @@ func bin(body):
 	if disabled:
 		return
 	if body.get_class() != "StaticBody3D":
+		print("[WalkTrigger] body entered: ", body.name, " class=", body.get_class(), " dir=", getDir(body))
 		tracking[body] = getDir(body)
 		
 		#if getDir(body) < 0:
@@ -67,20 +68,19 @@ func _physics_process(delta):
 				continue
 			var info = WADG.getSectorInfoForPoint(map,Vector2(body.global_position.x,body.global_position.z))
 		
-			if info == null:
-				return
-
 			var dir = getDir(body)
-			
+
 			var texture = null
 			var sectorTypeInfo = {}
-			
+
 			if has_meta("fTextureName"):
 				texture = get_meta("fTextureName")
-		
+
 			if (tracking[body] >0  and dir <=0) or (tracking[body] <0  and dir >=0):
+				print("[WalkTrigger] TRIGGERED! body=", body.name, " old_dir=", tracking[body], " new_dir=", dir)
 				emit_signal("walkOverSignal",body)
-				emit_signal("walkOverSignalTextureChange",body,texture,info["sectorIdx"] ,sectorTypeInfo)
+				if info != null:
+					emit_signal("walkOverSignalTextureChange",body,texture,info["sectorIdx"] ,sectorTypeInfo)
 				
 				tracking[body] = dir
 				if W1:

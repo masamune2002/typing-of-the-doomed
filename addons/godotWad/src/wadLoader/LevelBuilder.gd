@@ -1200,6 +1200,7 @@ func createInteractables(sectorToInteraction : Dictionary,mapDict : Dictionary) 
 	var a = Time.get_ticks_msec()
 	var tDict : gsheet = typeSheet
 	if mapDict["isHexen"]: tDict = typeDictHexen
+	print("[Triggers] createInteractables called for map: ", mapDict.get("name", "unknown"), " with ", sectorToInteraction.size(), " interaction sectors")
 	
 	
 	
@@ -1711,9 +1712,13 @@ func createTriggerNodeForType(i,secIndex):
 	
 	
 	var sectorIdxStr : String = "sector " + str(secIndex)
-	geomNode.get_node(sectorIdxStr).add_child(triggerNode)
-	#geomNode.add_child(triggerNode)
-	triggerNode.owner = geomNode.get_node(sectorIdxStr)
+	var sectorNode = geomNode.get_node_or_null(sectorIdxStr)
+	if sectorNode == null:
+		print("[Triggers] WARNING: sector node '", sectorIdxStr, "' not found in geomNode for trigger line ", lineIdx)
+		return null
+	sectorNode.add_child(triggerNode)
+	triggerNode.owner = sectorNode
+	print("[Triggers] Created trigger: type=", triggerType, " line=", lineIdx, " sector=", secIndex, " pos=", triggerNode.position)
 
 	
 	
@@ -1781,6 +1786,7 @@ func createAudioPlayback(soundName,loop=false):
 func createInteractionAreaNode(line : Dictionary,depth : float,tType : int,nameStr : String ="interactionBox") -> Area3D:
 	var scaleFactor : Vector3 = get_parent().scaleFactor
 	var areaNode : Area3D = Area3D.new()
+	areaNode.collision_mask = 3  # Detect bodies on layers 1 and 2 (player is on layer 2)
 	var collisionNode := CollisionShape3D.new()
 	var shapeNode := BoxShape3D.new()
 	
@@ -1854,7 +1860,7 @@ func createInteractionAreaNode(line : Dictionary,depth : float,tType : int,nameS
 	areaNode.set_meta("normal",normal)
 	var areaCenter = mid + normal*depth
 	
-	if hasTeleport or tType == TTYPE.WALK1 or TTYPE.WALKR:
+	if hasTeleport or tType == TTYPE.WALK1 or tType == TTYPE.WALKR:
 		areaCenter = mid - normal*(depth/2.0)
 	
 	#WADG.drawLine(self,startVec,endVec)

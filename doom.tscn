@@ -1,14 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkha3o263f6i"]
+[gd_scene format=3 uid="uid://bkha3o263f6i"]
 
 [ext_resource type="Script" uid="uid://da6aryja7ot8g" path="res://doom.gd" id="1_1041k"]
 [ext_resource type="PackedScene" uid="uid://c4hq4j7wyb1c5" path="res://rail/scenes/EnemyManager/EnemyManager.tscn" id="5_tuk0d"]
-[ext_resource type="Script" uid="uid://b0e435ir2m5fv" path="res://rail/resources/EncounterAction.gd" id="6_3nwf0"]
 [ext_resource type="PackedScene" uid="uid://be8sl7bhrmbur" path="res://rail/scenes/EncounterPoint/EncounterPoint.tscn" id="6_q87sj"]
-[ext_resource type="Script" uid="uid://u5cuwct7g52m" path="res://rail/resources/Actions/ActivateEnemiesAction.gd" id="6_tuk0d"]
-[ext_resource type="PackedScene" uid="uid://c3zombieman01" path="res://rail/scenes/Enemies/Zombieman/Zombieman.tscn" id="7_3nwf0"]
-[ext_resource type="Script" uid="uid://ccik6wen78mos" path="res://rail/resources/Actions/PrintAction.gd" id="7_vyfxj"]
-[ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_x4c1j"]
-[ext_resource type="Script" uid="uid://d2nek84n3bhtq" path="res://rail/resources/Conditions/EnemiesDefeatedCondition.gd" id="8_sluiw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1041k"]
 
@@ -20,41 +14,16 @@ background_mode = 2
 sky = SubResource("Sky_eeb5o")
 ambient_light_source = 3
 
-[sub_resource type="Resource" id="Resource_q87sj"]
-script = ExtResource("6_tuk0d")
-enemiesToActivate = Array[NodePath]([NodePath("Node/Zombieman")])
-metadata/_custom_type_script = "uid://u5cuwct7g52m"
-
-[sub_resource type="Resource" id="Resource_lfbwn"]
-script = ExtResource("7_vyfxj")
-stringToPrint = "Finished encounter"
-metadata/_custom_type_script = "uid://ccik6wen78mos"
-
-[sub_resource type="Resource" id="Resource_4sfe3"]
-script = ExtResource("8_sluiw")
-enemies = Array[NodePath]([NodePath("Node/Zombieman")])
-metadata/_custom_type_script = "uid://d2nek84n3bhtq"
-
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1530270668]
 script = ExtResource("1_1041k")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=733738406]
 environment = SubResource("Environment_0l477")
 
-[node name="EnemyManager" parent="." instance=ExtResource("5_tuk0d")]
+[node name="EnemyManager" parent="." unique_id=1713192529 instance=ExtResource("5_tuk0d")]
 
-[node name="EncounterPoint" parent="." instance=ExtResource("6_q87sj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.926792, 0.78573334, 110.514885)
-startActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_q87sj")])
-endActions = Array[ExtResource("6_3nwf0")]([SubResource("Resource_lfbwn")])
-conditions = Array[ExtResource("7_x4c1j")]([SubResource("Resource_4sfe3")])
+[node name="EncounterPoint" parent="." unique_id=394057543 instance=ExtResource("6_q87sj")]
 
-[node name="Node" type="Node3D" parent="EncounterPoint"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="EnemyContainer" type="Node3D" parent="EncounterPoint" unique_id=2048559888]
 
-[node name="Zombieman" parent="EncounterPoint/Node" instance=ExtResource("7_3nwf0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="SpawnEncounterPoint" parent="." instance=ExtResource("6_q87sj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
+[node name="SpawnEncounterPoint" parent="." unique_id=845766274 instance=ExtResource("6_q87sj")]

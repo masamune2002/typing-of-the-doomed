@@ -94,7 +94,7 @@ func set_default_actions_visibility(display: bool):
 	for item in items:
 		item.show_default = display or not item.is_default
 
-func grab_focus() -> void:
+func grab_focus(force: bool = false) -> void:
 	n_name_filter.grab_focus()
 
 

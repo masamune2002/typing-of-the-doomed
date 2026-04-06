@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://rail/scenes/Items/Item.gd" id="1_item"]
+
+[node name="Item" type="Node3D"]
+script = ExtResource("1_item")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+pixel_size = 0.03125
+billboard = 1
+
+[node name="ItemLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+billboard = 1
+no_depth_test = true
+render_priority = 10
+text = ""

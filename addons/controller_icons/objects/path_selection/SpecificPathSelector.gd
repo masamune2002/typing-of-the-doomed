@@ -134,7 +134,7 @@ func get_icon_path() -> String:
 		return button.icon.path
 	return ""
 
-func grab_focus() -> void:
+func grab_focus(force: bool = false) -> void:
 	n_name_filter.grab_focus()
 
 

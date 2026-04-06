@@ -1633,9 +1633,11 @@ func createSectorToInteraction(mapDict) ->  void:
 			if !sectorToInteraction.has(s):
 				sectorToInteraction[s] = []#create an interaction entry for sector
 			var dict = {"type":type,"line":lineIdx,"npcTrigger":npcTrigger}
-			
+
 			if line.has("triggerType"):
 				dict["triggerType"] = line["triggerType"]
+			elif typeInfo.has("triggerType"):
+				dict["triggerType"] = typeInfo["triggerType"]
 			
 			sectorToInteraction[s].append(dict)#set the interaction type for sector
 	
@@ -1751,33 +1753,39 @@ func isArraySubset(array1: Array, array2: Array) -> bool:
 
 
 func getTargetSectors(tagToSectors : Dictionary,targetTag : int,typeInfo : Dictionary,line : Dictionary,backSideSector) -> PackedInt32Array:
-	
+
 	var targetSectors : PackedInt32Array= []
-	
-	if !tagToSectors.has(targetTag):#if sectorTag of line invalid skip
-		return []
-	
+
 	if typeInfo["type"] == WADG.LTYPE.SCROLL or typeInfo["type"] == WADG.LTYPE.EXIT:#scroll is a special case that dosen't target oside(this is just a quick fix as all walls in the sector will be targeted which is incorrect)
-		
+		if !tagToSectors.has(targetTag):
+			if typeInfo["type"] == WADG.LTYPE.EXIT:
+				targetSectors = [line["frontSector"]]
+				return targetSectors
+			return []
+
 		if typeInfo["direction"] == WADG.DIR.UP or typeInfo["direction"] == WADG.DIR.DOWN:#boom ceil/floor scroller:
 			return tagToSectors[targetTag]
-			
+
 		targetSectors = [line["frontSector"]]
 		return targetSectors
-	
-	if targetTag != 0:
-		targetSectors = tagToSectors[targetTag]#we use tag to lookup target sector index
-		
-#		if typeInfo["type"] == WADG.LTYPE.TELEPORT and backSideSector != null:#this was put here due to E2M1 sector 54
-#			targetSectors.append(backSideSector)
-	
+
+	# Check if this is a door or switch type that targets the back sector
+	var useBackSector := false
 	if typeInfo.has("triggerType"):
-		if typeInfo["triggerType"] == WADG.TTYPE.DOOR or typeInfo["triggerType"] == WADG.TTYPE.DOOR1:#door types cannot use sector tags to target
-			targetTag = 0
-		
-	if targetTag == 0 and backSideSector != null:#0 tagged so the back sector is targeted
+		var tt = typeInfo["triggerType"]
+		if tt == WADG.TTYPE.DOOR or tt == WADG.TTYPE.DOOR1 \
+			or tt == WADG.TTYPE.SWITCH1 or tt == WADG.TTYPE.SWITCHR:
+			useBackSector = true
+
+	if targetTag != 0 and tagToSectors.has(targetTag):
+		targetSectors = tagToSectors[targetTag]#we use tag to lookup target sector index
+	elif useBackSector and backSideSector != null:
 		targetSectors = [backSideSector]
-	
+	elif targetTag == 0 and backSideSector != null:#0 tagged so the back sector is targeted
+		targetSectors = [backSideSector]
+	elif !tagToSectors.has(targetTag):
+		return []
+
 	return targetSectors
 
 

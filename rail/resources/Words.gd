@@ -4975,3 +4975,101 @@ const WORD_LIST = [
 	"zoning",
 	"zoom"
 ]
+
+const LETTERS = [
+	"a","b","c","d","e","f","g","h","i","j","k","l","m",
+	"n","o","p","q","r","s","t","u","v","w","x","y","z"
+]
+
+const KEYBOARD_CHARS = [
+	"a","b","c","d","e","f","g","h","i","j","k","l","m",
+	"n","o","p","q","r","s","t","u","v","w","x","y","z",
+	"0","1","2","3","4","5","6","7","8","9",
+	"!","@","#","$","%","^","&","*","(",")","-","_","=","+",
+	"[","]","{","}",";",":","'","\"",",",".","/","<",">","?","\\","|","`","~"
+]
+
+const SHORT_PHRASES = [
+	"rip and tear", "open fire", "hold steady", "lock and load",
+	"stay sharp", "fall back", "push forward", "take cover",
+	"aim true", "stand firm", "no mercy", "fight back",
+	"move out", "dig in", "press on", "gear up",
+	"eyes up", "heads down", "hit hard", "run fast",
+	"stay low", "fight on", "hold fast", "strike now",
+	"keep moving", "watch out", "step back", "charge in",
+	"stay alert", "fire away", "hang tough", "dead ahead",
+	"get ready", "on guard", "move fast", "stay cool",
+	"big trouble", "all clear", "good luck", "full speed"
+]
+
+const SHORT_SENTENCES = [
+	"the demons are here", "watch your back", "hold the line",
+	"they are everywhere", "we need more ammo", "the gate is open",
+	"something is coming", "do not stop moving", "we fight together",
+	"the walls are closing in", "keep your eyes open", "stay on your feet",
+	"this is not over yet", "there is no turning back", "we must push through",
+	"the horde approaches", "weapons at the ready", "darkness falls upon us",
+	"fire at will soldier", "the path is blocked", "find another way around",
+	"we are surrounded now", "hold your position here", "the floor is shaking",
+	"something wicked comes", "shoot first ask later", "brace for impact now",
+	"the night grows darker", "keep fighting no matter what", "rally to my position",
+	"we cannot afford to fail", "every bullet counts now", "the enemy draws near",
+	"steel yourselves for battle", "fortune favors the bold", "into the breach we go"
+]
+
+const COMPLEX_SENTENCES = [
+	"the forces of hell have breached the perimeter and they keep coming",
+	"we cannot let them reach the surface or everything we know will burn",
+	"every corridor is crawling with the undead and the lights are failing",
+	"the invasion has begun and we are the only ones standing in its way",
+	"reinforcements are not coming so we must hold this position ourselves",
+	"behind every door lurks a nightmare that no amount of training prepared us for",
+	"the ground trembles beneath our feet as something massive approaches from below",
+	"ammunition is running dangerously low and the enemy shows no sign of retreat",
+	"we have fought through impossible odds before but nothing quite like this",
+	"the screams echo through the hallways mixing with the sound of gunfire",
+	"every shadow could be hiding a demon waiting for the perfect moment to strike",
+	"the air reeks of sulfur and the temperature continues to climb around us",
+	"we did not ask for this fight but we will be the ones to finish it",
+	"somewhere in this facility there must be a way to shut the portal down",
+	"the marines who came before us did not survive but we intend to be different",
+	"they thought they could control the gateway but instead they unleashed armageddon",
+	"keep your finger on the trigger because hesitation means death down here",
+	"the demons grow stronger with each wave and our defenses are wearing thin",
+	"if we can reach the command center we might be able to seal the breach",
+	"there is a thin line between bravery and foolishness and we crossed it long ago"
+]
+
+static var _word_lists: Array = []
+static var _initialized: bool = false
+
+static func _init_word_lists() -> void:
+	if _initialized:
+		return
+	_initialized = true
+	_word_lists.resize(8)
+	_word_lists[0] = LETTERS
+	_word_lists[1] = KEYBOARD_CHARS
+	# Filter WORD_LIST by length for tiers 2-4
+	var short_words: Array[String] = []
+	var medium_words: Array[String] = []
+	var long_words: Array[String] = []
+	for word in WORD_LIST:
+		var len = word.length()
+		if len <= 5:
+			short_words.append(word)
+		if len >= 5 and len <= 10:
+			medium_words.append(word)
+		if len > 10:
+			long_words.append(word)
+	_word_lists[2] = short_words
+	_word_lists[3] = medium_words
+	_word_lists[4] = long_words
+	_word_lists[5] = SHORT_PHRASES
+	_word_lists[6] = SHORT_SENTENCES
+	_word_lists[7] = COMPLEX_SENTENCES
+
+static func get_word(difficulty: int) -> String:
+	_init_word_lists()
+	difficulty = clampi(difficulty, 0, 7)
+	return _word_lists[difficulty].pick_random()

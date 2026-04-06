@@ -1133,7 +1133,10 @@ static func setMidiPlayerData(midiPlayer,midiData :PackedByteArray) -> void:
 			return
 
 
-	if pData == midiData:
+	if midiPlayer == null or !is_instance_valid(midiPlayer):
+		return
+
+	if pData == midiData and midiPlayer.smf_data != null:
 		midiPlayer.play(0)
 		return
 	pData = midiData
@@ -1147,7 +1150,7 @@ static func setMidiPlayerData(midiPlayer,midiData :PackedByteArray) -> void:
 
 static func fetchMidiPlayer(tree : SceneTree):
 
-	if !tree.has_meta("midiPlayer"):
+	if !tree.has_meta("midiPlayer") or !is_instance_valid(tree.get_meta("midiPlayer")):
 		var midiPlayer = createMidiPlayer(SETTINGS.getSetting(tree,"soundFont"))
 		tree.set_meta("midiPlayer",midiPlayer)
 		tree.get_root().call_deferred("add_child",midiPlayer)

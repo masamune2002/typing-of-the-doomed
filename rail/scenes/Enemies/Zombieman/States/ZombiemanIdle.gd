@@ -6,6 +6,8 @@ func _ready() -> void:
 	displayName = 'Idle'
 
 func enter(previousState: Enums.ENEMY_STATE) -> void:
+	if !parent.alive:
+		return
 	if parent is Zombieman:
 		parent._currentAnimation = "idle"
 		parent._currentFrameIndex = 0

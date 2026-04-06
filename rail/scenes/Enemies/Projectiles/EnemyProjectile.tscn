@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://rail/scenes/Enemies/Projectiles/EnemyProjectile.gd" id="1_proj"]
+
+[node name="EnemyProjectile" type="Node3D"]
+script = ExtResource("1_proj")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.04
+billboard = 1

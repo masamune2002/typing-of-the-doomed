@@ -6,7 +6,7 @@ var _currentHitPointIndex : int
 
 func setup(difficulty) -> void:
 	weaknessType = Enums.WEAPON_FIRE_TYPE.TYPING
-	targetTypedText = WORDS.WORD_LIST.pick_random().split()
+	targetTypedText = WORDS.get_word(difficulty).split()
 	for _char in targetTypedText:
 		var newHitPoint = TypingHitPoint.new()
 		newHitPoint.setup(_char)

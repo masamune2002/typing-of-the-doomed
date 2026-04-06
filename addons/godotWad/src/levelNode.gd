@@ -86,11 +86,12 @@ func _ready():
 		ENTG.setMidiPlayerData(midiPlayer,rawMidiData)
 
 
-		if midiPlayer.get_parent() == null:
-			midiPlayer.ready.connect(midiPlayer.play)
-			get_parent().add_child(midiPlayer)
-		else :
-			midiPlayer.play()
+		if midiPlayer != null and is_instance_valid(midiPlayer):
+			if midiPlayer.get_parent() == null:
+				midiPlayer.ready.connect(midiPlayer.play)
+				get_parent().add_child(midiPlayer)
+			else :
+				midiPlayer.play()
 
 
 

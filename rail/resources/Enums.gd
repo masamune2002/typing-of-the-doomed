@@ -16,3 +16,9 @@ enum ENEMY_STATE {
 	DYING,
 	DEAD
 }
+
+enum ARMOR_TYPE {
+	NONE,
+	GREEN,  # absorbs 1/3 of damage
+	BLUE    # absorbs 1/2 of damage
+}
