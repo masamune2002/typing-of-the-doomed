@@ -59,6 +59,11 @@ func _on_add_next_station() -> void:
 	# Position offset: 3 units along the station's forward (-Z) direction
 	new_station.transform.origin = transform.origin + (-global_transform.basis.z.normalized() * 3.0)
 
+	# Give the new station a fresh random disc color so it's visually
+	# distinct from its parent. The scene's saved disc_color would
+	# otherwise suppress the randomize-on-ready fallback.
+	new_station.disc_color = Color.from_hsv(randf(), 0.7, 0.9)
+
 	# Add as sibling under the same parent (Stations container)
 	get_parent().add_child(new_station)
 	if get_tree() != null and get_tree().edited_scene_root != null:
