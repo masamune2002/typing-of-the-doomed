@@ -13,6 +13,10 @@ const BFG_SCENE = preload("res://weapons/BFG/BFG.tscn")
 var _weaponCycleIndex : int = 2  # start on pistol
 var _isChangingWeapon : bool = false
 
+var _headBobTime : float = 0.0
+var _headBobBaseY : float = 0.0
+var _headBobInitialized : bool = false
+
 func _ready() -> void:
 	if startingWeaponScene == null:
 		startingWeaponScene = PISTOL_SCENE
@@ -20,6 +24,22 @@ func _ready() -> void:
 		weaponScenes = [FIST_SCENE, CHAINSAW_SCENE, PISTOL_SCENE, SHOTGUN_SCENE,
 			CHAINGUN_SCENE, ROCKET_SCENE, PLASMA_SCENE, BFG_SCENE]
 	super()
+
+func _physics_process(delta: float) -> void:
+	super(delta)
+	if !_alive:
+		return
+	if not _headBobInitialized:
+		_headBobBaseY = _cameraRig.position.y
+		_headBobInitialized = true
+	var headBobScale = SettingsManager.head_bob if SettingsManager else 1.0
+	var horizSpeed = Vector2(velocity.x, velocity.z).length()
+	if horizSpeed > 0.01 and headBobScale > 0.0:
+		_headBobTime += delta * 10.0 * getMovementSpeedRatio()
+		_cameraRig.position.y = _headBobBaseY + sin(_headBobTime) * 0.3 * headBobScale
+	else:
+		_headBobTime = 0.0
+		_cameraRig.position.y = _headBobBaseY
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and !event.echo:

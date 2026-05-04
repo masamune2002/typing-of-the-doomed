@@ -40,9 +40,6 @@ const DEFAULT_TRACKING_SPEED : float = 15.0
 var trackingSpeed : float = DEFAULT_TRACKING_SPEED
 var _railSpeed : float = 0.0
 var _deathReady : bool = false  # True once death animation finishes and any key can restart
-var _headBobTime : float = 0.0
-var _headBobBaseY : float = 0.0
-var _headBobInitialized : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -178,18 +175,6 @@ func _physics_process(delta: float) -> void:
 			# a wall instead of stepping onto a higher floor — revert
 			if global_position.y < y_before - 0.01:
 				global_position = pos_before
-
-	# Head bob
-	var headBobScale = SettingsManager.head_bob if SettingsManager else 1.0
-	if not _headBobInitialized:
-		_headBobBaseY = _cameraRig.position.y
-		_headBobInitialized = true
-	if input_dir != Vector2.ZERO and headBobScale > 0.0:
-		_headBobTime += delta * 10.0 * getMovementSpeedRatio()
-		_cameraRig.position.y = _headBobBaseY + sin(_headBobTime) * 0.3 * headBobScale
-	else:
-		_headBobTime = 0.0
-		_cameraRig.position.y = _headBobBaseY
 
 	# Check for sector damage (nukage, lava, etc.)
 	_checkFloorDamage()
