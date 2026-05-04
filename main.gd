@@ -1106,6 +1106,8 @@ func _spawnInteractablesFromWad() -> void:
 		add_child(interactable)
 		interactable.global_position = _wadToWorld(world_pos)
 		interactable_count += 1
+		print("[INTERACTABLE] %s   wadNode=%s   ttype=%s   key=%s" % [
+			interactable.interactable_name, node.name, str(ttype), str(keyType)])
 		pass
 
 	# Spawn interactables for secret sectors that don't already have a door/switch
@@ -1174,6 +1176,8 @@ func _spawnInteractablesFromWad() -> void:
 				add_child(interactable)
 				interactable.global_position = _wadToWorld(world_pos)
 				interactable_count += 1
+				print("[INTERACTABLE secret-fallback] %s   wadNode=%s" % [
+					interactable.interactable_name, door_node.name])
 
 func _getInteractablePosition(node: Node3D, sector_poly_arr: Array, sectors_parsed: Array = []) -> Variant:
 	# Parse sector index from parent node name (e.g. "Sector 42")
