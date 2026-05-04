@@ -44,13 +44,25 @@ func _notification(what: int) -> void:
 # ---------------- helpers ----------------
 
 func _ensure_viz() -> void:
+	# Reuse an existing PathViz from the scene tree if present (avoids
+	# accumulating duplicate MeshInstance3D children across reloads).
+	if _viz == null or !is_instance_valid(_viz) or _viz.get_parent() != self:
+		_viz = get_node_or_null("PathViz") as MeshInstance3D
 	if _viz == null:
 		_viz = MeshInstance3D.new()
 		_viz.name = "PathViz"
 		add_child(_viz)
-		# Safely set owner only when an edited scene exists
-		if get_tree() != null and get_tree().edited_scene_root != null:
-			_viz.owner = get_tree().edited_scene_root
+		# Intentionally do NOT set owner — viz is editor-only and should
+		# not be serialized into the scene.
+
+	# One-shot cleanup of stray viz duplicates left over by older versions
+	# of this script (children named like @MeshInstance3D@NNNNN, plus any
+	# extra MeshInstance3Ds that aren't our kept PathViz).
+	for child in get_children():
+		if child == _viz:
+			continue
+		if child is MeshInstance3D:
+			child.queue_free()
 
 func _compute_state_hash() -> int:
 	var s := str(show_viz) + "|" + str(global_transform)

@@ -168,28 +168,9 @@ func _write_straight_curve(path: RailPath, from: RailStation, to: RailStation) -
 	path.curve = curve
 	path.transform = Transform3D.IDENTITY
 
-	# Simple editor-visible line (optional convenience)
-	var viz := path.get_node_or_null("PathViz") as MeshInstance3D
-	if viz == null:
-		viz = MeshInstance3D.new()
-		viz.name = "PathViz"
-		path.add_child(viz)
-		if get_tree() != null and get_tree().edited_scene_root != null:
-			viz.owner = get_tree().edited_scene_root
-	viz.mesh = _make_line_mesh(p0, p1)
-
-func _make_line_mesh(a: Vector3, b: Vector3) -> Mesh:
-	var mm := ImmediateMesh.new()
-	mm.surface_begin(Mesh.PRIMITIVE_LINES)
-	mm.surface_add_vertex(a)
-	mm.surface_add_vertex(b)
-	mm.surface_end()
-
-	# Unshaded material so it’s visible in the editor
-	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mm.surface_set_material(0, mat)
-	return mm
+	# RailPath owns its own viz; ask it to refresh after the curve change.
+	if path.has_method("_refresh_viz"):
+		path._refresh_viz()
 
 # ---- Editor view mode ----
 
