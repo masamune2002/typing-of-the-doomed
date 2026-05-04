@@ -57,7 +57,7 @@ var _root : Control = null
 var _doom_font : Font = null
 
 const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
-const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "WASD MOVEMENT", "BACK"]
+const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "WASD MOVEMENT", "BACK"]
 
 # Save name editing
 var _editing_save_name : bool = false
@@ -326,6 +326,10 @@ func _getDebugOptionText(opt_name: String, _target_width: float) -> String:
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_reticle else "OFF")
 		"SHOW STATIONS":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_show_stations else "OFF")
+		"SHOW RAILS":
+			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_show_rails else "OFF")
+		"SKIP ENCOUNTERS":
+			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_skip_encounters else "OFF")
 		"WASD MOVEMENT":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_wasd else "OFF")
 		"BACK":
@@ -347,6 +351,10 @@ func _adjustDebugOption(direction: int) -> void:
 			SettingsManager.debug_reticle = !SettingsManager.debug_reticle
 		"SHOW STATIONS":
 			SettingsManager.debug_show_stations = !SettingsManager.debug_show_stations
+		"SHOW RAILS":
+			SettingsManager.debug_show_rails = !SettingsManager.debug_show_rails
+		"SKIP ENCOUNTERS":
+			SettingsManager.debug_skip_encounters = !SettingsManager.debug_skip_encounters
 		"WASD MOVEMENT":
 			SettingsManager.debug_wasd = !SettingsManager.debug_wasd
 	_updateDebugValues()

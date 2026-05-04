@@ -5,6 +5,8 @@ class_name NearbyEnemiesClearedCondition
 @export var max_distance: float = 20.0
 
 func check(encounterPoint: EncounterPoint) -> bool:
+	if SettingsManager != null and SettingsManager.debug_skip_encounters:
+		return true
 	var player = Game.getPlayer()
 	if player == null:
 		return true

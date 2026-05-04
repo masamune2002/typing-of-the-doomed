@@ -25,14 +25,26 @@ func _ready() -> void:
 		_ensure_viz()
 		_refresh_viz()
 		set_process(true)
+	else:
+		_apply_runtime_visibility()
+		set_process(true)
 
 func _process(delta: float) -> void:
 	if !Engine.is_editor_hint():
+		_apply_runtime_visibility()
 		return
 	var h := _compute_state_hash()
 	if h != _last_hash:
 		_last_hash = h
 		_refresh_viz()
+
+func _apply_runtime_visibility() -> void:
+	var viz := get_node_or_null("PathViz") as MeshInstance3D
+	if viz == null:
+		return
+	var want := SettingsManager != null and SettingsManager.debug_show_rails
+	if viz.visible != want:
+		viz.visible = want
 
 func _notification(what: int) -> void:
 	if !Engine.is_editor_hint():

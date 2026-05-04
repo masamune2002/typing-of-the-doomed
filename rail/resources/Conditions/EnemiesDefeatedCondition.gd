@@ -4,6 +4,8 @@ class_name EnemiesDefeatedCondition
 @export var enemies : Array[NodePath]
 
 func check(encounterPoint : EncounterPoint) -> bool:
+	if SettingsManager != null and SettingsManager.debug_skip_encounters:
+		return true
 	if enemies.size() == 0:
 		return true
 	for enemyNodePath in enemies:
