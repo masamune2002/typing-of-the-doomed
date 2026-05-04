@@ -2,6 +2,8 @@
 extends Node3D
 class_name RailNetwork
 
+const RailPathScript := preload("res://rail/scenes/RailPath/RailPath.gd")
+
 enum ViewMode { SHOW_ALL, FOCUS_STATION, RAILS_ONLY, STATIONS_ONLY }
 
 @export_group("Editor View")
@@ -105,7 +107,7 @@ func _regenerate_paths() -> void:
 		var railPath: RailPath = existing.get(key, null)
 
 		if railPath == null:
-			railPath = RailPath.new()
+			railPath = RailPathScript.new()
 			railPath.name = key
 			from.add_child(railPath)
 			if get_tree() != null and get_tree().edited_scene_root != null:
@@ -168,9 +170,8 @@ func _write_straight_curve(path: RailPath, from: RailStation, to: RailStation) -
 	path.curve = curve
 	path.transform = Transform3D.IDENTITY
 
-	# RailPath owns its own viz; ask it to refresh after the curve change.
-	if path.has_method("_refresh_viz"):
-		path._refresh_viz()
+	# RailPath's own _process hash-poll picks up curve changes; no
+	# explicit refresh needed here.
 
 # ---- Editor view mode ----
 
