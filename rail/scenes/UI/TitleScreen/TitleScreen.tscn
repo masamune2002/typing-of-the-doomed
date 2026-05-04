@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://4vco08inaohq"]
+
+[ext_resource type="Script" uid="uid://c57sv73ma4lvd" path="res://rail/scenes/UI/TitleScreen/TitleScreen.gd" id="1_script"]
+
+[node name="TitleScreen" type="Node" unique_id=1621784646]
+script = ExtResource("1_script")

@@ -16,7 +16,7 @@ script = ExtResource("1_dulo0")
 root_node = NodePath("../..")
 
 [node name="EnemyTargetLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 billboard = 1
 no_depth_test = true
 render_priority = 10

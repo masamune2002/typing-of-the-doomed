@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r \"ControllerIcons\\\\|controller_icons\" /home/claude/workspace --include=*.gd --include=*.tscn --include=*.tres --exclude-dir=addons/controller_icons)",
+      "Bash(grep -r \"ControllerIcons\\\\|controller_icons\\\\|force_type\" /home/claude/workspace/rail --include=*.gd)",
+      "Bash(grep -r \"ControllerIconTexture\\\\|TextureRect.gd\\\\|ControllerIconTexture.gd\" /home/claude/workspace --include=*.tscn --exclude-dir=addons/controller_icons)",
+      "Bash(grep -r \"path = ui_\\\\|path = weaponSwitch\\\\|path = action_\" /home/claude/workspace --include=*.tscn --exclude-dir=addons/controller_icons)",
+      "Bash(for prefix:*)",
+      "Bash(do echo:*)",
+      "Bash(grep -r \"$prefix\" /home/claude/workspace/addons/godotWad/scenes/projectiles/)",
+      "Bash(done)",
+      "Bash(grep -E \"\\\\.gd$\")",
+      "Bash(find /home/claude/workspace/addons/godotWad -name *oadLoader* -o -name *WadLoader*)",
+      "Bash(grep -r \"raycast\\\\|RayCast\\\\|camera\\\\|Camera\" /home/claude/workspace/rail/scenes/Player/ --include=*.gd --include=*.tscn)",
+      "Bash(grep -r \"raycast\\\\|RayCast\\\\|visibility\\\\|visible\\\\|can_see\\\\|line_of_sight\" /home/claude/workspace/rail/scenes --include=*.gd)",
+      "Bash(find /home/claude/workspace -name *.gd -path */Encounter* -o -name *.gd -path */Enums*)",
+      "Bash(find /home/claude/workspace -name *Dialog* -type f)",
+      "Bash(grep -E \"\\\\.\\(gd|tres\\)$\")",
+      "Bash(grep -r \"face\\\\|Face\" /home/claude/workspace/rail --include=*.gd --include=*.tscn)",
+      "Bash(grep -r \"healHealth\\\\|addArmor\" /home/claude/workspace/rail --include=*.gd)",
+      "Bash(grep:*)",
+      "Bash(awk '{print length}')",
+      "Bash(find /home/claude/workspace -type f \\\\\\(-name *face* -o -name *STFST* -o -name *STFOUCH* -o -name *STFDEAD* \\\\\\))",
+      "Bash(find /home/claude/workspace -name *.import -type f -exec grep -l filter {})",
+      "Bash(2)",
+      "Bash(find /home/claude/workspace -name *.wad -o -name *E1M1*)",
+      "Bash(find /home/claude/workspace/game_imports -name *E1M1* -o -name *E1*)",
+      "Bash(for type:*)",
+      "Bash(find /home/claude/workspace/rail -name *door* -o -name *switch* -o -name *exit* -o -name *secret* -o -name *lift*)",
+      "Bash(find /home/claude/workspace -path *interactables*.gd -type f)",
+      "Bash(find /home/claude/workspace -name \"*.gd\" -type f -exec grep -l \"WADG\\\\|TTYPE\" {})",
+      "Bash(find /home/claude/workspace -name \"*.gd\" -type f -exec grep -l \"load_wad\\\\|geometry_only\\\\|e1m\" {})",
+      "Bash(cat /home/claude/workspace/rail/resources/Actions/*.gd)",
+      "Bash(ls:*)",
+      "Bash(find:*)"
+    ]
+  }
+}

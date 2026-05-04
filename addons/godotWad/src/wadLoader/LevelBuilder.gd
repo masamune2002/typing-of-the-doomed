@@ -668,7 +668,7 @@ func createDynamicSide(renderable : Dictionary) -> void:
 			var ty = str(t["type"])
 			
 			if !tDict.has(ty):
-				print("missing type:",ty)
+				push_warning("missing type: ", ty)
 				continue
 			
 			var row = tDict[ty]
@@ -1025,7 +1025,7 @@ func createMeshAndCol(start:Vector2,end:Vector2,floorZ:float,ceilZ:float,fCeil:f
 		#print("creating mesh and col but texture %s is null" % textureName)
 		
 	if sectorNode == null:
-		print("couldn't find sector node for line:",str(lineIndex))
+		push_warning("couldn't find sector node for line: ", str(lineIndex))
 		sectorNode = Node3D.new()
 		sectorNode.name = "sector node"
 		par.add_child(sectorNode)
@@ -1200,7 +1200,7 @@ func createInteractables(sectorToInteraction : Dictionary,mapDict : Dictionary) 
 	var a = Time.get_ticks_msec()
 	var tDict : gsheet = typeSheet
 	if mapDict["isHexen"]: tDict = typeDictHexen
-	print("[Triggers] createInteractables called for map: ", mapDict.get("name", "unknown"), " with ", sectorToInteraction.size(), " interaction sectors")
+	pass
 	
 	
 	
@@ -1714,11 +1714,11 @@ func createTriggerNodeForType(i,secIndex):
 	var sectorIdxStr : String = "sector " + str(secIndex)
 	var sectorNode = geomNode.get_node_or_null(sectorIdxStr)
 	if sectorNode == null:
-		print("[Triggers] WARNING: sector node '", sectorIdxStr, "' not found in geomNode for trigger line ", lineIdx)
+		push_warning("sector node '", sectorIdxStr, "' not found in geomNode for trigger line ", lineIdx)
 		return null
 	sectorNode.add_child(triggerNode)
 	triggerNode.owner = sectorNode
-	print("[Triggers] Created trigger: type=", triggerType, " line=", lineIdx, " sector=", secIndex, " pos=", triggerNode.position)
+	pass
 
 	
 	

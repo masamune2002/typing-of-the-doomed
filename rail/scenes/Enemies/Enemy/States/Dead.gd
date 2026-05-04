@@ -15,4 +15,3 @@ func enter(previousState : Enums.ENEMY_STATE) -> void:
 	if player != null and player._currentFireTarget == parent:
 		EventBus.releasePlayerTarget.emit()
 	parent.died.emit(parent)
-	EventBus.enemyKilled.emit(parent)

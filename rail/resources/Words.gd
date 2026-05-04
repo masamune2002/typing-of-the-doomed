@@ -4243,7 +4243,6 @@ const WORD_LIST = [
 	"slots",
 	"slovak",
 	"slowly",
-	"sluts",
 	"small",
 	"smaller",
 	"smart",
@@ -5049,8 +5048,7 @@ static func _init_word_lists() -> void:
 	_initialized = true
 	_word_lists.resize(8)
 	_word_lists[0] = LETTERS
-	_word_lists[1] = KEYBOARD_CHARS
-	# Filter WORD_LIST by length for tiers 2-4
+	# Filter WORD_LIST by length for tiers 1-3
 	var short_words: Array[String] = []
 	var medium_words: Array[String] = []
 	var long_words: Array[String] = []
@@ -5062,12 +5060,27 @@ static func _init_word_lists() -> void:
 			medium_words.append(word)
 		if len > 10:
 			long_words.append(word)
-	_word_lists[2] = short_words
-	_word_lists[3] = medium_words
-	_word_lists[4] = long_words
-	_word_lists[5] = SHORT_PHRASES
-	_word_lists[6] = SHORT_SENTENCES
-	_word_lists[7] = COMPLEX_SENTENCES
+	_word_lists[1] = short_words
+	_word_lists[2] = medium_words
+	_word_lists[3] = long_words
+	_word_lists[4] = SHORT_PHRASES
+	_word_lists[5] = SHORT_SENTENCES
+	_word_lists[6] = COMPLEX_SENTENCES
+
+const EXPLOSION_WORDS: Array[String] = [
+	"boom", "bang", "blast", "burst", "spark", "fire",
+	"blaze", "nuke", "burn", "char", 
+	"bomb", "kaboom", "detonate", "ignite", "torch", "inferno", "explode",
+	"combust", "erupt", "demolish", "dynamite", "napalm",
+	"nitro", "volatile",
+	"scorch", "sizzle", "flare", "combustion", "obliterate", "annihilate",
+	"discharge", "shatter", "rupture", "firestorm",
+	"firebomb", "hellfire", "gunpowder", "warhead", 
+	"pyre", "raze", 
+	"pop", "whoosh",
+	"carnage", "havoc", "mayhem",
+	"meltdown", "bombshell", "incendiary"
+]
 
 static func get_word(difficulty: int) -> String:
 	_init_word_lists()

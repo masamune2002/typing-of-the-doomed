@@ -73,6 +73,8 @@ func _process(delta : float) -> void:
 	if camOffset.y > 0:
 		camOffset.y = max(0,camOffset.y-delta*5)
 		
-	$cameraAttach.position.y =  eyeHeight + sin(bobAngle*0.75)*0.1 + camOffset.y
-	get_parent().weaponManager.position.y = eyeHeight + sin(bobAngle*0.75)*0.1  + camOffset.y
+	var headBobScale = SettingsManager.head_bob if SettingsManager else 1.0
+	var bobOffset = sin(bobAngle * 0.75) * 0.35 * headBobScale
+	$cameraAttach.position.y =  eyeHeight + bobOffset + camOffset.y
+	get_parent().weaponManager.position.y = eyeHeight + bobOffset + camOffset.y
 	

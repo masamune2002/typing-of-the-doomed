@@ -12,6 +12,7 @@ func enter(previousState : Enums.ENEMY_STATE) -> void:
 	parent.startedDying.emit(parent)
 	parent.enemyTargetLabel.hide()
 	EventBus.releasePlayerTarget.emit()
+	EventBus.enemyKilled.emit(parent)
 
 	var animationName : String = parent.animationLibraryName + "/" + parent.ANIMATION_NAME_DIE
 	parent.animationPlayer.play(animationName)

@@ -17,7 +17,11 @@ func enter(previousState : Enums.ENEMY_STATE) -> void:
 	parent.enemyTargetLabel.hide()
 
 func exit(newState : Enums.ENEMY_STATE) -> void:
-	parent.setWeakness(Game.getWeaponFireType())
+	var reduction := 0
+	var player = Game.getPlayer()
+	if player != null and player._currentWeapon != null and "difficultyReduction" in player._currentWeapon:
+		reduction = player._currentWeapon.difficultyReduction
+	parent.setWeakness(Game.getWeaponFireType(), reduction)
 	parent.active = true
 	if parent.visible_to_player:
 		parent.enemyTargetLabel.show()

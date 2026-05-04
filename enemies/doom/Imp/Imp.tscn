@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c3imp00001"]
+
+[ext_resource type="Script" uid="uid://vsapvuo0me1" path="res://enemies/doom/Imp/Imp.gd" id="1_imp"]
+[ext_resource type="Script" uid="uid://o54nhjr3q5yk" path="res://rail/resources/StateMachine.gd" id="2_statemachine"]
+[ext_resource type="Script" uid="uid://cykvr23nq1k2d" path="res://enemies/doom/Imp/States/ImpInactive.gd" id="3_inactive"]
+[ext_resource type="Script" uid="uid://c2qduw6g3eqk5" path="res://enemies/doom/Imp/States/ImpIdle.gd" id="4_idle"]
+[ext_resource type="Script" uid="uid://d3iniwml0xu67" path="res://enemies/doom/Imp/States/ImpAttacking.gd" id="5_attacking"]
+[ext_resource type="Script" uid="uid://c7y62d77y4t6k" path="res://enemies/doom/Imp/States/ImpDying.gd" id="6_dying"]
+[ext_resource type="Script" uid="uid://uxucj6d4t54b" path="res://rail/scenes/Enemies/Enemy/States/Dead.gd" id="7_dead"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.3
+height = 1.0
+
+[node name="Imp" type="CharacterBody3D" unique_id=1770941803]
+script = ExtResource("1_imp")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1295765213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+pixel_size = 0.04
+billboard = 1
+
+[node name="EnemyTargetLabel" type="Label3D" parent="." unique_id=1791555346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+billboard = 1
+no_depth_test = true
+
+[node name="StateLabel" type="Label3D" parent="." unique_id=140108683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+visible = false
+no_depth_test = true
+modulate = Color(1, 0.482353, 1, 1)
+font_size = 16
+
+[node name="StateMachine" type="Node" parent="." unique_id=185889936]
+script = ExtResource("2_statemachine")
+
+[node name="Inactive" type="Node" parent="StateMachine" unique_id=1348477568]
+script = ExtResource("3_inactive")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=125485201]
+script = ExtResource("4_idle")
+
+[node name="Attacking" type="Node" parent="StateMachine" unique_id=930915309]
+script = ExtResource("5_attacking")
+
+[node name="Dying" type="Node" parent="StateMachine" unique_id=1238332959]
+script = ExtResource("6_dying")
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=221182115]
+script = ExtResource("7_dead")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=860847473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_1")

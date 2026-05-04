@@ -31,19 +31,8 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 		push_error("WadRuntimeLoader: wad_path is empty.")
 		return
 
-	# 1) Instantiate the loader (like makeUI does in _on_gameList_item_selected)
-	_loader = load(loader_scene_path).instantiate()
-	_loader.mapCreated.connect(mapCreated.emit)
-	_loader.playerCreated.connect(playerCreated.emit)
-	add_child(_loader) # many loaders assume they're in the tree
-
-	# 2) Build the params array (mirrors loaderInit())
-	var params: Array = []
-	params.append(wad_path)
-	for p in extra_params:
-		params.append(p)
-
-	_loader.initialize(params, game_name, import_name.to_lower())
+	# Initialize WAD data if not already done
+	init_wad(wad_path)
 
 	# 3) Decide which map to load
 	if map_name == "":
@@ -85,6 +74,19 @@ func load_wad(wad_path: String, map_idx : int) -> Node3D:
 		var player = _loader.spawn('playerguy')
 		add_child(player)
 	return map_node
+
+func init_wad(wad_path: String) -> void:
+	if _loader != null:
+		return
+	_loader = load(loader_scene_path).instantiate()
+	_loader.mapCreated.connect(mapCreated.emit)
+	_loader.playerCreated.connect(playerCreated.emit)
+	add_child(_loader)
+	var params: Array = []
+	params.append(wad_path)
+	for p in extra_params:
+		params.append(p)
+	_loader.initialize(params, game_name, import_name.to_lower())
 
 func load_map(new_map_name: String) -> Node3D:
 	if _loader == null:

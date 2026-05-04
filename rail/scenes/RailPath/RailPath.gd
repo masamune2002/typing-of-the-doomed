@@ -20,6 +20,7 @@ var _viz: MeshInstance3D
 var _last_hash: int = 0
 
 func _ready() -> void:
+	add_to_group("rail_paths")
 	if Engine.is_editor_hint():
 		_ensure_viz()
 		_refresh_viz()

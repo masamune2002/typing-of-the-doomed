@@ -4,9 +4,14 @@ class_name TypingWeakness
 var targetTypedText : PackedStringArray
 var _currentHitPointIndex : int
 
-func setup(difficulty) -> void:
+func setup(difficulty, custom_words: Array = []) -> void:
 	weaknessType = Enums.WEAPON_FIRE_TYPE.TYPING
-	targetTypedText = WORDS.get_word(difficulty).split()
+	var word: String
+	if custom_words.size() > 0:
+		word = custom_words.pick_random()
+	else:
+		word = WORDS.get_word(difficulty)
+	targetTypedText = word.split()
 	for _char in targetTypedText:
 		var newHitPoint = TypingHitPoint.new()
 		newHitPoint.setup(_char)

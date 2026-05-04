@@ -1,0 +1,195 @@
+extends EnemyState
+class_name PinkyMoving
+
+# DOOM Pinky speed: 10 map units per tic, 35 tics/sec = 350 units/sec
+# Our scale: DOOM map units * scaleFactor. Adjust to feel right in-game.
+const MOVE_SPEED := 5.0
+const MELEE_RANGE := 3.0
+const GRAVITY := 20.0
+const CHASE_SOUND_CHANCE := 0.03  # 3% per tic, checked each physics frame
+
+# 8 cardinal+diagonal directions (matching DOOM's DI_ enum)
+const DIRECTIONS = [
+	Vector3(1, 0, 0),    # 0: East
+	Vector3(1, 0, -1),   # 1: NE
+	Vector3(0, 0, -1),   # 2: North
+	Vector3(-1, 0, -1),  # 3: NW
+	Vector3(-1, 0, 0),   # 4: West
+	Vector3(-1, 0, 1),   # 5: SW
+	Vector3(0, 0, 1),    # 6: South
+	Vector3(1, 0, 1),    # 7: SE
+]
+
+var _target : Player
+var _move_dir : int = -1  # Current direction index (0-7), -1 = no direction
+var _move_count : int = 0  # Tics remaining in current direction
+var _just_attacked : bool = false
+
+func _ready() -> void:
+	key = Enums.ENEMY_STATE.MOVING
+	displayName = 'Moving'
+
+func enter(previousState: Enums.ENEMY_STATE) -> void:
+	_target = Game.getPlayer()
+	if parent is Pinky:
+		parent._currentAnimation = "walk"
+		parent._currentFrameIndex = 0
+	_just_attacked = (previousState == Enums.ENEMY_STATE.ATTACKING)
+	if _just_attacked:
+		# Post-attack: face the player for a beat before resuming chase
+		_move_count = 8
+		_move_dir = -1
+
+func exit(newState: Enums.ENEMY_STATE) -> void:
+	parent.velocity = Vector3.ZERO
+	_target = null
+
+func _physics_process(delta: float) -> void:
+	if parent.stateMachine.currentState != self:
+		return
+	if _target == null or !is_instance_valid(_target) or !parent.alive or parent.dying:
+		return
+
+	# Check melee range
+	var distance = parent.global_position.distance_to(_target.global_position)
+	if distance <= MELEE_RANGE and _hasLineOfSight():
+		parent.velocity = Vector3.ZERO
+		parent.startAttack(_target)
+		return
+
+	# Post-attack pause: face player, don't move
+	if _just_attacked:
+		parent.look_at(_target.global_position, Vector3.UP, true)
+		_move_count -= 1
+		if _move_count <= 0:
+			_just_attacked = false
+		# Apply gravity even when paused
+		if not parent.is_on_floor():
+			parent.velocity.y -= GRAVITY * delta
+		else:
+			parent.velocity.y = 0
+		parent.velocity.x = 0
+		parent.velocity.z = 0
+		parent.move_and_slide()
+		return
+
+	# Decrement move count; pick new direction when it expires or blocked
+	_move_count -= 1
+	if _move_count < 0:
+		_pickNewChaseDir()
+
+	# Try to move in current direction
+	if _move_dir >= 0 and _move_dir < DIRECTIONS.size():
+		var dir = DIRECTIONS[_move_dir].normalized()
+		parent.velocity.x = dir.x * MOVE_SPEED
+		parent.velocity.z = dir.z * MOVE_SPEED
+
+		# Face movement direction
+		var look_target = parent.global_position + dir
+		parent.look_at(look_target, Vector3.UP, true)
+	else:
+		parent.velocity.x = 0
+		parent.velocity.z = 0
+
+	# Apply gravity
+	if not parent.is_on_floor():
+		parent.velocity.y -= GRAVITY * delta
+	else:
+		parent.velocity.y = 0
+
+	var pos_before = parent.global_position
+	parent.move_and_slide()
+
+	# If barely moved (blocked by wall), pick a new direction immediately
+	var moved = parent.global_position.distance_to(pos_before)
+	if moved < MOVE_SPEED * delta * 0.3 and _move_dir >= 0:
+		_pickNewChaseDir()
+
+	# Random chase sound
+	if randf() < CHASE_SOUND_CHANCE * delta * 35.0:
+		Game.playSound("DSDMACT")
+
+func _pickNewChaseDir() -> void:
+	if _target == null:
+		return
+	var delta_pos = _target.global_position - parent.global_position
+	var dx = delta_pos.x
+	var dz = delta_pos.z
+
+	# Determine ideal horizontal and vertical directions
+	var dir_h := -1  # Horizontal direction toward player
+	var dir_v := -1  # Vertical direction toward player
+
+	if dx > 0.5:
+		dir_h = 0  # East
+	elif dx < -0.5:
+		dir_h = 4  # West
+
+	if dz > 0.5:
+		dir_v = 6  # South (+Z)
+	elif dz < -0.5:
+		dir_v = 2  # North (-Z)
+
+	# Determine diagonal
+	var dir_diag := -1
+	if dir_h >= 0 and dir_v >= 0:
+		# Diagonal is between the two cardinal directions
+		if dir_h == 0 and dir_v == 2: dir_diag = 1    # NE
+		elif dir_h == 4 and dir_v == 2: dir_diag = 3   # NW
+		elif dir_h == 4 and dir_v == 6: dir_diag = 5   # SW
+		elif dir_h == 0 and dir_v == 6: dir_diag = 7   # SE
+
+	# Randomly try horizontal or vertical first (creates zigzag)
+	var try_dirs : Array[int] = []
+	if randf() < 0.5:
+		if dir_h >= 0: try_dirs.append(dir_h)
+		if dir_v >= 0: try_dirs.append(dir_v)
+	else:
+		if dir_v >= 0: try_dirs.append(dir_v)
+		if dir_h >= 0: try_dirs.append(dir_h)
+
+	# Add diagonal
+	if dir_diag >= 0:
+		try_dirs.append(dir_diag)
+
+	# Add random sweep directions for when ideal ones are blocked
+	var sweep_start = randi_range(0, 7)
+	for i in 8:
+		var d = (sweep_start + i) % 8
+		if d not in try_dirs:
+			try_dirs.append(d)
+
+	# Pick first valid direction (check for walls)
+	for d in try_dirs:
+		if _isDirectionClear(d):
+			_move_dir = d
+			_move_count = randi_range(0, 15)
+			return
+
+	_move_dir = -1
+	_move_count = 0
+
+func _isDirectionClear(dir_index: int) -> bool:
+	var dir = DIRECTIONS[dir_index].normalized()
+	var space_state = parent.get_world_3d().direct_space_state
+	if space_state == null:
+		return true
+	var from = parent.global_position + Vector3(0, 0.5, 0)
+	var to = from + dir * 1.0
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = 2
+	query.exclude = [parent.get_rid()]
+	var result = space_state.intersect_ray(query)
+	return result.is_empty()
+
+func _hasLineOfSight() -> bool:
+	var space_state = parent.get_world_3d().direct_space_state
+	if space_state == null:
+		return false
+	var from = parent.global_position + Vector3(0, 0.5, 0)
+	var to = _target.global_position + Vector3(0, 0.85, 0)
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = 2
+	query.exclude = [parent.get_rid(), _target.get_rid()]
+	var result = space_state.intersect_ray(query)
+	return result.is_empty()

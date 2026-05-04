@@ -1,11 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvqxxsle4n77n"]
+[gd_scene format=3 uid="uid://cvqxxsle4n77n"]
 
-[ext_resource type="Script" path="res://scenes/RailNetwork/RailNetwork.gd" id="1_lojx5"]
+[ext_resource type="Script" uid="uid://cyk7v70xtekvh" path="res://rail/scenes/RailNetwork/RailNetwork.gd" id="1_lojx5"]
 
 [node name="RailNetwork" type="Node3D"]
 script = ExtResource("1_lojx5")
-
-[node name="Rails" type="Node3D" parent="."]
-unique_name_in_owner = true
 
 [node name="Stations" type="Node3D" parent="."]

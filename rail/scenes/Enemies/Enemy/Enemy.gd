@@ -6,10 +6,17 @@ const ANIMATION_NAME_IDLE = 'idle'
 
 @onready var animationPlayer : AnimationPlayer = get_node_or_null("EnemyMeshContainer/AnimationPlayer")
 @onready var enemyTargetLabel : Label3D = $EnemyTargetLabel
+var pipsLabel : Label3D
+var pipsDefeatedLabel : Label3D
+var typedLabel : Label3D
+var debugLabel : Label3D
 @onready var stateLabel : Label3D = $StateLabel
 @onready var stateMachine : StateMachine = $StateMachine
 
 var difficulty : int
+var _difficultyReduction : int = 0
+var numHealthBars : int = 1
+var _currentHealthBar : int = 0
 var active : bool
 var dying : bool
 var alive : bool
@@ -23,6 +30,14 @@ var _prev_visible_to_player : bool = false
 var baseDamageMin : int = 5
 var baseDamageMax : int = 10
 var attackSound : String = "DSPISTOL"
+var seeSound : String = ""
+var painSound : String = ""
+var deathSound : String = ""
+var activeSound : String = ""
+var _startDead : bool = false
+var _hasPlayedSeeSound : bool = false
+static var _lastSeeSoundTime : float = 0.0
+const SEE_SOUND_COOLDOWN : float = 5.0
 
 # Telegraph/attack internals
 var _telegraphTween : Tween
@@ -38,12 +53,15 @@ func _ready() -> void:
 	alive = true
 	stateMachine.setState(Enums.ENEMY_STATE.INACTIVE)
 	enemyTargetLabel.hide()
+	_initOverlayLabels()
 	var midiScaleWeakness = MidiScaleWeakness.new()
 	var typingWeakness = TypingWeakness.new()
 	weaknesses.set(Enums.WEAPON_FIRE_TYPE.MIDI, midiScaleWeakness)
 	weaknesses.set(Enums.WEAPON_FIRE_TYPE.TYPING, typingWeakness)
 	for weakness : Weakness in weaknesses.values():
 		weakness.setup(difficulty)
+	_currentHealthBar = 0
+	_updatePips()
 	add_to_group('Enemies')
 	EventBus.enemySpawned.emit(self)
 	if animationPlayer != null:
@@ -51,27 +69,104 @@ func _ready() -> void:
 		animationPlayer.play(animationName)
 	
 
+func _initOverlayLabels() -> void:
+	if typedLabel != null:
+		return
+	# typedLabel kept as a reference but not used as a separate overlay
+	typedLabel = enemyTargetLabel
+	enemyTargetLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	enemyTargetLabel.render_priority = 10
+	# Create pips labels (white base + red overlay for defeated bars)
+	var pipsPos := enemyTargetLabel.position + Vector3(0, -0.3, 0)
+	pipsLabel = Label3D.new()
+	pipsLabel.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	pipsLabel.no_depth_test = true
+	pipsLabel.render_priority = 10
+	pipsLabel.modulate = Color.WHITE
+	pipsLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	pipsLabel.position = pipsPos
+	add_child(pipsLabel)
+	pipsLabel.hide()
+	pipsDefeatedLabel = Label3D.new()
+	pipsDefeatedLabel.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	pipsDefeatedLabel.no_depth_test = true
+	pipsDefeatedLabel.render_priority = 11
+	pipsDefeatedLabel.modulate = Color.RED
+	pipsDefeatedLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	pipsDefeatedLabel.position = pipsPos
+	add_child(pipsDefeatedLabel)
+	pipsDefeatedLabel.hide()
+	# Debug label — shows WAD thing name/id below weakness label
+	debugLabel = Label3D.new()
+	debugLabel.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	debugLabel.no_depth_test = true
+	debugLabel.render_priority = 10
+	debugLabel.modulate = Color(0.5, 1.0, 0.5)
+	debugLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	debugLabel.position = enemyTargetLabel.position + Vector3(0, -0.3, 0)
+	debugLabel.text = name
+	add_child(debugLabel)
+	debugLabel.hide()
+
 func _applyDoomFont(label: Label3D) -> void:
+	if label == null:
+		return
 	var doomFont = Game.getDoomFont()
 	if doomFont != null:
 		label.font = doomFont
 		label.font_size = 16
 		label.pixel_size = 0.02
-		label.modulate = Color.WHITE
 
 func activate() -> void:
+	if _startDead:
+		return
 	if animationPlayer != null:
 		animationPlayer.stop(false)
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
-func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE):
+func setDead() -> void:
+	_startDead = true
+	dying = false
+	alive = false
+	active = false
+	collision_layer = 0
+	collision_mask = 0
+	enemyTargetLabel.hide()
+	if typedLabel != null:
+		typedLabel.hide()
+	if pipsLabel != null:
+		pipsLabel.hide()
+	if pipsDefeatedLabel != null:
+		pipsDefeatedLabel.hide()
+	# Show corpse sprite immediately if sprites already loaded
+	_showCorpse()
+
+func _showCorpse() -> void:
+	# Override in subclasses to show corpse sprite
+	pass
+
+func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE, difficultyReduction : int = 0):
+	if _startDead:
+		return
+	_difficultyReduction = difficultyReduction
 	if weaknesses.get(fireType) != null:
+		_initOverlayLabels()
 		_currentWeaknessType = fireType
+		# Re-setup weakness with adjusted difficulty
+		var weakness = weaknesses.get(fireType)
+		weakness.hitPoints.clear()
+		weakness.setup(maxi(difficulty - _difficultyReduction, 0))
 		_applyDoomFont(enemyTargetLabel)
-		enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText().to_upper()
+		_applyDoomFont(typedLabel)
+		_setFullWordLabel()
+		_updateTypedLabel()
+		_updatePips()
 
 func changeLabel(text : String):
 	enemyTargetLabel.text = text.to_upper()
+	if typedLabel != null:
+		typedLabel.text = ""
+		typedLabel.hide()
 
 func updateStateLabel():
 	stateLabel.text = Enums.ENEMY_STATE.find_key(stateMachine.currentStateKey)
@@ -79,14 +174,106 @@ func updateStateLabel():
 func deactivate() -> void:
 	stateMachine.setState(Enums.ENEMY_STATE.INACTIVE)
 
-func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant) -> bool:
+func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant, deferDamage : bool = false) -> bool:
 	if !alive || !active || !visible_to_player || _currentWeaknessType != weaponFireType:
 		return false
 	var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
-	enemyTargetLabel.text = weaknesses.get(_currentWeaknessType).getLabelText().to_upper()
+	_updateTypedLabel()
 	if hit && weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
-		die()
+		if deferDamage:
+			# Store pending action for when the projectile arrives
+			_pendingHealthBarAdvance = true
+		else:
+			_applyHealthBarAdvance()
 	return hit
+
+var _pendingHealthBarAdvance : bool = false
+
+func applyDeferredDamage() -> void:
+	if _pendingHealthBarAdvance:
+		_pendingHealthBarAdvance = false
+		if alive and !dying:
+			_applyHealthBarAdvance()
+
+func _applyHealthBarAdvance() -> void:
+	_currentHealthBar += 1
+	if _currentHealthBar >= numHealthBars:
+		die()
+	else:
+		if painSound != "":
+			Game.playSound(painSound)
+		if has_method("playPain"):
+			call("playPain")
+		_resetWeakness()
+		_updatePips()
+
+func _setFullWordLabel() -> void:
+	var weakness = weaknesses.get(_currentWeaknessType)
+	var fullWord := ""
+	for hp in weakness.hitPoints:
+		fullWord += hp.toString()
+	enemyTargetLabel.text = fullWord.to_upper()
+
+func _updateTypedLabel() -> void:
+	# Show only remaining (untyped) characters
+	var weakness = weaknesses.get(_currentWeaknessType)
+	var remaining := ""
+	for hp in weakness.hitPoints:
+		if hp.full:
+			remaining += hp.toString()
+	enemyTargetLabel.text = remaining.to_upper()
+
+func showRemainingLabel() -> void:
+	_updateTypedLabel()
+
+func showFullLabel() -> void:
+	_setFullWordLabel()
+	_updateTypedLabel()
+
+func _resetWeakness() -> void:
+	var weakness = weaknesses.get(_currentWeaknessType)
+	weakness.hitPoints.clear()
+	weakness.setup(maxi(difficulty - _difficultyReduction, 0))
+	_applyDoomFont(enemyTargetLabel)
+	_applyDoomFont(typedLabel)
+	_setFullWordLabel()
+	_updateTypedLabel()
+
+func _updatePips() -> void:
+	if pipsLabel == null:
+		return
+	if numHealthBars <= 1:
+		pipsLabel.text = ""
+		pipsLabel.hide()
+		if pipsDefeatedLabel != null:
+			pipsDefeatedLabel.text = ""
+			pipsDefeatedLabel.hide()
+		return
+	_applyDoomFont(pipsLabel)
+	_applyDoomFont(pipsDefeatedLabel)
+	var allPips := ""
+	for i in numHealthBars:
+		if i > 0:
+			allPips += " "
+		allPips += "."
+	pipsLabel.text = allPips
+	# Defeated overlay: periods for defeated bars, rest invisible
+	var defeated := ""
+	for i in numHealthBars:
+		if i > 0:
+			defeated += " "
+		if i < _currentHealthBar:
+			defeated += "."
+		else:
+			break
+	if pipsDefeatedLabel != null:
+		pipsDefeatedLabel.text = defeated
+		if _currentHealthBar > 0:
+			pipsDefeatedLabel.show()
+		else:
+			pipsDefeatedLabel.hide()
+	if _currentHealthBar < numHealthBars:
+		pipsLabel.show()
 
 func startAttack(target : Player) -> void:
 	currentTarget = target
@@ -178,20 +365,56 @@ func _attack(target : Player) -> void:
 		stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func die() -> void:
+	if deathSound != "":
+		Game.playSound(deathSound)
 	stateMachine.setState(Enums.ENEMY_STATE.DYING)
 
 func _physics_process(_delta: float) -> void:
 	if !active || !alive || dying:
 		visible_to_player = false
 		_prev_visible_to_player = false
+		enemyTargetLabel.hide()
+		if typedLabel != null:
+			typedLabel.hide()
+		if pipsLabel != null:
+			pipsLabel.hide()
+		if pipsDefeatedLabel != null:
+			pipsDefeatedLabel.hide()
 		return
 
-	visible_to_player = _check_line_of_sight()
+	visible_to_player = _check_line_of_sight() and _is_on_screen()
+	_updateLabelRenderPriority()
 
 	if visible_to_player:
+		_setFullWordLabel()
+		_updateTypedLabel()
 		enemyTargetLabel.show()
+		if numHealthBars > 1 and pipsLabel != null:
+			pipsLabel.show()
+		if numHealthBars > 1 and pipsDefeatedLabel != null and _currentHealthBar > 0:
+			pipsDefeatedLabel.show()
+		if debugLabel != null:
+			if SettingsManager.debug_show_thing_ids:
+				_applyDoomFont(debugLabel)
+				debugLabel.show()
+			else:
+				debugLabel.hide()
 	else:
 		enemyTargetLabel.hide()
+		if pipsLabel != null:
+			pipsLabel.hide()
+		if pipsDefeatedLabel != null:
+			pipsDefeatedLabel.hide()
+		if debugLabel != null:
+			debugLabel.hide()
+
+	# Play see sound once when enemy first spots the player (with global cooldown)
+	if !_prev_visible_to_player and visible_to_player and !_hasPlayedSeeSound:
+		_hasPlayedSeeSound = true
+		var now = Time.get_ticks_msec() / 1000.0
+		if seeSound != "" and now - _lastSeeSoundTime >= SEE_SOUND_COOLDOWN:
+			_lastSeeSoundTime = now
+			Game.playSound(seeSound)
 
 	if _prev_visible_to_player && !visible_to_player:
 		var player : Player = Game.getPlayer()
@@ -219,3 +442,31 @@ func _check_line_of_sight() -> bool:
 	query.exclude = [self.get_rid(), player.get_rid()]
 	var result = space_state.intersect_ray(query)
 	return result.is_empty()
+
+func _is_on_screen() -> bool:
+	var camera = get_viewport().get_camera_3d()
+	if camera == null:
+		return false
+	var world_pos = global_position + Vector3(0, 1.0, 0)
+	if camera.is_position_behind(world_pos):
+		return false
+	var screen_pos = camera.unproject_position(world_pos)
+	var viewport_size = get_viewport().get_visible_rect().size
+	return screen_pos.x >= 0 and screen_pos.x <= viewport_size.x and screen_pos.y >= 0 and screen_pos.y <= viewport_size.y
+
+func _updateLabelRenderPriority() -> void:
+	var player : Player = Game.getPlayer()
+	if player == null:
+		return
+	var distance = global_position.distance_to(player.global_position)
+	# Closer enemies get higher render_priority so their labels draw on top.
+	# Map distance [0..MAX] to priority [100..0] — base layer for white labels,
+	# +1 for red overlay labels so they always sit on top of their white counterpart.
+	var base_priority : int = clampi(int(100.0 - (distance / MAX_VISIBILITY_DISTANCE) * 100.0), 0, 100)
+	enemyTargetLabel.render_priority = base_priority
+	if typedLabel != null:
+		typedLabel.render_priority = base_priority + 1
+	if pipsLabel != null:
+		pipsLabel.render_priority = base_priority
+	if pipsDefeatedLabel != null:
+		pipsDefeatedLabel.render_priority = base_priority + 1

@@ -1,0 +1,274 @@
+extends Node3D
+class_name Interactable
+
+@onready var interactableLabel: Label3D = $InteractableLabel
+var typedLabel: Label3D
+var debugLabel: Label3D
+
+var active: bool = false
+var alive: bool = true
+var visible_to_player: bool = false
+var _prev_visible_to_player: bool = false
+
+var wadNode: Node3D
+var weakness: TypingWeakness
+var requiredKey: String = ""  # empty = no key needed
+var set_variable: String = "" # game variable to set when activated
+
+func _ready() -> void:
+	alive = true
+	active = false
+	add_to_group("Interactables")
+	EventBus.startEncounter.connect(activate)
+
+	weakness = TypingWeakness.new()
+	weakness.setup(0)
+	interactableLabel.hide()
+	interactableLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	interactableLabel.modulate = Color(1.0, 0.8, 0.2)
+	typedLabel = interactableLabel
+
+	debugLabel = Label3D.new()
+	debugLabel.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	debugLabel.no_depth_test = true
+	debugLabel.render_priority = 10
+	debugLabel.modulate = Color(0.5, 1.0, 0.5)
+	debugLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	debugLabel.position = interactableLabel.position + Vector3(0, -0.3, 0)
+	var wad_name = wadNode.name if wadNode != null else name
+	var sector_name = wadNode.get_parent().name if wadNode != null and wadNode.get_parent() != null else get_parent().name
+	debugLabel.text = wad_name + " (" + sector_name + ")"
+	add_child(debugLabel)
+	debugLabel.hide()
+
+	_setFullWordLabel()
+
+func _applyDoomFont() -> void:
+	var doomFont = Game.getDoomFont()
+	if doomFont != null:
+		for label in [interactableLabel, typedLabel, debugLabel]:
+			if label != null:
+				label.font = doomFont
+				label.font_size = 16
+				label.pixel_size = 0.02
+
+func activate() -> void:
+	active = true
+	_applyDoomFont()
+	if alive and visible_to_player:
+		interactableLabel.show()
+
+func deactivate() -> void:
+	active = false
+	interactableLabel.hide()
+
+func receiveFire(weaponFireType: Enums.WEAPON_FIRE_TYPE, payload: Variant) -> bool:
+	if !alive or !active or !visible_to_player:
+		return false
+	if weaponFireType != Enums.WEAPON_FIRE_TYPE.TYPING:
+		return false
+	var hit = weakness.receiveHit(payload)
+	_updateTypedLabel()
+	if hit and weakness.isHealthBarEmpty():
+		_activate_wad_node()
+	return hit
+
+func _setFullWordLabel() -> void:
+	var fullWord := ""
+	for hp in weakness.hitPoints:
+		fullWord += hp.toString()
+	interactableLabel.text = fullWord.to_upper()
+
+func _updateTypedLabel() -> void:
+	var remaining := ""
+	for hp in weakness.hitPoints:
+		if hp.full:
+			remaining += hp.toString()
+	interactableLabel.text = remaining.to_upper()
+
+func showRemainingLabel() -> void:
+	_updateTypedLabel()
+
+func showFullLabel() -> void:
+	_setFullWordLabel()
+
+func _activate_wad_node() -> void:
+	if set_variable != "":
+		Game.setVar(set_variable)
+	alive = false
+	interactableLabel.hide()
+	if typedLabel != null:
+		typedLabel.hide()
+	var player = Game.getPlayer()
+	if player != null and player._currentFireTarget == self:
+		EventBus.releasePlayerTarget.emit()
+	if wadNode != null and is_instance_valid(wadNode):
+		var ttype = wadNode.get(WadGame.PROP_TRIGGER_TYPE)
+		var is_switch = ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
+		if is_switch and wadNode.has_method("bodyIn") and player != null:
+			# Switch-type triggers must use bodyIn for texture toggle
+			player.interactPressed = true
+			wadNode.bodyIn(player)
+			player.interactPressed = false
+		elif wadNode.has_method("activate"):
+			wadNode.activate()
+		elif wadNode.has_method("bodyIn") and player != null:
+			player.interactPressed = true
+			wadNode.bodyIn(player)
+			player.interactPressed = false
+	Game.playSound("DSDOROPN")
+
+func _process(_delta: float) -> void:
+	pass
+
+func _physics_process(_delta: float) -> void:
+	# If door has closed again, re-enable the interactable with the same word
+	if !alive and active:
+		if _isDoorClosed():
+			_resetWeakness()
+
+	# If door was opened externally (e.g. by a switch), hide this interactable
+	if alive and active and _isDoorOpen():
+		alive = false
+		interactableLabel.hide()
+		if debugLabel != null:
+			debugLabel.hide()
+
+	if !active or !alive:
+		visible_to_player = false
+		return
+	if not _hasRequiredKey():
+		visible_to_player = false
+		interactableLabel.hide()
+		return
+	visible_to_player = _check_line_of_sight() and _is_on_screen()
+	if visible_to_player:
+		_setFullWordLabel()
+		_updateTypedLabel()
+		interactableLabel.show()
+		if debugLabel != null:
+			if SettingsManager.debug_show_thing_ids:
+				_applyDoomFont()
+				debugLabel.show()
+			else:
+				debugLabel.hide()
+	else:
+		interactableLabel.hide()
+		if typedLabel != null:
+			typedLabel.hide()
+		if debugLabel != null:
+			debugLabel.hide()
+
+	if _prev_visible_to_player and not visible_to_player:
+		var player : Player = Game.getPlayer()
+		if player != null and player._currentFireTarget == self:
+			EventBus.releasePlayerTarget.emit()
+	_prev_visible_to_player = visible_to_player
+
+func _needsThinWallCheck() -> bool:
+	# Only walk-up doors need the thin-wall heuristic — they're positioned
+	# inside the door frame where the raycast always hits the frame.
+	# Switches don't need it — they're on the player's side of the wall.
+	if wadNode == null or !is_instance_valid(wadNode):
+		return false
+	var ttype = wadNode.get("triggerType")
+	return ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1
+
+func _isDoorClosed() -> bool:
+	if wadNode == null or !is_instance_valid(wadNode):
+		return false
+	var state = wadNode.get("state")
+	if state == null:
+		return false
+	# STATE.CLOSED = 2 in door.gd, STATE.TOP = 0 in lift.gd
+	return state == 2
+
+func _isDoorOpen() -> bool:
+	if wadNode == null or !is_instance_valid(wadNode):
+		return false
+	var state = wadNode.get("state")
+	if state == null:
+		return false
+	# STATE.OPEN = 0 in door.gd, STATE.OPENING = 3
+	return state == 0 or state == 3
+
+func _resetWeakness() -> void:
+	alive = true
+	weakness._currentHitPointIndex = 0
+	for hitPoint in weakness.hitPoints:
+		hitPoint.full = true
+	weakness.updateLabel()
+	_setFullWordLabel()
+	if typedLabel != null:
+		typedLabel.text = ""
+		typedLabel.hide()
+
+func _hasRequiredKey() -> bool:
+	if requiredKey == "":
+		return true
+	var player = Game.getPlayer()
+	if player == null:
+		return false
+	var wad_game = Game.getWadGame()
+	var valid_keys = [requiredKey]
+	if wad_game != null:
+		valid_keys = wad_game.key_equivalents.get(requiredKey, [requiredKey])
+	for key in valid_keys:
+		if key in player._keys:
+			return true
+	return false
+
+const MAX_INTERACT_DISTANCE: float = 20.0
+
+func _is_on_screen() -> bool:
+	var camera = get_viewport().get_camera_3d()
+	if camera == null:
+		return false
+	var world_pos = global_position + Vector3(0, 1.0, 0)
+	if camera.is_position_behind(world_pos):
+		return false
+	var screen_pos = camera.unproject_position(world_pos)
+	var viewport_size = get_viewport().get_visible_rect().size
+	return screen_pos.x >= 0 and screen_pos.x <= viewport_size.x and screen_pos.y >= 0 and screen_pos.y <= viewport_size.y
+
+func _check_line_of_sight() -> bool:
+	var player = Game.getPlayer()
+	if player == null:
+		return false
+	var distance = global_position.distance_to(player.global_position)
+	if distance > MAX_INTERACT_DISTANCE:
+		return false
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return false
+	var world_pos := global_position + Vector3(0, 1.0, 0)
+	if camera.is_position_behind(world_pos):
+		return false
+	var screen_pos := camera.unproject_position(world_pos)
+	var viewport_size := get_viewport().get_visible_rect().size
+	if screen_pos.x < 0 or screen_pos.x > viewport_size.x or screen_pos.y < 0 or screen_pos.y > viewport_size.y:
+		return false
+	# Raycast to check for walls between player and interactable
+	var space_state = get_world_3d().direct_space_state
+	if space_state == null:
+		return false
+	var from = player.global_position + Vector3(0, 0.85, 0)
+	var to = global_position + Vector3(0, 1.0, 0)
+	var pull = (from - to).normalized() * 0.3
+	to += pull
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = 2
+	query.exclude = [player.get_rid()]
+	var result = space_state.intersect_ray(query)
+	if result.is_empty():
+		return true
+	if !_needsThinWallCheck():
+		return false
+	var reverse_query = PhysicsRayQueryParameters3D.create(to, from)
+	reverse_query.collision_mask = 2
+	var reverse_result = space_state.intersect_ray(reverse_query)
+	if reverse_result.is_empty():
+		return true
+	var fwd_hit: Vector3 = result["position"]
+	var rev_hit: Vector3 = reverse_result["position"]
+	return fwd_hit.distance_to(rev_hit) < 0.5

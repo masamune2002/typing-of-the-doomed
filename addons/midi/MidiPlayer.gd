@@ -520,6 +520,7 @@ func _init_channel( ) -> void:
 ## 再生
 ## @param	from_position	再生位置
 func play( from_position:float = 0.0 ) -> void:
+	self._stop_all_notes( )
 	self._previous_time = 0.0
 	if not self._prepare_to_play( ):
 		self.playing = false

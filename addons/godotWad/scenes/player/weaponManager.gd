@@ -126,8 +126,10 @@ func _process(delta: float) -> void:
 				bob = false
 
 	if bob:
-		weapons.position.y = abs((0.018 * sin(rangle))) - 0.017
-		weapons.position.x = (0.013 * cos(rangle))
+		var swayScale = SettingsManager.weapon_sway if SettingsManager else 1.0
+		# DOOM-style figure-8: X is cos(angle), Y is sin(angle*2) at half amplitude
+		weapons.position.x = cos(rangle) * 0.04 * swayScale
+		weapons.position.y = sin(rangle * 2.0) * 0.025 * swayScale
 
 func _physics_process(delta):
 

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://jm65mycg0yk8"]
+
+[ext_resource type="PackedScene" uid="uid://d0gco8e8c0rn7" path="res://rail/scenes/Player/Player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://bjf0t62qp8d58" path="res://scenes/DoomPlayer/DoomPlayer.gd" id="2_script"]
+
+[node name="DoomPlayer" unique_id=911844596 instance=ExtResource("1_player")]
+script = ExtResource("2_script")
