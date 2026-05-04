@@ -14,6 +14,8 @@ var wadNode: Node3D
 var weakness: TypingWeakness
 var requiredKey: String = ""  # empty = no key needed
 var set_variable: String = "" # game variable to set when activated
+var interactable_name: String = "" # stable id used for signal-based gating (set by spawner)
+var _door_was_open: bool = false # tracks door-open transition for doorOpened signal
 
 func _ready() -> void:
 	alive = true
@@ -95,6 +97,9 @@ func showFullLabel() -> void:
 func _activate_wad_node() -> void:
 	if set_variable != "":
 		Game.setVar(set_variable)
+	if interactable_name != "":
+		Game.setVar("interactable_" + interactable_name, true)
+		EventBus.interactableActivated.emit(interactable_name)
 	alive = false
 	interactableLabel.hide()
 	if typedLabel != null:
@@ -123,6 +128,7 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	# If door has closed again, re-enable the interactable with the same word
+	_checkDoorOpenedSignal()
 	if !alive and active:
 		if _isDoorClosed():
 			_resetWeakness()
@@ -164,6 +170,15 @@ func _physics_process(_delta: float) -> void:
 		if player != null and player._currentFireTarget == self:
 			EventBus.releasePlayerTarget.emit()
 	_prev_visible_to_player = visible_to_player
+
+func _checkDoorOpenedSignal() -> void:
+	if interactable_name == "":
+		return
+	var open := _isDoorOpen()
+	if open and not _door_was_open:
+		Game.setVar("door_" + interactable_name, true)
+		EventBus.doorOpened.emit(interactable_name)
+	_door_was_open = open
 
 func _needsThinWallCheck() -> bool:
 	# Only walk-up doors need the thin-wall heuristic — they're positioned

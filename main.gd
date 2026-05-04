@@ -1092,6 +1092,7 @@ func _spawnInteractablesFromWad() -> void:
 
 		var interactable = INTERACTABLE_SCENE.instantiate()
 		interactable.wadNode = node
+		interactable.interactable_name = node.name
 		# Check if door requires a key (KEY enum: RED=0, GREEN=1, BLUE=2, YELLOW=3, 9=none)
 		var keyType = node.get(WadGame.PROP_KEY_TYPE)
 		if keyType != null and wad_game.key_type_to_id.has(keyType):
@@ -1169,6 +1170,7 @@ func _spawnInteractablesFromWad() -> void:
 					continue
 				var interactable = INTERACTABLE_SCENE.instantiate()
 				interactable.wadNode = door_node
+				interactable.interactable_name = door_node.name
 				add_child(interactable)
 				interactable.global_position = _wadToWorld(world_pos)
 				interactable_count += 1
