@@ -1092,7 +1092,7 @@ func _spawnInteractablesFromWad() -> void:
 
 		var interactable = INTERACTABLE_SCENE.instantiate()
 		interactable.wadNode = node
-		interactable.interactable_name = node.name
+		interactable.interactable_name = _interactableNameFor(node)
 		# Check if door requires a key (KEY enum: RED=0, GREEN=1, BLUE=2, YELLOW=3, 9=none)
 		var keyType = node.get(WadGame.PROP_KEY_TYPE)
 		if keyType != null and wad_game.key_type_to_id.has(keyType):
@@ -1170,7 +1170,7 @@ func _spawnInteractablesFromWad() -> void:
 					continue
 				var interactable = INTERACTABLE_SCENE.instantiate()
 				interactable.wadNode = door_node
-				interactable.interactable_name = door_node.name
+				interactable.interactable_name = _interactableNameFor(door_node)
 				add_child(interactable)
 				interactable.global_position = _wadToWorld(world_pos)
 				interactable_count += 1
@@ -1307,3 +1307,13 @@ func _physics_process(delta: float) -> void:
 			entry[RIDER_NODE].global_position.y += diff
 			entry[RIDER_LAST_H] = cur_h
 		i -= 1
+
+func _interactableNameFor(wad_node: Node) -> String:
+	if wad_node == null or wad_node.get_parent() == null:
+		return ""
+	var parent_name : String = wad_node.get_parent().name
+	var lower := parent_name.to_lower()
+	if not lower.begins_with(WadGame.SECTOR_PREFIX_LOWER):
+		return ""
+	var sec_index := parent_name.substr(7).to_int()
+	return "sector_%d" % sec_index
