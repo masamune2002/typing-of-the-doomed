@@ -59,19 +59,17 @@ func _snapToFloor() -> void:
 func _apply_disc_color() -> void:
 	if not is_inside_tree():
 		return
-	var outer = get_node_or_null("EncounterMesh")
-	var inner = get_node_or_null("CollisionArea/CenterMesh")
-	if outer and outer.mesh:
+	var outer := get_node_or_null("EncounterMesh") as MeshInstance3D
+	var inner := get_node_or_null("CollisionArea/CenterMesh") as MeshInstance3D
+	if outer != null and outer.mesh != null:
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = disc_color
-		outer.mesh = outer.mesh.duplicate()
-		outer.mesh.material = mat
-	if inner and inner.mesh:
-		var complement = Color.from_hsv(fmod(disc_color.h + 0.5, 1.0), disc_color.s, disc_color.v)
+		outer.material_override = mat
+	if inner != null and inner.mesh != null:
+		var complement := Color.from_hsv(fmod(disc_color.h + 0.5, 1.0), disc_color.s, disc_color.v)
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = complement
-		inner.mesh = inner.mesh.duplicate()
-		inner.mesh.material = mat
+		inner.material_override = mat
 
 func _hideMeshes() -> void:
 	var outer = get_node_or_null("EncounterMesh")
