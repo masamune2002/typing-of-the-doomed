@@ -95,8 +95,9 @@ func _physics_process(delta: float) -> void:
 		_trackTarget(delta)
 
 	# Rail path progress tracking
+	var speed_mult := _speedMultiplier()
 	if _moving and is_instance_valid(currentPathFollow):
-		currentPathFollow.progress += _railSpeed * delta
+		currentPathFollow.progress += _railSpeed * speed_mult * delta
 		if currentPathFollow.progress_ratio >= 1.0:
 			_moving = false
 			if _moveAction != null:
@@ -124,7 +125,7 @@ func _physics_process(delta: float) -> void:
 		dir.y = 0
 		if dir.length() > 0.01:
 			dir = dir.normalized()
-		move_dir = dir * _railSpeed
+		move_dir = dir * _railSpeed * speed_mult
 		# Fake input_dir so head bob and step-up work
 		input_dir = Vector2(dir.x, dir.z).normalized()
 	elif SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused:
@@ -145,7 +146,7 @@ func _physics_process(delta: float) -> void:
 		right.y = 0
 		right = right.normalized()
 
-		move_dir = (forward * -input_dir.y + right * input_dir.x) * moveSpeed
+		move_dir = (forward * -input_dir.y + right * input_dir.x) * moveSpeed * speed_mult
 
 	velocity.x = move_dir.x
 	velocity.z = move_dir.z
@@ -219,6 +220,11 @@ func _checkFloorDamage() -> void:
 func getMovementSpeedRatio() -> float:
 	if _moving:
 		return _railSpeed / moveSpeed
+	return 1.0
+
+func _speedMultiplier() -> float:
+	if SettingsManager != null and SettingsManager.debug_superspeed:
+		return 10.0
 	return 1.0
 
 func startCameraMove(pathToFollow: Path3D, newMoveAction : EncounterAction, railSpeed : float = -1.0) -> void:

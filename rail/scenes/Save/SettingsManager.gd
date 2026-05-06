@@ -16,6 +16,7 @@ var debug_reticle : bool = false
 var debug_show_stations : bool = false
 var debug_show_rails : bool = false
 var debug_skip_encounters : bool = false
+var debug_superspeed : bool = false
 var debug_wasd : bool = false
 var debug_wasd_paused : bool = false
 var _tracking_timer : float = 0.0
@@ -73,6 +74,7 @@ func load_settings() -> void:
 	debug_show_stations = config.get_value("debug", "show_stations", false)
 	debug_show_rails = config.get_value("debug", "show_rails", false)
 	debug_skip_encounters = config.get_value("debug", "skip_encounters", false)
+	debug_superspeed = config.get_value("debug", "superspeed", false)
 	debug_wasd = config.get_value("debug", "wasd", false)
 
 func save_settings() -> void:
@@ -91,6 +93,7 @@ func save_settings() -> void:
 	config.set_value("debug", "show_stations", debug_show_stations)
 	config.set_value("debug", "show_rails", debug_show_rails)
 	config.set_value("debug", "skip_encounters", debug_skip_encounters)
+	config.set_value("debug", "superspeed", debug_superspeed)
 	config.set_value("debug", "wasd", debug_wasd)
 	config.save(SETTINGS_PATH)
 

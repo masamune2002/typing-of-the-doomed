@@ -27,7 +27,7 @@ const MAP_DESCRIPTIONS = {
 const MAX_SAVE_NAME_LENGTH = 24
 
 const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
-const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "WASD MOVEMENT", "BACK"]
+const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "SUPERSPEED", "WASD MOVEMENT", "BACK"]
 
 const COLOR_TITLE := Color(1.0, 0.8, 0.2)
 const COLOR_ITEM := Color(1.0, 0.2, 0.2)
@@ -480,6 +480,8 @@ func _getDebugOptionText(opt_name: String) -> String:
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_show_rails else "OFF")
 		"SKIP ENCOUNTERS":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_skip_encounters else "OFF")
+		"SUPERSPEED":
+			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_superspeed else "OFF")
 		"WASD MOVEMENT":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_wasd else "OFF")
 		"BACK":
@@ -501,6 +503,8 @@ func _adjustDebugOption(direction: int) -> void:
 			SettingsManager.debug_show_rails = !SettingsManager.debug_show_rails
 		"SKIP ENCOUNTERS":
 			SettingsManager.debug_skip_encounters = !SettingsManager.debug_skip_encounters
+		"SUPERSPEED":
+			SettingsManager.debug_superspeed = !SettingsManager.debug_superspeed
 		"WASD MOVEMENT":
 			SettingsManager.debug_wasd = !SettingsManager.debug_wasd
 	_refreshDebugLabels()
