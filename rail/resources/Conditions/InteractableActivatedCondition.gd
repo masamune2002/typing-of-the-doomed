@@ -6,9 +6,9 @@ class_name InteractableActivatedCondition
 ## "interactable_<name>" Game variable so the check is sticky.
 @export var interactable_name: String = ""
 
-func check(encounterPoint: EncounterPoint) -> bool:
+func check(marker : RailMarker) -> bool:
 	if interactable_name == "":
 		return false
 	variable_name = "interactable_" + interactable_name
 	expected_value = "true"
-	return super.check(encounterPoint)
+	return super.check(marker)

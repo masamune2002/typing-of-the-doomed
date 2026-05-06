@@ -7,9 +7,9 @@ class_name DoorOpenCondition
 ## door later closes again.
 @export var door_name: String = ""
 
-func check(encounterPoint: EncounterPoint) -> bool:
+func check(marker : RailMarker) -> bool:
 	if door_name == "":
 		return false
 	variable_name = "door_" + door_name
 	expected_value = "true"
-	return super.check(encounterPoint)
+	return super.check(marker)

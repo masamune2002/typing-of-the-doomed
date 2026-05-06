@@ -3,5 +3,5 @@ class_name EncounterCondition
 
 var met : bool = false
 
-func check(encounterPoint : EncounterPoint) -> bool:
+func check(marker : RailMarker) -> bool:
 	return false

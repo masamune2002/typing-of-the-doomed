@@ -123,14 +123,12 @@ func _on_find_prev_station() -> void:
 				return
 	push_warning("No previous station found")
 
-func _onCollisionAreaBodyEntered(body: Node3D) -> void:
-	if body is Player:
-		var player: Player = body
-		print("[STATION] %s: body entered, currentEncounter=%s, active=%s, one_shot=%s, _has_triggered=%s" % [name, player.currentEncounter, player.currentEncounter.active if player.currentEncounter else "n/a", one_shot, _has_triggered])
-		if player.currentEncounter != null and player.currentEncounter.active and not blocking:
-			print("[STATION] %s: blocked by active encounter" % name)
-			return
-	super._onCollisionAreaBodyEntered(body)
+func _on_player_entered(player: Player) -> void:
+	print("[STATION] %s: body entered, currentEncounter=%s, active=%s, one_shot=%s, _has_triggered=%s" % [name, player.currentEncounter, player.currentEncounter.active if player.currentEncounter else "n/a", one_shot, _has_triggered])
+	if player.currentEncounter != null and player.currentEncounter.active and not blocking:
+		print("[STATION] %s: blocked by active encounter" % name)
+		return
+	super._on_player_entered(player)
 
 func resolve_next_stations() -> Array[RailStation]:
 	var out: Array[RailStation] = []
