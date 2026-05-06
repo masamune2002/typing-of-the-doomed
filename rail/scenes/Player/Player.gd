@@ -224,7 +224,7 @@ func getMovementSpeedRatio() -> float:
 
 func _speedMultiplier() -> float:
 	if SettingsManager != null and SettingsManager.debug_superspeed:
-		return 10.0
+		return 5.0
 	return 1.0
 
 func startCameraMove(pathToFollow: Path3D, newMoveAction : EncounterAction, railSpeed : float = -1.0) -> void:
