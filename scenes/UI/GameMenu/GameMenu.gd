@@ -26,38 +26,40 @@ const MAP_DESCRIPTIONS = {
 }
 const MAX_SAVE_NAME_LENGTH = 24
 
+const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
+const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "WASD MOVEMENT", "BACK"]
+
+const COLOR_TITLE := Color(1.0, 0.8, 0.2)
+const COLOR_ITEM := Color(1.0, 0.2, 0.2)
+const COLOR_SELECTED := Color(1.0, 1.0, 1.0)
+const SCALE_TARGET_FRAC_Y := 0.85
+const SCALE_TARGET_FRAC_X := 0.90
+const SCALE_MIN := 0.5
+const SCALE_MAX := 12.0
+
 var _menu_state : MenuState = MenuState.MAIN
 var _menu_selection : int = 0
 var _level_selection : int = 0
 var _slot_selection : int = 0
+var _options_selection : int = 0
+var _debug_selection : int = 0
+
+var _root : Control = null
+var _scaler : Control = null
+var _doom_font : Font = null
+
+# Per-state panel containers
+var _panels : Dictionary = {}
+# Per-state Array[HBoxContainer] of selectable item rows (excludes title rows)
+var _items_by_state : Dictionary = {}
+# All Label nodes (including titles) for font-reapply when DOOM font loads late
+var _all_labels : Array[Label] = []
+# All skull TextureRects, kept in a list for animation
+var _all_skulls : Array[TextureRect] = []
+
 var _skull_textures : Array[Texture2D] = []
 var _skull_frame : int = 0
 var _skull_timer : float = 0.0
-var _skull_node : TextureRect = null
-var _main_menu_items : Array[Control] = []
-var _level_menu_items : Array[Control] = []
-var _slot_menu_items : Array[Control] = []
-var _main_menu_vbox : VBoxContainer = null
-var _main_menu_center : Control = null
-var _level_select_vbox : VBoxContainer = null
-var _level_select_center : Control = null
-var _slot_vbox : VBoxContainer = null
-var _slot_center : Control = null
-var _options_vbox : VBoxContainer = null
-var _options_center : Control = null
-var _options_items : Array[Control] = []
-var _options_selection : int = 0
-var _options_value_labels : Array[Label] = []
-var _debug_vbox : VBoxContainer = null
-var _debug_center : Control = null
-var _debug_items : Array[Control] = []
-var _debug_selection : int = 0
-var _debug_value_labels : Array[Label] = []
-var _root : Control = null
-var _doom_font : Font = null
-
-const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
-const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "WASD MOVEMENT", "BACK"]
 
 # Save name editing
 var _editing_save_name : bool = false
@@ -69,17 +71,22 @@ var _slot_data : Array[Dictionary] = []
 func _ready() -> void:
 	layer = 10
 	_buildUI()
+	get_viewport().size_changed.connect(_recomputeScale)
+
+# ── Build ────────────────────────────────────────────────────────────────
 
 func _buildUI() -> void:
 	_menu_state = MenuState.MAIN
 	_menu_selection = 0
 	_level_selection = 0
 	_slot_selection = 0
+	_options_selection = 0
+	_debug_selection = 0
 
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_root)
-	var root := _root
 
 	if not pause_mode:
 		var bg := TextureRect.new()
@@ -87,12 +94,14 @@ func _buildUI() -> void:
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		root.add_child(bg)
+		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_root.add_child(bg)
 
 	var overlay := ColorRect.new()
 	overlay.color = Color(0, 0, 0, 0.55)
 	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.add_child(overlay)
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(overlay)
 
 	_doom_font = Game.getDoomFont()
 	if _doom_font == null:
@@ -106,89 +115,261 @@ func _buildUI() -> void:
 	if s2 != null:
 		_skull_textures.append(s2)
 
-	_skull_node = TextureRect.new()
-	if _skull_textures.size() > 0:
-		_skull_node.texture = _skull_textures[0]
-	_skull_node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_skull_node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	_skull_node.custom_minimum_size = Vector2(160, 160)
-	root.add_child(_skull_node)
+	# Scaler holds all panels. We size/position/scale it dynamically.
+	_scaler = Control.new()
+	_scaler.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(_scaler)
 
-	# Main menu
-	_main_menu_center = _createCenteredVBoxContainer(8)
-	root.add_child(_main_menu_center)
-	_main_menu_vbox = _main_menu_center.get_meta("vbox")
+	_all_labels.clear()
+	_all_skulls.clear()
+	_panels.clear()
+	_items_by_state.clear()
 
-	_main_menu_items.clear()
-	var menu_items = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
-	for text in menu_items:
-		var item := _createScaledLabel(text, _doom_font, 8.0, Color(1.0, 0.2, 0.2))
-		_main_menu_vbox.add_child(item)
-		_main_menu_items.append(item)
+	var main_items : Array = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
+	_panels[MenuState.MAIN] = _buildSimplePanel(main_items, "")
+	_panels[MenuState.LEVEL_SELECT] = _buildSimplePanel(_levelLines(), "LEVEL SELECT")
+	_panels[MenuState.SAVE_GAME] = _buildSlotPanel("SAVE GAME")
+	_panels[MenuState.LOAD_GAME] = _buildSlotPanel("LOAD GAME")
+	_panels[MenuState.OPTIONS] = _buildOptionsPanel()
+	_panels[MenuState.DEBUG] = _buildDebugPanel()
 
-	# Level select submenu
-	_level_select_center = _createCenteredVBoxContainer(8, 0.22)
-	_level_select_center.visible = false
-	root.add_child(_level_select_center)
-	_level_select_vbox = _level_select_center.get_meta("vbox")
+	for ms in _panels.keys():
+		var p : Control = _panels[ms]
+		p.visible = (ms == MenuState.MAIN)
+		_scaler.add_child(p)
 
-	var level_title := _createScaledLabel("LEVEL SELECT", _doom_font, 6.0, Color(1.0, 0.8, 0.2))
-	_level_select_vbox.add_child(level_title)
-
-	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 4)
-	_level_select_vbox.add_child(spacer)
-
-	_level_menu_items.clear()
-	for i in MAP_NAMES.size():
-		var map_name = MAP_NAMES[i]
-		var desc = MAP_DESCRIPTIONS.get(map_name, "")
-		var item := _createScaledLabel(map_name + " - " + desc, _doom_font, 5.0, Color(1.0, 0.2, 0.2))
-		_level_select_vbox.add_child(item)
-		_level_menu_items.append(item)
-
-	# Save/Load slot submenu
-	_slot_center = _createCenteredVBoxContainer(4)
-	_slot_center.visible = false
-	root.add_child(_slot_center)
-	_slot_vbox = _slot_center.get_meta("vbox")
-
-	# Options submenu
-	_options_center = _createCenteredVBoxContainer(8, 0.22)
-	_options_center.visible = false
-	root.add_child(_options_center)
-	_options_vbox = _options_center.get_meta("vbox")
-	_buildOptionsItems()
-
-	# Debug submenu
-	_debug_center = _createCenteredVBoxContainer(8, 0.22)
-	_debug_center.visible = false
-	root.add_child(_debug_center)
-	_debug_vbox = _debug_center.get_meta("vbox")
-	_buildDebugItems()
+	_registerRows()
+	_refreshOptionsLabels()
+	_refreshDebugLabels()
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_updateMenuHighlight()
+	_recomputeScale.call_deferred()
 
-func _buildSlotItems(title_text: String) -> void:
-	# Clear old slot items
-	for child in _slot_vbox.get_children():
-		child.queue_free()
-	_slot_menu_items.clear()
+func _levelLines() -> Array[String]:
+	var out : Array[String] = []
+	for map_name in MAP_NAMES:
+		var desc = MAP_DESCRIPTIONS.get(map_name, "")
+		out.append(map_name + " - " + desc)
+	return out
 
-	var title := _createScaledLabel(title_text, _doom_font, 6.0, Color(1.0, 0.8, 0.2))
-	_slot_vbox.add_child(title)
+# Generic panel: optional title, list of selectable item strings.
+func _buildSimplePanel(items: Array, title: String) -> VBoxContainer:
+	var panel := _makePanel()
+	var rows : Array[HBoxContainer] = []
+	if title != "":
+		panel.add_child(_makeTitleRow(title))
+		panel.add_child(_makeSpacer(8))
+	for s in items:
+		var r := _makeItemRow(String(s))
+		panel.add_child(r)
+		rows.append(r)
+	panel.set_meta("rows", rows)
+	return panel
 
-	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 4)
-	_slot_vbox.add_child(spacer)
-
-	_slot_data = SaveManager.get_all_slots()
+func _buildSlotPanel(title: String) -> VBoxContainer:
+	var panel := _makePanel()
+	panel.add_child(_makeTitleRow(title))
+	panel.add_child(_makeSpacer(8))
+	var rows : Array[HBoxContainer] = []
 	for i in SaveManager.MAX_SLOTS:
-		var slot_text := _getSlotDisplayText(i)
-		var item := _createScaledLabel(slot_text, _doom_font, 5.5, Color(1.0, 0.2, 0.2))
-		_slot_vbox.add_child(item)
-		_slot_menu_items.append(item)
+		var r := _makeItemRow("%d. EMPTY" % (i + 1))
+		panel.add_child(r)
+		rows.append(r)
+	panel.set_meta("rows", rows)
+	return panel
+
+func _buildOptionsPanel() -> VBoxContainer:
+	var panel := _makePanel()
+	panel.add_child(_makeTitleRow("OPTIONS"))
+	panel.add_child(_makeSpacer(8))
+	var rows : Array[HBoxContainer] = []
+	for opt_name in OPTIONS_ITEMS:
+		var r := _makeItemRow(opt_name)
+		panel.add_child(r)
+		rows.append(r)
+	panel.set_meta("rows", rows)
+	return panel
+
+func _buildDebugPanel() -> VBoxContainer:
+	var panel := _makePanel()
+	panel.add_child(_makeTitleRow("DEBUG"))
+	panel.add_child(_makeSpacer(8))
+	var rows : Array[HBoxContainer] = []
+	for opt_name in DEBUG_ITEMS:
+		var r := _makeItemRow(opt_name)
+		panel.add_child(r)
+		rows.append(r)
+	panel.set_meta("rows", rows)
+	return panel
+
+func _makePanel() -> VBoxContainer:
+	var panel := VBoxContainer.new()
+	panel.add_theme_constant_override("separation", 4)
+	panel.alignment = BoxContainer.ALIGNMENT_CENTER
+	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return panel
+
+func _makeSpacer(h: int) -> Control:
+	var c := Control.new()
+	c.custom_minimum_size = Vector2(0, h)
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return c
+
+func _makeTitleRow(text: String) -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var label := _makeLabel(text, COLOR_TITLE)
+	row.add_child(label)
+	row.set_meta("label", label)
+	return row
+
+func _makeItemRow(text: String) -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	row.add_theme_constant_override("separation", 6)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	var skull := TextureRect.new()
+	skull.custom_minimum_size = Vector2(16, 16)
+	skull.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	skull.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	skull.modulate.a = 0.0
+	if _skull_textures.size() > 0:
+		skull.texture = _skull_textures[0]
+	row.add_child(skull)
+	_all_skulls.append(skull)
+
+	var label := _makeLabel(text, COLOR_ITEM)
+	row.add_child(label)
+
+	row.set_meta("label", label)
+	row.set_meta("skull", skull)
+	return row
+
+func _makeLabel(text: String, color: Color) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_color_override("font_color", color)
+	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if _doom_font != null:
+		label.add_theme_font_override("font", _doom_font)
+	_all_labels.append(label)
+	return label
+
+# After _buildUI registers panels, the rows for each state need to be
+# associated correctly. Override the placeholder mapping done by
+# _buildSimplePanel by walking _panels and grabbing the meta.
+func _registerRows() -> void:
+	_items_by_state.clear()
+	for ms in _panels.keys():
+		var panel : Control = _panels[ms]
+		if panel == null or not panel.has_meta("rows"):
+			_items_by_state[ms] = []
+			continue
+		_items_by_state[ms] = panel.get_meta("rows")
+
+# ── Layout / Scaling ────────────────────────────────────────────────────
+
+func _recomputeScale() -> void:
+	if _scaler == null:
+		return
+	var visible_panel : Control = _panels.get(_menu_state)
+	if visible_panel == null:
+		return
+	var content_min : Vector2 = visible_panel.get_combined_minimum_size()
+	if content_min.y <= 0.0 or content_min.x <= 0.0:
+		# Layout not settled yet — retry next frame.
+		call_deferred("_recomputeScale")
+		return
+	var vp : Vector2 = get_viewport().get_visible_rect().size
+	var s_h : float = (vp.y * SCALE_TARGET_FRAC_Y) / content_min.y
+	var s_w : float = (vp.x * SCALE_TARGET_FRAC_X) / content_min.x
+	var s : float = clampf(min(s_h, s_w), SCALE_MIN, SCALE_MAX)
+	_scaler.size = content_min
+	_scaler.pivot_offset = Vector2.ZERO
+	_scaler.scale = Vector2(s, s)
+	_scaler.position = (vp - content_min * s) * 0.5
+
+# ── Highlight / Selection ───────────────────────────────────────────────
+
+func _getActiveRows() -> Array:
+	return _items_by_state.get(_menu_state, [])
+
+func _getActiveSelection() -> int:
+	match _menu_state:
+		MenuState.MAIN: return _menu_selection
+		MenuState.LEVEL_SELECT: return _level_selection
+		MenuState.SAVE_GAME, MenuState.LOAD_GAME: return _slot_selection
+		MenuState.OPTIONS: return _options_selection
+		MenuState.DEBUG: return _debug_selection
+	return 0
+
+func _updateMenuHighlight() -> void:
+	var rows : Array = _getActiveRows()
+	var sel : int = _getActiveSelection()
+	for i in rows.size():
+		var row : Node = rows[i]
+		var label : Label = row.get_meta("label") if row.has_meta("label") else null
+		var skull : TextureRect = row.get_meta("skull") if row.has_meta("skull") else null
+		if label != null:
+			if i == sel:
+				label.add_theme_color_override("font_color", COLOR_SELECTED)
+			else:
+				label.add_theme_color_override("font_color", COLOR_ITEM)
+		if skull != null:
+			skull.modulate.a = 1.0 if i == sel else 0.0
+
+# ── Submenu switching ───────────────────────────────────────────────────
+
+func _showSubmenu(state: MenuState) -> void:
+	for ms in _panels.keys():
+		var p : Control = _panels[ms]
+		if p != null:
+			p.visible = (ms == state)
+	_menu_state = state
+	match state:
+		MenuState.SAVE_GAME:
+			_slot_selection = 0
+			_refreshSlotLabels()
+		MenuState.LOAD_GAME:
+			_slot_selection = 0
+			_refreshSlotLabels()
+		MenuState.OPTIONS:
+			_options_selection = 0
+			_refreshOptionsLabels()
+		MenuState.DEBUG:
+			_debug_selection = 0
+			_refreshDebugLabels()
+	_updateMenuHighlight()
+	_recomputeScale.call_deferred()
+
+func _returnToMain() -> void:
+	Game.playSound("DSPSTOP")
+	_editing_save_name = false
+	if _menu_state == MenuState.DEBUG:
+		SettingsManager.save_settings()
+		_showSubmenu(MenuState.OPTIONS)
+		return
+	if _menu_state == MenuState.OPTIONS:
+		SettingsManager.save_settings()
+	_showSubmenu(MenuState.MAIN)
+
+# ── Slot rows ───────────────────────────────────────────────────────────
+
+func _refreshSlotLabels() -> void:
+	_slot_data = SaveManager.get_all_slots()
+	var rows : Array = _items_by_state.get(_menu_state, [])
+	for i in rows.size():
+		var label : Label = rows[i].get_meta("label")
+		if label != null:
+			label.text = _getSlotDisplayText(i)
 
 func _getSlotDisplayText(slot: int) -> String:
 	var data = _slot_data[slot] if slot < _slot_data.size() else {}
@@ -200,37 +381,27 @@ func _getSlotDisplayText(slot: int) -> String:
 		return "%d. %s  %s" % [slot + 1, name_str, map_str]
 	return "%d. %s" % [slot + 1, name_str]
 
-func _buildOptionsItems() -> void:
-	for child in _options_vbox.get_children():
-		child.queue_free()
-	_options_items.clear()
-	_options_value_labels.clear()
+# ── Options rows ────────────────────────────────────────────────────────
 
-	var title := _createScaledLabel("OPTIONS", _doom_font, 6.0, Color(1.0, 0.8, 0.2))
-	_options_vbox.add_child(title)
+func _refreshOptionsLabels() -> void:
+	var rows : Array = _items_by_state.get(MenuState.OPTIONS, [])
+	var target_width : float = _computeOptionsTargetWidth()
+	for i in OPTIONS_ITEMS.size():
+		if i >= rows.size():
+			break
+		var label : Label = rows[i].get_meta("label")
+		if label != null:
+			label.text = _getOptionText(OPTIONS_ITEMS[i], target_width)
 
-	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 4)
-	_options_vbox.add_child(spacer)
-
-	# Find widest option name in pixels and add some padding
-	var max_name_width := 0.0
+func _computeOptionsTargetWidth() -> float:
+	var max_w : float = 0.0
 	if _doom_font != null:
 		for opt_name in OPTIONS_ITEMS:
 			if opt_name == "BACK":
 				continue
 			var w = _doom_font.get_string_size(opt_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
-			max_name_width = maxf(max_name_width, w)
-	var target_width = max_name_width * 1.3
-
-	for i in OPTIONS_ITEMS.size():
-		var opt_name = OPTIONS_ITEMS[i]
-		var full_text = _getOptionText(opt_name, target_width)
-		var item := _createScaledLabel(full_text, _doom_font, 5.0, Color(1.0, 0.2, 0.2))
-		_options_vbox.add_child(item)
-		_options_items.append(item)
-		var label := _getLabel(item)
-		_options_value_labels.append(label)
+			max_w = maxf(max_w, w)
+	return max_w * 1.3
 
 func _getOptionText(opt_name: String, target_width: float) -> String:
 	var value_str := ""
@@ -249,6 +420,8 @@ func _getOptionText(opt_name: String, target_width: float) -> String:
 			value_str = "< %s >" % ("ON" if SettingsManager.fullscreen else "OFF")
 		"VSYNC":
 			value_str = "< %s >" % ("ON" if SettingsManager.vsync else "OFF")
+		"DEBUG":
+			return "DEBUG"
 		"BACK":
 			return "BACK"
 	if _doom_font == null:
@@ -261,10 +434,6 @@ func _getOptionText(opt_name: String, target_width: float) -> String:
 		dots += "."
 		current_width += dot_width
 	return opt_name + dots + " " + value_str
-
-func _updateOptionsValues() -> void:
-	_buildOptionsItems()
-	_updateMenuHighlight()
 
 func _adjustOption(direction: int) -> void:
 	var opt_name = OPTIONS_ITEMS[_options_selection]
@@ -283,40 +452,21 @@ func _adjustOption(direction: int) -> void:
 			SettingsManager.set_fullscreen(!SettingsManager.fullscreen)
 		"VSYNC":
 			SettingsManager.set_vsync(!SettingsManager.vsync)
-	_updateOptionsValues()
+	_refreshOptionsLabels()
+	_updateMenuHighlight()
 
-func _buildDebugItems() -> void:
-	for child in _debug_vbox.get_children():
-		child.queue_free()
-	_debug_items.clear()
-	_debug_value_labels.clear()
+# ── Debug rows ──────────────────────────────────────────────────────────
 
-	var title := _createScaledLabel("DEBUG", _doom_font, 6.0, Color(1.0, 0.8, 0.2))
-	_debug_vbox.add_child(title)
-
-	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 4)
-	_debug_vbox.add_child(spacer)
-
-	var max_name_width := 0.0
-	if _doom_font != null:
-		for opt_name in DEBUG_ITEMS:
-			if opt_name == "BACK":
-				continue
-			var w = _doom_font.get_string_size(opt_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
-			max_name_width = maxf(max_name_width, w)
-	var target_width = max_name_width * 1.3
-
+func _refreshDebugLabels() -> void:
+	var rows : Array = _items_by_state.get(MenuState.DEBUG, [])
 	for i in DEBUG_ITEMS.size():
-		var opt_name = DEBUG_ITEMS[i]
-		var full_text = _getDebugOptionText(opt_name, target_width)
-		var item := _createScaledLabel(full_text, _doom_font, 5.0, Color(1.0, 0.2, 0.2))
-		_debug_vbox.add_child(item)
-		_debug_items.append(item)
-		var label := _getLabel(item)
-		_debug_value_labels.append(label)
+		if i >= rows.size():
+			break
+		var label : Label = rows[i].get_meta("label")
+		if label != null:
+			label.text = _getDebugOptionText(DEBUG_ITEMS[i])
 
-func _getDebugOptionText(opt_name: String, _target_width: float) -> String:
+func _getDebugOptionText(opt_name: String) -> String:
 	match opt_name:
 		"SHOW THING IDS":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_show_thing_ids else "OFF")
@@ -336,10 +486,6 @@ func _getDebugOptionText(opt_name: String, _target_width: float) -> String:
 			return "BACK"
 	return opt_name
 
-func _updateDebugValues() -> void:
-	_buildDebugItems()
-	_updateMenuHighlight()
-
 func _adjustDebugOption(direction: int) -> void:
 	var opt_name = DEBUG_ITEMS[_debug_selection]
 	match opt_name:
@@ -357,149 +503,10 @@ func _adjustDebugOption(direction: int) -> void:
 			SettingsManager.debug_skip_encounters = !SettingsManager.debug_skip_encounters
 		"WASD MOVEMENT":
 			SettingsManager.debug_wasd = !SettingsManager.debug_wasd
-	_updateDebugValues()
-
-func _refreshSlotLabels() -> void:
-	_slot_data = SaveManager.get_all_slots()
-	for i in _slot_menu_items.size():
-		var label := _getLabel(_slot_menu_items[i])
-		if label:
-			label.text = _getSlotDisplayText(i)
-
-func _createCenteredVBoxContainer(separation: int, anchor_x: float = 0.3) -> Control:
-	var container := Control.new()
-	container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", separation)
-	vbox.anchor_left = anchor_x
-	vbox.anchor_right = anchor_x
-	vbox.anchor_top = 0.5
-	vbox.anchor_bottom = 0.5
-	vbox.grow_horizontal = Control.GROW_DIRECTION_END
-	vbox.grow_vertical = Control.GROW_DIRECTION_BOTH
-	container.add_child(vbox)
-	container.set_meta("vbox", vbox)
-	return container
-
-func _createScaledLabel(text: String, font: Font, label_scale: float, color: Color) -> Control:
-	var label := Label.new()
-	label.text = text
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	if font != null:
-		label.add_theme_font_override("font", font)
-	label.add_theme_font_size_override("font_size", 16)
-	label.add_theme_color_override("font_color", color)
-	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	label.scale = Vector2(label_scale, label_scale)
-	var unscaled_size = Vector2.ZERO
-	if font != null:
-		unscaled_size.x = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
-		unscaled_size.y = font.get_height(16)
-	if unscaled_size == Vector2.ZERO:
-		unscaled_size = label.get_combined_minimum_size()
-	if unscaled_size == Vector2.ZERO:
-		unscaled_size = Vector2(text.length() * 10, 16)
-	var scaled_height = unscaled_size.y * label_scale
-	var wrapper := Control.new()
-	wrapper.custom_minimum_size = Vector2(0, scaled_height)
-	wrapper.add_child(label)
-	label.position = Vector2.ZERO
-	return wrapper
-
-func _getLabel(wrapper: Control) -> Label:
-	if wrapper is Label:
-		return wrapper as Label
-	for child in wrapper.get_children():
-		if child is Label:
-			return child as Label
-	return null
-
-func _getActiveItems() -> Array[Control]:
-	match _menu_state:
-		MenuState.MAIN: return _main_menu_items
-		MenuState.LEVEL_SELECT: return _level_menu_items
-		MenuState.SAVE_GAME, MenuState.LOAD_GAME: return _slot_menu_items
-		MenuState.OPTIONS: return _options_items
-		MenuState.DEBUG: return _debug_items
-	return _main_menu_items
-
-func _getActiveSelection() -> int:
-	match _menu_state:
-		MenuState.MAIN: return _menu_selection
-		MenuState.LEVEL_SELECT: return _level_selection
-		MenuState.SAVE_GAME, MenuState.LOAD_GAME: return _slot_selection
-		MenuState.OPTIONS: return _options_selection
-		MenuState.DEBUG: return _debug_selection
-	return 0
-
-func _updateMenuHighlight() -> void:
-	var items := _getActiveItems()
-	var selection := _getActiveSelection()
-	for i in items.size():
-		var label := _getLabel(items[i])
-		if label == null:
-			continue
-		if i == selection:
-			label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
-		else:
-			label.add_theme_color_override("font_color", Color(1.0, 0.2, 0.2))
-
-func _updateSkullPosition() -> void:
-	if _skull_node == null:
-		return
-	var items := _getActiveItems()
-	var selection := _getActiveSelection()
-	if items.size() == 0 or selection >= items.size():
-		return
-	var selected = items[selection]
-	if !is_instance_valid(selected):
-		return
-	var item_rect = selected.get_global_rect()
-	_skull_node.position = Vector2(
-		item_rect.position.x - 220,
-		item_rect.position.y + (item_rect.size.y - 160) / 2
-	)
-
-func _showSubmenu(state: MenuState) -> void:
-	_main_menu_center.visible = false
-	_level_select_center.visible = false
-	_slot_center.visible = false
-	_options_center.visible = false
-	_debug_center.visible = false
-	_menu_state = state
-	match state:
-		MenuState.MAIN:
-			_main_menu_center.visible = true
-		MenuState.LEVEL_SELECT:
-			_level_select_center.visible = true
-		MenuState.SAVE_GAME:
-			_slot_selection = 0
-			_buildSlotItems("SAVE GAME")
-			_slot_center.visible = true
-		MenuState.LOAD_GAME:
-			_slot_selection = 0
-			_buildSlotItems("LOAD GAME")
-			_slot_center.visible = true
-		MenuState.OPTIONS:
-			_options_selection = 0
-			_updateOptionsValues()
-			_options_center.visible = true
-		MenuState.DEBUG:
-			_debug_selection = 0
-			_updateDebugValues()
-			_debug_center.visible = true
+	_refreshDebugLabels()
 	_updateMenuHighlight()
 
-func _returnToMain() -> void:
-	Game.playSound("DSPSTOP")
-	_editing_save_name = false
-	if _menu_state == MenuState.DEBUG:
-		SettingsManager.save_settings()
-		_showSubmenu(MenuState.OPTIONS)
-		return
-	if _menu_state == MenuState.OPTIONS:
-		SettingsManager.save_settings()
-	_showSubmenu(MenuState.MAIN)
+# ── Input ───────────────────────────────────────────────────────────────
 
 func _input(event: InputEvent) -> void:
 	# While editing a save name, intercept all key input
@@ -636,7 +643,6 @@ func _startSaveNameEdit() -> void:
 	_editing_save_name = true
 	_cursor_visible = true
 	_cursor_timer = 0.0
-	# Pre-fill with existing name or current map name
 	var existing = _slot_data[_slot_selection] if _slot_selection < _slot_data.size() else {}
 	if not existing.is_empty():
 		_edit_save_name = existing.get("name", "")
@@ -650,7 +656,6 @@ func _startSaveNameEdit() -> void:
 
 func _handleSaveNameInput(event: InputEventKey) -> void:
 	if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
-		# Confirm save
 		_editing_save_name = false
 		Game.playSound("DSPISTOL")
 		save_requested.emit(_slot_selection, _edit_save_name)
@@ -659,7 +664,6 @@ func _handleSaveNameInput(event: InputEventKey) -> void:
 		return
 
 	if event.keycode == KEY_ESCAPE or event.is_action("ui_cancel"):
-		# Cancel editing
 		_editing_save_name = false
 		Game.playSound("DSPSTOP")
 		_refreshSlotLabels()
@@ -672,17 +676,17 @@ func _handleSaveNameInput(event: InputEventKey) -> void:
 			_updateEditLabel()
 		return
 
-	# Printable character
 	var char_str := event.as_text_key_label()
 	if char_str.length() == 1 and _edit_save_name.length() < MAX_SAVE_NAME_LENGTH:
 		_edit_save_name += char_str.to_upper()
 		_updateEditLabel()
 
 func _updateEditLabel() -> void:
-	if _slot_selection >= _slot_menu_items.size():
+	var rows : Array = _items_by_state.get(MenuState.SAVE_GAME, [])
+	if _slot_selection >= rows.size():
 		return
-	var label := _getLabel(_slot_menu_items[_slot_selection])
-	if label:
+	var label : Label = rows[_slot_selection].get_meta("label")
+	if label != null:
 		var cursor_char = "_" if _cursor_visible else " "
 		label.text = "%d. %s%s" % [_slot_selection + 1, _edit_save_name, cursor_char]
 
@@ -695,17 +699,34 @@ func _confirmLoad() -> void:
 		return
 	save_loaded.emit(data)
 
-# ── Process ──────────────────────────────────────────────────────────────
+# ── Per-frame ────────────────────────────────────────────────────────────
 
 func _process(delta: float) -> void:
-	# Skull animation
-	if _skull_node != null and _skull_textures.size() >= 2:
+	# Late-arriving DOOM font: re-apply once available.
+	if _doom_font == null:
+		var f = Game.getDoomFont()
+		if f == null:
+			f = Game.fetchFont("default")
+		if f != null:
+			_doom_font = f
+			for label in _all_labels:
+				if is_instance_valid(label):
+					label.add_theme_font_override("font", _doom_font)
+			# Refresh formatted texts that depend on font metrics.
+			_refreshOptionsLabels()
+			_refreshDebugLabels()
+			_recomputeScale.call_deferred()
+
+	# Skull animation (drives every row's skull texture; only the selected
+	# row is opaque so this is essentially free).
+	if _skull_textures.size() >= 2:
 		_skull_timer += delta
 		if _skull_timer >= 0.5:
 			_skull_timer = 0.0
 			_skull_frame = (_skull_frame + 1) % _skull_textures.size()
-			_skull_node.texture = _skull_textures[_skull_frame]
-	_updateSkullPosition()
+			for skull in _all_skulls:
+				if is_instance_valid(skull):
+					skull.texture = _skull_textures[_skull_frame]
 
 	# Save name cursor blink
 	if _editing_save_name:
