@@ -110,6 +110,8 @@ func _checkConditionsOnce() -> bool:
 	if conditions == null or conditions.size() == 0:
 		return true
 	for condition in conditions:
+		if condition == null:
+			continue
 		if !condition.check(self):
 			return false
 	return true

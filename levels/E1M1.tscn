@@ -9,8 +9,10 @@
 [ext_resource type="Script" uid="uid://ccik6wen78mos" path="res://rail/resources/Actions/PrintAction.gd" id="7_aykc8"]
 [ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_ioen4"]
 [ext_resource type="Script" uid="uid://dpqsds1tybnew" path="res://rail/resources/Conditions/NearbyEnemiesClearedCondition.gd" id="8_aykc8"]
+[ext_resource type="Script" uid="uid://pmiut2p0fl0o" path="res://rail/resources/Actions/LookAtAction.gd" id="10_4l68h"]
 [ext_resource type="Script" uid="uid://cwvt2dqr0gxgv" path="res://rail/scenes/RailStation/RailStation.gd" id="10_aykc8"]
 [ext_resource type="Script" uid="uid://cf4daoax0n2d7" path="res://rail/resources/Conditions/DoorOpenCondition.gd" id="11_533su"]
+[ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="12_4l68h"]
 [ext_resource type="Script" uid="uid://dptfbfdqpn0pt" path="res://rail/resources/Actions/AdvanceToNextStationAction.gd" id="adv_action"]
 
 [sub_resource type="Resource" id="Resource_ioen4"]
@@ -26,7 +28,7 @@ metadata/_custom_type_script = "uid://ccik6wen78mos"
 script = ExtResource("adv_action")
 speed = 31.073
 
-[sub_resource type="Curve3D" id="Curve3D_533su"]
+[sub_resource type="Curve3D" id="Curve3D_b1f32"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.247597, -0.26500022, -9.758095),
 "tilts": PackedFloat32Array(0, 0)
@@ -51,7 +53,7 @@ _surfaces = [{
 script = ExtResource("adv_action")
 speed = 50.291
 
-[sub_resource type="Curve3D" id="Curve3D_4l68h"]
+[sub_resource type="Curve3D" id="Curve3D_s60uk"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.4070435, 0.0015058517, -0.0018167496),
 "tilts": PackedFloat32Array(0, 0)
@@ -77,21 +79,21 @@ script = ExtResource("5_0jvvy")
 milliseconds = 750
 metadata/_custom_type_script = "uid://bkdue27tirmn8"
 
-[sub_resource type="Curve3D" id="Curve3D_b1f32"]
+[sub_resource type="Curve3D" id="Curve3D_ldm02"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -14.626811, 0.26349437, -2.2303104),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c1li"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc6it"]
 shading_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_7lyfd"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_bm6r7"]
 _surfaces = [{
 "aabb": AABB(-14.626811, 0, -2.2303104, 14.626811, 0.26349437, 2.2303104),
 "format": 34359738369,
-"material": SubResource("StandardMaterial3D_8c1li"),
+"material": SubResource("StandardMaterial3D_rc6it"),
 "primitive": 1,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 196,
@@ -108,14 +110,14 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cgxo"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c1li"]
 shading_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ldm02"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_7lyfd"]
 _surfaces = [{
 "aabb": AABB(-13.346849, -1.430867, -5.551902, 13.376809, 0.4678793, 5.595478),
 "format": 34359738369,
-"material": SubResource("StandardMaterial3D_2cgxo"),
+"material": SubResource("StandardMaterial3D_8c1li"),
 "primitive": 1,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 252,
@@ -132,14 +134,14 @@ _data = {
 }
 point_count = 7
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc6it"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_352ub"]
 shading_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_bm6r7"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_g3i1v"]
 _surfaces = [{
 "aabb": AABB(-5.965, 0, -1.014, 5.965, 1e-05, 6.5045986),
 "format": 34359738369,
-"material": SubResource("StandardMaterial3D_rc6it"),
+"material": SubResource("StandardMaterial3D_352ub"),
 "primitive": 1,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 252,
@@ -149,7 +151,7 @@ _surfaces = [{
 [sub_resource type="Resource" id="AdvAction_UpperLevel"]
 script = ExtResource("adv_action")
 
-[sub_resource type="Curve3D" id="Curve3D_2tjll"]
+[sub_resource type="Curve3D" id="Curve3D_8c1li"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.899784, 3.8663692, 0.25422955),
 "tilts": PackedFloat32Array(0, 0)
@@ -167,28 +169,28 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bm6r7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3y13p"]
 shading_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_8c1li"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_8lg4j"]
 _surfaces = [{
 "aabb": AABB(-41.81401, 3.975148, -14.398668, 9.73753, 0.18305707, 4.069667),
 "format": 34359738369,
-"material": SubResource("StandardMaterial3D_bm6r7"),
+"material": SubResource("StandardMaterial3D_3y13p"),
 "primitive": 1,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 196,
 "vertex_data": PackedByteArray("UU4AwtNofkBcZz3B3JgAwh5+fkAp3T3B3JgAwh5+fkAp3T3BY/IAwrOXfkCnaj7BY/IAwrOXfkCnaj7Bg2sBwk66fkAVKj/Bg2sBwk66fkAVKj/BzgECwj7lfkCdF0DBzgECwj7lfkCdF0DB17ICwtEXf0BlL0HB17ICwtEXf0BlL0HBnxQDwsEzf0DuyUHBnxQDwsEzf0DuyUHBLXwDwldRf0CWbULBLXwDwldRf0CWbULBM+kDwn5wf0DkGUPBM+kDwn5wf0DkGUPBYlsEwhyRf0BczkPBYlsEwhyRf0BczkPBcNIEwh+zf0CCikTBcNIEwh+zf0CCikTBC04FwnHWf0DbTUXBC04FwnHWf0DbTUXB6M0Fwvj6f0DuF0bB6M0Fwvj6f0DuF0bBt1EGwlAQgEA/6EbBt1EGwlAQgEA/6EbBLdkGwqojgEBUvkfBLdkGwqojgEBUvkfB+WMHwn03gECwmUjB+WMHwn03gECwmUjBz/EHwsBLgEDYeUnBz/EHwsBLgEDYeUnBYoIIwmdggEBVXkrBYoIIwmdggEBVXkrBYxUJwmd1gECnRkvBYxUJwmd1gECnRkvBg6oJwrWKgEBXMkzBg6oJwrWKgEBXMkzBeEEKwkWggEDoIE3BeEEKwkWggEDoIE3B8NkKwgy2gEDfEU7B8NkKwgy2gEDfEU7BoHMLwgHMgEDEBE/BoHMLwgHMgEDEBE/BOg4MwhbigEAY+U/BOg4MwhbigEAY+U/BbqkMwkL4gEBi7lDBbqkMwkL4gEBi7lDB8UQNwnkOgUAn5FHB8UQNwnkOgUAn5FHBdOANwrAkgUDs2VLBdOANwrAkgUDs2VLBqHsOwts6gUA2z1PBqHsOwts6gUA2z1PBQhYPwvFQgUCKw1TBQhYPwvFQgUCKw1TB8q8PwuVmgUBttlXB8q8PwuVmgUBttlXBakgQwq18gUBlp1bBakgQwq18gUBlp1bBXt8Qwj2SgUD3lVfBXt8Qwj2SgUD3lVfBf3QRwoungUCmgVjBf3QRwoungUCmgVjBgAcSwoq8gUD6aVnBgAcSwoq8gUD6aVnBEpgSwjHRgUB0TlrBEpgSwjHRgUB0TlrB6CUTwnTlgUCeLlvB6CUTwnTlgUCeLlvBtrATwkj5gUD6CVzBtrATwkj5gUD6CVzBKjgUwqIMgkAO4FzBKjgUwqIMgkAO4FzB+rsUwnYfgkBgsF3B+rsUwnYfgkBgsF3B1zsVwroxgkBzel7B1zsVwroxgkBzel7BcrcVwmFDgkDNPV/BcrcVwmFDgkDNPV/Bfy4WwmRUgkDy+V/Bfy4WwmRUgkDy+V/Br6AWwrNkgkBqrmDBr6AWwrNkgkBqrmDBtg0XwkZ0gkC4WmHBtg0XwkZ0gkC4WmHBRHUXwhCDgkBg/mHBRHUXwhCDgkBg/mHBDNcXwgmRgkDqmGLBDNcXwgmRgkDqmGLBFIgYwlKqgkCysGPBFIgYwlKqgkCysGPBXx4Zwsq/gkA4nmTBXx4Zwsq/gkA4nmTBgJcZwhjRgkCmXWXBgJcZwhjRgkCmXWXBB/EZwuLdgkAk62XBB/EZwuLdgkAk62XBkTsawojogkDyYGbBkTsawojogkDyYGbB08oawmf5gkBbzWXB08oawmf5gkBbzWXBP28bwsQMg0D1I2XBP28bwsQMg0D1I2XBYtQbwq0Yg0DDu2TBYtQbwq0Yg0DDu2TBgEQcwuIlg0A/SGTBgEQcwuIlg0A/SGTBY74cwjw0g0CrymPBY74cwjw0g0CrymPB1EAdwplDg0BIRGPB1EAdwplDg0BIRGPBmModwtFTg0BZtmLBmModwtFTg0BZtmLBdVoewsNkg0AiImLBdVoewsNkg0AiImLBNe8ewkd2g0DhiGHBNe8ewkd2g0DhiGHBoIcfwjqIg0Da62DBoIcfwjqIg0Da62DBeyIgwneag0BPTGDBeyIgwneag0BPTGDBjr4gwtisg0CCq1/Bjr4gwtisg0CCq1/Bolohwjm/g0C1Cl/Bolohwjm/g0C1Cl/BfPUhwnbRg0Aqa17BfPUhwnbRg0Aqa17B6I0iwmnjg0Akzl3B6I0iwmnjg0Akzl3BqCIjwu30g0DkNF3BqCIjwu30g0DkNF3BhrIjwt8FhECqoFzBhrIjwt8FhECqoFzBSTwkwhgWhEC8ElzBSTwkwhgWhEC8ElzBur4kwnQlhEBZjFvBur4kwnQlhEBZjFvBnTglws8zhEDEDlvBnTglws8zhEDEDlvBvKglwgNBhEBBm1rBvKglwgNBhEBBm1rB3g0mwuxMhEAPM1rB3g0mwuxMhEAPM1rBSrImwklghECqiVnBSrImwklghECqiVnBjEEnwihxhEAS9ljBjEEnwihxhEAS9ljBhDonwvx3hEBnvVbBhDonwvx3hEBnvVbBdDInwtF/hEC5MFTBdDInwtF/hEC5MFTBfC0nwqOEhEBDn1LBfC0nwqOEhEBDn1LB/CcnwvqJhEAu4lDB/CcnwvqJhEAu4lDBASInwsmPhEBU/k7BASInwsmPhEBU/k7BmhsnwgGWhECN+EzBmhsnwgGWhECN+EzB2BQnwpGchECw1UrB2BQnwpGchECw1UrByA0nwmujhECYmkjByA0nwmujhECYmkjBewYnwoKqhEAeTEbBewYnwoKqhEAeTEbBAP8mwsWxhEAa70PBAP8mwsWxhEAa70PBaPcmwia5hEBjiEHBaPcmwia5hEBjiEHBv+8mwpbAhEDVHD/Bv+8mwpbAhEDVHD/BFugmwgbIhEBGsTzBFugmwgbIhEBGsTzBfeAmwmfPhECQSjrBfeAmwmfPhECQSjrBA9kmwqrWhECK7TfBA9kmwqrWhECK7TfBttEmwsDdhEAQnzXBttEmwsDdhEAQnzXBpsomwpzkhED4YzPBpsomwpzkhED4YzPB5MMmwizrhEAcQTHB5MMmwizrhEAcQTHBfL0mwmPxhEBVOy/BfL0mwmPxhEBVOy/BgrcmwjL3hEB6Vy3BgrcmwjL3hEB6Vy3BArImwon8hEBmmivBArImwon8hEBmmivBC60mwlsBhUDwCCrBC60mwlsBhUDwCCrB+qQmwjAJhUBCfCfB+qQmwjAJhUBCfCfB8p0mwgQQhUCXQyXB")
 }]
 
-[sub_resource type="Curve3D" id="Curve3D_2xo5m"]
+[sub_resource type="Curve3D" id="Curve3D_7lyfd"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.8645344, 0.1310246, 0.068024635),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_g3i1v"]
+[sub_resource type="Resource" id="Resource_vpvbe"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -196,18 +198,18 @@ script = ExtResource("adv_action")
 script = ExtResource("8_aykc8")
 metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
-[sub_resource type="Curve3D" id="Curve3D_s60uk"]
+[sub_resource type="Curve3D" id="Curve3D_352ub"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.592602, 0, -2.0275555),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fj7oj"]
+[sub_resource type="Resource" id="Resource_dcqon"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
-[sub_resource type="Resource" id="Resource_cu3uw"]
+[sub_resource type="Resource" id="Resource_wmegu"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -228,10 +230,6 @@ material = SubResource("StandardMaterial3D_ic021")
 top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_1rvo6"]
-height = 3.0
-radius = 0.25
 
 [sub_resource type="Resource" id="Resource_eqfvj"]
 resource_local_to_scene = true
@@ -255,18 +253,14 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_cu3uw"]
-height = 3.0
-radius = 0.25
-
-[sub_resource type="Curve3D" id="Curve3D_x876s"]
+[sub_resource type="Curve3D" id="Curve3D_g3i1v"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.4298744, 0, 0.02993679),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_uevfx"]
+[sub_resource type="Resource" id="Resource_fpagj"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -279,14 +273,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_2cgxo"]
+[sub_resource type="Curve3D" id="Curve3D_k0i75"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.1298113),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_llhb8"]
+[sub_resource type="Resource" id="Resource_5v47o"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -299,14 +293,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_ldm02"]
+[sub_resource type="Curve3D" id="Curve3D_3y13p"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.3290825, 0, 0.8082056),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_nxrgo"]
+[sub_resource type="Resource" id="Resource_6i2ro"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -319,14 +313,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_rc6it"]
+[sub_resource type="Curve3D" id="Curve3D_8lg4j"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.2532616, 0, -0.57456493),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_h08kl"]
+[sub_resource type="Resource" id="Resource_uevfx"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -339,14 +333,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_bm6r7"]
+[sub_resource type="Curve3D" id="Curve3D_a15ro"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.323742, 0, -1.3830442),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_s6cs5"]
+[sub_resource type="Resource" id="Resource_vpgsr"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -359,14 +353,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_8c1li"]
+[sub_resource type="Curve3D" id="Curve3D_vpvbe"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14.567585, 0, -0.087981224),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_ofnji"]
+[sub_resource type="Resource" id="Resource_llhb8"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -379,14 +373,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_7lyfd"]
+[sub_resource type="Curve3D" id="Curve3D_iwy8m"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12.802442, 0, -0.020336151),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_a15ro"]
+[sub_resource type="Resource" id="Resource_8c48c"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -408,18 +402,14 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_eqfvj"]
-height = 3.0
-radius = 0.25
-
-[sub_resource type="Curve3D" id="Curve3D_352ub"]
+[sub_resource type="Curve3D" id="Curve3D_dcqon"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.929988),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fpagj"]
+[sub_resource type="Resource" id="Resource_1j1a6"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -432,14 +422,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_g3i1v"]
+[sub_resource type="Curve3D" id="Curve3D_wmegu"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.0832853, 0, -1.4648724),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_xbpx3"]
+[sub_resource type="Resource" id="Resource_h08kl"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -452,14 +442,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_k0i75"]
+[sub_resource type="Curve3D" id="Curve3D_eqfvj"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.603765, 0, 0.06841087),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_l0r8s"]
+[sub_resource type="Resource" id="Resource_osh1c"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -472,14 +462,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_3y13p"]
+[sub_resource type="Curve3D" id="Curve3D_a6sba"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.1500607),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_1j1a6"]
+[sub_resource type="Resource" id="Resource_s6cs5"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -492,14 +482,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_8lg4j"]
+[sub_resource type="Curve3D" id="Curve3D_fpagj"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.9409609, 0, -9.456034),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fqxsa"]
+[sub_resource type="Resource" id="Resource_p8nmk"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -512,14 +502,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_a15ro"]
+[sub_resource type="Curve3D" id="Curve3D_4gpwf"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.2197638, 0, -1.3184662),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_7t8cj"]
+[sub_resource type="Resource" id="Resource_ofnji"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -532,14 +522,18 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_vpvbe"]
+[sub_resource type="Curve3D" id="Curve3D_5v47o"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.7512321, 0, -0.70858765),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_4isdh"]
+[sub_resource type="Resource" id="Resource_l2a0j"]
+script = ExtResource("10_4l68h")
+targetNode = NodePath("../Station25")
+
+[sub_resource type="Resource" id="Resource_5drxl"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -556,14 +550,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_iwy8m"]
+[sub_resource type="Curve3D" id="Curve3D_cu3uw"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.5625353, 0, 0.023265839),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_5v47o"]
+[sub_resource type="Resource" id="Resource_7oher"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -589,18 +583,14 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_xbpx3"]
-height = 3.0
-radius = 0.25
-
-[sub_resource type="Curve3D" id="Curve3D_dcqon"]
+[sub_resource type="Curve3D" id="Curve3D_6i2ro"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.7270432, 0, 0.005847931),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_6i2ro"]
+[sub_resource type="Resource" id="Resource_tu272"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -622,18 +612,14 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_l0r8s"]
-height = 3.0
-radius = 0.25
-
-[sub_resource type="Curve3D" id="Curve3D_wmegu"]
+[sub_resource type="Curve3D" id="Curve3D_fj7oj"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5741119),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_8c48c"]
+[sub_resource type="Resource" id="Resource_8wxlr"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -650,14 +636,14 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_eqfvj"]
+[sub_resource type="Curve3D" id="Curve3D_uevfx"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.6496563),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_bk3i1"]
+[sub_resource type="Resource" id="Resource_fvcvs"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -679,18 +665,14 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_1j1a6"]
-height = 3.0
-radius = 0.25
-
-[sub_resource type="Curve3D" id="Curve3D_a6sba"]
+[sub_resource type="Curve3D" id="Curve3D_xbpx3"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8.285679, 0, -0.07256889),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_osh1c"]
+[sub_resource type="Resource" id="Resource_dirfy"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
@@ -703,29 +685,24 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 0.05
 
-[sub_resource type="Curve3D" id="Curve3D_fpagj"]
+[sub_resource type="Curve3D" id="Curve3D_vpgsr"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.1210575, 0, -0.03771782),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13.175955, 0, -0.0580101),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_p8nmk"]
+[sub_resource type="Resource" id="Resource_bk3i1"]
+script = ExtResource("10_4l68h")
+targetNode = NodePath("../RailMarker")
+
+[sub_resource type="Resource" id="Resource_dracw"]
 resource_local_to_scene = true
 script = ExtResource("adv_action")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw3s4"]
-albedo_color = Color(0.9, 0.27, 0.5184958, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_ofnji"]
-material = SubResource("StandardMaterial3D_aw3s4")
-top_radius = 0.25
-bottom_radius = 0.25
-height = 0.05
-
-[sub_resource type="Resource" id="Resource_vpgsr"]
-resource_local_to_scene = true
-script = ExtResource("adv_action")
+[sub_resource type="Resource" id="Resource_mhubt"]
+script = ExtResource("8_aykc8")
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1u1g"]
 albedo_color = Color(0.9, 0.488397, 0.27, 1)
@@ -745,7 +722,351 @@ top_radius = 0.0375
 bottom_radius = 0.0375
 height = 0.075
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_p8nmk"]
+[sub_resource type="Curve3D" id="Curve3D_bk3i1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.1694412, 0, -1.9937057),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_wxn1j"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h08kl"]
+albedo_color = Color(0.27, 0.72681075, 0.9, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40wm8"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qs8su"]
+material = SubResource("StandardMaterial3D_40wm8")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw3s4"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ofnji"]
+material = SubResource("StandardMaterial3D_aw3s4")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="Curve3D" id="Curve3D_llhb8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_l0r8s"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ofnji"]
+albedo_color = Color(0.9, 0.6652446, 0.27, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5drxl"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n58ot"]
+material = SubResource("StandardMaterial3D_5drxl")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7oher"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ra2ai"]
+material = SubResource("StandardMaterial3D_7oher")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1rvo6"]
+height = 3.0
+radius = 0.25
+
+[sub_resource type="Curve3D" id="Curve3D_l0r8s"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_nxrgo"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n58ot"]
+albedo_color = Color(0.27, 0.3077669, 0.9, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra2ai"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tu272"]
+material = SubResource("StandardMaterial3D_ra2ai")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jiqc7"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8wxlr"]
+material = SubResource("StandardMaterial3D_jiqc7")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6aqds"]
+height = 3.0
+radius = 0.25
+
+[sub_resource type="Curve3D" id="Curve3D_mhubt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 3),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_kvh1s"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dirfy"]
+albedo_color = Color(0.4426886, 0.27, 0.9, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_8c48c"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 4),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_x1n2l"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apukg"]
+albedo_color = Color(0.27, 0.9, 0.7343556, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_nxrgo"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_rixot"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04h5r"]
+albedo_color = Color(0.27, 0.9, 0.47695094, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_1j1a6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_3bj7i"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqwru"]
+albedo_color = Color(0.27, 0.551106, 0.9, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_wxn1j"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6, 0, 6),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_85l7p"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4g5s"]
+albedo_color = Color(0.27, 0.9, 0.36735213, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_q1u1g"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9.000004, 0, 4),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_sl3cu"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w812u"]
+albedo_color = Color(0.9, 0.30804816, 0.27, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_h08kl"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, 0, 7),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_wd7ib"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptnqi"]
+albedo_color = Color(0.3240564, 0.9, 0.27, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_fqxsa"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_8qlcj"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="Resource" id="Resource_dt7vh"]
+script = ExtResource("11_533su")
+door_name = "sector_76"
+metadata/_custom_type_script = "uid://cf4daoax0n2d7"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uhqaq"]
+albedo_color = Color(0.9, 0.27, 0.7016707, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_osh1c"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.5799408, 0, 11.608919),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_7t8cj"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tu272"]
+albedo_color = Color(0.9, 0.27, 0.79107285, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wxlr"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6aqds"]
+material = SubResource("StandardMaterial3D_8wxlr")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvcvs"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kvh1s"]
+material = SubResource("StandardMaterial3D_fvcvs")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dirfy"]
+height = 3.0
+radius = 0.25
+
+[sub_resource type="Curve3D" id="Curve3D_dt7vh"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8.212141),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_apukg"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="Resource" id="Resource_2tjll"]
+script = ExtResource("11_533su")
+door_name = "sector_81"
+metadata/_custom_type_script = "uid://cf4daoax0n2d7"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fwlnq"]
+albedo_color = Color(0.61889255, 0.27, 0.9, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_s6cs5"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8.902542),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_aw3s4"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6aqds"]
+albedo_color = Color(0.27, 0.34628454, 0.9, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kvh1s"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dirfy"]
+material = SubResource("StandardMaterial3D_kvh1s")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qiod"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dracw"]
+material = SubResource("StandardMaterial3D_5qiod")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x1n2l"]
+height = 3.0
+radius = 0.25
+
+[sub_resource type="Curve3D" id="Curve3D_7t8cj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.347374, 0, 0.037769318),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_4isdh"]
+resource_local_to_scene = true
+script = ExtResource("adv_action")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dracw"]
+albedo_color = Color(0.27, 0.9, 0.7227435, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1n2l"]
+albedo_color = Color(0.9, 0.27, 0.488562, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_apukg"]
+material = SubResource("StandardMaterial3D_x1n2l")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rixot"]
+albedo_color = Color(0.27, 0.9, 0.68143797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_04h5r"]
+material = SubResource("StandardMaterial3D_rixot")
+top_radius = 0.0375
+bottom_radius = 0.0375
+height = 0.075
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cdko8"]
 height = 3.0
 radius = 0.25
 
@@ -765,7 +1086,7 @@ disc_color = Color(0.8312824, 0.27, 0.9, 1)
 
 [node name="Start__TO__Start2" type="Path3D" parent="Stations/Start" unique_id=1541393068]
 visible = false
-curve = SubResource("Curve3D_533su")
+curve = SubResource("Curve3D_b1f32")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Start2")
@@ -784,7 +1105,7 @@ metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.247597, -0.26500
 
 [node name="Start2__TO__Start3" type="Path3D" parent="Stations/Start2" unique_id=1829453759]
 visible = false
-curve = SubResource("Curve3D_4l68h")
+curve = SubResource("Curve3D_s60uk")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Start3")
@@ -804,13 +1125,13 @@ metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6546407, -0.2634
 
 [node name="Start3__TO__BigRoom" type="Path3D" parent="Stations/Start3" unique_id=421295432]
 visible = false
-curve = SubResource("Curve3D_b1f32")
+curve = SubResource("Curve3D_ldm02")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../BigRoom")
 
 [node name="PathViz" type="MeshInstance3D" parent="Stations/Start3/Start3__TO__BigRoom" unique_id=615831441]
-mesh = SubResource("ArrayMesh_7lyfd")
+mesh = SubResource("ArrayMesh_bm6r7")
 
 [node name="BigRoom" parent="Stations" unique_id=1170666147 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9721704, 0, -11.990222)
@@ -831,7 +1152,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../Southwest")
 
 [node name="PathViz" type="MeshInstance3D" parent="Stations/BigRoom/BigRoom__TO__Southwest" unique_id=1613305815]
-mesh = SubResource("ArrayMesh_ldm02")
+mesh = SubResource("ArrayMesh_7lyfd")
 
 [node name="Southwest" parent="Stations" unique_id=1365953335 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.285927, -0.3, -17.57484)
@@ -851,7 +1172,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../UpperLevel")
 
 [node name="PathViz" type="MeshInstance3D" parent="Stations/Southwest/Southwest__TO__UpperLevel" unique_id=377459219]
-mesh = SubResource("ArrayMesh_bm6r7")
+mesh = SubResource("ArrayMesh_g3i1v")
 
 [node name="UpperLevel" parent="Stations" unique_id=1322704890 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.317835, 0.108778715, -12.091964)
@@ -864,7 +1185,7 @@ metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.317835, 0.1087
 
 [node name="UpperLevel__TO__UpperWest" type="Path3D" parent="Stations/UpperLevel" unique_id=1897517069]
 visible = false
-curve = SubResource("Curve3D_2tjll")
+curve = SubResource("Curve3D_8c1li")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../UpperWest")
@@ -886,11 +1207,11 @@ autogen_enabled = false
 from_station = NodePath("..")
 
 [node name="PathViz" type="MeshInstance3D" parent="Stations/UpperWest/UpperWest__TO__Courtyard" unique_id=2066178749]
-mesh = SubResource("ArrayMesh_8c1li")
+mesh = SubResource("ArrayMesh_8lg4j")
 
 [node name="UpperWest__TO__UpperEncounter" type="Path3D" parent="Stations/UpperWest" unique_id=164069956]
 visible = false
-curve = SubResource("Curve3D_2xo5m")
+curve = SubResource("Curve3D_7lyfd")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../UpperEncounter")
@@ -899,13 +1220,13 @@ to_station = NodePath("../../UpperEncounter")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.082153, 4.1061726, -11.76971)
 visible = false
 next_stations = Array[NodePath]([NodePath("../Station15")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_g3i1v")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_vpvbe")])
 conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_aykc8")])
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.082153, 4.1061726, -11.76971)
 
 [node name="UpperEncounter__TO__Station15" type="Path3D" parent="Stations/UpperEncounter" unique_id=862652307]
 visible = false
-curve = SubResource("Curve3D_s60uk")
+curve = SubResource("Curve3D_352ub")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station15")
@@ -913,746 +1234,1131 @@ to_station = NodePath("../../Station15")
 [node name="Exit" parent="Stations" unique_id=447126068 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.121331, 0.2443018, -32.7447)
 visible = false
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fj7oj")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_dcqon")])
 one_shot = true
 disc_color = Color(0.27, 0.9, 0.37404144, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.121331, 0.2443018, -32.7447)
 
-[node name="Station13" type="Node3D" parent="Stations" unique_id=909254598 instance=ExtResource("3_rs")]
+[node name="Station13" parent="Stations" unique_id=909254598 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.317835, 0.108778715, -15.091964)
 visible = false
-script = ExtResource("10_aykc8")
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_cu3uw")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_wmegu")])
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.317835, 0.108778715, -15.091964)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station13" unique_id=500472384]
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station13" unique_id=500472384]
 mesh = SubResource("CylinderMesh_fj7oj")
 
-[node name="Conditions" type="Node" parent="Stations/Station13" unique_id=1908151469]
+[node name="Conditions2" type="Node" parent="Stations/Station13" unique_id=1908151469]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station13" unique_id=1078756014]
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station13" unique_id=1078756014]
 mesh = SubResource("CylinderMesh_1y337")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station13" unique_id=1470612145]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station13" unique_id=1470612145]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station13/CollisionArea" unique_id=1845896021]
-shape = SubResource("CylinderShape3D_1rvo6")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station15" type="Node3D" parent="Stations" unique_id=1108625359 instance=ExtResource("3_rs")]
+[node name="Station15" parent="Stations" unique_id=1108625359 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.674755, 4.1061726, -13.797265)
 visible = false
-script = ExtResource("10_aykc8")
 next_stations = Array[NodePath]([NodePath("../Station16")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_eqfvj")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.674755, 4.1061726, -13.797265)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station15" unique_id=1225537239]
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station15" unique_id=1225537239]
 mesh = SubResource("CylinderMesh_fpagj")
 
-[node name="Conditions" type="Node" parent="Stations/Station15" unique_id=954400629]
+[node name="Conditions2" type="Node" parent="Stations/Station15" unique_id=954400629]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station15" unique_id=311958564]
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station15" unique_id=311958564]
 mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station15" unique_id=1551872396]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station15" unique_id=1551872396]
 collision_layer = 2
 collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station15/CollisionArea" unique_id=1412978257]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
 
 [node name="Station15__TO__Station16" type="Path3D" parent="Stations/Station15" unique_id=1050083294]
-visible = false
-curve = SubResource("Curve3D_x876s")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station16")
-
-[node name="Station16" type="Node3D" parent="Stations" unique_id=1280082412 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -13.767328)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station17")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_uevfx")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -13.767328)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station16" unique_id=871612366]
-mesh = SubResource("CylinderMesh_vpgsr")
-
-[node name="Conditions" type="Node" parent="Stations/Station16" unique_id=1972209820]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station16" unique_id=565202457]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station16" unique_id=658090153]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station16/CollisionArea" unique_id=1942419465]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station16__TO__Station17" type="Path3D" parent="Stations/Station16" unique_id=1315661438]
-visible = false
-curve = SubResource("Curve3D_2cgxo")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station17")
-
-[node name="Station17" type="Node3D" parent="Stations" unique_id=426804733 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -10.637517)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station18")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_llhb8")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -10.637517)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station17" unique_id=954094972]
-mesh = SubResource("CylinderMesh_mhubt")
-
-[node name="Conditions" type="Node" parent="Stations/Station17" unique_id=765047850]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station17" unique_id=1588130944]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station17" unique_id=192188521]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station17/CollisionArea" unique_id=1556815898]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station17__TO__Station18" type="Path3D" parent="Stations/Station17" unique_id=1586866699]
-visible = false
-curve = SubResource("Curve3D_ldm02")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station18")
-
-[node name="Station18" type="Node3D" parent="Stations" unique_id=1035056911 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.775547, 4.1061726, -9.829311)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station19")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_nxrgo")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.775547, 4.1061726, -9.829311)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station18" unique_id=1079432734]
-mesh = SubResource("CylinderMesh_wxn1j")
-
-[node name="Conditions" type="Node" parent="Stations/Station18" unique_id=852275154]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station18" unique_id=1824939292]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station18" unique_id=220853321]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station18/CollisionArea" unique_id=1989029067]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station18__TO__Station19" type="Path3D" parent="Stations/Station18" unique_id=1524383604]
-visible = false
-curve = SubResource("Curve3D_rc6it")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station19")
-
-[node name="Station19" type="Node3D" parent="Stations" unique_id=869258199 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.522285, 4.1061726, -10.403876)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station20")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_h08kl")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.522285, 4.1061726, -10.403876)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station19" unique_id=2055626846]
-mesh = SubResource("CylinderMesh_osh1c")
-
-[node name="Conditions" type="Node" parent="Stations/Station19" unique_id=543870514]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station19" unique_id=23117775]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station19" unique_id=1202851617]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station19/CollisionArea" unique_id=1384594825]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station19__TO__Station20" type="Path3D" parent="Stations/Station19" unique_id=1076868356]
-visible = false
-curve = SubResource("Curve3D_bm6r7")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station20")
-
-[node name="Station20" type="Node3D" parent="Stations" unique_id=412076060 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.198544, 4.1061726, -11.786921)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station21")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_s6cs5")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.198544, 4.1061726, -11.786921)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station20" unique_id=196189106]
-mesh = SubResource("CylinderMesh_p8nmk")
-
-[node name="Conditions" type="Node" parent="Stations/Station20" unique_id=1378076077]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station20" unique_id=1146066668]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station20" unique_id=1367619991]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station20/CollisionArea" unique_id=1038511468]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station20__TO__Station21" type="Path3D" parent="Stations/Station20" unique_id=575903708]
-visible = false
-curve = SubResource("Curve3D_8c1li")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../Station21")
-
-[node name="Station21" type="Node3D" parent="Stations" unique_id=1013973563 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.630959, 4.1061726, -11.874902)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../@Node3D@79790")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_ofnji")])
-disc_color = Color(0.9, 0.27, 0.488562, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.630959, 4.1061726, -11.874902)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station21" unique_id=1031352440]
-mesh = SubResource("CylinderMesh_l2a0j")
-
-[node name="Conditions" type="Node" parent="Stations/Station21" unique_id=359402308]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station21" unique_id=1559086248]
-mesh = SubResource("CylinderMesh_5v47o")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/Station21" unique_id=662237813]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station21/CollisionArea" unique_id=2093606267]
-shape = SubResource("CylinderShape3D_cu3uw")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station21__TO___Node3D_79790" type="Path3D" parent="Stations/Station21" unique_id=701751944]
-visible = false
-curve = SubResource("Curve3D_7lyfd")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../@Node3D@79790")
-
-[node name="@Node3D@79790" type="Node3D" parent="Stations" unique_id=663538396 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -11.895238)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../@Node3D@80053")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_a15ro")])
-disc_color = Color(0.27, 0.9, 0.67693096, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -11.895238)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/@Node3D@79790" unique_id=1010041610]
-mesh = SubResource("CylinderMesh_iwy8m")
-
-[node name="Conditions" type="Node" parent="Stations/@Node3D@79790" unique_id=187856947]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/@Node3D@79790" unique_id=25937761]
-mesh = SubResource("CylinderMesh_wmegu")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/@Node3D@79790" unique_id=576473598]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/@Node3D@79790/CollisionArea" unique_id=1248619486]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="_Node3D_79790__TO___Node3D_80053" type="Path3D" parent="Stations/@Node3D@79790" unique_id=839535454]
-visible = false
-curve = SubResource("Curve3D_352ub")
-script = ExtResource("2_rp")
-from_station = NodePath("..")
-to_station = NodePath("../../@Node3D@80053")
-
-[node name="@Node3D@80053" type="Node3D" parent="Stations" unique_id=2059509975 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -17.825226)
-visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../@Node3D@80530")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fpagj")])
-disc_color = Color(0.9, 0.79977804, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -17.825226)
-
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80053" unique_id=559689099]
-mesh = SubResource("CylinderMesh_cu3uw")
-
-[node name="Conditions" type="Node" parent="Stations/@Node3D@80053" unique_id=1017686901]
-
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80053" unique_id=732325055]
-mesh = SubResource("CylinderMesh_wmegu")
-skeleton = NodePath("../CollisionArea")
-
-[node name="CollisionArea" type="Area3D" parent="Stations/@Node3D@80053" unique_id=1606043398]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/@Node3D@80053/CollisionArea" unique_id=564193244]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="_Node3D_80053__TO___Node3D_80530" type="Path3D" parent="Stations/@Node3D@80053" unique_id=1725290808]
 visible = false
 curve = SubResource("Curve3D_g3i1v")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../@Node3D@80530")
+to_station = NodePath("../../Station16")
 
-[node name="@Node3D@80530" type="Node3D" parent="Stations" unique_id=881823011 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7452316, 4.1061726, -19.290098)
+[node name="Station16" parent="Stations" unique_id=1280082412 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -13.767328)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../@Node3D@80790")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_xbpx3")])
-disc_color = Color(0.3058159, 0.9, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7452316, 4.1061726, -19.290098)
+next_stations = Array[NodePath]([NodePath("../Station17")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fpagj")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -13.767328)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80530" unique_id=79488152]
-mesh = SubResource("CylinderMesh_bk3i1")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station16" unique_id=871612366]
+mesh = SubResource("CylinderMesh_vpgsr")
 
-[node name="Conditions" type="Node" parent="Stations/@Node3D@80530" unique_id=1570192041]
+[node name="Conditions2" type="Node" parent="Stations/Station16" unique_id=1972209820]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80530" unique_id=662623000]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station16" unique_id=565202457]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/@Node3D@80530" unique_id=926825513]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station16" unique_id=658090153]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/@Node3D@80530/CollisionArea" unique_id=824662802]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="_Node3D_80530__TO___Node3D_80790" type="Path3D" parent="Stations/@Node3D@80530" unique_id=163783324]
+[node name="Station16__TO__Station17" type="Path3D" parent="Stations/Station16" unique_id=1315661438]
 visible = false
 curve = SubResource("Curve3D_k0i75")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../@Node3D@80790")
+to_station = NodePath("../../Station17")
 
-[node name="@Node3D@80790" type="Node3D" parent="Stations" unique_id=1546843384 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -19.221687)
+[node name="Station17" parent="Stations" unique_id=426804733 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -10.637517)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../@Node3D@81050")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_l0r8s")])
-disc_color = Color(0.9, 0.37363923, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -19.221687)
+next_stations = Array[NodePath]([NodePath("../Station18")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_5v47o")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.10463, 4.1061726, -10.637517)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80790" unique_id=902583345]
-mesh = SubResource("CylinderMesh_8c48c")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station17" unique_id=954094972]
+mesh = SubResource("CylinderMesh_mhubt")
 
-[node name="Conditions" type="Node" parent="Stations/@Node3D@80790" unique_id=454134986]
+[node name="Conditions2" type="Node" parent="Stations/Station17" unique_id=765047850]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/@Node3D@80790" unique_id=281957580]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station17" unique_id=1588130944]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/@Node3D@80790" unique_id=1132967183]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station17" unique_id=192188521]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/@Node3D@80790/CollisionArea" unique_id=13522053]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="_Node3D_80790__TO___Node3D_81050" type="Path3D" parent="Stations/@Node3D@80790" unique_id=67209815]
+[node name="Station17__TO__Station18" type="Path3D" parent="Stations/Station17" unique_id=1586866699]
 visible = false
 curve = SubResource("Curve3D_3y13p")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../@Node3D@81050")
+to_station = NodePath("../../Station18")
 
-[node name="@Node3D@81050" type="Node3D" parent="Stations" unique_id=811975083 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -23.371748)
+[node name="Station18" parent="Stations" unique_id=1035056911 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.775547, 4.1061726, -9.829311)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station22")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_1j1a6")])
-disc_color = Color(0.2841281, 0.9, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -23.371748)
+next_stations = Array[NodePath]([NodePath("../Station19")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_6i2ro")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.775547, 4.1061726, -9.829311)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/@Node3D@81050" unique_id=1265529882]
-mesh = SubResource("CylinderMesh_q1u1g")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station18" unique_id=1079432734]
+mesh = SubResource("CylinderMesh_wxn1j")
 
-[node name="Conditions" type="Node" parent="Stations/@Node3D@81050" unique_id=325912215]
+[node name="Conditions2" type="Node" parent="Stations/Station18" unique_id=852275154]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/@Node3D@81050" unique_id=1633660257]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station18" unique_id=1824939292]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/@Node3D@81050" unique_id=1964885688]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station18" unique_id=220853321]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/@Node3D@81050/CollisionArea" unique_id=1258202797]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="_Node3D_81050__TO__Station22" type="Path3D" parent="Stations/@Node3D@81050" unique_id=339475061]
+[node name="Station18__TO__Station19" type="Path3D" parent="Stations/Station18" unique_id=1524383604]
 visible = false
 curve = SubResource("Curve3D_8lg4j")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station22")
+to_station = NodePath("../../Station19")
 
-[node name="Station22" type="Node3D" parent="Stations" unique_id=1364585560 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.799494, 4.1061726, -32.82778)
+[node name="Station19" parent="Stations" unique_id=869258199 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.522285, 4.1061726, -10.403876)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station23")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fqxsa")])
-disc_color = Color(0.27, 0.9, 0.38076472, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.799494, 4.1061726, -32.82778)
+next_stations = Array[NodePath]([NodePath("../Station20")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_uevfx")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.522285, 4.1061726, -10.403876)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station22" unique_id=426202915]
-mesh = SubResource("CylinderMesh_dt7vh")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station19" unique_id=2055626846]
+mesh = SubResource("CylinderMesh_osh1c")
 
-[node name="Conditions" type="Node" parent="Stations/Station22" unique_id=696762994]
+[node name="Conditions2" type="Node" parent="Stations/Station19" unique_id=543870514]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station22" unique_id=943408493]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station19" unique_id=23117775]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station22" unique_id=1109568114]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station19" unique_id=1202851617]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station22/CollisionArea" unique_id=2144916012]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station22__TO__Station23" type="Path3D" parent="Stations/Station22" unique_id=965229952]
+[node name="Station19__TO__Station20" type="Path3D" parent="Stations/Station19" unique_id=1076868356]
 visible = false
 curve = SubResource("Curve3D_a15ro")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station23")
+to_station = NodePath("../../Station20")
 
-[node name="Station23" type="Node3D" parent="Stations" unique_id=541786492 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.019258, 4.1061726, -34.146248)
+[node name="Station20" parent="Stations" unique_id=412076060 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.198544, 4.1061726, -11.786921)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station24")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_7t8cj")])
-disc_color = Color(0.28964874, 0.27, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.019258, 4.1061726, -34.146248)
+next_stations = Array[NodePath]([NodePath("../Station21")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_vpgsr")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.198544, 4.1061726, -11.786921)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station23" unique_id=1914640769]
-mesh = SubResource("CylinderMesh_aw3s4")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station20" unique_id=196189106]
+mesh = SubResource("CylinderMesh_p8nmk")
 
-[node name="Conditions" type="Node" parent="Stations/Station23" unique_id=1586005412]
+[node name="Conditions2" type="Node" parent="Stations/Station20" unique_id=1378076077]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station23" unique_id=135936007]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station20" unique_id=1146066668]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station23" unique_id=1985807829]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station20" unique_id=1367619991]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station23/CollisionArea" unique_id=160712722]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station23__TO__Station24" type="Path3D" parent="Stations/Station23" unique_id=1344873081]
+[node name="Station20__TO__Station21" type="Path3D" parent="Stations/Station20" unique_id=575903708]
 visible = false
 curve = SubResource("Curve3D_vpvbe")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station24")
+to_station = NodePath("../../Station21")
 
-[node name="Station24" type="Node3D" parent="Stations" unique_id=1538967528 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.77049, 4.1061726, -34.854836)
+[node name="Station21" parent="Stations" unique_id=1013973563 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.630959, 4.1061726, -11.874902)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station25")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_4isdh")])
-conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_533su")])
-disc_color = Color(0.6610166, 0.27, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.77049, 4.1061726, -34.854836)
+next_stations = Array[NodePath]([NodePath("../@Node3D@79790")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_llhb8")])
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.630959, 4.1061726, -11.874902)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station24" unique_id=1391777022]
-mesh = SubResource("CylinderMesh_5drxl")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station21" unique_id=1031352440]
+mesh = SubResource("CylinderMesh_l2a0j")
 
-[node name="Conditions" type="Node" parent="Stations/Station24" unique_id=2123854194]
+[node name="Conditions2" type="Node" parent="Stations/Station21" unique_id=359402308]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station24" unique_id=575310731]
-mesh = SubResource("CylinderMesh_wmegu")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station21" unique_id=1559086248]
+mesh = SubResource("CylinderMesh_5v47o")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station24" unique_id=879537362]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station21" unique_id=662237813]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station24/CollisionArea" unique_id=1566335135]
-shape = SubResource("CylinderShape3D_eqfvj")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station24__TO__Station25" type="Path3D" parent="Stations/Station24" unique_id=1089331205]
+[node name="Station21__TO___Node3D_79790" type="Path3D" parent="Stations/Station21" unique_id=701751944]
 visible = false
 curve = SubResource("Curve3D_iwy8m")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station25")
+to_station = NodePath("../../@Node3D@79790")
 
-[node name="Station25" type="Node3D" parent="Stations" unique_id=1933148928 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.333025, 4.1061726, -34.83157)
+[node name="@Node3D@79790" parent="Stations" unique_id=663538396 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -11.895238)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station26")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_5v47o")])
-conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_4l68h")])
-disc_color = Color(0.9, 0.27, 0.50428265, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.333025, 4.1061726, -34.83157)
+next_stations = Array[NodePath]([NodePath("../@Node3D@80053")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_8c48c")])
+disc_color = Color(0.27, 0.9, 0.67693096, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -11.895238)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station25" unique_id=2052669972]
-mesh = SubResource("CylinderMesh_6i2ro")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@79790" unique_id=1010041610]
+mesh = SubResource("CylinderMesh_iwy8m")
 
-[node name="Conditions" type="Node" parent="Stations/Station25" unique_id=1988417004]
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@79790" unique_id=187856947]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station25" unique_id=1086197895]
-mesh = SubResource("CylinderMesh_uevfx")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@79790" unique_id=25937761]
+mesh = SubResource("CylinderMesh_wmegu")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station25" unique_id=214108306]
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@79790" unique_id=576473598]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station25/CollisionArea" unique_id=355267525]
-shape = SubResource("CylinderShape3D_xbpx3")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station25__TO__Station26" type="Path3D" parent="Stations/Station25" unique_id=670579821]
+[node name="_Node3D_79790__TO___Node3D_80053" type="Path3D" parent="Stations/@Node3D@79790" unique_id=839535454]
 visible = false
 curve = SubResource("Curve3D_dcqon")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station26")
+to_station = NodePath("../../@Node3D@80053")
 
-[node name="Station26" type="Node3D" parent="Stations" unique_id=1904208662 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -34.82572)
+[node name="@Node3D@80053" parent="Stations" unique_id=2059509975 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -17.825226)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station27")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_6i2ro")])
-disc_color = Color(0.5491857, 0.9, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -34.82572)
+next_stations = Array[NodePath]([NodePath("../@Node3D@80530")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_1j1a6")])
+disc_color = Color(0.9, 0.79977804, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.828517, 4.1061726, -17.825226)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station26" unique_id=1888640854]
-mesh = SubResource("CylinderMesh_xbpx3")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80053" unique_id=559689099]
+mesh = SubResource("CylinderMesh_cu3uw")
 
-[node name="Conditions" type="Node" parent="Stations/Station26" unique_id=1094465938]
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@80053" unique_id=1017686901]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station26" unique_id=937569328]
-mesh = SubResource("CylinderMesh_llhb8")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80053" unique_id=732325055]
+mesh = SubResource("CylinderMesh_wmegu")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station26" unique_id=1826119308]
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@80053" unique_id=1606043398]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station26/CollisionArea" unique_id=1603964840]
-shape = SubResource("CylinderShape3D_l0r8s")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station26__TO__Station27" type="Path3D" parent="Stations/Station26" unique_id=1088029293]
+[node name="_Node3D_80053__TO___Node3D_80530" type="Path3D" parent="Stations/@Node3D@80053" unique_id=1725290808]
 visible = false
 curve = SubResource("Curve3D_wmegu")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station27")
+to_station = NodePath("../../@Node3D@80530")
 
-[node name="Station27" type="Node3D" parent="Stations" unique_id=604899757 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -33.25161)
+[node name="@Node3D@80530" parent="Stations" unique_id=881823011 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7452316, 4.1061726, -19.290098)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station28")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_8c48c")])
-conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_b1f32")])
-disc_color = Color(0.87227356, 0.27, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -33.25161)
+next_stations = Array[NodePath]([NodePath("../@Node3D@80790")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_h08kl")])
+disc_color = Color(0.3058159, 0.9, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7452316, 4.1061726, -19.290098)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station27" unique_id=513279370]
-mesh = SubResource("CylinderMesh_1j1a6")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80530" unique_id=79488152]
+mesh = SubResource("CylinderMesh_bk3i1")
 
-[node name="Conditions" type="Node" parent="Stations/Station27" unique_id=74887608]
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@80530" unique_id=1570192041]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station27" unique_id=1259443835]
-mesh = SubResource("CylinderMesh_llhb8")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80530" unique_id=662623000]
+mesh = SubResource("CylinderMesh_wmegu")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station27" unique_id=1652050233]
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@80530" unique_id=926825513]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station27/CollisionArea" unique_id=1904105716]
-shape = SubResource("CylinderShape3D_l0r8s")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station27__TO__Station28" type="Path3D" parent="Stations/Station27" unique_id=669730876]
+[node name="_Node3D_80530__TO___Node3D_80790" type="Path3D" parent="Stations/@Node3D@80530" unique_id=163783324]
 visible = false
 curve = SubResource("Curve3D_eqfvj")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station28")
+to_station = NodePath("../../@Node3D@80790")
 
-[node name="Station28" type="Node3D" parent="Stations" unique_id=998732216 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -28.601954)
+[node name="@Node3D@80790" parent="Stations" unique_id=1546843384 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -19.221687)
 visible = false
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station29")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_bk3i1")])
-disc_color = Color(0.56159407, 0.27, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -28.601954)
+next_stations = Array[NodePath]([NodePath("../@Node3D@81050")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_osh1c")])
+disc_color = Color(0.9, 0.37363923, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -19.221687)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station28" unique_id=271625541]
-mesh = SubResource("CylinderMesh_l0r8s")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80790" unique_id=902583345]
+mesh = SubResource("CylinderMesh_8c48c")
 
-[node name="Conditions" type="Node" parent="Stations/Station28" unique_id=1144784028]
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@80790" unique_id=454134986]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station28" unique_id=1750402504]
-mesh = SubResource("CylinderMesh_nxrgo")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@80790" unique_id=281957580]
+mesh = SubResource("CylinderMesh_wmegu")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station28" unique_id=268855156]
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@80790" unique_id=1132967183]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station28/CollisionArea" unique_id=1553369478]
-shape = SubResource("CylinderShape3D_1j1a6")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station28__TO__Station29" type="Path3D" parent="Stations/Station28" unique_id=67162195]
+[node name="_Node3D_80790__TO___Node3D_81050" type="Path3D" parent="Stations/@Node3D@80790" unique_id=67209815]
 visible = false
 curve = SubResource("Curve3D_a6sba")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station29")
+to_station = NodePath("../../@Node3D@81050")
 
-[node name="Station29" type="Node3D" parent="Stations" unique_id=1246053998 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.345747, 4.1061726, -28.674522)
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station30")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_osh1c")])
-disc_color = Color(0.9, 0.61047876, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.345747, 4.1061726, -28.674522)
+[node name="@Node3D@81050" parent="Stations" unique_id=811975083 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -23.371748)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station22")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_s6cs5")])
+disc_color = Color(0.2841281, 0.9, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858533, 4.1061726, -23.371748)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station29" unique_id=934280722]
-mesh = SubResource("CylinderMesh_s6cs5")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@81050" unique_id=1265529882]
+mesh = SubResource("CylinderMesh_q1u1g")
 
-[node name="Conditions" type="Node" parent="Stations/Station29" unique_id=1482451165]
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@81050" unique_id=325912215]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station29" unique_id=423841669]
-mesh = SubResource("CylinderMesh_nxrgo")
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@81050" unique_id=1633660257]
+mesh = SubResource("CylinderMesh_wmegu")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station29" unique_id=381227621]
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@81050" unique_id=1964885688]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station29/CollisionArea" unique_id=309248958]
-shape = SubResource("CylinderShape3D_1j1a6")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[node name="Station29__TO__Station30" type="Path3D" parent="Stations/Station29" unique_id=778982295]
+[node name="_Node3D_81050__TO__Station22" type="Path3D" parent="Stations/@Node3D@81050" unique_id=339475061]
+visible = false
 curve = SubResource("Curve3D_fpagj")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
-to_station = NodePath("../../Station30")
+to_station = NodePath("../../Station22")
 
-[node name="Station30" type="Node3D" parent="Stations" unique_id=1988008687 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.466805, 4.1061726, -28.71224)
-script = ExtResource("10_aykc8")
-next_stations = Array[NodePath]([NodePath("../Station31")])
+[node name="Station22" parent="Stations" unique_id=1364585560 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.799494, 4.1061726, -32.82778)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station23")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_p8nmk")])
-disc_color = Color(0.9, 0.27, 0.5184958, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.466805, 4.1061726, -28.71224)
+disc_color = Color(0.27, 0.9, 0.38076472, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.799494, 4.1061726, -32.82778)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station30" unique_id=1674506842]
-mesh = SubResource("CylinderMesh_ofnji")
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station22" unique_id=426202915]
+mesh = SubResource("CylinderMesh_dt7vh")
 
-[node name="Conditions" type="Node" parent="Stations/Station30" unique_id=1076166616]
+[node name="Conditions2" type="Node" parent="Stations/Station22" unique_id=696762994]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station30" unique_id=1409324069]
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station22" unique_id=943408493]
+mesh = SubResource("CylinderMesh_wmegu")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station22" unique_id=1109568114]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station22__TO__Station23" type="Path3D" parent="Stations/Station22" unique_id=965229952]
+visible = false
+curve = SubResource("Curve3D_4gpwf")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station23")
+
+[node name="Station23" parent="Stations" unique_id=541786492 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.019258, 4.1061726, -34.146248)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station24")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_ofnji")])
+disc_color = Color(0.28964874, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.019258, 4.1061726, -34.146248)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station23" unique_id=1914640769]
+mesh = SubResource("CylinderMesh_aw3s4")
+
+[node name="Conditions2" type="Node" parent="Stations/Station23" unique_id=1586005412]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station23" unique_id=135936007]
+mesh = SubResource("CylinderMesh_wmegu")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station23" unique_id=1985807829]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station23__TO__Station24" type="Path3D" parent="Stations/Station23" unique_id=1344873081]
+visible = false
+curve = SubResource("Curve3D_5v47o")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station24")
+
+[node name="Station24" parent="Stations" unique_id=1538967528 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.77049, 4.1061726, -34.854836)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station25")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_l2a0j")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_5drxl")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_533su")])
+disc_color = Color(0.6610166, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.77049, 4.1061726, -34.854836)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station24" unique_id=1391777022]
+mesh = SubResource("CylinderMesh_5drxl")
+
+[node name="Conditions2" type="Node" parent="Stations/Station24" unique_id=2123854194]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station24" unique_id=575310731]
+mesh = SubResource("CylinderMesh_wmegu")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station24" unique_id=879537362]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station24__TO__Station25" type="Path3D" parent="Stations/Station24" unique_id=1089331205]
+visible = false
+curve = SubResource("Curve3D_cu3uw")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station25")
+
+[node name="Station25" parent="Stations" unique_id=1933148928 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.333025, 4.1061726, -34.83157)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station26")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_7oher")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_4l68h")])
+disc_color = Color(0.9, 0.27, 0.50428265, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.333025, 4.1061726, -34.83157)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station25" unique_id=2052669972]
+mesh = SubResource("CylinderMesh_6i2ro")
+
+[node name="Conditions2" type="Node" parent="Stations/Station25" unique_id=1988417004]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station25" unique_id=1086197895]
+mesh = SubResource("CylinderMesh_uevfx")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station25" unique_id=214108306]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station25__TO__Station26" type="Path3D" parent="Stations/Station25" unique_id=670579821]
+visible = false
+curve = SubResource("Curve3D_6i2ro")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station26")
+
+[node name="Station26" parent="Stations" unique_id=1904208662 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -34.82572)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station27")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_tu272")])
+disc_color = Color(0.5491857, 0.9, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -34.82572)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station26" unique_id=1888640854]
+mesh = SubResource("CylinderMesh_xbpx3")
+
+[node name="Conditions2" type="Node" parent="Stations/Station26" unique_id=1094465938]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station26" unique_id=937569328]
+mesh = SubResource("CylinderMesh_llhb8")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station26" unique_id=1826119308]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station26__TO__Station27" type="Path3D" parent="Stations/Station26" unique_id=1088029293]
+visible = false
+curve = SubResource("Curve3D_fj7oj")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station27")
+
+[node name="Station27" parent="Stations" unique_id=604899757 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -33.25161)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station28")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_8wxlr")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_b1f32")])
+disc_color = Color(0.87227356, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -33.25161)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station27" unique_id=513279370]
+mesh = SubResource("CylinderMesh_1j1a6")
+
+[node name="Conditions2" type="Node" parent="Stations/Station27" unique_id=74887608]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station27" unique_id=1259443835]
+mesh = SubResource("CylinderMesh_llhb8")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station27" unique_id=1652050233]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station27__TO__Station28" type="Path3D" parent="Stations/Station27" unique_id=669730876]
+visible = false
+curve = SubResource("Curve3D_uevfx")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station28")
+
+[node name="Station28" parent="Stations" unique_id=998732216 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -28.601954)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station29")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fvcvs")])
+disc_color = Color(0.56159407, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.060068, 4.1061726, -28.601954)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station28" unique_id=271625541]
+mesh = SubResource("CylinderMesh_l0r8s")
+
+[node name="Conditions2" type="Node" parent="Stations/Station28" unique_id=1144784028]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station28" unique_id=1750402504]
 mesh = SubResource("CylinderMesh_nxrgo")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station30" unique_id=565869615]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station28" unique_id=268855156]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station30/CollisionArea" unique_id=421015144]
-shape = SubResource("CylinderShape3D_1j1a6")
-debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+[node name="Station28__TO__Station29" type="Path3D" parent="Stations/Station28" unique_id=67162195]
+visible = false
+curve = SubResource("Curve3D_xbpx3")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station29")
 
-[node name="Station31" type="Node3D" parent="Stations" unique_id=1909622173 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.77667, 4.1061726, -28.732533)
-script = ExtResource("10_aykc8")
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_vpgsr")])
+[node name="Station29" parent="Stations" unique_id=1246053998 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.345747, 4.1061726, -28.674522)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station31"), NodePath("")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_dirfy")])
+disc_color = Color(0.9, 0.61047876, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.345747, 4.1061726, -28.674522)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station29" unique_id=934280722]
+mesh = SubResource("CylinderMesh_s6cs5")
+
+[node name="Conditions2" type="Node" parent="Stations/Station29" unique_id=1482451165]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station29" unique_id=423841669]
+mesh = SubResource("CylinderMesh_nxrgo")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station29" unique_id=381227621]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Station29__TO__Station31" type="Path3D" parent="Stations/Station29" unique_id=1318030996]
+visible = false
+curve = SubResource("Curve3D_vpgsr")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station31")
+
+[node name="RailMarker" parent="Stations" unique_id=1326941123 instance=ExtResource("12_4l68h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.531944, 0, -30.719984)
+
+[node name="Station31" parent="Stations" unique_id=1909622173 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.5217, 4.1061726, -28.732533)
+visible = false
+next_stations = Array[NodePath]([NodePath("../@Node3D@29660")])
+blocking = true
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_bk3i1")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_dracw")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_mhubt")])
 disc_color = Color(0.9, 0.488397, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.77667, 4.1061726, -28.732533)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.5217, 4.1061726, -28.732533)
 
-[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station31" unique_id=307014824]
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/Station31" unique_id=307014824]
 mesh = SubResource("CylinderMesh_h08kl")
 
-[node name="Conditions" type="Node" parent="Stations/Station31" unique_id=2104254258]
+[node name="Conditions2" type="Node" parent="Stations/Station31" unique_id=2104254258]
 
-[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station31" unique_id=207480232]
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/Station31" unique_id=207480232]
 mesh = SubResource("CylinderMesh_7t8cj")
 skeleton = NodePath("../CollisionArea")
 
-[node name="CollisionArea" type="Area3D" parent="Stations/Station31" unique_id=174263256]
+[node name="CollisionArea2" type="Area3D" parent="Stations/Station31" unique_id=174263256]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station31/CollisionArea" unique_id=83624378]
-shape = SubResource("CylinderShape3D_p8nmk")
+[node name="Station31__TO___Node3D_29660" type="Path3D" parent="Stations/Station31" unique_id=382784120]
+visible = false
+curve = SubResource("Curve3D_bk3i1")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../@Node3D@29660")
+
+[node name="@Node3D@29660" parent="Stations" unique_id=372485300 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.691143, 4.1061726, -30.726238)
+visible = false
+next_stations = Array[NodePath]([NodePath("../Station33")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_wxn1j")])
+disc_color = Color(0.27, 0.72681075, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.691143, 4.1061726, -30.726238)
+
+[node name="EncounterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@29660" unique_id=236180962]
+material_override = SubResource("StandardMaterial3D_h08kl")
+mesh = SubResource("CylinderMesh_qs8su")
+
+[node name="Conditions2" type="Node" parent="Stations/@Node3D@29660" unique_id=1363904693]
+
+[node name="CenterMesh2" type="MeshInstance3D" parent="Stations/@Node3D@29660" unique_id=1681430393]
+mesh = SubResource("CylinderMesh_ofnji")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea2" type="Area3D" parent="Stations/@Node3D@29660" unique_id=1147911587]
+collision_layer = 2
+collision_mask = 2
+
+[node name="_Node3D_29660__TO__Station33" type="Path3D" parent="Stations/@Node3D@29660" unique_id=1818593299]
+visible = false
+curve = SubResource("Curve3D_llhb8")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station33")
+
+[node name="Station33" type="Node3D" parent="Stations" unique_id=1616778124 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.691143, 4.1061726, -30.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station34")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_l0r8s")])
+disc_color = Color(0.9, 0.6652446, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.691143, 4.1061726, -30.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station33" unique_id=1866766432]
+material_override = SubResource("StandardMaterial3D_ofnji")
+mesh = SubResource("CylinderMesh_n58ot")
+
+[node name="Conditions" type="Node" parent="Stations/Station33" unique_id=574024380]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station33" unique_id=630028176]
+mesh = SubResource("CylinderMesh_ra2ai")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station33" unique_id=1114446804]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station33/CollisionArea" unique_id=1845896021]
+shape = SubResource("CylinderShape3D_1rvo6")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station33__TO__Station34" type="Path3D" parent="Stations/Station33" unique_id=604588042]
+visible = false
+curve = SubResource("Curve3D_l0r8s")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station34")
+
+[node name="Station34" type="Node3D" parent="Stations" unique_id=1721939200 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.691143, 4.1061726, -30.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station35")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_nxrgo")])
+disc_color = Color(0.27, 0.3077669, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.691143, 4.1061726, -30.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station34" unique_id=605871749]
+material_override = SubResource("StandardMaterial3D_n58ot")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station34" unique_id=224232314]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station34" unique_id=1097947196]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station34" unique_id=2133239989]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station34/CollisionArea" unique_id=1954020621]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station34__TO__Station35" type="Path3D" parent="Stations/Station34" unique_id=1112703506]
+visible = false
+curve = SubResource("Curve3D_mhubt")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station35")
+
+[node name="Station35" type="Node3D" parent="Stations" unique_id=449590728 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.691143, 4.1061726, -27.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station36")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_kvh1s")])
+disc_color = Color(0.4426886, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.691143, 4.1061726, -27.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station35" unique_id=265339983]
+material_override = SubResource("StandardMaterial3D_dirfy")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station35" unique_id=433537398]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station35" unique_id=1133035703]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station35" unique_id=214789046]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station35/CollisionArea" unique_id=1661141264]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station35__TO__Station36" type="Path3D" parent="Stations/Station35" unique_id=1243766779]
+visible = false
+curve = SubResource("Curve3D_8c48c")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station36")
+
+[node name="Station36" type="Node3D" parent="Stations" unique_id=1204621947 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.691143, 4.1061726, -23.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station37")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_x1n2l")])
+disc_color = Color(0.27, 0.9, 0.7343556, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.691143, 4.1061726, -23.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station36" unique_id=154787661]
+material_override = SubResource("StandardMaterial3D_apukg")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station36" unique_id=1222222494]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station36" unique_id=1913711644]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station36" unique_id=1644910068]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station36/CollisionArea" unique_id=1026913117]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station36__TO__Station37" type="Path3D" parent="Stations/Station36" unique_id=586134031]
+visible = false
+curve = SubResource("Curve3D_nxrgo")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station37")
+
+[node name="Station37" type="Node3D" parent="Stations" unique_id=2078538853 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.691143, 4.1061726, -18.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station38")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_rixot")])
+disc_color = Color(0.27, 0.9, 0.47695094, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.691143, 4.1061726, -18.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station37" unique_id=127050928]
+material_override = SubResource("StandardMaterial3D_04h5r")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station37" unique_id=1100863877]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station37" unique_id=587288742]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station37" unique_id=1430366963]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station37/CollisionArea" unique_id=182670055]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station37__TO__Station38" type="Path3D" parent="Stations/Station37" unique_id=1061708009]
+visible = false
+curve = SubResource("Curve3D_1j1a6")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station38")
+
+[node name="Station38" type="Node3D" parent="Stations" unique_id=655005124 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.691143, 4.1061726, -18.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station39")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_3bj7i")])
+disc_color = Color(0.27, 0.551106, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.691143, 4.1061726, -18.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station38" unique_id=734134798]
+material_override = SubResource("StandardMaterial3D_bqwru")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station38" unique_id=486295338]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station38" unique_id=1875079830]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station38" unique_id=990271143]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station38/CollisionArea" unique_id=835826973]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station38__TO__Station39" type="Path3D" parent="Stations/Station38" unique_id=338033231]
+visible = false
+curve = SubResource("Curve3D_wxn1j")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station39")
+
+[node name="Station39" type="Node3D" parent="Stations" unique_id=1942429304 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.691143, 4.1061726, -12.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station40")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_85l7p")])
+disc_color = Color(0.27, 0.9, 0.36735213, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.691143, 4.1061726, -12.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station39" unique_id=730982999]
+material_override = SubResource("StandardMaterial3D_t4g5s")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station39" unique_id=1503891631]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station39" unique_id=1439186225]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station39" unique_id=190157674]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station39/CollisionArea" unique_id=893001747]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station39__TO__Station40" type="Path3D" parent="Stations/Station39" unique_id=238213807]
+visible = false
+curve = SubResource("Curve3D_q1u1g")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station40")
+
+[node name="Station40" type="Node3D" parent="Stations" unique_id=1247588772 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.69115, 4.1061726, -8.726238)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station41")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sl3cu")])
+disc_color = Color(0.9, 0.30804816, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.69115, 4.1061726, -8.726238)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station40" unique_id=817855983]
+material_override = SubResource("StandardMaterial3D_w812u")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station40" unique_id=753843841]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station40" unique_id=2056512222]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station40" unique_id=806540107]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station40/CollisionArea" unique_id=445753798]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station40__TO__Station41" type="Path3D" parent="Stations/Station40" unique_id=1549170919]
+visible = false
+curve = SubResource("Curve3D_h08kl")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station41")
+
+[node name="Station41" type="Node3D" parent="Stations" unique_id=544768002 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.691147, 4.1061726, -1.7262383)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station42")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_wd7ib")])
+disc_color = Color(0.3240564, 0.9, 0.27, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.691147, 4.1061726, -1.7262383)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station41" unique_id=1619910400]
+material_override = SubResource("StandardMaterial3D_ptnqi")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station41" unique_id=653210840]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station41" unique_id=1722344247]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station41" unique_id=357062932]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station41/CollisionArea" unique_id=208247056]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station41__TO__Station42" type="Path3D" parent="Stations/Station41" unique_id=636111576]
+visible = false
+curve = SubResource("Curve3D_fqxsa")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station42")
+
+[node name="Station42" type="Node3D" parent="Stations" unique_id=1217392676 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.691147, 4.1061726, 6.2737617)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station43")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_8qlcj")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_dt7vh")])
+disc_color = Color(0.9, 0.27, 0.7016707, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.691147, 4.1061726, 6.2737617)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station42" unique_id=1366259172]
+material_override = SubResource("StandardMaterial3D_uhqaq")
+mesh = SubResource("CylinderMesh_tu272")
+
+[node name="Conditions" type="Node" parent="Stations/Station42" unique_id=798901919]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station42" unique_id=2141251618]
+mesh = SubResource("CylinderMesh_8wxlr")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station42" unique_id=1562708921]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station42/CollisionArea" unique_id=244805019]
+shape = SubResource("CylinderShape3D_6aqds")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station42__TO__Station43" type="Path3D" parent="Stations/Station42" unique_id=890229697]
+visible = false
+curve = SubResource("Curve3D_osh1c")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station43")
+
+[node name="Station43" type="Node3D" parent="Stations" unique_id=1416003371 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 17.88268)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station44")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_7t8cj")])
+disc_color = Color(0.9, 0.27, 0.79107285, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 17.88268)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station43" unique_id=302346017]
+material_override = SubResource("StandardMaterial3D_tu272")
+mesh = SubResource("CylinderMesh_6aqds")
+
+[node name="Conditions" type="Node" parent="Stations/Station43" unique_id=1570124210]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station43" unique_id=247246571]
+mesh = SubResource("CylinderMesh_kvh1s")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station43" unique_id=1096851793]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station43/CollisionArea" unique_id=2087544200]
+shape = SubResource("CylinderShape3D_dirfy")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station43__TO__Station44" type="Path3D" parent="Stations/Station43" unique_id=1199697458]
+visible = false
+curve = SubResource("Curve3D_dt7vh")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station44")
+
+[node name="Station44" type="Node3D" parent="Stations" unique_id=1019664951 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 26.094822)
+visible = false
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station45")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_apukg")])
+conditions = Array[ExtResource("7_ioen4")]([SubResource("Resource_2tjll")])
+disc_color = Color(0.61889255, 0.27, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 26.094822)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station44" unique_id=1816788249]
+material_override = SubResource("StandardMaterial3D_fwlnq")
+mesh = SubResource("CylinderMesh_6aqds")
+
+[node name="Conditions" type="Node" parent="Stations/Station44" unique_id=396751556]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station44" unique_id=728820668]
+mesh = SubResource("CylinderMesh_kvh1s")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station44" unique_id=436407328]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station44/CollisionArea" unique_id=708526946]
+shape = SubResource("CylinderShape3D_dirfy")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station44__TO__Station45" type="Path3D" parent="Stations/Station44" unique_id=2005769147]
+visible = false
+curve = SubResource("Curve3D_s6cs5")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station45")
+
+[node name="Station45" type="Node3D" parent="Stations" unique_id=1549414781 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 34.997364)
+script = ExtResource("10_aykc8")
+next_stations = Array[NodePath]([NodePath("../Station46")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_aw3s4")])
+disc_color = Color(0.27, 0.34628454, 0.9, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.111206, 4.1061726, 34.997364)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station45" unique_id=1152351072]
+material_override = SubResource("StandardMaterial3D_6aqds")
+mesh = SubResource("CylinderMesh_dirfy")
+
+[node name="Conditions" type="Node" parent="Stations/Station45" unique_id=225698879]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station45" unique_id=1110029054]
+mesh = SubResource("CylinderMesh_dracw")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station45" unique_id=84093503]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station45/CollisionArea" unique_id=977414601]
+shape = SubResource("CylinderShape3D_x1n2l")
+debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
+
+[node name="Station45__TO__Station46" type="Path3D" parent="Stations/Station45" unique_id=273962663]
+curve = SubResource("Curve3D_7t8cj")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station46")
+
+[node name="Station46" type="Node3D" parent="Stations" unique_id=1971670545 instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.763832, 4.1061726, 35.035133)
+script = ExtResource("10_aykc8")
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_4isdh")])
+disc_color = Color(0.27, 0.9, 0.7227435, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.763832, 4.1061726, 35.035133)
+
+[node name="EncounterMesh" type="MeshInstance3D" parent="Stations/Station46" unique_id=950889145]
+material_override = SubResource("StandardMaterial3D_dracw")
+mesh = SubResource("CylinderMesh_apukg")
+
+[node name="Conditions" type="Node" parent="Stations/Station46" unique_id=1966533995]
+
+[node name="CenterMesh" type="MeshInstance3D" parent="Stations/Station46" unique_id=1248560503]
+mesh = SubResource("CylinderMesh_04h5r")
+skeleton = NodePath("../CollisionArea")
+
+[node name="CollisionArea" type="Area3D" parent="Stations/Station46" unique_id=1509229158]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionAreaShape" type="CollisionShape3D" parent="Stations/Station46/CollisionArea" unique_id=706103457]
+shape = SubResource("CylinderShape3D_cdko8")
 debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
 
 [node name="WadPreview" parent="." unique_id=819821577 instance=ExtResource("6_eqlrc")]
 wad_path = "res://DOOM.WAD"
 
+[connection signal="body_entered" from="Stations/Station33/CollisionArea" to="Stations/Station33" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station34/CollisionArea" to="Stations/Station34" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station35/CollisionArea" to="Stations/Station35" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station36/CollisionArea" to="Stations/Station36" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station37/CollisionArea" to="Stations/Station37" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station38/CollisionArea" to="Stations/Station38" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station39/CollisionArea" to="Stations/Station39" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station40/CollisionArea" to="Stations/Station40" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station41/CollisionArea" to="Stations/Station41" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station42/CollisionArea" to="Stations/Station42" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station43/CollisionArea" to="Stations/Station43" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station44/CollisionArea" to="Stations/Station44" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station45/CollisionArea" to="Stations/Station45" method="_onCollisionAreaBodyEntered"]
+[connection signal="body_entered" from="Stations/Station46/CollisionArea" to="Stations/Station46" method="_onCollisionAreaBodyEntered"]

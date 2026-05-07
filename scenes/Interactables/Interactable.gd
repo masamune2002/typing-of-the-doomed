@@ -189,13 +189,19 @@ func _needsThinWallCheck() -> bool:
 	var ttype = wadNode.get("triggerType")
 	return ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1
 
+func _isLift() -> bool:
+	return wadNode != null and wadNode.get_script() != null and wadNode.get_script().resource_path.ends_with(WadGame.SCRIPT_LIFT)
+
 func _isDoorClosed() -> bool:
 	if wadNode == null or !is_instance_valid(wadNode):
 		return false
 	var state = wadNode.get("state")
 	if state == null:
 		return false
-	# STATE.CLOSED = 2 in door.gd, STATE.TOP = 0 in lift.gd
+	if _isLift():
+		# lift.gd: STATE.TOP = 0 (resting position = "closed"/ready)
+		return state == 0
+	# door.gd: STATE.CLOSED = 2
 	return state == 2
 
 func _isDoorOpen() -> bool:
@@ -204,7 +210,10 @@ func _isDoorOpen() -> bool:
 	var state = wadNode.get("state")
 	if state == null:
 		return false
-	# STATE.OPEN = 0 in door.gd, STATE.OPENING = 3
+	if _isLift():
+		# lift.gd: STATE.GOING_DOWN = 1, STATE.BOTTOM = 2, STATE.GOING_UP = 3
+		return state == 1 or state == 2 or state == 3
+	# door.gd: STATE.OPEN = 0, STATE.OPENING = 3
 	return state == 0 or state == 3
 
 func _resetWeakness() -> void:

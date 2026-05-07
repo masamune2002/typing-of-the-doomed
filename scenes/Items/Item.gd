@@ -148,7 +148,10 @@ func _pickup() -> void:
 					armorType = Enums.ARMOR_TYPE.BLUE
 			player.addArmor(itemDefinition.get("amount", 1), armorType)
 		"key":
-			player.addKey(itemDefinition.get("key", ""))
+			var key_name = itemDefinition.get("key", "")
+			player.addKey(key_name)
+			if key_name != "":
+				Game.setVar("key_" + key_name, true)
 		"weapon":
 			var weapon_scene = itemDefinition.get("weapon_scene")
 			if weapon_scene != null:

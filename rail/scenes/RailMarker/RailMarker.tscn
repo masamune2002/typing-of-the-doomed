@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://railmarkerbase01"]
+[gd_scene format=3 uid="uid://ckj6xvts0psim"]
 
 [ext_resource type="Script" path="res://rail/scenes/RailMarker/RailMarker.gd" id="1_rail"]
 

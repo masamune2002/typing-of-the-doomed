@@ -445,10 +445,10 @@ func cycleTarget() -> void:
 	var next_idx = (current_idx + 1) % targets.size()
 	setFireTarget(targets[next_idx])
 
-func lookAtPosition(targetPosition : Vector3, duration : float = 0.15) -> void:
-	_lookAtTarget(targetPosition, duration)
+func lookAtPosition(targetPosition : Vector3, duration : float = 0.15) -> Tween:
+	return _lookAtTarget(targetPosition, duration)
 
-func _lookAtTarget(targetPosition : Vector3, duration : float = 0.15) -> void:
+func _lookAtTarget(targetPosition : Vector3, duration : float = 0.15) -> Tween:
 	var cam_pos = _cameraRig.global_position
 	var dir = Vector3(targetPosition.x - cam_pos.x, 0, targetPosition.z - cam_pos.z).normalized()
 	var target_yaw = rad_to_deg(atan2(-dir.x, -dir.z))
@@ -461,6 +461,7 @@ func _lookAtTarget(targetPosition : Vector3, duration : float = 0.15) -> void:
 	_lookTween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	_lookTween.tween_property(_cameraRig, "rotation_degrees:y", target_yaw, duration)
 	_lookTween.tween_callback(func(): _rotH = _cameraRig.rotation_degrees.y)
+	return _lookTween
 
 func resetCamera(duration : float = 0.15) -> void:
 	var target_yaw = _cameraRig.rotation_degrees.y
@@ -596,6 +597,7 @@ func restoreState(data: Dictionary) -> void:
 	_keys = []
 	for k in data.get("keys", []):
 		_keys.append(k)
+		Game.setVar("key_" + k, true)
 	_rotH = data.get("camera_rot_h", 0.0)
 	_rotV = data.get("camera_rot_v", 0.0)
 	_cameraRig.rotation_degrees = Vector3(_rotV, _rotH, 0)

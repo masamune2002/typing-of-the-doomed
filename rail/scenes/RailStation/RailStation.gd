@@ -88,6 +88,7 @@ func _on_add_next_station() -> void:
 		endActions.append(advance)
 
 	call_deferred("emit_signal", "station_changed")
+	_select_and_focus(new_station)
 
 func _select_and_focus(node: Node) -> void:
 	# Defer to avoid clearing selection while the button click signal is still propagating

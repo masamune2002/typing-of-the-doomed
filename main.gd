@@ -509,6 +509,7 @@ var _skip_state_capture : bool = false
 
 func _loadMap(map_name: String) -> void:
 	# Clean up old entities
+	Game.clearVars()
 	_flicker_sectors.clear()
 	_entity_sector_riders.clear()
 	if _nav_region != null:
@@ -1055,6 +1056,14 @@ func _spawnInteractablesFromWad() -> void:
 					all_level_objects.append(child)
 	pass
 
+	# Debug: print all candidates and their trigger types
+	for node in all_level_objects:
+		var script_path = node.get_script().resource_path if node.get_script() else "no_script"
+		var ttype_dbg = node.get(WadGame.PROP_TRIGGER_TYPE)
+		var parent_name = node.get_parent().name if node.get_parent() else "no_parent"
+		print("[INTERACTABLE-DBG] %s  parent=%s  script=%s  ttype=%s  has_activate=%s" % [
+			node.name, parent_name, script_path.get_file(), str(ttype_dbg), node.has_method("activate")])
+
 	var interactable_count = 0
 	var skipped_no_activate = 0
 	var skipped_no_ttype = 0
@@ -1072,7 +1081,7 @@ func _spawnInteractablesFromWad() -> void:
 		if ttype == null:
 			skipped_no_ttype += 1
 			continue
-		var valid_ttypes = [WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1, WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR]
+		var valid_ttypes = [WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1, WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR, WADG.TTYPE.WALK1, WADG.TTYPE.WALKR]
 		var nodeKeyType = node.get(WadGame.PROP_KEY_TYPE)
 		var isKeyDoor = nodeKeyType != null and nodeKeyType < 4
 		if ttype not in valid_ttypes:
