@@ -70,10 +70,11 @@ func _on_map_created() -> void:
 
 func _create_door_labels() -> void:
 	var door_script = load("res://addons/godotWad/src/interactables/door.gd")
-	if door_script == null:
-		return
+	var lift_script = load("res://addons/godotWad/src/interactables/lift.gd")
+	var floor_script = load("res://addons/godotWad/src/interactables/floor.gd")
+	var exit_script = load("res://addons/godotWad/src/interactables/levelChange.gd")
 
-	# Find all door nodes under Interactables
+	# Find all interactable nodes under Interactables
 	var map_node: Node3D = null
 	for child in _loader.get_children():
 		if child is Node3D and child.has_node("Interactables"):
@@ -88,35 +89,48 @@ func _create_door_labels() -> void:
 	for sector_node in interactables.get_children():
 		if not sector_node is Node3D:
 			continue
-		# Check if this sector has a door child
-		var has_door = false
+		# Determine the type of interactable in this sector
+		var prefix := ""
+		var color := Color.WHITE
 		for child in sector_node.get_children():
-			if child.get_script() == door_script:
-				has_door = true
+			var s = child.get_script()
+			if s == door_script:
+				prefix = "D"
+				color = Color.YELLOW
 				break
-		if not has_door:
+			elif s == lift_script:
+				prefix = "L"
+				color = Color.CYAN
+				break
+			elif s == floor_script:
+				prefix = "F"
+				color = Color.GREEN
+				break
+			elif s == exit_script:
+				prefix = "E"
+				color = Color.MAGENTA
+				break
+		if prefix == "":
 			continue
 
 		# Extract sector number from name ("Sector 42" -> "42")
 		var sector_name: String = sector_node.name
 		var sector_num = sector_name.replace("Sector ", "")
 
-		# Find the sector geometry to get position
+		# Position at sector geometry AABB center
 		var label_pos = Vector3.ZERO
 		if geom != null:
 			var geom_sector = geom.get_node_or_null("sector " + sector_num)
 			if geom_sector != null and geom_sector is Node3D:
-				# Use AABB center of the sector geometry
-				var aabb = _get_combined_aabb(geom_sector)
-				label_pos = aabb.get_center()
+				label_pos = _get_combined_aabb(geom_sector).get_center()
 
 		var label = Label3D.new()
-		label.text = sector_num
+		label.text = prefix + sector_num
 		label.font_size = 64
 		label.pixel_size = 0.01
 		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		label.no_depth_test = true
-		label.modulate = Color.YELLOW
+		label.modulate = color
 		label.position = label_pos + Vector3(0, 1.5, 0)
 		_loader.add_child(label)
 		_door_labels.append(label)

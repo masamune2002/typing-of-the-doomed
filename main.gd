@@ -966,7 +966,7 @@ func _spawnPlayer() -> void:
 	var player = wad_game.player_scene.instantiate()
 	add_child(player)
 	player.global_position = _wadToWorld(spawn_pos) + Vector3(0, 1.5, 0)
-	pass
+	print("[SPAWN] player at %s  (wad=%s  offset=%s)" % [player.global_position, spawn_pos, _map_origin_offset])
 
 	# Apply saved state if loading a save (don't clear _pending_save_data yet —
 	# _spawnEnemiesFromWad needs it for dead entity filtering)
@@ -1056,22 +1056,18 @@ func _spawnInteractablesFromWad() -> void:
 					all_level_objects.append(child)
 	pass
 
-	# Debug: print all candidates and their trigger types
-	for node in all_level_objects:
-		var script_path = node.get_script().resource_path if node.get_script() else "no_script"
-		var ttype_dbg = node.get(WadGame.PROP_TRIGGER_TYPE)
-		var parent_name = node.get_parent().name if node.get_parent() else "no_parent"
-		print("[INTERACTABLE-DBG] %s  parent=%s  script=%s  ttype=%s  has_activate=%s" % [
-			node.name, parent_name, script_path.get_file(), str(ttype_dbg), node.has_method("activate")])
-
 	var interactable_count = 0
 	var skipped_no_activate = 0
 	var skipped_no_ttype = 0
 	var skipped_wrong_ttype = 0
 	var skipped_no_pos = 0
+	var spawned_lift_sectors : Array[int] = []  # one interactable per lift sector
 	for node in all_level_objects:
-		var is_lift = node.get_script() != null and node.get_script().resource_path.ends_with(WadGame.SCRIPT_LIFT)
-		var is_stair = node.get_script() != null and node.get_script().resource_path.ends_with(WadGame.SCRIPT_STAIRS)
+		var script_path = node.get_script().resource_path if node.get_script() != null else ""
+		var is_lift = script_path.ends_with(WadGame.SCRIPT_LIFT)
+		var is_stair = script_path.ends_with(WadGame.SCRIPT_STAIRS)
+		var is_exit = script_path.ends_with(WadGame.SCRIPT_LEVEL_CHANGE)
+		var is_floor = script_path.ends_with("floor.gd")
 		if not node.has_method("activate") and not is_lift and not is_stair:
 			skipped_no_activate += 1
 			continue
@@ -1088,7 +1084,16 @@ func _spawnInteractablesFromWad() -> void:
 			skipped_wrong_ttype += 1
 			continue
 
-		# Calculate world position from sector polygon centroid
+		# Only one interactable per lift sector
+		if is_lift:
+			var parent_name_l = node.get_parent().name as String
+			if parent_name_l.to_lower().begins_with(WadGame.SECTOR_PREFIX_LOWER):
+				var sec_idx_l = parent_name_l.substr(7).to_int()
+				if sec_idx_l in spawned_lift_sectors:
+					continue
+				spawned_lift_sectors.append(sec_idx_l)
+
+		# Calculate world position
 		var world_pos = _getInteractablePosition(node, sector_poly_arr, sectors_parsed)
 		if world_pos == null:
 			skipped_no_pos += 1
@@ -1102,6 +1107,14 @@ func _spawnInteractablesFromWad() -> void:
 		var interactable = INTERACTABLE_SCENE.instantiate()
 		interactable.wadNode = node
 		interactable.interactable_name = _interactableNameFor(node)
+		if is_lift:
+			interactable.interactable_type = Interactable.InteractableType.LIFT
+		elif is_exit:
+			interactable.interactable_type = Interactable.InteractableType.EXIT
+		elif is_floor:
+			interactable.interactable_type = Interactable.InteractableType.FLOOR
+		else:
+			interactable.interactable_type = Interactable.InteractableType.DOOR
 		# Check if door requires a key (KEY enum: RED=0, GREEN=1, BLUE=2, YELLOW=3, 9=none)
 		var keyType = node.get(WadGame.PROP_KEY_TYPE)
 		if keyType != null and wad_game.key_type_to_id.has(keyType):
@@ -1114,10 +1127,21 @@ func _spawnInteractablesFromWad() -> void:
 				pass
 		add_child(interactable)
 		interactable.global_position = _wadToWorld(world_pos)
+		# For lifts, reposition to the floor mesh once global transforms are ready
+		if is_lift:
+			var info_l = node.get("info")
+			if info_l != null:
+				var targets_l = info_l.get("targets", [])
+				var map_node_l = node.get_parent().get_parent().get_parent()
+				for t in targets_l:
+					if str(t).contains("/floor "):
+						var tn = map_node_l.get_node_or_null(t)
+						if tn != null and tn is Node3D:
+							var ia = interactable
+							var fn = tn
+							(func(): ia.global_position = fn.global_position).call_deferred()
+							break
 		interactable_count += 1
-		print("[INTERACTABLE] %s   wadNode=%s   ttype=%s   key=%s" % [
-			interactable.interactable_name, node.name, str(ttype), str(keyType)])
-		pass
 
 	# Spawn interactables for secret sectors that don't already have a door/switch
 	var spawned_sectors : Array[int] = []

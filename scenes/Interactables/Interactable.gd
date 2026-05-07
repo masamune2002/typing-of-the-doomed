@@ -10,11 +10,14 @@ var alive: bool = true
 var visible_to_player: bool = false
 var _prev_visible_to_player: bool = false
 
+enum InteractableType { DOOR, LIFT, FLOOR, EXIT, OTHER }
+
 var wadNode: Node3D
 var weakness: TypingWeakness
 var requiredKey: String = ""  # empty = no key needed
 var set_variable: String = "" # game variable to set when activated
 var interactable_name: String = "" # stable id used for signal-based gating (set by spawner)
+var interactable_type: InteractableType = InteractableType.DOOR
 var _door_was_open: bool = false # tracks door-open transition for doorOpened signal
 
 func _ready() -> void:
@@ -94,11 +97,18 @@ func showRemainingLabel() -> void:
 func showFullLabel() -> void:
 	_setFullWordLabel()
 
+func _var_prefix() -> String:
+	match interactable_type:
+		InteractableType.LIFT: return "lift_"
+		InteractableType.FLOOR: return "floor_"
+		InteractableType.EXIT: return "exit_"
+		_: return "door_"
+
 func _activate_wad_node() -> void:
 	if set_variable != "":
 		Game.setVar(set_variable)
 	if interactable_name != "":
-		Game.setVar("interactable_" + interactable_name, true)
+		Game.setVar(_var_prefix() + interactable_name, true)
 		EventBus.interactableActivated.emit(interactable_name)
 	alive = false
 	interactableLabel.hide()
@@ -176,7 +186,7 @@ func _checkDoorOpenedSignal() -> void:
 		return
 	var open := _isDoorOpen()
 	if open and not _door_was_open:
-		Game.setVar("door_" + interactable_name, true)
+		Game.setVar(_var_prefix() + interactable_name, true)
 		EventBus.doorOpened.emit(interactable_name)
 	_door_was_open = open
 
@@ -272,6 +282,10 @@ func _check_line_of_sight() -> bool:
 	var viewport_size := get_viewport().get_visible_rect().size
 	if screen_pos.x < 0 or screen_pos.x > viewport_size.x or screen_pos.y < 0 or screen_pos.y > viewport_size.y:
 		return false
+	# Lifts are floor geometry — the player stands on them, so a wall raycast
+	# doesn't apply. Distance + on-screen is sufficient.
+	if _isLift():
+		return true
 	# Raycast to check for walls between player and interactable
 	var space_state = get_world_3d().direct_space_state
 	if space_state == null:
