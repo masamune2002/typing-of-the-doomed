@@ -188,19 +188,25 @@ func _checkDoorOpenedSignal() -> void:
 	if open and not _door_was_open:
 		Game.setVar(_var_prefix() + interactable_name, true)
 		EventBus.doorOpened.emit(interactable_name)
+	elif not open and _door_was_open:
+		Game.setVar(_var_prefix() + interactable_name, false)
 	_door_was_open = open
 
 func _needsThinWallCheck() -> bool:
-	# Only walk-up doors need the thin-wall heuristic — they're positioned
-	# inside the door frame where the raycast always hits the frame.
-	# Switches don't need it — they're on the player's side of the wall.
+	# Doors are positioned inside the door frame and switches are positioned
+	# at the linedef midpoint (i.e. on the wall surface). In both cases the
+	# raycast from the player will hit the wall the interactable sits on, so
+	# use the thin-wall heuristic to see through it.
 	if wadNode == null or !is_instance_valid(wadNode):
 		return false
 	var ttype = wadNode.get("triggerType")
-	return ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1
+	return ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1 or ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
 
 func _isLift() -> bool:
 	return wadNode != null and wadNode.get_script() != null and wadNode.get_script().resource_path.ends_with(WadGame.SCRIPT_LIFT)
+
+func _isFloor() -> bool:
+	return wadNode != null and wadNode.get_script() != null and wadNode.get_script().resource_path.ends_with("floor.gd")
 
 func _isDoorClosed() -> bool:
 	if wadNode == null or !is_instance_valid(wadNode):
@@ -208,8 +214,8 @@ func _isDoorClosed() -> bool:
 	var state = wadNode.get("state")
 	if state == null:
 		return false
-	if _isLift():
-		# lift.gd: STATE.TOP = 0 (resting position = "closed"/ready)
+	if _isLift() or _isFloor():
+		# lift.gd / floor.gd: STATE.TOP = 0 (resting position = "closed"/ready)
 		return state == 0
 	# door.gd: STATE.CLOSED = 2
 	return state == 2
@@ -220,8 +226,8 @@ func _isDoorOpen() -> bool:
 	var state = wadNode.get("state")
 	if state == null:
 		return false
-	if _isLift():
-		# lift.gd: STATE.GOING_DOWN = 1, STATE.BOTTOM = 2, STATE.GOING_UP = 3
+	if _isLift() or _isFloor():
+		# lift.gd / floor.gd: STATE.GOING_DOWN = 1, STATE.BOTTOM = 2, STATE.GOING_UP = 3
 		return state == 1 or state == 2 or state == 3
 	# door.gd: STATE.OPEN = 0, STATE.OPENING = 3
 	return state == 0 or state == 3
