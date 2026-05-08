@@ -21,8 +21,10 @@ var _has_triggered : bool = false
 var enemies : Array[Enemy]
 
 func _ready() -> void:
+	var area = get_node_or_null("CollisionArea") as Area3D
+	if area and not area.body_entered.is_connected(_onCollisionAreaBodyEntered):
+		area.body_entered.connect(_onCollisionAreaBodyEntered)
 	if !Engine.is_editor_hint():
-		print("[MARKER] %s: _ready at pos=%s" % [name, global_position])
 		_snapToFloor.call_deferred()
 		_check_initial_overlap.call_deferred()
 		if SettingsManager.debug_show_stations:
@@ -39,20 +41,10 @@ func _ready() -> void:
 func _check_initial_overlap() -> void:
 	var area = get_node_or_null("CollisionArea") as Area3D
 	if area == null:
-		print("[MARKER] %s: no CollisionArea found" % name)
 		return
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	var bodies = area.get_overlapping_bodies()
-	var player = Game.getPlayer()
-	var player_pos = player.global_position if player != null else Vector3.INF
-	var dist = global_position.distance_to(player_pos) if player != null else -1.0
-	print("[MARKER] %s: initial_overlap check  pos=%s  player=%s  dist=%.1f  overlapping=%d  bodies=%s" % [
-		name, global_position, player_pos, dist, bodies.size(), bodies.map(func(b): return b.name)])
-	# Also print collision shape info
-	for child in area.get_children():
-		if child is CollisionShape3D and child.shape != null:
-			print("[MARKER] %s: collision shape=%s  radius=%.1f" % [name, child.shape.get_class(), child.shape.get("radius") if child.shape.get("radius") != null else -1])
 	for body in bodies:
 		_onCollisionAreaBodyEntered(body)
 

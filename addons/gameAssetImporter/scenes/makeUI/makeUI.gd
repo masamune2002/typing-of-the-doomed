@@ -241,8 +241,14 @@ func _process(delta: float) -> void:
 func _on_loadButton_pressed():
 	loaderInit()
 	if cur != null and is_instance_valid(cur):
+		# object-inspector addon not present — skip inspector panel
+		if not ResourceLoader.exists("res://addons/object-inspector/inspector_theme.tres"):
+			return
 		if inspector == null:
-			inspector = Inspector.new()
+			var InspectorClass = load("res://addons/object-inspector/Inspector.gd")
+			if InspectorClass == null:
+				return
+			inspector = InspectorClass.new()
 			inspector.theme = load("res://addons/object-inspector/inspector_theme.tres")
 			inspector.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			inspector.size_flags_vertical = Control.SIZE_EXPAND_FILL

@@ -37,6 +37,7 @@ var _rotH : float = 0.0
 var _rotV : float = 0.0
 const PITCH_LIMIT : float = 85.0
 const DEFAULT_TRACKING_SPEED : float = 15.0
+const RAIL_MAX_LEAD : float = 1.5  # Max XZ distance the rail cursor can lead the player
 var trackingSpeed : float = DEFAULT_TRACKING_SPEED
 var _railSpeed : float = 0.0
 var _deathReady : bool = false  # True once death animation finishes and any key can restart
@@ -64,6 +65,9 @@ func _ready() -> void:
 	Game.setPlayer(self)
 	add_to_group("player")
 	EventBus.releasePlayerTarget.connect(_clearFireTarget)
+	if SettingsManager.autoplay:
+		interactPressed = true
+		godMode = true
 
 func hasWeapon(weaponScene : PackedScene) -> bool:
 	return weaponScene in weaponScenes
@@ -97,7 +101,15 @@ func _physics_process(delta: float) -> void:
 	# Rail path progress tracking
 	var speed_mult := _speedMultiplier()
 	if _moving and is_instance_valid(currentPathFollow):
-		currentPathFollow.progress += _railSpeed * speed_mult * delta
+		# Only advance the rail cursor if the player is close enough.
+		# This prevents the rail from running ahead when the player is
+		# blocked by a wall, which would trigger stations prematurely.
+		var lead_dist := Vector2(
+			global_position.x - currentPathFollow.global_position.x,
+			global_position.z - currentPathFollow.global_position.z
+		).length()
+		if lead_dist < RAIL_MAX_LEAD:
+			currentPathFollow.progress += _railSpeed * speed_mult * delta
 		if currentPathFollow.progress_ratio >= 1.0:
 			_moving = false
 			if _moveAction != null:
@@ -128,7 +140,7 @@ func _physics_process(delta: float) -> void:
 		move_dir = dir * _railSpeed * speed_mult
 		# Fake input_dir so head bob and step-up work
 		input_dir = Vector2(dir.x, dir.z).normalized()
-	elif SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused:
+	elif SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if Input.is_action_pressed("forward"):
 			input_dir.y -= 1
 		if Input.is_action_pressed("backward"):
@@ -294,6 +306,9 @@ func _fireWeapon(event : InputEvent):
 
 func setCurrentEncounter(newEncounter : EncounterPoint) -> void:
 	currentEncounter = newEncounter
+	if SettingsManager.autoplay and newEncounter is RailStation:
+		var map_name = SettingsManager.autoplay_map
+		print("[AUTOPLAY] Visited station: %s on %s" % [newEncounter.name, map_name])
 	currentEncounter.startEncounter()
 
 func _clearFireTarget() -> void:

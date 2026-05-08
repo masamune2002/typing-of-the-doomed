@@ -42,7 +42,7 @@ var soundPlayer
 var anims : AnimationPlayer = null
 
 
-var ready = false
+var _initialized = false
 var shootSoundIdx = 0
 var directory = ""
 var instancedShootSounds = []
@@ -124,12 +124,12 @@ func _physics_process(delta):
 	
 
 	
-	if ready == false:
+	if _initialized == false:
 		if has_node("AnimationPlayer"):
 			
 			anims = get_node("AnimationPlayer")
 			
-			ready = true
+			_initialized = true
 			
 		else:
 			return

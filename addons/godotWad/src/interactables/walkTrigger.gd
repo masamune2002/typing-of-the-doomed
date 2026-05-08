@@ -53,7 +53,12 @@ func bin(body):
 	if body.get_class() != "StaticBody3D":
 		print("[WalkTrigger] body entered: ", body.name, " class=", body.get_class(), " dir=", getDir(body))
 		tracking[body] = getDir(body)
-		
+		# On rails the player may pass through the trigger area without
+		# crossing the linedef (dir never changes sign).  Fire immediately
+		# for player bodies so walk triggers work with rail movement.
+		if body.is_in_group("player"):
+			_fire(body)
+
 		#if getDir(body) < 0:
 		#	tracking[body] = true
 		
@@ -77,14 +82,8 @@ func _physics_process(delta):
 				texture = get_meta("fTextureName")
 
 			if (tracking[body] >0  and dir <=0) or (tracking[body] <0  and dir >=0):
-				print("[WalkTrigger] TRIGGERED! body=", body.name, " old_dir=", tracking[body], " new_dir=", dir)
-				emit_signal("walkOverSignal",body)
-				if info != null:
-					emit_signal("walkOverSignalTextureChange",body,texture,info["sectorIdx"] ,sectorTypeInfo)
-				
+				_fire(body)
 				tracking[body] = dir
-				if W1:
-					disabled = true
 				continue
 			
 
@@ -111,6 +110,23 @@ func _physics_process(delta):
 	#else:
 		#if !colShape.disabled:
 			#colShape.disabled = true
+
+func _fire(body) -> void:
+	if disabled:
+		return
+	print("[WalkTrigger] TRIGGERED! body=", body.name)
+	var info = null
+	if map != null:
+		info = WADG.getSectorInfoForPoint(map, Vector2(body.global_position.x, body.global_position.z))
+	emit_signal("walkOverSignal", body)
+	if info != null:
+		var texture = null
+		var sectorTypeInfo = {}
+		if has_meta("fTextureName"):
+			texture = get_meta("fTextureName")
+		emit_signal("walkOverSignalTextureChange", body, texture, info["sectorIdx"], sectorTypeInfo)
+	if W1:
+		disabled = true
 
 func disable():
 	colShape.disabled = true

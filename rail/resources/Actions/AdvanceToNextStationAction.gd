@@ -19,6 +19,10 @@ func run(encounterPoint: EncounterPoint) -> void:
 	var next_station: RailStation = _pick_next(station)
 	if next_station == null:
 		push_warning("AdvanceToNextStationAction: no next station found")
+		if SettingsManager.autoplay:
+			print("[AUTOPLAY] DONE map=%s last_station=%s (no next station)" % [SettingsManager.autoplay_map, station.name])
+			encounterPoint.get_tree().quit(0)
+			return
 		finish()
 		return
 

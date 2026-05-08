@@ -54,5 +54,3 @@ collision_mask = 2
 [node name="CollisionAreaShape" type="CollisionShape3D" parent="CollisionArea" unique_id=1845896021]
 shape = SubResource("CylinderShape3D_1rvo6")
 debug_color = Color(0.9939173, 0, 0.2373431, 0.41960785)
-
-[connection signal="body_entered" from="CollisionArea" to="." method="_onCollisionAreaBodyEntered"]

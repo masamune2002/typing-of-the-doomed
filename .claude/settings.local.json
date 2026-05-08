@@ -32,7 +32,16 @@
       "Bash(find /home/claude/workspace -name \"*.gd\" -type f -exec grep -l \"load_wad\\\\|geometry_only\\\\|e1m\" {})",
       "Bash(cat /home/claude/workspace/rail/resources/Actions/*.gd)",
       "Bash(ls:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(godot --version)",
+      "Read(//usr/local/bin/**)",
+      "Read(//usr/**)",
+      "Bash(godot *)",
+      "Bash(find / -path \"*Typing*DOOMed*\" -name \"settings.cfg\")",
+      "Read(//root/**)",
+      "Read(//home/**)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

@@ -40,7 +40,8 @@ func _ready():
 	info["endHeight"] = info["sectorInfo"]["lowestNeighFloorExc"] 
 	info["targetNodes"] = []
 	
-	get_parent().set_meta("curH",info["sectorInfo"]["floorHeight"])  
+	get_parent().set_meta("curH",info["sectorInfo"]["floorHeight"])
+	if !get_parent().has_meta("owner"): get_parent().set_meta("owner",false)
 	add_to_group("levelObject",true)
 	
 	for t in info["targets"]:
@@ -148,8 +149,8 @@ func bodyIn(body : PhysicsBody3D) -> void:
 	
 	if !"interactPressed" in body:
 		return
-	
-	if typeof(get_parent().get_meta("owner")) != TYPE_BOOL: 
+
+	if typeof(get_parent().get_meta("owner")) != TYPE_BOOL:
 		return
 	
 	

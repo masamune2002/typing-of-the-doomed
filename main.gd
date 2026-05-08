@@ -46,6 +46,13 @@ func _ready() -> void:
 	Game.setWadGame(wad_game)
 	EventBus.levelExitReached.connect(_onLevelExitReached)
 
+	# Check for --map command-line argument for autoplay mode
+	var user_args = OS.get_cmdline_user_args()
+	for i in user_args.size():
+		if user_args[i] == "--map" and i + 1 < user_args.size():
+			_startAutoplay(user_args[i + 1])
+			return
+
 	# Try last used WAD path first
 	var last_path = SettingsManager.last_wad_path
 	if last_path != "" and FileAccess.file_exists(last_path):
@@ -105,6 +112,43 @@ func _onWadSelected(wad_path: String) -> void:
 		_wad_picker.queue_free()
 		_wad_picker = null
 	_initWithWad(wad_path)
+
+func _startAutoplay(map_name: String) -> void:
+	# Enable autoplay mode flags
+	SettingsManager.autoplay = true
+	SettingsManager.autoplay_map = map_name.to_upper()
+	SettingsManager.debug_skip_encounters = true
+	SettingsManager.debug_skip_doors = true
+	SettingsManager.debug_superspeed = true
+	print("[AUTOPLAY] Starting map %s with skip_encounters, skip_doors, superspeed" % SettingsManager.autoplay_map)
+
+	# Find the map index in wad_game.map_names
+	var map_idx := -1
+	for i in wad_game.map_names.size():
+		if wad_game.map_names[i].to_upper() == SettingsManager.autoplay_map:
+			map_idx = i
+			break
+	if map_idx < 0:
+		printerr("[AUTOPLAY] ERROR: Map '%s' not found in wad_game.map_names: %s" % [map_name, wad_game.map_names])
+		get_tree().quit(1)
+		return
+
+	# Find a WAD file
+	var wad_path := SettingsManager.last_wad_path
+	if wad_path == "" or not FileAccess.file_exists(wad_path):
+		var wad_files = _findWadFiles()
+		if wad_files.is_empty():
+			printerr("[AUTOPLAY] ERROR: No WAD file found")
+			get_tree().quit(1)
+			return
+		wad_path = wad_files[0]
+
+	_wad_file_path = wad_path
+	Game.wadLoader.init_wad(_wad_file_path)
+	_currentMapIdx = map_idx
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Game.wadLoader.map_name = wad_game.map_names[_currentMapIdx]
+	Game.wadLoader.load_wad(_wad_file_path, 0)
 
 func _initWithWad(wad_path: String) -> void:
 	_wad_file_path = wad_path
@@ -425,6 +469,16 @@ func _onLevelExitReached() -> void:
 	if _transitioning:
 		return
 	_transitioning = true
+
+	if SettingsManager.autoplay:
+		var player = Game.getPlayer()
+		var last_station = ""
+		if player != null and player.currentEncounter != null:
+			last_station = player.currentEncounter.name
+		print("[AUTOPLAY] DONE map=%s last_station=%s" % [SettingsManager.autoplay_map, last_station])
+		get_tree().quit(0)
+		return
+
 	var next_idx = _currentMapIdx + 1
 
 	if next_idx >= wad_game.map_names.size():
@@ -1056,6 +1110,28 @@ func _spawnInteractablesFromWad() -> void:
 					all_level_objects.append(child)
 	pass
 
+	# Debug: dump all interactable candidates near player spawn
+	var _player_spawn_pos := Vector3.ZERO
+	var _loader_for_debug = Game.wadLoader._loader
+	var _mn_debug = _loader_for_debug.mapName
+	if not _loader_for_debug.maps.has(_mn_debug):
+		_mn_debug = _mn_debug.to_upper()
+	if _loader_for_debug.maps.has(_mn_debug) and _loader_for_debug.maps[_mn_debug].has(WadGame.KEY_THINGS_PARSED):
+		for thing in _loader_for_debug.maps[_mn_debug][WadGame.KEY_THINGS_PARSED]:
+			if thing["type"] == 1:
+				_player_spawn_pos = thing["pos"]
+				break
+	print("[INTERACTABLE DEBUG] Player spawn WAD pos: %s, %d total candidates" % [_player_spawn_pos, all_level_objects.size()])
+	for _dbg_node in all_level_objects:
+		var _dbg_script = _dbg_node.get_script().resource_path.get_file() if _dbg_node.get_script() != null else "no_script"
+		var _dbg_sector = _dbg_node.get_parent().name if _dbg_node.get_parent() != null else "?"
+		var _dbg_ttype = _dbg_node.get(WadGame.PROP_TRIGGER_TYPE)
+		var _dbg_has_activate = _dbg_node.has_method("activate")
+		var _dbg_pos = _dbg_node.global_position if _dbg_node is Node3D else Vector3.ZERO
+		var _dbg_dist = Vector2(_dbg_pos.x, _dbg_pos.z).distance_to(Vector2.ZERO) if _dbg_node is Node3D else -1.0
+		print("[INTERACTABLE DEBUG]   %s | %s | ttype=%s | activate=%s | pos=%s | dist=%.1f" % [
+			_dbg_sector, _dbg_script, _dbg_ttype, _dbg_has_activate, _dbg_pos, _dbg_dist])
+
 	var interactable_count = 0
 	var skipped_no_activate = 0
 	var skipped_no_ttype = 0
@@ -1070,18 +1146,21 @@ func _spawnInteractablesFromWad() -> void:
 		var is_floor = script_path.ends_with("floor.gd")
 		if not node.has_method("activate") and not is_lift and not is_stair:
 			skipped_no_activate += 1
+			print("[INTERACTABLE SKIP] no activate: %s/%s (%s) ttype=%s" % [node.get_parent().name, node.name, script_path.get_file(), node.get(WadGame.PROP_TRIGGER_TYPE)])
 			continue
 		if not node is Node3D:
 			continue
 		var ttype = node.get(WadGame.PROP_TRIGGER_TYPE)
 		if ttype == null:
 			skipped_no_ttype += 1
+			print("[INTERACTABLE SKIP] no ttype: %s/%s (%s)" % [node.get_parent().name, node.name, script_path.get_file()])
 			continue
 		var valid_ttypes = [WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1, WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR, WADG.TTYPE.WALK1, WADG.TTYPE.WALKR]
 		var nodeKeyType = node.get(WadGame.PROP_KEY_TYPE)
 		var isKeyDoor = nodeKeyType != null and nodeKeyType < 4
 		if ttype not in valid_ttypes:
 			skipped_wrong_ttype += 1
+			print("[INTERACTABLE SKIP] wrong ttype=%s: %s/%s (%s)" % [ttype, node.get_parent().name, node.name, script_path.get_file()])
 			continue
 
 		# Only one interactable per lift sector

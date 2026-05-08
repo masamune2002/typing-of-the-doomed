@@ -68,11 +68,6 @@ func _on_add_next_station() -> void:
 	get_parent().add_child(new_station)
 	if get_tree() != null and get_tree().edited_scene_root != null:
 		new_station.owner = get_tree().edited_scene_root
-		# Set owner on all children too so they serialize
-		for child in new_station.get_children():
-			child.owner = get_tree().edited_scene_root
-			for grandchild in child.get_children():
-				grandchild.owner = get_tree().edited_scene_root
 
 	# Point this station to the new one
 	next_stations = [get_path_to(new_station)]
