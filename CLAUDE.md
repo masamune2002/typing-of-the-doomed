@@ -12,6 +12,12 @@ Open in Godot 4.6+. The main scene is `main.tscn`. A DOOM WAD file (e.g., `DOOM.
 
 There is no test framework, linter, or build step beyond Godot's built-in export system.
 
+**After making changes, always validate by running:**
+```
+timeout 15 godot --headless --path . --quit 2>&1
+```
+This launches the project headless and exits immediately. Look for `SCRIPT ERROR` lines in the output — those indicate real problems. RID leak warnings and resource-at-exit messages are normal for headless shutdown and can be ignored.
+
 ## Architecture
 
 The codebase separates into two layers:
@@ -52,6 +58,14 @@ Each WAD map (E1M1, E1M2, etc.) pairs with a `.tscn` in `levels/` by naming conv
 - **WAD coordinate scaling** — The WAD addon pre-scales all coordinates by `scaleFactor (0.03125, 0.038, 0.03125)` during parsing. `main.gd._wadToWorld(pos)` offsets positions so the player spawn is at world origin.
 - **Group-based lookups** — `AdvanceToNextStationAction._find_rail_path()` searches `get_tree().get_nodes_in_group("rail_paths")` globally. Safe because only one RailNetwork is loaded at a time.
 - **Resource-based actions** — EncounterActions are Resources (not Nodes), configured via the inspector on each station's `startActions`/`endActions` arrays. The typed array uses `Array[EncounterAction]`.
+
+## Level Data Reference (`llm/`)
+
+Detailed reference files for each DOOM E1 map live in `llm/E1M1.md` through `llm/E1M9.md`. **Consult these files** when answering questions about level layout, triggers, doors, enemy placement, key/weapon locations, secret sectors, or sector geometry. Each file contains: player start, enemies (grouped by type with positions), keys, weapons, items, all trigger linedefs with tag cross-references, notable sectors, and secret sectors.
+
+To regenerate these files after WAD changes, run: `godot --headless -- --dump-map E1M1` (uses `_dumpMapData()` in main.gd).
+
+**To build a RailNetwork level for a map, read `llm/RAIL_LEVEL_GUIDE.md` first.** It documents the full pipeline (`gen_e1m6.py`/`gen_e1m7.py` as templates, `wadgeo.py` geometry tooling, `check_route.py` validation, `--map <MAP>` autoplay verification) and the condition rules for keys, switches, doors, and lifts. If the route must ride a lift, follow the guide's "Lifts" section exactly — every rule in it came from a real multi-run debugging session (E1M7).
 
 ## Key Enums (`rail/resources/Enums.gd`)
 
