@@ -21,6 +21,13 @@ func run(encounterPoint: EncounterPoint) -> void:
 		push_warning("AdvanceToNextStationAction: no next station found")
 		if SettingsManager.autoplay:
 			print("[AUTOPLAY] DONE map=%s last_station=%s (no next station)" % [SettingsManager.autoplay_map, station.name])
+			if SettingsManager.autoplay_chain:
+				# Chained playthrough: rail end counts as level complete (exit
+				# switches are never actually typed in autoplay). Deferred so
+				# the encounter unwinds before the map is torn down.
+				finish()
+				EventBus.emit_signal.call_deferred("levelExitReached")
+				return
 			encounterPoint.get_tree().quit(0)
 			return
 		finish()

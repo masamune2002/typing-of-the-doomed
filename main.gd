@@ -2,10 +2,10 @@ extends Node3D
 
 @export var wad_game : WadGame = preload("res://wads/doom/DoomGame.tres")
 
-const LEVELS_DIR = "res://levels/"
+const LEVELS_DIR = "res://wads/doom/levels/"
 
 var _current_rail_network: Node3D = null
-var _flicker_sectors : Array = []
+var _sector_lighting : SectorLighting
 var _currentMapIdx : int = 0
 var _entity_sector_riders : Array = []
 var _title_screen : TitleScreen = null
@@ -13,6 +13,7 @@ var _pause_menu : GameMenu = null
 var _wad_file_path : String = ""
 var _pending_save_data : Dictionary = {}
 var _map_origin_offset : Vector3 = Vector3.ZERO  # Offset to center map on player spawn
+var _dump_map_name : String = ""  # Set via --dump-map CLI arg
 
 # Level stats tracking
 var _level_total_enemies : int = 0
@@ -45,11 +46,27 @@ func _ready() -> void:
 	Game.setWadLoader(loader)
 	Game.setWadGame(wad_game)
 	EventBus.levelExitReached.connect(_onLevelExitReached)
+	_sector_lighting = SectorLighting.new()
+	add_child(_sector_lighting)
 
-	# Check for --map command-line argument for autoplay mode
+	# Check for command-line arguments
 	var user_args = OS.get_cmdline_user_args()
 	for i in user_args.size():
-		if user_args[i] == "--map" and i + 1 < user_args.size():
+		if user_args[i] == "--dump-map" and i + 1 < user_args.size():
+			_dump_map_name = user_args[i + 1].to_upper()
+	# --playthrough [start_map]: chained autoplay through every map that has
+	# a RailNetwork level, starting at start_map (default E1M1)
+	for i in user_args.size():
+		if user_args[i] == "--playthrough":
+			SettingsManager.autoplay_chain = true
+			var start_map := "E1M1"
+			if i + 1 < user_args.size() and not user_args[i + 1].begins_with("--"):
+				start_map = user_args[i + 1]
+			_startAutoplay(start_map)
+			return
+	# --dump-map implies --map (load the level to dump its data)
+	for i in user_args.size():
+		if (user_args[i] == "--map" or user_args[i] == "--dump-map") and i + 1 < user_args.size():
 			_startAutoplay(user_args[i + 1])
 			return
 
@@ -119,8 +136,11 @@ func _startAutoplay(map_name: String) -> void:
 	SettingsManager.autoplay_map = map_name.to_upper()
 	SettingsManager.debug_skip_encounters = true
 	SettingsManager.debug_skip_doors = true
-	SettingsManager.debug_superspeed = true
-	print("[AUTOPLAY] Starting map %s with skip_encounters, skip_doors, superspeed" % SettingsManager.autoplay_map)
+	SettingsManager.debug_tracking = true
+	# Autoplay validates the route, not survivability: enemies stay live and
+	# shooting while the rail never fights back, so damage is disabled.
+	SettingsManager.debug_god_mode = true
+	print("[AUTOPLAY] Starting map %s with skip_encounters, skip_doors, god_mode, tracking" % SettingsManager.autoplay_map)
 
 	# Find the map index in wad_game.map_names
 	var map_idx := -1
@@ -173,6 +193,8 @@ func _showTitleScreen() -> void:
 
 func _startGame(map_idx: int) -> void:
 	_currentMapIdx = map_idx
+	_carry_over_state = {}
+	_skip_state_capture = true
 	if _title_screen != null:
 		_title_screen.queue_free()
 		_title_screen = null
@@ -186,7 +208,7 @@ func _onMapCreated() -> void:
 	_spawnPlayer()
 	_spawnEnemiesFromWad()
 	_spawnDecorationsFromWad()
-	_spawnSectorLights()
+	_sector_lighting.setup()
 	_spawnInteractablesFromWad()
 	_overrideExitNodes()
 	_addBlockingLineCollisions()
@@ -199,6 +221,9 @@ func _onMapCreated() -> void:
 			child.activate()
 	_pending_save_data = {}
 	_resetLevelStats()
+	if _dump_map_name != "":
+		_dumpMapData()
+		get_tree().quit()
 
 func _clearWadEntities() -> void:
 	# Remove any entities the WAD addon created despite geometry_only mode.
@@ -396,7 +421,7 @@ func restartCurrentMap() -> void:
 func showPauseMenu() -> void:
 	if _pause_menu != null:
 		return
-	Game.playSound("DSSWTCHN")
+	Game.playSound(DoomGame.SWITCH_ON)
 	EventBus.wait.emit()
 	_pause_menu = PAUSE_MENU_SCENE.instantiate()
 	_pause_menu.pause_mode = true
@@ -408,7 +433,7 @@ func showPauseMenu() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _resumeGame() -> void:
-	Game.playSound("DSSWTCHX")
+	Game.playSound(DoomGame.SWITCH_OFF)
 	if _pause_menu != null:
 		_pause_menu.queue_free()
 		_pause_menu = null
@@ -476,6 +501,9 @@ func _onLevelExitReached() -> void:
 		if player != null and player.currentEncounter != null:
 			last_station = player.currentEncounter.name
 		print("[AUTOPLAY] DONE map=%s last_station=%s" % [SettingsManager.autoplay_map, last_station])
+		if SettingsManager.autoplay_chain:
+			_advancePlaythrough()
+			return
 		get_tree().quit(0)
 		return
 
@@ -488,6 +516,22 @@ func _onLevelExitReached() -> void:
 
 	# Show intermission screen
 	_showIntermission(wad_game.map_names[_currentMapIdx], wad_game.map_names[next_idx], next_idx)
+
+func _advancePlaythrough() -> void:
+	# Chained autoplay: skip the intermission and load the next map that has
+	# a RailNetwork level; end the run when none is left (e.g. E2M1).
+	# _loadMap clears Game vars and resets _transitioning when the map loads.
+	var next_idx = _currentMapIdx + 1
+	if next_idx >= wad_game.map_names.size() \
+			or not ResourceLoader.exists(LEVELS_DIR + wad_game.map_names[next_idx] + ".tscn"):
+		print("[AUTOPLAY] PLAYTHROUGH COMPLETE last_map=%s" % SettingsManager.autoplay_map)
+		get_tree().quit(0)
+		return
+	_currentMapIdx = next_idx
+	var next_map: String = wad_game.map_names[next_idx]
+	SettingsManager.autoplay_map = next_map
+	print("[AUTOPLAY] Advancing to %s" % next_map)
+	_loadMap(next_map)
 
 func _resetLevelStats() -> void:
 	_level_killed_enemies = 0
@@ -564,7 +608,7 @@ var _skip_state_capture : bool = false
 func _loadMap(map_name: String) -> void:
 	# Clean up old entities
 	Game.clearVars()
-	_flicker_sectors.clear()
+	_sector_lighting.clear()
 	_entity_sector_riders.clear()
 	if _nav_region != null:
 		_nav_region.queue_free()
@@ -573,7 +617,7 @@ func _loadMap(map_name: String) -> void:
 		wall.queue_free()
 	_blocking_walls.clear()
 
-	# Capture player state before removing (unless restarting after death)
+	# Capture player state before resetting (unless restarting after death)
 	var old_player = Game.getPlayer()
 	if old_player != null and not _skip_state_capture:
 		_carry_over_state = old_player.getState()
@@ -582,7 +626,8 @@ func _loadMap(map_name: String) -> void:
 		_carry_over_state.erase("camera_rot_h")
 		_carry_over_state.erase("camera_rot_v")
 		_carry_over_state.erase("keys")
-		old_player.queue_free()
+	if old_player != null:
+		old_player.visible = false
 		Game.player = null
 
 	# Remove everything from the EnemyContainer (enemies, items, barrels)
@@ -594,16 +639,6 @@ func _loadMap(map_name: String) -> void:
 	# Remove interactable wrappers
 	for node in get_tree().get_nodes_in_group(WadGame.GROUP_INTERACTABLES):
 		node.queue_free()
-
-	# Remove spawned decorations
-	var deco_prefixes = ["FloorLamp", "Candelabra", "Candle", "Tall", "Short", "Burnt",
-		"Big", "Burning", "Stalagtite", "Bloody", "Dead", "Pool", "Impaled",
-		"Twitching", "Skull", "Hanging"]
-	for child in get_children():
-		for prefix in deco_prefixes:
-			if child.name.begins_with(prefix):
-				child.queue_free()
-				break
 
 	# Free current rail network
 	if _current_rail_network != null:
@@ -658,14 +693,13 @@ func _spawnEnemiesFromWad() -> void:
 
 		# Filter by Ultraviolence difficulty (bit 2) and exclude multiplayer-only (bit 4)
 		var flags = thing["flags"]
-		if (flags & 0b100) == 0:
+		if (flags & DoomGame.THING_FLAG_HARD) == 0:
 			continue
-		if (flags & 0b10000) != 0:
+		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
 
 		var enemy_def = wad_game.enemies[thing["type"]]
 		var enemy = enemy_def["scene"].instantiate()
-		enemy.numHealthBars = enemy_def.get("health_bars", 1)
 
 		# Generate unique name
 		var base_name = enemy_def["name"]
@@ -702,9 +736,9 @@ func _spawnEnemiesFromWad() -> void:
 		if not wad_game.item_definitions.has(thing["type"]):
 			continue
 		var flags = thing["flags"]
-		if (flags & 0b100) == 0:
+		if (flags & DoomGame.THING_FLAG_HARD) == 0:
 			continue
-		if (flags & 0b10000) != 0:
+		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
 
 		var item_def = wad_game.item_definitions[thing["type"]]
@@ -738,9 +772,9 @@ func _spawnEnemiesFromWad() -> void:
 		if not wad_game.weapon_pickup_definitions.has(thing["type"]):
 			continue
 		var flags = thing["flags"]
-		if (flags & 0b100) == 0:
+		if (flags & DoomGame.THING_FLAG_HARD) == 0:
 			continue
-		if (flags & 0b10000) != 0:
+		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
 
 		var wpn_def = wad_game.weapon_pickup_definitions[thing["type"]]
@@ -749,7 +783,7 @@ func _spawnEnemiesFromWad() -> void:
 			"sprites": wpn_def["sprites"],
 			"effect": "weapon",
 			"weapon_scene": wpn_def["weapon_scene"],
-			"sound": wpn_def.get("sound", "DSWPNUP"),
+			"sound": wpn_def.get("sound", DoomGame.WEAPON_PICKUP),
 		}
 		var item = ITEM_SCENE.instantiate()
 		item.itemDefinition = item_def
@@ -781,9 +815,9 @@ func _spawnEnemiesFromWad() -> void:
 		if thing["type"] != wad_game.barrel_thing_type:
 			continue
 		var flags = thing["flags"]
-		if (flags & 0b100) == 0:
+		if (flags & DoomGame.THING_FLAG_HARD) == 0:
 			continue
-		if (flags & 0b10000) != 0:
+		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
 
 		var barrel = BARREL_SCENE.instantiate()
@@ -831,9 +865,9 @@ func _spawnDecorationsFromWad() -> void:
 		if not wad_game.decoration_definitions.has(thing["type"]):
 			continue
 		var flags = thing["flags"]
-		if (flags & 0b100) == 0:
+		if (flags & DoomGame.THING_FLAG_HARD) == 0:
 			continue
-		if (flags & 0b10000) != 0:
+		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
 
 		var def = wad_game.decoration_definitions[thing["type"]]
@@ -844,7 +878,7 @@ func _spawnDecorationsFromWad() -> void:
 
 		var node = Node3D.new()
 		node.name = def["name"] + str(deco_count)
-		add_child(node)
+		$EntityContainer.add_child(node)
 		node.global_position = _wadToWorld(pos)
 		_registerEntitySectorRider(node, pos)
 
@@ -894,108 +928,6 @@ func _spawnDecorationsFromWad() -> void:
 
 	pass
 
-func _spawnSectorLights() -> void:
-	var loader = Game.wadLoader._loader
-	var mn = loader.mapName
-	if not loader.maps.has(mn):
-		mn = mn.to_upper()
-	if not loader.maps.has(mn):
-		return
-	var md = loader.maps[mn]
-	if not md.has(WadGame.KEY_SECTORS_PARSED):
-		return
-
-	var level_nodes = get_tree().get_nodes_in_group(WadGame.GROUP_LEVEL)
-	if level_nodes.is_empty():
-		return
-	var map_node = level_nodes[0]
-	var geom_node = map_node.get_node_or_null(WadGame.NODE_GEOMETRY)
-	if geom_node == null:
-		return
-
-	var light_sector_types = [1, 2, 3, 7, 8, 12, 13, 17]
-
-	for sec in md[WadGame.KEY_SECTORS_PARSED]:
-		if not light_sector_types.has(sec["type"]):
-			continue
-		var sec_idx : int = sec["index"]
-		var sector_node = geom_node.get_node_or_null(WadGame.SECTOR_PREFIX_LOWER + str(sec_idx))
-		if sector_node == null:
-			continue
-
-		# Collect all MeshInstance3D children and their materials
-		var meshes : Array[MeshInstance3D] = []
-		for child in sector_node.get_children():
-			if child is MeshInstance3D:
-				meshes.append(child)
-		if meshes.is_empty():
-			continue
-
-		var light_level : float = sec.get("lightLevel", 160.0)
-		var dark_level : float = sec.get("darkestNeighValue", 0.0)
-		if dark_level >= light_level:
-			dark_level = light_level * 0.3
-		var bright_val = light_level / 255.0
-		var dark_val = dark_level / 255.0
-
-		_flicker_sectors.append({
-			"meshes": meshes,
-			"bright": bright_val,
-			"dark": dark_val,
-			"mode": sec["type"],
-			"timer": 0.0,
-			"on": true,
-			"phase": randf() * TAU,
-			"current": bright_val,
-		})
-
-	pass
-
-func _apply_sector_brightness(meshes: Array[MeshInstance3D], brightness: float) -> void:
-	var color = Color(brightness, brightness, brightness, 1.0)
-	for mesh in meshes:
-		if not is_instance_valid(mesh):
-			continue
-		for si in mesh.get_surface_override_material_count():
-			var mat = mesh.get_surface_override_material(si)
-			if mat == null:
-				mat = mesh.mesh.surface_get_material(si)
-			if mat is StandardMaterial3D or mat is ORMMaterial3D:
-				var unique_mat = mat.duplicate() as StandardMaterial3D
-				unique_mat.albedo_color = Color(brightness, brightness, brightness, unique_mat.albedo_color.a)
-				mesh.set_surface_override_material(si, unique_mat)
-
-func _process(delta: float) -> void:
-	for entry in _flicker_sectors:
-		var new_val : float = entry["current"]
-		entry["timer"] += delta
-		match entry["mode"]:
-			1, 17:
-				if entry["timer"] >= randf_range(0.05, 0.15):
-					entry["timer"] = 0.0
-					new_val = entry["bright"] if randf() > 0.4 else entry["dark"]
-			2, 12:
-				if entry["timer"] >= 0.5:
-					entry["timer"] = 0.0
-					entry["on"] = !entry["on"]
-					new_val = entry["bright"] if entry["on"] else entry["dark"]
-			3, 13:
-				if entry["timer"] >= 1.0:
-					entry["timer"] = 0.0
-					entry["on"] = !entry["on"]
-					new_val = entry["bright"] if entry["on"] else entry["dark"]
-			7:
-				if entry["timer"] >= randf_range(0.03, 0.1):
-					entry["timer"] = 0.0
-					new_val = entry["bright"] if randf() > 0.3 else entry["dark"]
-			8:
-				entry["phase"] += delta * 2.5
-				var t = (sin(entry["phase"]) + 1.0) / 2.0
-				new_val = entry["dark"] + (entry["bright"] - entry["dark"]) * t
-		if new_val != entry["current"]:
-			entry["current"] = new_val
-			_apply_sector_brightness(entry["meshes"], new_val)
-
 func _spawnPlayer() -> void:
 	var loader = Game.wadLoader._loader
 	var map_name = loader.mapName
@@ -1017,10 +949,10 @@ func _spawnPlayer() -> void:
 				spawn_pos.y = floor_info["height"]
 			break
 
-	var player = wad_game.player_scene.instantiate()
-	add_child(player)
+	var player : Player = %DoomPlayer
+	player.visible = true
+	player.reset()
 	player.global_position = _wadToWorld(spawn_pos) + Vector3(0, 1.5, 0)
-	print("[SPAWN] player at %s  (wad=%s  offset=%s)" % [player.global_position, spawn_pos, _map_origin_offset])
 
 	# Apply saved state if loading a save (don't clear _pending_save_data yet —
 	# _spawnEnemiesFromWad needs it for dead entity filtering)
@@ -1121,16 +1053,6 @@ func _spawnInteractablesFromWad() -> void:
 			if thing["type"] == 1:
 				_player_spawn_pos = thing["pos"]
 				break
-	print("[INTERACTABLE DEBUG] Player spawn WAD pos: %s, %d total candidates" % [_player_spawn_pos, all_level_objects.size()])
-	for _dbg_node in all_level_objects:
-		var _dbg_script = _dbg_node.get_script().resource_path.get_file() if _dbg_node.get_script() != null else "no_script"
-		var _dbg_sector = _dbg_node.get_parent().name if _dbg_node.get_parent() != null else "?"
-		var _dbg_ttype = _dbg_node.get(WadGame.PROP_TRIGGER_TYPE)
-		var _dbg_has_activate = _dbg_node.has_method("activate")
-		var _dbg_pos = _dbg_node.global_position if _dbg_node is Node3D else Vector3.ZERO
-		var _dbg_dist = Vector2(_dbg_pos.x, _dbg_pos.z).distance_to(Vector2.ZERO) if _dbg_node is Node3D else -1.0
-		print("[INTERACTABLE DEBUG]   %s | %s | ttype=%s | activate=%s | pos=%s | dist=%.1f" % [
-			_dbg_sector, _dbg_script, _dbg_ttype, _dbg_has_activate, _dbg_pos, _dbg_dist])
 
 	var interactable_count = 0
 	var skipped_no_activate = 0
@@ -1146,21 +1068,18 @@ func _spawnInteractablesFromWad() -> void:
 		var is_floor = script_path.ends_with("floor.gd")
 		if not node.has_method("activate") and not is_lift and not is_stair:
 			skipped_no_activate += 1
-			print("[INTERACTABLE SKIP] no activate: %s/%s (%s) ttype=%s" % [node.get_parent().name, node.name, script_path.get_file(), node.get(WadGame.PROP_TRIGGER_TYPE)])
 			continue
 		if not node is Node3D:
 			continue
 		var ttype = node.get(WadGame.PROP_TRIGGER_TYPE)
 		if ttype == null:
 			skipped_no_ttype += 1
-			print("[INTERACTABLE SKIP] no ttype: %s/%s (%s)" % [node.get_parent().name, node.name, script_path.get_file()])
 			continue
 		var valid_ttypes = [WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1, WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR, WADG.TTYPE.WALK1, WADG.TTYPE.WALKR]
 		var nodeKeyType = node.get(WadGame.PROP_KEY_TYPE)
 		var isKeyDoor = nodeKeyType != null and nodeKeyType < 4
 		if ttype not in valid_ttypes:
 			skipped_wrong_ttype += 1
-			print("[INTERACTABLE SKIP] wrong ttype=%s: %s/%s (%s)" % [ttype, node.get_parent().name, node.name, script_path.get_file()])
 			continue
 
 		# Only one interactable per lift sector
@@ -1288,8 +1207,6 @@ func _spawnInteractablesFromWad() -> void:
 				add_child(interactable)
 				interactable.global_position = _wadToWorld(world_pos)
 				interactable_count += 1
-				print("[INTERACTABLE secret-fallback] %s   wadNode=%s" % [
-					interactable.interactable_name, door_node.name])
 
 func _getInteractablePosition(node: Node3D, sector_poly_arr: Array, sectors_parsed: Array = []) -> Variant:
 	# Parse sector index from parent node name (e.g. "Sector 42")
@@ -1433,3 +1350,158 @@ func _interactableNameFor(wad_node: Node) -> String:
 		return ""
 	var sec_index := parent_name.substr(7).to_int()
 	return "sector_%d" % sec_index
+
+# ── Map Data Dump (--dump-map) ──────────────────────────────────────────
+
+func _dumpMapData() -> void:
+	var loader = Game.wadLoader._loader
+	var mn = _dump_map_name
+	if not loader.maps.has(mn):
+		mn = mn.to_upper()
+	if not loader.maps.has(mn):
+		print("[DUMP] ERROR: Map '%s' not found" % _dump_map_name)
+		return
+	var md = loader.maps[mn]
+
+	# Build thing type lookup from wad_game
+	var thing_names := {}
+	thing_names[1] = "PlayerStart"
+	thing_names[2] = "PlayerStart2"
+	thing_names[3] = "PlayerStart3"
+	thing_names[4] = "PlayerStart4"
+	thing_names[11] = "DeathmatchStart"
+	thing_names[14] = "TeleportDest"
+	for id in wad_game.enemies:
+		thing_names[id] = wad_game.enemies[id]["name"]
+	for id in wad_game.item_definitions:
+		thing_names[id] = wad_game.item_definitions[id]["name"]
+	for id in wad_game.weapon_pickup_definitions:
+		thing_names[id] = wad_game.weapon_pickup_definitions[id]["name"]
+	for id in wad_game.decoration_definitions:
+		thing_names[id] = wad_game.decoration_definitions[id]["name"]
+
+	# Sector type descriptions
+	var sector_type_names := {
+		0: "Normal",
+		1: "BlinkRandom",
+		2: "Blink0.5s",
+		3: "Blink1.0s",
+		4: "Damage20+BlinkRandom",
+		5: "Damage10",
+		7: "Damage5",
+		8: "Oscillate",
+		9: "Secret",
+		10: "DoorClose30s",
+		11: "Damage20+End",
+		12: "BlinkSync0.5s",
+		13: "BlinkSync1.0s",
+		14: "DoorOpen300s",
+		16: "Damage20",
+		17: "Flicker",
+	}
+
+	print("[DUMP_START] %s" % mn)
+
+	# ── Bounding box
+	var min_dim = md.get("minDim", Vector3.ZERO)
+	var max_dim = md.get("maxDim", Vector3.ZERO)
+	print("[BOUNDS] min=%s max=%s" % [min_dim, max_dim])
+
+	# ── Vertices
+	var verts : PackedVector2Array = md.get("vertexesParsed", PackedVector2Array())
+	print("[VERTICES] count=%d" % verts.size())
+	for i in verts.size():
+		print("[VERT] %d pos=(%s, %s)" % [i, verts[i].x, verts[i].y])
+
+	# ── Sectors
+	var sectors : Array = md.get(WadGame.KEY_SECTORS_PARSED, [])
+	print("[SECTORS] count=%d" % sectors.size())
+	for sec in sectors:
+		var type_name = sector_type_names.get(sec["type"], "Unknown(%d)" % sec["type"])
+		var tag = sec.get("tagNum", 0)
+		var neighbours = sec.get("nieghbourSectors", PackedInt32Array())
+		print("[SECTOR] %d floor=%.1f ceil=%.1f light=%d type=%s tag=%d floorTex=%s ceilTex=%s neighbours=%s" % [
+			sec["index"], sec["floorHeight"], sec["ceilingHeight"],
+			sec["lightLevel"], type_name, tag,
+			sec.get("floorTexture", ""), sec.get("ceilingTexture", ""),
+			str(neighbours)])
+
+	# ── Sidedefs
+	var sides : Array = md.get("sideDefsParsed", [])
+	print("[SIDEDEFS] count=%d" % sides.size())
+	for side in sides:
+		var upper = side.get("upperName", "-")
+		var mid = side.get("middleName", "-")
+		var lower = side.get("lowerName", "-")
+		if upper == "-" and mid == "-" and lower == "-":
+			continue  # Skip untextured sidedefs to reduce noise
+		print("[SIDEDEF] %d sector=%d upper=%s mid=%s lower=%s" % [
+			side["index"], side["sector"], upper, mid, lower])
+
+	# ── Linedefs
+	var lines : Array = md.get("lineDefsParsed", [])
+	print("[LINEDEFS] count=%d" % lines.size())
+	for line in lines:
+		var line_type = line.get("type", 0)
+		var front_sec = line.get("frontSector", -1)
+		var back_sec = line.get("backSector", null)
+		var tag = line.get("sectorTag", 0)
+		var trigger = line.get("triggerType", "")
+		var sv = line["startVert"]
+		var ev = line["endVert"]
+		var start_pos = verts[sv] if sv < verts.size() else Vector2.ZERO
+		var end_pos = verts[ev] if ev < verts.size() else Vector2.ZERO
+		if line_type != 0:
+			print("[LINEDEF_TRIGGER] %d type=%d tag=%d trigger=%s front_sector=%d back_sector=%s verts=(%d,%d) start=(%s,%s) end=(%s,%s)" % [
+				line["index"], line_type, tag, trigger, front_sec,
+				str(back_sec) if back_sec != null else "none",
+				sv, ev, start_pos.x, start_pos.y, end_pos.x, end_pos.y])
+		else:
+			# Only print wall lines (one-sided) for geometry context
+			if back_sec == null:
+				print("[LINEDEF_WALL] %d front_sector=%d verts=(%d,%d) start=(%s,%s) end=(%s,%s)" % [
+					line["index"], front_sec, sv, ev,
+					start_pos.x, start_pos.y, end_pos.x, end_pos.y])
+			else:
+				print("[LINEDEF_PORTAL] %d front_sector=%d back_sector=%d verts=(%d,%d)" % [
+					line["index"], front_sec, back_sec, sv, ev])
+
+	# ── Sector interactions
+	var interactions = md.get(WadGame.KEY_SECTOR_TO_INTERACTION, {})
+	print("[INTERACTIONS] sector_count=%d" % interactions.size())
+	for sec_idx in interactions:
+		for inter in interactions[sec_idx]:
+			var ttype = inter.get("triggerType", "")
+			var ltype = inter.get("type", 0)
+			var line_idx = inter.get("line", -1)
+			var npc = inter.get("npcTrigger", "")
+			print("[INTERACTION] sector=%d linedef=%d type=%d trigger=%s npc=%s" % [
+				sec_idx, line_idx, ltype, ttype, npc])
+
+	# ── Things
+	var things : Array = md.get(WadGame.KEY_THINGS_PARSED, [])
+	print("[THINGS] count=%d" % things.size())
+	for i in things.size():
+		var thing = things[i]
+		var type_id = thing["type"]
+		var name = thing_names.get(type_id, "Unknown(%d)" % type_id)
+		var pos = thing["pos"]
+		var flags = thing["flags"]
+		var angle = thing.get("rot", 0)
+		var skill_str = ""
+		if flags & 0b1: skill_str += "easy "
+		if flags & 0b10: skill_str += "med "
+		if flags & 0b100: skill_str += "hard "
+		if flags & 0b1000: skill_str += "ambush "
+		if flags & 0b10000: skill_str += "multi "
+		print("[THING] %d type=%d name=%s pos=(%s, %s, %s) angle=%d flags=[%s]" % [
+			i, type_id, name, pos.x, pos.y, pos.z, angle, skill_str.strip_edges()])
+
+	# ── Tag-to-sector mapping
+	var tag_map = md.get("tagToSectors", {})
+	if tag_map.size() > 0:
+		print("[TAG_MAP] count=%d" % tag_map.size())
+		for tag in tag_map:
+			print("[TAG] %d -> sectors=%s" % [tag, str(tag_map[tag])])
+
+	print("[DUMP_END] %s" % mn)

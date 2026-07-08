@@ -19,10 +19,19 @@ var debug_skip_encounters : bool = false
 var debug_skip_doors : bool = false
 var debug_superspeed : bool = false
 var debug_wasd : bool = false
+var debug_god_mode : bool = false
 var debug_wasd_paused : bool = false
 var autoplay : bool = false
 var autoplay_map : String = ""
+# Chained playthrough (--playthrough): at rail end, advance to the next map
+# with a RailNetwork level instead of quitting.
+var autoplay_chain : bool = false
 var _tracking_timer : float = 0.0
+var _last_track_pos : Vector3 = Vector3.INF
+var _stall_time : float = 0.0
+# Above DOOM's 30s close-wait-open door cycle, so a rail pause at a
+# temporarily-closed W1 door isn't reported as a stall.
+const AUTOPLAY_STALL_SECONDS := 45.0
 
 func _ready() -> void:
 	load_settings()
@@ -41,6 +50,58 @@ func _process(delta: float) -> void:
 		var lp = player.position
 		var cr = player._cameraRig.rotation_degrees
 		print("[TRACK] global=(%.2f, %.2f, %.2f) local=(%.2f, %.2f, %.2f) cam_rot=(%.2f, %.2f, %.2f)" % [gp.x, gp.y, gp.z, lp.x, lp.y, lp.z, cr.x, cr.y, cr.z])
+		if autoplay:
+			_checkAutoplayStall(player, gp)
+
+func _checkAutoplayStall(player, gp: Vector3) -> void:
+	# In autoplay the player should always be riding the rail; a frozen
+	# position means the route is blocked (e.g. a station behind a wall).
+	if gp.distance_to(_last_track_pos) > 0.05:
+		_last_track_pos = gp
+		_stall_time = 0.0
+		return
+	_stall_time += 0.5
+	if _stall_time >= AUTOPLAY_STALL_SECONDS:
+		var station = "?"
+		if player.currentEncounter != null:
+			station = player.currentEncounter.name
+		var blocker := ""
+		blocker += " alive=%s moving=%s" % [player._alive, player._moving]
+		if player.currentEncounter != null:
+			blocker += " enc(active=%s starting=%s ending=%s condsMet=%s)" % [
+				player.currentEncounter.active, player.currentEncounter._starting,
+				player.currentEncounter._ending, player.currentEncounter.conditionsMet]
+		if player.currentPathFollow != null and is_instance_valid(player.currentPathFollow):
+			blocker += " progress=%.2f/%.2f" % [player.currentPathFollow.progress,
+				player.currentPathFollow.get_parent().curve.get_baked_length()
+					if player.currentPathFollow.get_parent() != null else -1.0]
+			var target: Vector3 = player.currentPathFollow.global_position
+			blocker += " cursor=(%.2f, %.2f, %.2f)" % [target.x, target.y, target.z]
+			var space = player.get_world_3d().direct_space_state
+			if space != null:
+				var q = PhysicsRayQueryParameters3D.create(
+					player.global_position + Vector3(0, 0.5, 0),
+					target + Vector3(0, 0.5, 0))
+				q.exclude = [player.get_rid()]
+				var hit = space.intersect_ray(q)
+				if hit:
+					var c = hit.get("collider")
+					var cpath = c.get_path() if c != null else "?"
+					blocker += " blocker=%s at (%.2f, %.2f, %.2f)" % [cpath, hit.position.x, hit.position.y, hit.position.z]
+				# nearby dynamic bodies (activated enemies can body-block)
+				var shape := SphereShape3D.new()
+				shape.radius = 2.0
+				var sq := PhysicsShapeQueryParameters3D.new()
+				sq.shape = shape
+				sq.transform = Transform3D(Basis(), player.global_position + Vector3(0, 0.5, 0))
+				sq.exclude = [player.get_rid()]
+				var near = space.intersect_shape(sq, 8)
+				for n in near:
+					var nc = n.get("collider")
+					if nc is CharacterBody3D:
+						blocker += " nearBody=%s(%.2f, %.2f, %.2f)" % [nc.name, nc.global_position.x, nc.global_position.y, nc.global_position.z]
+		printerr("[AUTOPLAY] STALLED at pos=(%.2f, %.2f, %.2f) last_station=%s map=%s%s" % [gp.x, gp.y, gp.z, station, autoplay_map, blocker])
+		get_tree().quit(1)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -80,6 +141,7 @@ func load_settings() -> void:
 	debug_skip_doors = config.get_value("debug", "skip_doors", false)
 	debug_superspeed = config.get_value("debug", "superspeed", false)
 	debug_wasd = config.get_value("debug", "wasd", false)
+	debug_god_mode = config.get_value("debug", "god_mode", false)
 
 func save_settings() -> void:
 	var config = ConfigFile.new()
@@ -100,6 +162,7 @@ func save_settings() -> void:
 	config.set_value("debug", "skip_doors", debug_skip_doors)
 	config.set_value("debug", "superspeed", debug_superspeed)
 	config.set_value("debug", "wasd", debug_wasd)
+	config.set_value("debug", "god_mode", debug_god_mode)
 	config.save(SETTINGS_PATH)
 
 func apply_settings() -> void:
