@@ -10,6 +10,10 @@ class_name RailMarker
 ## Conditions: by default checked once at entry. EncounterPoint overrides
 ## the lifecycle to keep polling them until they pass.
 
+@export var enabled : bool = true:
+	set(v):
+		enabled = v
+		_apply_disc_color()
 @export var conditions : Array[EncounterCondition]= []
 @export var one_shot : bool = false
 @export var disc_color : Color = Color(0, 0, 0.427451, 1):
@@ -65,12 +69,13 @@ func _apply_disc_color() -> void:
 		return
 	var outer := get_node_or_null("EncounterMesh") as MeshInstance3D
 	var inner := get_node_or_null("CollisionArea/CenterMesh") as MeshInstance3D
+	var effective_color := Color.GRAY if not enabled else disc_color
 	if outer != null and outer.mesh != null:
 		var mat := StandardMaterial3D.new()
-		mat.albedo_color = disc_color
+		mat.albedo_color = effective_color
 		outer.material_override = mat
 	if inner != null and inner.mesh != null:
-		var complement := Color.from_hsv(fmod(disc_color.h + 0.5, 1.0), disc_color.s, disc_color.v)
+		var complement := Color.from_hsv(fmod(effective_color.h + 0.5, 1.0), effective_color.s, effective_color.v)
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = complement
 		inner.material_override = mat
@@ -121,6 +126,8 @@ func _checkConditionsOnce() -> bool:
 	return true
 
 func _onCollisionAreaBodyEntered(body: Node3D) -> void:
+	if not enabled:
+		return
 	if one_shot and _has_triggered:
 		return
 	if body is Player:

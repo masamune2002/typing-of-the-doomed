@@ -40,7 +40,7 @@ func _ready() -> void:
 	weakness = TypingWeakness.new()
 	weakness.setup(2, WORDS.EXPLOSION_WORDS)
 	barrelLabel.hide()
-	barrelLabel.modulate = Color(1.0, 0.4, 0.1)
+	barrelLabel.modulate = DoomGame.COLOR_BARREL
 	barrelLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	typedLabel = barrelLabel
 
@@ -136,7 +136,7 @@ func _explode() -> void:
 	if player != null and player._currentFireTarget == self:
 		EventBus.releasePlayerTarget.emit()
 
-	Game.playSound("DSBAREXP")
+	Game.playSound(DoomGame.BARREL_EXPLODE)
 
 	# Area damage: enemies
 	for node in get_tree().get_nodes_in_group("Enemies"):

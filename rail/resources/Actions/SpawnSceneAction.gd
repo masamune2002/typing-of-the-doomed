@@ -3,5 +3,5 @@ class_name SpawnSceneAction
 
 @export var nodeToSpawn : PackedScene
 
-func run(encounterPoint : EncounterPoint) -> void:
+func run(_encounterPoint : EncounterPoint) -> void:
 	finished.emit()

@@ -440,10 +440,7 @@ func incCurH(amt):
 	parent.set_meta("curH",curH+amt)
 
 func printState():
-	if state == STATE.BOTTOM: print("bottom")
-	if state == STATE.GOING_UP: print("goingUP")
-	if state == STATE.TOP: print("top")
-	if state == STATE.GOING_DOWN: print("goingDOWN")
+	pass
 
 
 

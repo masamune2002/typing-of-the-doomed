@@ -8,8 +8,8 @@ var displayName : String
 func setup(newParent : Enemy) -> void:
 	parent = newParent
 
-func enter(previousState : Enums.ENEMY_STATE) -> void:
+func enter(_previousState : Enums.ENEMY_STATE) -> void:
 	pass
 
-func exit(newState : Enums.ENEMY_STATE) -> void:
+func exit(_newState : Enums.ENEMY_STATE) -> void:
 	pass

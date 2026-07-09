@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 class_name Player
 
-@export var moveSpeed: float = 12.0
+@export var moveSpeed: float = 8.0
 @export var mouseSensitivity: float = 0.25
 const GRAVITY : float = 20.0
 const STEP_HEIGHT : float = 0.9
@@ -41,6 +41,10 @@ const RAIL_MAX_LEAD : float = 1.5  # Max XZ distance the rail cursor can lead th
 var trackingSpeed : float = DEFAULT_TRACKING_SPEED
 var _railSpeed : float = 0.0
 var _deathReady : bool = false  # True once death animation finishes and any key can restart
+var _stuck_frames : int = 0  # Counts frames where rail cursor is blocked by walls
+var _air_time : float = 0.0  # Seconds since the player last touched the floor
+const AIR_CARRY_GRACE : float = 0.15   # Full rail speed for brief step-offs
+const AIR_CARRY_FACTOR : float = 0.15  # Then straighten the fall
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -68,6 +72,37 @@ func _ready() -> void:
 	if SettingsManager.autoplay:
 		interactPressed = true
 		godMode = true
+
+func reset() -> void:
+	_moving = false
+	_alive = true
+	_moveAction = null
+	_deathReady = false
+	_keys.clear()
+	_clearFireTarget()
+	set_process_input(true)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Reset weapon to starting weapon
+	if _currentWeapon != null and _currentWeapon != _defaultWeapon:
+		_currentWeapon.queue_free()
+	if startingWeaponScene != null:
+		var weapon = startingWeaponScene.instantiate()
+		weapon.transform = _defaultWeapon.transform
+		_cameraRig.add_child(weapon)
+		_currentWeapon = weapon
+		_currentWeaponScene = startingWeaponScene
+	else:
+		_currentWeapon = _defaultWeapon
+		_currentWeaponScene = null
+	_health = playerCharacter.startingHealth
+	_armor = playerCharacter.startingArmor
+	_armorType = playerCharacter.startingArmorType
+	_rotH = 0.0
+	_rotV = 0.0
+	_cameraRig.rotation_degrees = Vector3.ZERO
+	_playerUi.setup(playerCharacter)
+	_defaultWeapon.visible = false
+	Game.setPlayer(self)
 
 func hasWeapon(weaponScene : PackedScene) -> bool:
 	return weaponScene in weaponScenes
@@ -110,6 +145,9 @@ func _physics_process(delta: float) -> void:
 		).length()
 		if lead_dist < RAIL_MAX_LEAD:
 			currentPathFollow.progress += _railSpeed * speed_mult * delta
+			_stuck_frames = 0
+		else:
+			_stuck_frames += 1
 		if currentPathFollow.progress_ratio >= 1.0:
 			_moving = false
 			if _moveAction != null:
@@ -124,8 +162,10 @@ func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
+		_air_time += delta
 	else:
 		velocity.y = 0
+		_air_time = 0.0
 
 	# Movement input: rail supplies direction when active, otherwise WASD
 	var input_dir := Vector2.ZERO
@@ -138,6 +178,13 @@ func _physics_process(delta: float) -> void:
 		if dir.length() > 0.01:
 			dir = dir.normalized()
 		move_dir = dir * _railSpeed * speed_mult
+		# On longer falls, drop nearly straight instead of arcing forward at
+		# full rail speed: the horizontal carry otherwise lands the player on
+		# ledge lips (e.g. a lift shaft's protruding ceiling-slab collider)
+		# instead of the floor below. Brief airtime (stair edges, small
+		# step-offs) keeps full momentum so ledge walk-offs still look natural.
+		if not is_on_floor() and _air_time > AIR_CARRY_GRACE:
+			move_dir *= AIR_CARRY_FACTOR
 		# Fake input_dir so head bob and step-up work
 		input_dir = Vector2(dir.x, dir.z).normalized()
 	elif SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -362,17 +409,17 @@ func _setTargetHighlight(node : Node3D, highlighted : bool) -> void:
 	# Get overlay labels
 	var pips_label: Label3D = null
 	var pips_defeated_label: Label3D = null
-	var typed_label: Label3D = null
+	var _typed_label: Label3D = null
 	if node is Enemy:
 		pips_label = node.pipsLabel
 		pips_defeated_label = node.pipsDefeatedLabel
-		typed_label = node.typedLabel
+		_typed_label = node.typedLabel
 	elif node is ExplodingBarrel:
-		typed_label = node.typedLabel
+		_typed_label = node.typedLabel
 	elif node is Item:
-		typed_label = node.typedLabel
+		_typed_label = node.typedLabel
 	elif node is Interactable:
-		typed_label = node.typedLabel
+		_typed_label = node.typedLabel
 	if highlighted:
 		# Targeted: turn label red, show full word
 		label.modulate = Color.RED
@@ -397,16 +444,16 @@ func _setTargetHighlight(node : Node3D, highlighted : bool) -> void:
 			pips_defeated_label.render_priority = 11
 			pips_defeated_label.no_depth_test = true
 		if node is Enemy:
-			label.modulate = Color.WHITE
+			label.modulate = DoomGame.COLOR_WHITE
 		elif node is ExplodingBarrel:
-			label.modulate = Color(1.0, 0.4, 0.1)
+			label.modulate = DoomGame.COLOR_BARREL
 		elif node is Item:
 			match node.itemDefinition.get("effect", "health"):
-				"health": label.modulate = Color(0.2, 1.0, 0.2)
-				"armor": label.modulate = Color(0.2, 0.5, 1.0)
-				"weapon": label.modulate = Color(1.0, 0.6, 0.2)
+				"health": label.modulate = DoomGame.COLOR_HEALTH
+				"armor": label.modulate = DoomGame.COLOR_ARMOR
+				"weapon": label.modulate = DoomGame.COLOR_WEAPON
 		elif node is Interactable:
-			label.modulate = Color(1.0, 0.8, 0.2)
+			label.modulate = DoomGame.COLOR_GOLD
 		if node.has_method("showRemainingLabel"):
 			node.showRemainingLabel()
 
@@ -522,7 +569,7 @@ func showDialog(dialog : Dialog) -> void:
 var godMode : bool = false
 
 func receiveHit(damage : int = 10) -> void:
-	if godMode:
+	if !_alive or godMode or (SettingsManager != null and SettingsManager.debug_god_mode):
 		return
 	var armorAbsorption : float = _getArmorAbsorption()
 	var armorDamage : int = 0
@@ -535,10 +582,10 @@ func receiveHit(damage : int = 10) -> void:
 		_armorType = Enums.ARMOR_TYPE.NONE
 	_playerUi.updateStatus(_health, _armor, true)
 	if _health <= 0:
-		Game.playSound("DSPLDETH")
+		Game.playSound(DoomGame.PLAYER_DEATH)
 		_die()
 	else:
-		Game.playSound("DSPLPAIN")
+		Game.playSound(DoomGame.PLAYER_PAIN)
 
 func _getArmorAbsorption() -> float:
 	match _armorType:

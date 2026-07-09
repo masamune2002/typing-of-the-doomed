@@ -1,3 +1,4 @@
+@warning_ignore("unused_signal")
 extends Node
 
 signal playerFireMidi(midiSwitch : Array[InputEventMIDI])

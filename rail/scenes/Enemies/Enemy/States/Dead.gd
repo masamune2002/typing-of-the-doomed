@@ -5,7 +5,7 @@ func _ready() -> void:
 	key = Enums.ENEMY_STATE.DEAD
 	displayName = 'Dead'
 
-func enter(previousState : Enums.ENEMY_STATE) -> void:
+func enter(_previousState : Enums.ENEMY_STATE) -> void:
 	parent.dying = false
 	parent.alive = false
 	parent.collision_layer = 0

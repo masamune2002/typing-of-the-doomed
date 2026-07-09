@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://d4cinue0vcobg" path="res://rail/scenes/Weapons/TypingGun/TypingGun.tscn" id="1_base"]
+[ext_resource type="Script" path="res://wads/doom/weapons/PlasmaRifle/PlasmaRifle.gd" id="2_script"]
+
+[node name="PlasmaRifle" instance=ExtResource("1_base")]
+script = ExtResource("2_script")

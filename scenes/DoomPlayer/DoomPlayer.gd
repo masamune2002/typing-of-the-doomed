@@ -1,14 +1,7 @@
 extends Player
 class_name DoomPlayer
 
-const FIST_SCENE = preload("res://weapons/Fist/Fist.tscn")
-const CHAINSAW_SCENE = preload("res://weapons/Chainsaw/Chainsaw.tscn")
-const PISTOL_SCENE = preload("res://weapons/Pistol/Pistol.tscn")
-const SHOTGUN_SCENE = preload("res://weapons/Shotgun/Shotgun.tscn")
-const CHAINGUN_SCENE = preload("res://weapons/Chaingun/Chaingun.tscn")
-const ROCKET_SCENE = preload("res://weapons/RocketLauncher/RocketLauncher.tscn")
-const PLASMA_SCENE = preload("res://weapons/PlasmaRifle/PlasmaRifle.tscn")
-const BFG_SCENE = preload("res://weapons/BFG/BFG.tscn")
+const PISTOL_SCENE = preload("res://wads/doom/weapons/Pistol/Pistol.tscn")
 
 var _weaponCycleIndex : int = 2  # start on pistol
 var _isChangingWeapon : bool = false
@@ -21,8 +14,7 @@ func _ready() -> void:
 	if startingWeaponScene == null:
 		startingWeaponScene = PISTOL_SCENE
 	if weaponScenes.is_empty():
-		weaponScenes = [FIST_SCENE, CHAINSAW_SCENE, PISTOL_SCENE, SHOTGUN_SCENE,
-			CHAINGUN_SCENE, ROCKET_SCENE, PLASMA_SCENE, BFG_SCENE]
+		weaponScenes = [PISTOL_SCENE]
 	super()
 
 func _physics_process(delta: float) -> void:
@@ -40,15 +32,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		_headBobTime = 0.0
 		_cameraRig.position.y = _headBobBaseY
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and !event.echo:
-		if event.keycode == KEY_CTRL:
-			if _alive and !_isChangingWeapon:
-				_cycleWeapon()
-			get_viewport().set_input_as_handled()
-			return
-	super(event)
 
 func _cycleWeapon() -> void:
 	if weaponScenes.size() <= 1:

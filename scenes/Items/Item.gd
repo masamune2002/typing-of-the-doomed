@@ -36,11 +36,11 @@ func _ready() -> void:
 
 	match itemDefinition.get("effect", "health"):
 		"health":
-			itemLabel.modulate = Color(0.2, 1.0, 0.2)
+			itemLabel.modulate = DoomGame.COLOR_HEALTH
 		"armor":
-			itemLabel.modulate = Color(0.2, 0.5, 1.0)
+			itemLabel.modulate = DoomGame.COLOR_ARMOR
 		"weapon":
-			itemLabel.modulate = Color(1.0, 0.6, 0.2)
+			itemLabel.modulate = DoomGame.COLOR_WEAPON
 
 	typedLabel = itemLabel
 
@@ -164,7 +164,7 @@ func _pickup() -> void:
 	queue_free()
 
 func _playPickupSound() -> void:
-	Game.playSound(itemDefinition.get("sound", "DSITEMUP"))
+	Game.playSound(itemDefinition.get("sound", DoomGame.ITEM_PICKUP))
 
 func _process(delta: float) -> void:
 	if !alive:

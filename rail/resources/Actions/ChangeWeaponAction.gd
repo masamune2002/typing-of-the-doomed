@@ -4,7 +4,7 @@ class_name ChangeWeaponAction
 @export var weaponScene : PackedScene
 @export_range(1, 100) var speed : float = 50.0
 
-func run(encounterPoint : EncounterPoint) -> void:
+func run(_encounterPoint : EncounterPoint) -> void:
 	var player = Game.getPlayer()
 	if player == null or weaponScene == null:
 		push_warning("ChangeWeaponAction: player or weaponScene is null")

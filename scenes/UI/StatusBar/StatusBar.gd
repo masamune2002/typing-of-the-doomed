@@ -9,6 +9,9 @@ class_name StatusBar
 @onready var faceSprite : TextureRect = $FaceSprite
 @onready var healthContainer : HBoxContainer = $HealthDigits
 @onready var armorContainer : HBoxContainer = $ArmorDigits
+@onready var killDigitsContainer : HBoxContainer = $KillDigits
+@onready var _killDigits : Array[TextureRect] = [$KillDigits/Digit0, $KillDigits/Digit1, $KillDigits/Digit2]
+@onready var _keySprites : Array[TextureRect] = [$KeySlot0, $KeySlot1, $KeySlot2]
 
 # DOOM STBAR is 320x32 pixels
 const STBAR_WIDTH : float = 320.0
@@ -48,7 +51,6 @@ var _killCount : int = 0
 # Kill counter position (in the FRAGS area, x=100-138 in DOOM coords)
 const KILLS_X : float = 100.0
 const KILLS_Y : float = 3.0
-var _killDigits : Array[TextureRect] = []
 
 # Key display - DOOM STBAR key positions (in 320x32 space)
 # Keys appear in a column on the right side of the status bar
@@ -61,7 +63,6 @@ const KEY_H : float = 4.0
 
 # STKEYS0=blue card, 1=yellow card, 2=red card, 3=blue skull, 4=yellow skull, 5=red skull
 var _keyTextures : Array[Texture2D] = []
-var _keySprites : Array[TextureRect] = []
 
 func setup() -> void:
 	_loadBarGraphics()
@@ -77,22 +78,13 @@ func _onEnemyKilled(_enemy: Enemy) -> void:
 	addKill()
 
 func _loadBarGraphics() -> void:
-	background.texture = Game.fetchSprite("STBAR")
+	background.texture = Game.fetchSprite(DoomGame.STATUS_BAR)
 	_digitTextures.resize(10)
 	for i in range(10):
 		_digitTextures[i] = Game.fetchSprite("STTNUM%d" % i)
 
 	_percentTexture = Game.fetchSprite("STTPRCNT")
 	healthPercent.texture = _percentTexture
-
-	# Create kill counter digits (3 digits like health/armor)
-	for i in 3:
-		var digit = TextureRect.new()
-		digit.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		digit.stretch_mode = TextureRect.STRETCH_SCALE
-		digit.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		add_child(digit)
-		_killDigits.append(digit)
 	armorPercent.texture = _percentTexture
 
 func _loadFaceSprites() -> void:
@@ -107,17 +99,6 @@ func _setupKeySprites() -> void:
 	_keyTextures.resize(6)
 	for i in range(6):
 		_keyTextures[i] = Game.fetchSprite("STKEYS%d" % i)
-
-	# Create 3 key slots: blue, yellow, red
-	for i in range(3):
-		var sprite = TextureRect.new()
-		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		sprite.stretch_mode = TextureRect.STRETCH_SCALE
-		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		sprite.visible = false
-		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(sprite)
-		_keySprites.append(sprite)
 
 func _getKeyMap() -> Dictionary:
 	var wad_game = Game.getWadGame()
@@ -199,10 +180,9 @@ func _layoutElements() -> void:
 	faceSprite.size = Vector2(FACE_W * scaleX, FACE_H * scaleY)
 
 	# Kill counter digits
-	for i in _killDigits.size():
-		_killDigits[i].position = Vector2((KILLS_X + i * DIGIT_W) * scaleX, KILLS_Y * scaleY)
-		_killDigits[i].custom_minimum_size = Vector2(digitW, digitH)
-		_killDigits[i].size = Vector2(digitW, digitH)
+	killDigitsContainer.position = Vector2(KILLS_X * scaleX, KILLS_Y * scaleY)
+	for d in _killDigits:
+		d.custom_minimum_size = Vector2(digitW, digitH)
 	_updateKillDigits()
 
 	_layoutKeys()
@@ -232,8 +212,12 @@ func updateStatus(health : int, armor : int, wasHit : bool) -> void:
 	_updateFace()
 
 func _setDigits(digits : Array[TextureRect], value : int) -> void:
+	if _digitTextures.size() < 10:
+		return
 	value = clampi(value, 0, 999)
+	@warning_ignore("integer_division")
 	var hundreds := value / 100
+	@warning_ignore("integer_division")
 	var tens := (value % 100) / 10
 	var ones := value % 10
 
@@ -263,6 +247,7 @@ func _updateFace() -> void:
 			faceSprite.texture = _deadFace
 		return
 
+	@warning_ignore("integer_division")
 	var level : int = 4 - clampi(_currentHealth / 20, 0, 4)
 	var faces : Array[Texture2D] = _ouchFaces if _showingOuch else _normalFaces
 	if level < faces.size() and faces[level] != null:

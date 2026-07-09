@@ -5,7 +5,7 @@ class_name EncounterAction
 var _finished : bool = false
 signal finished
 
-func run(encounterPoint : EncounterPoint) -> void:
+func run(_encounterPoint : EncounterPoint) -> void:
 	push_warning('EncounterAction.run() not implemented')
 
 func finish():

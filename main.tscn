@@ -1,7 +1,9 @@
-[gd_scene format=4 uid="uid://c70cki20ybm4c"]
+[gd_scene format=3 uid="uid://c70cki20ybm4c"]
 
 [ext_resource type="Script" uid="uid://db7umjrxaemgx" path="res://main.gd" id="1_1041k"]
+[ext_resource type="PackedScene" path="res://wads/doom/weapons/Pistol/Pistol.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://c4hq4j7wyb1c5" path="res://rail/scenes/EnemyManager/EnemyManager.tscn" id="5_tuk0d"]
+[ext_resource type="PackedScene" uid="uid://jm65mycg0yk8" path="res://scenes/DoomPlayer/DoomPlayer.tscn" id="6_player"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1041k"]
 
@@ -20,5 +22,10 @@ script = ExtResource("1_1041k")
 environment = SubResource("Environment_0l477")
 
 [node name="EnemyManager" parent="." unique_id=1713192529 instance=ExtResource("5_tuk0d")]
+
+[node name="DoomPlayer" parent="." unique_id=1094394545 instance=ExtResource("6_player")]
+unique_name_in_owner = true
+visible = false
+weaponScenes = Array[PackedScene]([ExtResource("4_1bvp3")])
 
 [node name="EntityContainer" type="Node3D" parent="." unique_id=1649188099]

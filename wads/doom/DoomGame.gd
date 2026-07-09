@@ -1,7 +1,70 @@
 extends WadGame
 class_name DoomGame
 
-# Key constants
+# ── Sounds ───────────────────────────────────────────────────────────────
+
+# Menu
+const MENU_NAVIGATE = "DSPSTOP"
+const MENU_CONFIRM = "DSPISTOL"
+const MENU_INVALID = "DSOOF"
+
+# Doors & switches
+const DOOR_OPEN = "DSDOROPN"
+const SWITCH_ON = "DSSWTCHN"
+const SWITCH_OFF = "DSSWTCHX"
+
+# Combat
+const BARREL_EXPLODE = "DSBAREXP"
+const PLAYER_DEATH = "DSPLDETH"
+const PLAYER_PAIN = "DSPLPAIN"
+const DEMON_ACTIVE = "DSDMACT"
+
+# Pickups
+const WEAPON_PICKUP = "DSWPNUP"
+const ITEM_PICKUP = "DSITEMUP"
+const CHAINSAW_PICKUP = "DSSAWUP"
+const POWERUP_PICKUP = "DSGETPOW"
+
+# ── Sprites ──────────────────────────────────────────────────────────────
+
+const TITLE_SCREEN = "TITLEPIC"
+const SKULL_1 = "M_SKULL1"
+const SKULL_2 = "M_SKULL2"
+const STATUS_BAR = "STBAR"
+const INTERMISSION_BG = "INTERPIC"
+
+# ── Colors ───────────────────────────────────────────────────────────────
+
+const COLOR_GOLD := Color(1.0, 0.8, 0.2)
+const COLOR_RED := Color(1.0, 0.2, 0.2)
+const COLOR_WHITE := Color(1.0, 1.0, 1.0)
+const COLOR_HEALTH := Color(0.2, 1.0, 0.2)
+const COLOR_ARMOR := Color(0.2, 0.5, 1.0)
+const COLOR_WEAPON := Color(1.0, 0.6, 0.2)
+const COLOR_BARREL := Color(1.0, 0.4, 0.1)
+
+# ── Maps ─────────────────────────────────────────────────────────────────
+
+const MAP_NAMES_CONST: Array[String] = ["E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9"]
+const MAP_DESCRIPTIONS = {
+	"E1M1": "Hangar",
+	"E1M2": "Nuclear Plant",
+	"E1M3": "Toxin Refinery",
+	"E1M4": "Command Control",
+	"E1M5": "Phobos Lab",
+	"E1M6": "Central Processing",
+	"E1M7": "Computer Station",
+	"E1M8": "Phobos Anomaly",
+	"E1M9": "Military Base (Secret)",
+}
+
+# ── Thing Flags ──────────────────────────────────────────────────────────
+
+const THING_FLAG_HARD = 0b100       # Appears on Hard (UV) difficulty
+const THING_FLAG_MULTIPLAYER = 0b10000  # Multiplayer only (not single player)
+
+# ── Keys ─────────────────────────────────────────────────────────────────
+
 const RED_CARD = "red_keycard"
 const BLUE_CARD = "blue_keycard"
 const YELLOW_CARD = "yellow_keycard"
@@ -12,7 +75,7 @@ const YELLOW_SKULL = "yellow_skull"
 func _init():
 	wad_file_name = "DOOM.wad"
 	wad_res_path = "res://DOOM.wad"
-	map_names = ["E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9"]
+	map_names = MAP_NAMES_CONST
 	first_map_idx = 0
 	thing_type_player_start = 1
 	barrel_thing_type = 2035
@@ -20,31 +83,31 @@ func _init():
 	animated_sprite_script = preload("res://scenes/AnimatedSprite/AnimatedDoomSprite.gd")
 
 	enemies = {
-		3004: { "name": "Zombieman",    "scene": preload("res://enemies/doom/Zombieman/Zombieman.tscn"),    "health_bars": 1 },
-		9:    { "name": "ShotgunGuy",   "scene": preload("res://enemies/doom/ShotgunGuy/ShotgunGuy.tscn"),  "health_bars": 1 },
-		3001: { "name": "Imp",          "scene": preload("res://enemies/doom/Imp/Imp.tscn"),                "health_bars": 2, "npc_trigger": "imp" },
-		3002: { "name": "Pinky",        "scene": preload("res://enemies/doom/Pinky/Pinky.tscn"),            "health_bars": 3 },
-		3005: { "name": "Cacodemon",    "scene": preload("res://enemies/doom/Cacodemon/Cacodemon.tscn"),    "health_bars": 4, "npc_trigger": "cacodemon" },
-		3003: { "name": "BaronOfHell",  "scene": preload("res://enemies/doom/BaronOfHell/BaronOfHell.tscn"),"health_bars": 6, "npc_trigger": "baron of hell" },
-		3006: { "name": "LostSoul",     "scene": preload("res://enemies/doom/LostSoul/LostSoul.tscn"),      "health_bars": 2 },
-		16:   { "name": "Cyberdemon",   "scene": preload("res://enemies/doom/Cyberdemon/Cyberdemon.tscn"),  "health_bars": 10, "npc_trigger": "cyberdemon" },
-		7:    { "name": "SpiderDemon",  "scene": preload("res://enemies/doom/SpiderDemon/SpiderDemon.tscn"),"health_bars": 8, "npc_trigger": "spider mastermind" },
+		3004: { "name": "Zombieman",    "scene": preload("res://wads/doom/enemies/Zombieman/Zombieman.tscn") },
+		9:    { "name": "ShotgunGuy",   "scene": preload("res://wads/doom/enemies/ShotgunGuy/ShotgunGuy.tscn") },
+		3001: { "name": "Imp",          "scene": preload("res://wads/doom/enemies/Imp/Imp.tscn"),                "npc_trigger": "imp" },
+		3002: { "name": "Pinky",        "scene": preload("res://wads/doom/enemies/Pinky/Pinky.tscn") },
+		3005: { "name": "Cacodemon",    "scene": preload("res://wads/doom/enemies/Cacodemon/Cacodemon.tscn"),    "npc_trigger": "cacodemon" },
+		3003: { "name": "BaronOfHell",  "scene": preload("res://wads/doom/enemies/BaronOfHell/BaronOfHell.tscn"),"npc_trigger": "baron of hell" },
+		3006: { "name": "LostSoul",     "scene": preload("res://wads/doom/enemies/LostSoul/LostSoul.tscn") },
+		16:   { "name": "Cyberdemon",   "scene": preload("res://wads/doom/enemies/Cyberdemon/Cyberdemon.tscn"),  "npc_trigger": "cyberdemon" },
+		7:    { "name": "SpiderDemon",  "scene": preload("res://wads/doom/enemies/SpiderDemon/SpiderDemon.tscn"),"npc_trigger": "spider mastermind" },
 	}
 
 	item_definitions = {
-		2011: { "name": "Stimpack",    "sprites": ["STIMA0"],                                 "effect": "health", "amount": 10,  "overheal": false, "sound": "DSITEMUP" },
-		2012: { "name": "Medkit",      "sprites": ["MEDIA0"],                                 "effect": "health", "amount": 25,  "overheal": false, "sound": "DSITEMUP" },
-		2013: { "name": "Soulsphere",  "sprites": ["SOULA0", "SOULB0", "SOULC0", "SOULD0"],   "effect": "health", "amount": 100, "overheal": true,  "sound": "DSGETPOW" },
-		2014: { "name": "HealthBonus", "sprites": ["BON1A0", "BON1B0", "BON1C0", "BON1D0"],   "effect": "health", "amount": 1,   "overheal": true,  "sound": "DSITEMUP" },
-		2015: { "name": "ArmorBonus",  "sprites": ["BON2A0", "BON2B0", "BON2C0", "BON2D0"],   "effect": "armor",  "amount": 1,   "armor_type": "NONE",  "sound": "DSITEMUP" },
-		2018: { "name": "GreenArmor",  "sprites": ["ARM1A0", "ARM1B0"],                       "effect": "armor",  "amount": 100, "armor_type": "GREEN", "sound": "DSITEMUP" },
-		2019: { "name": "BlueArmor",   "sprites": ["ARM2A0"],                                 "effect": "armor",  "amount": 200, "armor_type": "BLUE",  "sound": "DSGETPOW" },
-		5:    { "name": "BlueKeycard",  "sprites": ["BKEYA0", "BKEYB0"],                       "effect": "key", "key": BLUE_CARD,    "sound": "DSITEMUP" },
-		6:    { "name": "YellowKeycard","sprites": ["YKEYA0", "YKEYB0"],                       "effect": "key", "key": YELLOW_CARD,  "sound": "DSITEMUP" },
-		13:   { "name": "RedKeycard",   "sprites": ["RKEYA0", "RKEYB0"],                       "effect": "key", "key": RED_CARD,     "sound": "DSITEMUP" },
-		40:   { "name": "BlueSkullKey", "sprites": ["BSKUA0", "BSKUB0"],                       "effect": "key", "key": BLUE_SKULL,   "sound": "DSITEMUP" },
-		38:   { "name": "YellowSkullKey","sprites": ["YSKUA0", "YSKUB0"],                      "effect": "key", "key": YELLOW_SKULL, "sound": "DSITEMUP" },
-		39:   { "name": "RedSkullKey",  "sprites": ["RSKUA0", "RSKUB0"],                       "effect": "key", "key": RED_SKULL,    "sound": "DSITEMUP" },
+		2011: { "name": "Stimpack",    "sprites": ["STIMA0"],                                 "effect": "health", "amount": 10,  "overheal": false, "sound": ITEM_PICKUP },
+		2012: { "name": "Medkit",      "sprites": ["MEDIA0"],                                 "effect": "health", "amount": 25,  "overheal": false, "sound": ITEM_PICKUP },
+		2013: { "name": "Soulsphere",  "sprites": ["SOULA0", "SOULB0", "SOULC0", "SOULD0"],   "effect": "health", "amount": 100, "overheal": true,  "sound": POWERUP_PICKUP },
+		2014: { "name": "HealthBonus", "sprites": ["BON1A0", "BON1B0", "BON1C0", "BON1D0"],   "effect": "health", "amount": 1,   "overheal": true,  "sound": ITEM_PICKUP },
+		2015: { "name": "ArmorBonus",  "sprites": ["BON2A0", "BON2B0", "BON2C0", "BON2D0"],   "effect": "armor",  "amount": 1,   "armor_type": "NONE",  "sound": ITEM_PICKUP },
+		2018: { "name": "GreenArmor",  "sprites": ["ARM1A0", "ARM1B0"],                       "effect": "armor",  "amount": 100, "armor_type": "GREEN", "sound": ITEM_PICKUP },
+		2019: { "name": "BlueArmor",   "sprites": ["ARM2A0"],                                 "effect": "armor",  "amount": 200, "armor_type": "BLUE",  "sound": POWERUP_PICKUP },
+		5:    { "name": "BlueKeycard",  "sprites": ["BKEYA0", "BKEYB0"],                       "effect": "key", "key": BLUE_CARD,    "sound": ITEM_PICKUP },
+		6:    { "name": "YellowKeycard","sprites": ["YKEYA0", "YKEYB0"],                       "effect": "key", "key": YELLOW_CARD,  "sound": ITEM_PICKUP },
+		13:   { "name": "RedKeycard",   "sprites": ["RKEYA0", "RKEYB0"],                       "effect": "key", "key": RED_CARD,     "sound": ITEM_PICKUP },
+		40:   { "name": "BlueSkullKey", "sprites": ["BSKUA0", "BSKUB0"],                       "effect": "key", "key": BLUE_SKULL,   "sound": ITEM_PICKUP },
+		38:   { "name": "YellowSkullKey","sprites": ["YSKUA0", "YSKUB0"],                      "effect": "key", "key": YELLOW_SKULL, "sound": ITEM_PICKUP },
+		39:   { "name": "RedSkullKey",  "sprites": ["RSKUA0", "RSKUB0"],                       "effect": "key", "key": RED_SKULL,    "sound": ITEM_PICKUP },
 	}
 
 	decoration_definitions = {
@@ -110,12 +173,12 @@ func _init():
 	}
 
 	weapon_pickup_definitions = {
-		2001: { "name": "Shotgun",        "sprites": ["SHOTA0"],             "weapon_scene": preload("res://weapons/Shotgun/Shotgun.tscn"),        "sound": "DSWPNUP" },
-		2002: { "name": "Chaingun",       "sprites": ["MGUNA0"],             "weapon_scene": preload("res://weapons/Chaingun/Chaingun.tscn"),      "sound": "DSWPNUP" },
-		2003: { "name": "RocketLauncher", "sprites": ["LAUNA0"],             "weapon_scene": preload("res://weapons/RocketLauncher/RocketLauncher.tscn"), "sound": "DSWPNUP" },
-		2004: { "name": "PlasmaRifle",    "sprites": ["PLASA0"],             "weapon_scene": preload("res://weapons/PlasmaRifle/PlasmaRifle.tscn"),"sound": "DSWPNUP" },
-		2005: { "name": "Chainsaw",       "sprites": ["CSAWA0"],             "weapon_scene": preload("res://weapons/Chainsaw/Chainsaw.tscn"),      "sound": "DSSAWUP" },
-		2006: { "name": "BFG9000",        "sprites": ["BFUGA0"],             "weapon_scene": preload("res://weapons/BFG/BFG.tscn"),                "sound": "DSWPNUP" },
+		2001: { "name": "Shotgun",        "sprites": ["SHOTA0"],             "weapon_scene": preload("res://wads/doom/weapons/Shotgun/Shotgun.tscn"),        "sound": WEAPON_PICKUP },
+		2002: { "name": "Chaingun",       "sprites": ["MGUNA0"],             "weapon_scene": preload("res://wads/doom/weapons/Chaingun/Chaingun.tscn"),      "sound": WEAPON_PICKUP },
+		2003: { "name": "RocketLauncher", "sprites": ["LAUNA0"],             "weapon_scene": preload("res://wads/doom/weapons/RocketLauncher/RocketLauncher.tscn"), "sound": WEAPON_PICKUP },
+		2004: { "name": "PlasmaRifle",    "sprites": ["PLASA0"],             "weapon_scene": preload("res://wads/doom/weapons/PlasmaRifle/PlasmaRifle.tscn"),"sound": WEAPON_PICKUP },
+		2005: { "name": "Chainsaw",       "sprites": ["CSAWA0"],             "weapon_scene": preload("res://wads/doom/weapons/Chainsaw/Chainsaw.tscn"),      "sound": CHAINSAW_PICKUP },
+		2006: { "name": "BFG9000",        "sprites": ["BFUGA0"],             "weapon_scene": preload("res://wads/doom/weapons/BFG/BFG.tscn"),                "sound": WEAPON_PICKUP },
 	}
 
 	key_equivalents = {

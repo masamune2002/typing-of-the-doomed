@@ -12,26 +12,14 @@ enum MenuState { MAIN, LEVEL_SELECT, SAVE_GAME, LOAD_GAME, OPTIONS, DEBUG }
 
 const MENU_ITEMS_MAIN = ["NEW GAME", "LOAD GAME", "LEVEL SELECT", "OPTIONS", "QUIT GAME"]
 const MENU_ITEMS_PAUSE = ["RESUME GAME", "SAVE GAME", "LOAD GAME", "LEVEL SELECT", "OPTIONS", "QUIT GAME"]
-const MAP_NAMES = ["E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9"]
-const MAP_DESCRIPTIONS = {
-	"E1M1": "Hangar",
-	"E1M2": "Nuclear Plant",
-	"E1M3": "Toxin Refinery",
-	"E1M4": "Command Control",
-	"E1M5": "Phobos Lab",
-	"E1M6": "Central Processing",
-	"E1M7": "Computer Station",
-	"E1M8": "Phobos Anomaly",
-	"E1M9": "Military Base (Secret)",
-}
 const MAX_SAVE_NAME_LENGTH = 24
 
 const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
-const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "SKIP DOORS", "SUPERSPEED", "WASD MOVEMENT", "BACK"]
+const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "SKIP DOORS", "SUPERSPEED", "WASD MOVEMENT", "GOD MODE", "BACK"]
 
-const COLOR_TITLE := Color(1.0, 0.8, 0.2)
-const COLOR_ITEM := Color(1.0, 0.2, 0.2)
-const COLOR_SELECTED := Color(1.0, 1.0, 1.0)
+const COLOR_TITLE := DoomGame.COLOR_GOLD
+const COLOR_ITEM := DoomGame.COLOR_RED
+const COLOR_SELECTED := DoomGame.COLOR_WHITE
 const SCALE_TARGET_FRAC_Y := 0.85
 const SCALE_TARGET_FRAC_X := 0.90
 const SCALE_MIN := 0.5
@@ -90,7 +78,7 @@ func _buildUI() -> void:
 
 	if not pause_mode:
 		var bg := TextureRect.new()
-		bg.texture = Game.fetchSprite("TITLEPIC")
+		bg.texture = Game.fetchSprite(DoomGame.TITLE_SCREEN)
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 		bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -108,8 +96,8 @@ func _buildUI() -> void:
 		_doom_font = Game.fetchFont("default")
 
 	_skull_textures.clear()
-	var s1 = Game.fetchSprite("M_SKULL1")
-	var s2 = Game.fetchSprite("M_SKULL2")
+	var s1 = Game.fetchSprite(DoomGame.SKULL_1)
+	var s2 = Game.fetchSprite(DoomGame.SKULL_2)
 	if s1 != null:
 		_skull_textures.append(s1)
 	if s2 != null:
@@ -148,8 +136,8 @@ func _buildUI() -> void:
 
 func _levelLines() -> Array[String]:
 	var out : Array[String] = []
-	for map_name in MAP_NAMES:
-		var desc = MAP_DESCRIPTIONS.get(map_name, "")
+	for map_name in DoomGame.MAP_NAMES_CONST:
+		var desc = DoomGame.MAP_DESCRIPTIONS.get(map_name, "")
 		out.append(map_name + " - " + desc)
 	return out
 
@@ -206,7 +194,8 @@ func _buildDebugPanel() -> VBoxContainer:
 func _makePanel() -> VBoxContainer:
 	var panel := VBoxContainer.new()
 	panel.add_theme_constant_override("separation", 4)
-	panel.alignment = BoxContainer.ALIGNMENT_CENTER
+	panel.alignment = BoxContainer.ALIGNMENT_BEGIN
+	
 	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return panel
@@ -228,7 +217,7 @@ func _makeTitleRow(text: String) -> HBoxContainer:
 
 func _makeItemRow(text: String) -> HBoxContainer:
 	var row := HBoxContainer.new()
-	row.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	row.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	row.add_theme_constant_override("separation", 6)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -351,7 +340,7 @@ func _showSubmenu(state: MenuState) -> void:
 	_recomputeScale.call_deferred()
 
 func _returnToMain() -> void:
-	Game.playSound("DSPSTOP")
+	Game.playSound(DoomGame.MENU_NAVIGATE)
 	_editing_save_name = false
 	if _menu_state == MenuState.DEBUG:
 		SettingsManager.save_settings()
@@ -486,6 +475,8 @@ func _getDebugOptionText(opt_name: String) -> String:
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_superspeed else "OFF")
 		"WASD MOVEMENT":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_wasd else "OFF")
+		"GOD MODE":
+			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_god_mode else "OFF")
 		"BACK":
 			return "BACK"
 	return opt_name
@@ -511,6 +502,8 @@ func _adjustDebugOption(direction: int) -> void:
 			SettingsManager.debug_superspeed = !SettingsManager.debug_superspeed
 		"WASD MOVEMENT":
 			SettingsManager.debug_wasd = !SettingsManager.debug_wasd
+		"GOD MODE":
+			SettingsManager.debug_god_mode = !SettingsManager.debug_god_mode
 	_refreshDebugLabels()
 	_updateMenuHighlight()
 
@@ -539,23 +532,23 @@ func _input(event: InputEvent) -> void:
 		_menuDown()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_left") and _menu_state == MenuState.OPTIONS:
-		Game.playSound("DSPSTOP")
+		Game.playSound(DoomGame.MENU_NAVIGATE)
 		_adjustOption(-1)
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_right") and _menu_state == MenuState.OPTIONS:
-		Game.playSound("DSPSTOP")
+		Game.playSound(DoomGame.MENU_NAVIGATE)
 		_adjustOption(1)
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_left") and _menu_state == MenuState.DEBUG:
-		Game.playSound("DSPSTOP")
+		Game.playSound(DoomGame.MENU_NAVIGATE)
 		_adjustDebugOption(-1)
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_right") and _menu_state == MenuState.DEBUG:
-		Game.playSound("DSPSTOP")
+		Game.playSound(DoomGame.MENU_NAVIGATE)
 		_adjustDebugOption(1)
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_accept"):
-		Game.playSound("DSPISTOL")
+		Game.playSound(DoomGame.MENU_CONFIRM)
 		_menuConfirm()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("ui_cancel"):
@@ -566,13 +559,13 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _menuUp() -> void:
-	Game.playSound("DSPSTOP")
+	Game.playSound(DoomGame.MENU_NAVIGATE)
 	match _menu_state:
 		MenuState.MAIN:
 			var items = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
 			_menu_selection = (_menu_selection - 1 + items.size()) % items.size()
 		MenuState.LEVEL_SELECT:
-			_level_selection = (_level_selection - 1 + MAP_NAMES.size()) % MAP_NAMES.size()
+			_level_selection = (_level_selection - 1 + DoomGame.MAP_NAMES_CONST.size()) % DoomGame.MAP_NAMES_CONST.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
 			_slot_selection = (_slot_selection - 1 + SaveManager.MAX_SLOTS) % SaveManager.MAX_SLOTS
 		MenuState.OPTIONS:
@@ -582,13 +575,13 @@ func _menuUp() -> void:
 	_updateMenuHighlight()
 
 func _menuDown() -> void:
-	Game.playSound("DSPSTOP")
+	Game.playSound(DoomGame.MENU_NAVIGATE)
 	match _menu_state:
 		MenuState.MAIN:
 			var items = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
 			_menu_selection = (_menu_selection + 1) % items.size()
 		MenuState.LEVEL_SELECT:
-			_level_selection = (_level_selection + 1) % MAP_NAMES.size()
+			_level_selection = (_level_selection + 1) % DoomGame.MAP_NAMES_CONST.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
 			_slot_selection = (_slot_selection + 1) % SaveManager.MAX_SLOTS
 		MenuState.OPTIONS:
@@ -656,8 +649,8 @@ func _startSaveNameEdit() -> void:
 		_edit_save_name = existing.get("name", "")
 	else:
 		var main_scene = get_tree().current_scene
-		if main_scene and "MAP_NAMES" in main_scene and "_currentMapIdx" in main_scene:
-			_edit_save_name = main_scene.MAP_NAMES[main_scene._currentMapIdx]
+		if main_scene and "_currentMapIdx" in main_scene:
+			_edit_save_name = DoomGame.MAP_NAMES_CONST[main_scene._currentMapIdx]
 		else:
 			_edit_save_name = ""
 	_updateEditLabel()
@@ -665,7 +658,7 @@ func _startSaveNameEdit() -> void:
 func _handleSaveNameInput(event: InputEventKey) -> void:
 	if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
 		_editing_save_name = false
-		Game.playSound("DSPISTOL")
+		Game.playSound(DoomGame.MENU_CONFIRM)
 		save_requested.emit(_slot_selection, _edit_save_name)
 		_refreshSlotLabels()
 		_updateMenuHighlight()
@@ -673,7 +666,7 @@ func _handleSaveNameInput(event: InputEventKey) -> void:
 
 	if event.keycode == KEY_ESCAPE or event.is_action("ui_cancel"):
 		_editing_save_name = false
-		Game.playSound("DSPSTOP")
+		Game.playSound(DoomGame.MENU_NAVIGATE)
 		_refreshSlotLabels()
 		_updateMenuHighlight()
 		return
@@ -703,7 +696,7 @@ func _updateEditLabel() -> void:
 func _confirmLoad() -> void:
 	var data = _slot_data[_slot_selection] if _slot_selection < _slot_data.size() else {}
 	if data.is_empty():
-		Game.playSound("DSOOF")
+		Game.playSound(DoomGame.MENU_INVALID)
 		return
 	save_loaded.emit(data)
 

@@ -25,6 +25,8 @@ func _onEncounterStart() -> void:
 	_attackTimer.start(attackSecs)
 
 func _handlePlayerChanged(newPlayer : Player) -> void:
+	if playerRef != null and is_instance_valid(playerRef) and playerRef.fireWeapon.is_connected(_handlePlayerFired):
+		playerRef.fireWeapon.disconnect(_handlePlayerFired)
 	playerRef = newPlayer
 	if !playerRef || playerRef == null:
 		push_warning('Enemy Manager needs player ref')

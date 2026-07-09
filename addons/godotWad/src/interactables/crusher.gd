@@ -228,10 +228,7 @@ func incCurY(amt: float):
 
 
 func printState(state):
-	if state == STATE.OPEN: print("top")
-	elif state == STATE.OPENING: print("goingUp")
-	elif state == STATE.CLOSED: print("closed")
-	elif state == STATE.CLOSING: print("goingDown")
+	pass
 
 
 func bin(body):

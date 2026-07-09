@@ -14,7 +14,7 @@ func save_game(slot: int, save_name: String, map_idx: int, player: Player, dead_
 		"version": 1,
 		"name": save_name,
 		"map_idx": map_idx,
-		"map_name": player.get_tree().current_scene.MAP_NAMES[map_idx],
+		"map_name": DoomGame.MAP_NAMES_CONST[map_idx],
 		"player": player.getState(),
 		"dead_entities": dead_entities
 	}

@@ -5,10 +5,10 @@ var weaknessType : Enums.WEAPON_FIRE_TYPE
 var weaknessLabelText : String
 var hitPoints : Array[HitPoint]
 
-func setup(difficulty : int) -> void:
+func setup(_difficulty : int) -> void:
 	pass
 
-func receiveHit(payload : Variant) -> bool:
+func receiveHit(_payload : Variant) -> bool:
 	return false
 
 func getLabelText() -> String:

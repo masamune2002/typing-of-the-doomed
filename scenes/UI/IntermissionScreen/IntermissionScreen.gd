@@ -94,7 +94,7 @@ func _buildUI() -> void:
 	_bg = TextureRect.new()
 	var bg_tex = Game.fetchSprite("WIMAP%d" % _episode)
 	if bg_tex == null:
-		bg_tex = Game.fetchSprite("INTERPIC")
+		bg_tex = Game.fetchSprite(DoomGame.INTERMISSION_BG)
 	if bg_tex != null:
 		_bg.texture = bg_tex
 	_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -115,7 +115,7 @@ func _buildUI() -> void:
 			overlay.add_child(_finished_label)
 
 		# Finished map name — DOOM Y ~24
-		_map_name_label = _createScaledLabel(_finished_map_name, Color(1.0, 0.2, 0.2), ui_scale)
+		_map_name_label = _createScaledLabel(_finished_map_name, DoomGame.COLOR_RED, ui_scale)
 		_map_name_label.position = Vector2((screen_w - _map_name_label.custom_minimum_size.x) / 2.0, 24 * ui_scale)
 		overlay.add_child(_map_name_label)
 
@@ -163,7 +163,7 @@ func _buildUI() -> void:
 			overlay.add_child(_entering_label)
 
 		# Next map name — DOOM Y ~76
-		_next_map_label = _createScaledLabel(_next_map_name, Color(1.0, 0.2, 0.2), ui_scale)
+		_next_map_label = _createScaledLabel(_next_map_name, DoomGame.COLOR_RED, ui_scale)
 		_next_map_label.position = Vector2((screen_w - _next_map_label.custom_minimum_size.x) / 2.0, 76 * ui_scale)
 		overlay.add_child(_next_map_label)
 
@@ -232,11 +232,11 @@ func _process(delta: float) -> void:
 			# Play counting sound periodically
 			if not all_done and _tally_sound_timer >= 0.12:
 				_tally_sound_timer = 0.0
-				Game.playSound("DSPISTOL")
+				Game.playSound(DoomGame.MENU_CONFIRM)
 
 			if all_done:
 				_tally_done = true
-				Game.playSound("DSBAREXP")
+				Game.playSound(DoomGame.BARREL_EXPLODE)
 
 func _getInnerLabel(wrapper: Control) -> Label:
 	if wrapper is Label:
@@ -271,13 +271,13 @@ func _input(event: InputEvent) -> void:
 				_current_secrets = _target_secrets
 				_updateStatValues()
 				_tally_done = true
-				Game.playSound("DSPISTOL")
+				Game.playSound(DoomGame.MENU_CONFIRM)
 			else:
 				# Move to next level phase
-				Game.playSound("DSPISTOL")
+				Game.playSound(DoomGame.MENU_CONFIRM)
 				_phase = Phase.NEXT_LEVEL
 				_buildUI()
 		elif _phase == Phase.NEXT_LEVEL:
-			Game.playSound("DSPISTOL")
+			Game.playSound(DoomGame.MENU_CONFIRM)
 			visible = false
 			continue_pressed.emit()

@@ -3,7 +3,7 @@ class_name SleepAction
 
 @export var milliseconds : int = 500
 
-func run(encounterPoint: EncounterPoint) -> void:
+func run(_encounterPoint: EncounterPoint) -> void:
 	# If the duration is zero or negative, finish immediately.
 	if milliseconds <= 0:
 		finish()

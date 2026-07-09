@@ -90,7 +90,7 @@ func _explode() -> void:
 	elif splashRadius > 0.0:
 		_splashDamage()
 
-	Game.playSound("DSBAREXP")
+	Game.playSound(DoomGame.BARREL_EXPLODE)
 
 	if _explosion_textures.size() > 0:
 		_sprite.texture = _explosion_textures[0]

@@ -8,7 +8,7 @@ func _generateTargetScale(root : int) -> Scale:
 	scaleToReturn.setup(root, Constants.SCALE_TYPES[0])
 	return scaleToReturn
 
-func setup(difficulty: int) -> void:
+func setup(_difficulty: int) -> void:
 	targetHit = false
 	weaknessType = Enums.WEAPON_FIRE_TYPE.MIDI
 	targetRoot = _generateTargetRoot()

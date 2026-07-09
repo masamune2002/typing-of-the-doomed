@@ -5053,12 +5053,12 @@ static func _init_word_lists() -> void:
 	var medium_words: Array[String] = []
 	var long_words: Array[String] = []
 	for word in WORD_LIST:
-		var len = word.length()
-		if len <= 5:
+		var word_len = word.length()
+		if word_len <= 5:
 			short_words.append(word)
-		if len >= 5 and len <= 10:
+		if word_len >= 5 and word_len <= 10:
 			medium_words.append(word)
-		if len > 10:
+		if word_len > 10:
 			long_words.append(word)
 	_word_lists[1] = short_words
 	_word_lists[2] = medium_words

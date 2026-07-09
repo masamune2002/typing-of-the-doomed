@@ -44,11 +44,17 @@ var _telegraphTween : Tween
 var _telegraphMat : StandardMaterial3D
 var _attackToken : int = 0
 
+@warning_ignore("unused_signal")
 signal startedDying
+@warning_ignore("unused_signal")
 signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Enemies must never body-block the player - the rail steers straight
+	# through them. Layer 2 is world/player, so strip it; enemies still
+	# collide with level geometry through their own collision mask.
+	collision_layer &= ~2
 	dying = false
 	alive = true
 	stateMachine.setState(Enums.ENEMY_STATE.INACTIVE)
@@ -339,7 +345,7 @@ func _runTelegraph(inst: StandardMaterial3D, token: int) -> void:
 	)
 
 func _attackIfValid(token: int) -> void:
-	if alive && !dying && token == _attackToken && is_instance_valid(currentTarget):
+	if alive && !dying && is_inside_tree() && token == _attackToken && is_instance_valid(currentTarget):
 		_attack(currentTarget)
 
 func cancelTelegraph() -> void:

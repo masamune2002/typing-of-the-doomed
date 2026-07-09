@@ -6,6 +6,11 @@ const RailPathScript := preload("res://rail/scenes/RailPath/RailPath.gd")
 
 enum ViewMode { SHOW_ALL, FOCUS_STATION, RAILS_ONLY, STATIONS_ONLY }
 
+@export var enabled : bool = true:
+	set(v):
+		enabled = v
+		_apply_enabled_to_stations()
+
 @export_group("Debug")
 @export var say_hello: bool = false
 
@@ -18,10 +23,20 @@ enum ViewMode { SHOW_ALL, FOCUS_STATION, RAILS_ONLY, STATIONS_ONLY }
 var _dirty := false
 var _last_focused: RailStation = null
 
+func _apply_enabled_to_stations() -> void:
+	var stations_container := get_node_or_null("Stations")
+	if stations_container == null:
+		return
+	for child in stations_container.get_children():
+		if child is RailStation:
+			child.enabled = enabled
+
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		# Ensure everything is visible at runtime regardless of editor view mode
 		_reset_all_visible()
+		if !enabled:
+			_apply_enabled_to_stations()
 		if say_hello:
 			_inject_hello_actions()
 		return

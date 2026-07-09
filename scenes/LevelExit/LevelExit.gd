@@ -12,9 +12,9 @@ var walkOverBodies: Array = []
 func _ready():
 	set_physics_process(false)
 
-func bin(body): pass
-func bout(body): pass
-func walkOverTrigger(body): pass
+func bin(_body): pass
+func bout(_body): pass
+func walkOverTrigger(_body): pass
 
 func bodyIn(body):
 	if "interactPressed" in body and body.interactPressed:

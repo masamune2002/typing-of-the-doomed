@@ -4,7 +4,7 @@ class_name SetVariableAction
 @export var variable_name: String = ""
 @export var variable_value: String = "true"
 
-func run(encounterPoint: EncounterPoint) -> void:
+func run(_encounterPoint: EncounterPoint) -> void:
 	if variable_name != "":
 		Game.setVar(variable_name, _parse_value(variable_value))
 	finish()

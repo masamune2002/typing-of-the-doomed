@@ -15,10 +15,10 @@ var _originPosition : Vector3
 func _ready() -> void:
 	_originPosition = position
 
-func canFire(event : InputEvent) -> bool:
+func canFire(_event : InputEvent) -> bool:
 	return false
 
-func fire(inputEvent : InputEvent) -> Variant:
+func fire(_inputEvent : InputEvent) -> Variant:
 	push_warning('Weapon.fire() not implemented')
 	return null
 

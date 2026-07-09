@@ -86,3 +86,53 @@ texture_filter = 1
 layout_mode = 2
 stretch_mode = 5
 expand_mode = 3
+
+[node name="KillDigits" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+theme_override_constants/separation = 0
+
+[node name="Digit0" type="TextureRect" parent="KillDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
+[node name="Digit1" type="TextureRect" parent="KillDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
+[node name="Digit2" type="TextureRect" parent="KillDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
+[node name="KeySlot0" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 0
+stretch_mode = 4
+expand_mode = 3
+mouse_filter = 2
+
+[node name="KeySlot1" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 0
+stretch_mode = 4
+expand_mode = 3
+mouse_filter = 2
+
+[node name="KeySlot2" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 0
+stretch_mode = 4
+expand_mode = 3
+mouse_filter = 2

@@ -3,7 +3,7 @@ class_name ShowDialogAction
 
 @export var dialogToShow : Dialog
 
-func run(encounterPoint : EncounterPoint) -> void:
+func run(_encounterPoint : EncounterPoint) -> void:
 	if dialogToShow != null && dialogToShow.lines.size() > 0:
 		var player : Player = Game.getPlayer()
 		if is_instance_valid(player):

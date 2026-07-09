@@ -51,7 +51,6 @@ func bin(body):
 	if disabled:
 		return
 	if body.get_class() != "StaticBody3D":
-		print("[WalkTrigger] body entered: ", body.name, " class=", body.get_class(), " dir=", getDir(body))
 		tracking[body] = getDir(body)
 		# On rails the player may pass through the trigger area without
 		# crossing the linedef (dir never changes sign).  Fire immediately
@@ -71,7 +70,8 @@ func _physics_process(delta):
 			if !is_instance_valid(body):
 				tracking.erase(body)
 				continue
-			var info = WADG.getSectorInfoForPoint(map,Vector2(body.global_position.x,body.global_position.z))
+			var local_pos = map.to_local(body.global_position)
+			var info = WADG.getSectorInfoForPoint(map,Vector2(local_pos.x,local_pos.z))
 		
 			var dir = getDir(body)
 
@@ -114,10 +114,10 @@ func _physics_process(delta):
 func _fire(body) -> void:
 	if disabled:
 		return
-	print("[WalkTrigger] TRIGGERED! body=", body.name)
 	var info = null
 	if map != null:
-		info = WADG.getSectorInfoForPoint(map, Vector2(body.global_position.x, body.global_position.z))
+		var local_pos = map.to_local(body.global_position)
+		info = WADG.getSectorInfoForPoint(map, Vector2(local_pos.x, local_pos.z))
 	emit_signal("walkOverSignal", body)
 	if info != null:
 		var texture = null
@@ -130,9 +130,19 @@ func _fire(body) -> void:
 
 func disable():
 	colShape.disabled = true
-	
+
 func enable():
 	colShape.disabled = false
+	# Re-enabling the collision shape doesn't fire body_entered for bodies
+	# already inside the area.  Defer an overlap check so rail-moving players
+	# that entered while the shape was disabled are still detected.
+	_check_overlaps.call_deferred()
+
+func _check_overlaps():
+	var bodies = get_overlapping_bodies()
+	for body in bodies:
+		if not tracking.has(body):
+			bin(body)
 
 func bout(body):
 	if !tracking.has(body):

@@ -29,7 +29,7 @@ func _ready() -> void:
 		_apply_runtime_visibility()
 		set_process(true)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
 		_apply_runtime_visibility()
 		return

@@ -324,7 +324,6 @@ func bodyIn(body):
 
 func activate():
 
-	
 	if (state == STATE.OPEN or state == STATE.OPENING) and stayOpen == false:# and direction == DIR.DOWN: #if open and is a closer and !stayOpen -> close
 		state = STATE.CLOSING
 
@@ -374,11 +373,11 @@ func incCurH(amt):
 	
 
 func playOpen():
-	if get_node_or_null("openSound")!= null: 
+	if get_node_or_null("openSound")!= null:
 		get_node("openSound").play()
-		
+
 func playClosed():
-	if get_node_or_null("closeSound")!= null: 
+	if get_node_or_null("closeSound")!= null:
 		get_node("closeSound").play()
 	
 func doesBodyHaveKey(body):

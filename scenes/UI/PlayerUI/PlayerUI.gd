@@ -13,11 +13,12 @@ var _winning : bool = false
 var _painTween : Tween
 var _playerCharacter : PlayerCharacter
 var _performedSetup : bool = false
-var _pickupFlash : ColorRect
+@onready var _muzzleFlash : TextureRect = %MuzzleFlash
+@onready var _pickupFlash : ColorRect = %PickupFlash
+@onready var _deathTint : ColorRect = %DeathTint
 var _weaponIdleFrames : Array[Texture2D] = []
 var _weaponFireFrames : Array[Texture2D] = []
 var _weaponAnimTimer : float = 0.0
-var _weaponFrame : int = 0
 var _weaponFiring : bool = false
 var _weaponFirePhase : int = 0  # 0=not firing, 1=flash+recoil, 2=recovering
 var _weaponFireQueued : bool = false
@@ -28,7 +29,6 @@ var _weaponBaseX : float = 0.0
 var _weaponScale : float = 1.0
 var _weaponBottomY : float = 0.0
 var _bobTime : float = 0.0
-var _muzzleFlash : TextureRect
 var _swapTween : Tween
 var _bobDebugRect : ColorRect
 var _bobDebugTrail : Control
@@ -56,21 +56,6 @@ func _ready() -> void:
 	weaponSprite.anchor_top = 0.0
 	weaponSprite.anchor_right = 0.0
 	weaponSprite.anchor_bottom = 0.0
-	# Muzzle flash overlay
-	_muzzleFlash = TextureRect.new()
-	_muzzleFlash.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	_muzzleFlash.stretch_mode = TextureRect.STRETCH_SCALE
-	_muzzleFlash.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_muzzleFlash.visible = false
-	_muzzleFlash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_muzzleFlash)
-	_pickupFlash = ColorRect.new()
-	_pickupFlash.color = Color(1.0, 1.0, 0.0, 0.3)
-	_pickupFlash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_pickupFlash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_pickupFlash.visible = false
-	add_child(_pickupFlash)
-	move_child(_pickupFlash, get_child_count() - 1)
 	# Reticle / bob debug visualization
 	_bobDebugTrail = Control.new()
 	_bobDebugTrail.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -215,6 +200,9 @@ func _process(delta : float) -> void:
 				# Done firing — check for burst or queued shot
 				if _burstRemaining > 0:
 					_burstRemaining -= 1
+					var player = Game.getPlayer()
+					if player != null and player._currentWeapon != null:
+						Game.playSound(player._currentWeapon.fireSound)
 					_startFireAnimation()
 				elif _weaponFireQueued:
 					_weaponFireQueued = false
@@ -299,8 +287,7 @@ func closeWin() -> void:
 
 func closeGameOver() -> void:
 	_gameOver = false
-	if _deathTint != null:
-		_deathTint.visible = false
+	_deathTint.visible = false
 
 func showDialog(dialog : Dialog) -> void:
 	if !_performedSetup:
@@ -338,24 +325,15 @@ func flashPickup() -> void:
 	tween.tween_property(_pickupFlash, "color:a", 0.0, 0.12)
 	tween.tween_callback(func(): _pickupFlash.visible = false)
 
-var _deathTint : ColorRect
 var _gameOver : bool = false
 
 func showGameOver() -> void:
 	_gameOver = true
 	weaponSprite.visible = false
 	_muzzleFlash.visible = false
-	# Persistent red tint like DOOM death screen
-	if _deathTint == null:
-		_deathTint = ColorRect.new()
-		_deathTint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		_deathTint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(_deathTint)
-		# Place it below the status bar container
-		move_child(_deathTint, get_child_count() - 2)
+	# Fade in red tint over the death animation
 	_deathTint.color = Color(1.0, 0.0, 0.0, 0.0)
 	_deathTint.visible = true
-	# Fade in red tint over the death animation
 	var tintTween = create_tween()
 	tintTween.tween_property(_deathTint, "color:a", 0.35, 1.0)
 

@@ -157,6 +157,15 @@ layout_mode = 0
 stretch_mode = 0
 expand_mode = 1
 
+[node name="MuzzleFlash" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+stretch_mode = 4
+expand_mode = 3
+mouse_filter = 2
+
 [node name="PainFlash" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -168,6 +177,30 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 0.3)
+
+[node name="DeathTint" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="PickupFlash" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 0, 0.3)
 
 [node name="StatusBarMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

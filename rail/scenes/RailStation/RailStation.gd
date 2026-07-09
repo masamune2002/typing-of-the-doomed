@@ -120,9 +120,7 @@ func _on_find_prev_station() -> void:
 	push_warning("No previous station found")
 
 func _on_player_entered(player: Player) -> void:
-	print("[STATION] %s: body entered, currentEncounter=%s, active=%s, one_shot=%s, _has_triggered=%s" % [name, player.currentEncounter, player.currentEncounter.active if player.currentEncounter else "n/a", one_shot, _has_triggered])
 	if player.currentEncounter != null and player.currentEncounter.active and not blocking:
-		print("[STATION] %s: blocked by active encounter" % name)
 		return
 	super._on_player_entered(player)
 
