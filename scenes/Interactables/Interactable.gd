@@ -13,6 +13,7 @@ var _prev_visible_to_player: bool = false
 enum InteractableType { DOOR, LIFT, FLOOR, EXIT, OTHER }
 
 var wadNode: Node3D
+var linked_wad_nodes: Array = [] # extra doors opened by the same switch line (tagged multi-sector switches)
 var weakness: TypingWeakness
 var requiredKey: String = ""  # empty = no key needed
 var set_variable: String = "" # game variable to set when activated
@@ -122,21 +123,51 @@ func _activate_wad_node() -> void:
 	var player = Game.getPlayer()
 	if player != null and player._currentFireTarget == self:
 		EventBus.releasePlayerTarget.emit()
-	if wadNode != null and is_instance_valid(wadNode):
-		var ttype = wadNode.get(WadGame.PROP_TRIGGER_TYPE)
-		var is_switch = ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
-		if is_switch and wadNode.has_method("bodyIn") and player != null:
-			# Switch-type triggers must use bodyIn for texture toggle
-			player.interactPressed = true
-			wadNode.bodyIn(player)
-			player.interactPressed = false
-		elif wadNode.has_method("activate"):
-			wadNode.activate()
-		elif wadNode.has_method("bodyIn") and player != null:
-			player.interactPressed = true
-			wadNode.bodyIn(player)
-			player.interactPressed = false
+	_triggerWadNode(wadNode)
+	# A tagged switch can drive several door sectors (E1M2's S1 tag-12
+	# switch opens 124 and 129); the extra nodes were linked at spawn so a
+	# single activation matches DOOM semantics. Set their door variables
+	# too, so rail conditions may gate on any of the target sectors.
+	for linked in linked_wad_nodes:
+		if linked == null or !is_instance_valid(linked):
+			continue
+		var linked_var := _sectorVarFor(linked)
+		if linked_var != "":
+			Game.setVar(linked_var, true)
+		_triggerWadNode(linked)
 	Game.playSound(DoomGame.DOOR_OPEN)
+
+func _triggerWadNode(n: Node3D) -> void:
+	if n == null or !is_instance_valid(n):
+		return
+	var player = Game.getPlayer()
+	var ttype = n.get(WadGame.PROP_TRIGGER_TYPE)
+	var is_switch = ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
+	if is_switch and n.has_method("bodyIn") and player != null:
+		# Switch-type triggers must use bodyIn for texture toggle
+		player.interactPressed = true
+		n.bodyIn(player)
+		player.interactPressed = false
+	elif n.has_method("activate"):
+		n.activate()
+	elif n.has_method("bodyIn") and player != null:
+		player.interactPressed = true
+		n.bodyIn(player)
+		player.interactPressed = false
+
+func _sectorVarFor(n: Node) -> String:
+	if n == null or n.get_parent() == null:
+		return ""
+	var pname : String = n.get_parent().name
+	if not pname.to_lower().begins_with("sector "):
+		return ""
+	return "door_sector_%d" % pname.substr(7).to_int()
+
+func setLabelHeight(y: float) -> void:
+	interactableLabel.position.y = y
+	_labelHomeLocal.y = y
+	if debugLabel != null:
+		debugLabel.position.y = y - 0.3
 
 func _process(_delta: float) -> void:
 	pass

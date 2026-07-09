@@ -1060,6 +1060,7 @@ func _spawnInteractablesFromWad() -> void:
 	var skipped_wrong_ttype = 0
 	var skipped_no_pos = 0
 	var spawned_lift_sectors : Array[int] = []  # one interactable per lift sector
+	var switch_dedupe : Dictionary = {}  # quantized switch pos -> Interactable
 	for node in all_level_objects:
 		var script_path = node.get_script().resource_path if node.get_script() != null else ""
 		var is_lift = script_path.ends_with(WadGame.SCRIPT_LIFT)
@@ -1097,10 +1098,30 @@ func _spawnInteractablesFromWad() -> void:
 			skipped_no_pos += 1
 			continue
 		# For switch-type triggers, position at the switch linedef instead of the target sector
+		var switch_key := ""
 		if ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR:
 			var switch_pos = _getSwitchPosition(node, world_pos.y)
 			if switch_pos != null:
 				world_pos = switch_pos
+			# One switch linedef can target several door sectors (E1M2's S1
+			# tag-12 switch opens sectors 124 AND 129): each target sector
+			# spawns its own node here, which would stack identical labels on
+			# one switch. Keep a single interactable — the lowest sector, so
+			# rail conditions use the predictable D<n> — and link the other
+			# nodes so one activation still opens every target door.
+			switch_key = "%d,%d" % [roundi(world_pos.x * 8.0), roundi(world_pos.z * 8.0)]
+			if switch_dedupe.has(switch_key):
+				var kept : Interactable = switch_dedupe[switch_key]
+				var new_name := _interactableNameFor(node)
+				var kept_sec := kept.interactable_name.substr(7).to_int()
+				var new_sec := new_name.substr(7).to_int()
+				if new_name.begins_with("sector_") and (not kept.interactable_name.begins_with("sector_") or new_sec < kept_sec):
+					kept.linked_wad_nodes.append(kept.wadNode)
+					kept.wadNode = node
+					kept.interactable_name = new_name
+				else:
+					kept.linked_wad_nodes.append(node)
+				continue
 
 		var interactable = INTERACTABLE_SCENE.instantiate()
 		interactable.wadNode = node
@@ -1125,6 +1146,11 @@ func _spawnInteractablesFromWad() -> void:
 				pass
 		add_child(interactable)
 		interactable.global_position = _wadToWorld(world_pos)
+		if switch_key != "":
+			switch_dedupe[switch_key] = interactable
+			# Switch words belong on the switch panel at eye height, not
+			# floating 2.3 units up like a door-sized label.
+			interactable.setLabelHeight(1.6)
 		# For lifts, reposition to the floor mesh once global transforms are ready
 		if is_lift:
 			var info_l = node.get("info")
