@@ -286,7 +286,21 @@ func _isDoorOpen() -> bool:
 	if curH == null or bottomH == null:
 		var state = wadNode.get("state")
 		return state == 0 or state == 3
-	return curH > bottomH + 0.01
+	# "Open" must mean PASSABLE, not merely ajar: E1M5 sector 122 rests with
+	# an 8-unit slit (ceil 88 / floor 80), which a >0.01 check misreads as
+	# open at level load - the var goes true and the rail walks into the slab.
+	# A player needs ~56 raw units of clearance; cap by the door's own travel
+	# so a door that fully opens below that still reads open at its top.
+	var need := 56.0
+	var gs = wadNode.get("globalScale")
+	if gs is Vector3:
+		need *= gs.y
+	else:
+		need *= 0.038
+	var topH = wadNode.get("topH")
+	if topH != null and topH - bottomH < need:
+		need = max(topH - bottomH, 0.02)
+	return curH > bottomH + need - 0.01
 
 func _resetWeakness() -> void:
 	alive = true
