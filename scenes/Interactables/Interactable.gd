@@ -30,7 +30,7 @@ func _ready() -> void:
 	weakness.setup(0)
 	interactableLabel.hide()
 	interactableLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	interactableLabel.modulate = Color(1.0, 0.8, 0.2)
+	interactableLabel.modulate = DoomGame.COLOR_GOLD
 	typedLabel = interactableLabel
 
 	debugLabel = Label3D.new()
@@ -108,7 +108,10 @@ func _activate_wad_node() -> void:
 	if set_variable != "":
 		Game.setVar(set_variable)
 	if interactable_name != "":
-		Game.setVar(_var_prefix() + interactable_name, true)
+		# Lifts: the variable means "platform is at the bottom", so it is set
+		# by _checkDoorOpenedSignal when the lift physically arrives, not here.
+		if !_isLift():
+			Game.setVar(_var_prefix() + interactable_name, true)
 		EventBus.interactableActivated.emit(interactable_name)
 	alive = false
 	interactableLabel.hide()
@@ -131,7 +134,7 @@ func _activate_wad_node() -> void:
 			player.interactPressed = true
 			wadNode.bodyIn(player)
 			player.interactPressed = false
-	Game.playSound("DSDOROPN")
+	Game.playSound(DoomGame.DOOR_OPEN)
 
 func _process(_delta: float) -> void:
 	pass
@@ -182,7 +185,7 @@ func _physics_process(_delta: float) -> void:
 	_prev_visible_to_player = visible_to_player
 
 func _checkDoorOpenedSignal() -> void:
-	if interactable_name == "":
+	if interactable_name == "" or !_isMover():
 		return
 	var open := _isDoorOpen()
 	if open and not _door_was_open:
@@ -202,6 +205,18 @@ func _needsThinWallCheck() -> bool:
 	var ttype = wadNode.get("triggerType")
 	return ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1 or ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
 
+func _isMover() -> bool:
+	# Only actual sector movers have a door-like state machine. Trigger
+	# scripts (walkTrigger/floorTrigger/...) also expose `state`, but its
+	# values mean something else - reading it as a door state makes a
+	# closed door look open (e.g. E1M6 sector 37's WR trigger).
+	if wadNode == null or !is_instance_valid(wadNode) or wadNode.get_script() == null:
+		return false
+	var sp: String = wadNode.get_script().resource_path
+	return sp.ends_with("door.gd") or sp.ends_with(WadGame.SCRIPT_LIFT) \
+		or sp.ends_with("floor.gd") or sp.ends_with("ceiling.gd") \
+		or sp.ends_with("crusher.gd")
+
 func _isLift() -> bool:
 	return wadNode != null and wadNode.get_script() != null and wadNode.get_script().resource_path.ends_with(WadGame.SCRIPT_LIFT)
 
@@ -209,28 +224,69 @@ func _isFloor() -> bool:
 	return wadNode != null and wadNode.get_script() != null and wadNode.get_script().resource_path.ends_with("floor.gd")
 
 func _isDoorClosed() -> bool:
-	if wadNode == null or !is_instance_valid(wadNode):
+	if !_isMover():
 		return false
-	var state = wadNode.get("state")
-	if state == null:
-		return false
-	if _isLift() or _isFloor():
-		# lift.gd / floor.gd: STATE.TOP = 0 (resting position = "closed"/ready)
-		return state == 0
-	# door.gd: STATE.CLOSED = 2
-	return state == 2
+	if _isLift():
+		# Closed = resting at the TOP. Read the shared height, not the
+		# per-trigger-line state enum (stale when another line ran the cycle).
+		var lift_info = wadNode.get("info")
+		if wadNode.has_method("getCurH") and lift_info is Dictionary \
+				and lift_info.has("sectorInfo") and lift_info["sectorInfo"].has("floorHeight"):
+			return wadNode.getCurH() >= lift_info["sectorInfo"]["floorHeight"] - 0.01
+		return wadNode.get("state") == 0
+	if _isFloor():
+		# floor.gd: STATE.TOP = 0 (resting position = "closed"/ready)
+		return wadNode.get("state") == 0
+	# Doors: read the geometry, not the state enum. A closer node (WR "close
+	# wait open") initializes its state to OPEN while the door is physically
+	# shut, so state lies when a sector has both opener and closer nodes.
+	var curH = wadNode.get("curH")
+	var bottomH = wadNode.get("bottomH")
+	if curH == null or bottomH == null:
+		return wadNode.get("state") == 2
+	return curH <= bottomH + 0.01
 
 func _isDoorOpen() -> bool:
-	if wadNode == null or !is_instance_valid(wadNode):
+	if !_isMover():
 		return false
-	var state = wadNode.get("state")
-	if state == null:
-		return false
-	if _isLift() or _isFloor():
-		# lift.gd / floor.gd: STATE.GOING_DOWN = 1, STATE.BOTTOM = 2, STATE.GOING_UP = 3
+	if _isLift():
+		# A lift only counts as "open" while it rests at the BOTTOM. The rail
+		# gate (L<sector>) must not release while the platform is still up,
+		# lowering, or rising: a player dragged across a moving lift wedges on
+		# the shaft lip. Read the shared height (parent meta via getCurH), not
+		# the per-trigger-line state enum, which goes stale when another line
+		# of the same sector ran the cycle.
+		var lift_info = wadNode.get("info")
+		if wadNode.has_method("getCurH") and lift_info is Dictionary and lift_info.has("endHeight"):
+			return wadNode.getCurH() <= lift_info["endHeight"] + 0.01
+		return wadNode.get("state") == 2
+	if _isFloor():
+		# A floor is "open" (route-passable) once it RESTS at the height it
+		# moves to when activated: raise-floors (bridges, e.g. E1M4 sector 52)
+		# at topH, lower-floors (e.g. E1M8 sector 10) at bottomH. The state
+		# enum alone misreads a not-yet-raised bridge as open, because BOTTOM
+		# is both a raiser's start and a lowerer's destination.
+		if wadNode.has_method("getCurH"):
+			var cur = wadNode.getCurH()
+			var dir = wadNode.get("direction")
+			if dir == WADG.DIR.UP:
+				var top = wadNode.get("topH")
+				if top != null:
+					return cur >= top - 0.01
+			elif dir == WADG.DIR.DOWN:
+				var bottom = wadNode.get("bottomH")
+				if bottom != null:
+					return cur <= bottom + 0.01
+		# floor.gd: STATE.GOING_DOWN = 1, STATE.BOTTOM = 2, STATE.GOING_UP = 3
+		var state = wadNode.get("state")
 		return state == 1 or state == 2 or state == 3
-	# door.gd: STATE.OPEN = 0, STATE.OPENING = 3
-	return state == 0 or state == 3
+	# Doors: read the geometry, not the state enum (see _isDoorClosed).
+	var curH = wadNode.get("curH")
+	var bottomH = wadNode.get("bottomH")
+	if curH == null or bottomH == null:
+		var state = wadNode.get("state")
+		return state == 0 or state == 3
+	return curH > bottomH + 0.01
 
 func _resetWeakness() -> void:
 	alive = true
