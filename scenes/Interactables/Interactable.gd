@@ -14,6 +14,12 @@ enum InteractableType { DOOR, LIFT, FLOOR, EXIT, OTHER }
 
 var wadNode: Node3D
 var linked_wad_nodes: Array = [] # extra doors opened by the same switch line (tagged multi-sector switches)
+# Switch labels sit at the VIEWER'S eye height on the switch panel. The
+# interactable's own Y comes from sampling the switch line's side sectors,
+# and either side can be a ledge or pit the player never stands on (E1M2's
+# tag-12 switch backs onto an imp ledge 112 units up) — the player's eye is
+# the only height that is always right.
+var eye_level_label: bool = false
 var weakness: TypingWeakness
 var requiredKey: String = ""  # empty = no key needed
 var set_variable: String = "" # game variable to set when activated
@@ -195,6 +201,10 @@ func _physics_process(_delta: float) -> void:
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
+		if eye_level_label:
+			var cam := get_viewport().get_camera_3d()
+			if cam != null:
+				_labelHomeLocal.y = clampf(cam.global_position.y - global_position.y, -10.0, 10.0)
 		Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
 		_setFullWordLabel()
 		_updateTypedLabel()

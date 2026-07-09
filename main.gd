@@ -1149,8 +1149,11 @@ func _spawnInteractablesFromWad() -> void:
 		if switch_key != "":
 			switch_dedupe[switch_key] = interactable
 			# Switch words belong on the switch panel at eye height, not
-			# floating 2.3 units up like a door-sized label.
+			# floating 2.3 units up like a door-sized label. The label tracks
+			# the viewer's eye each frame (see Interactable.eye_level_label);
+			# 1.6 is just the pre-first-frame default.
 			interactable.setLabelHeight(1.6)
+			interactable.eye_level_label = true
 		# For lifts, reposition to the floor mesh once global transforms are ready
 		if is_lift:
 			var info_l = node.get("info")
