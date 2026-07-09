@@ -37,8 +37,12 @@ var deathSound : String = ""
 var activeSound : String = ""
 var _startDead : bool = false
 var _hasPlayedSeeSound : bool = false
-static var _lastSeeSoundTime : float = 0.0
-const SEE_SOUND_COOLDOWN : float = 5.0
+# DOOM's A_Chase plays the monster's activesound with a 3/256 roll per
+# chase tic — one grunt every ~8s per awake monster, uncorrelated.
+const ACTIVE_SOUND_MEAN_SECS : float = 8.0
+# Wake barks are staggered per enemy (DOOM staggers them via line-of-sight
+# and noise propagation; we activate whole encounters on one frame).
+const SEE_SOUND_MAX_STAGGER : float = 1.0
 
 # Telegraph/attack internals
 var _telegraphTween : Tween
@@ -133,6 +137,13 @@ func activate() -> void:
 	if animationPlayer != null:
 		animationPlayer.stop(false)
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
+	# Wake bark: once per enemy, staggered so a room activating on one
+	# frame growls as a ragged chorus instead of a single chord.
+	if !_hasPlayedSeeSound and seeSound != "":
+		_hasPlayedSeeSound = true
+		get_tree().create_timer(randf() * SEE_SOUND_MAX_STAGGER).timeout.connect(func():
+			if is_instance_valid(self) and alive and active and !dying:
+				Game.playSoundAt(seeSound, self))
 
 func setDead() -> void:
 	_startDead = true
@@ -211,7 +222,7 @@ func _applyHealthBarAdvance() -> void:
 		die()
 	else:
 		if painSound != "":
-			Game.playSound(painSound)
+			Game.playSoundAt(painSound, self)
 		if has_method("playPain"):
 			call("playPain")
 		_resetWeakness()
@@ -370,13 +381,13 @@ func _attack(target : Player) -> void:
 	if dying || !alive:
 		return
 	if stateMachine.currentStateKey == Enums.ENEMY_STATE.ATTACKING:
-		Game.playSound(attackSound)
+		Game.playSoundAt(attackSound, self)
 		target.receiveHit(getDamage())
 		stateMachine.setState(Enums.ENEMY_STATE.IDLE)
 
 func die() -> void:
 	if deathSound != "":
-		Game.playSound(deathSound)
+		Game.playSoundAt(deathSound, self)
 	stateMachine.setState(Enums.ENEMY_STATE.DYING)
 
 func _physics_process(_delta: float) -> void:
@@ -391,6 +402,11 @@ func _physics_process(_delta: float) -> void:
 		if pipsDefeatedLabel != null:
 			pipsDefeatedLabel.hide()
 		return
+
+	# DOOM active sound: occasional random grunt while awake, positional so
+	# distance does the mixing.
+	if activeSound != "" and randf() < _delta / ACTIVE_SOUND_MEAN_SECS:
+		Game.playSoundAt(activeSound, self)
 
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	_updateLabelRenderPriority()
@@ -418,14 +434,6 @@ func _physics_process(_delta: float) -> void:
 			pipsDefeatedLabel.hide()
 		if debugLabel != null:
 			debugLabel.hide()
-
-	# Play see sound once when enemy first spots the player (with global cooldown)
-	if !_prev_visible_to_player and visible_to_player and !_hasPlayedSeeSound:
-		_hasPlayedSeeSound = true
-		var now = Time.get_ticks_msec() / 1000.0
-		if seeSound != "" and now - _lastSeeSoundTime >= SEE_SOUND_COOLDOWN:
-			_lastSeeSoundTime = now
-			Game.playSound(seeSound)
 
 	if _prev_visible_to_player && !visible_to_player:
 		var player : Player = Game.getPlayer()

@@ -173,7 +173,7 @@ func activate() -> void:
 
 func die() -> void:
 	if deathSound != "":
-		Game.playSound(deathSound)
+		Game.playSoundAt(deathSound, self)
 	_currentAnimation = "death"
 	_currentFrameIndex = 0
 	_startSpriteDeath()

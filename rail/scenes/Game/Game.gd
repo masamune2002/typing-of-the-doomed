@@ -105,3 +105,48 @@ func playSound(soundName: String) -> void:
 	get_tree().root.add_child(audio)
 	audio.play()
 	audio.finished.connect(audio.queue_free)
+
+# ---- Positional enemy voices (DOOM-style mixing) -----------------------
+# Vanilla DOOM mixes at most 8 sfx channels, cuts off a mobj's previous
+# sound when it starts a new one, and attenuates to silence at 1200 map
+# units (S_CLIPPING_DIST ~= 37.5 world units at our scale). playSoundAt
+# reproduces that: positional falloff + per-origin cutoff + a voice cap
+# with oldest-first eviction. Use it for anything that happens AT a place
+# (enemy barks, pain, attacks); keep playSound for UI/pickup feedback.
+const ENEMY_VOICE_MAX := 8
+const ENEMY_SOUND_MAX_DIST := 37.5
+var _positionalVoices : Dictionary = {}  # origin instance id -> AudioStreamPlayer3D
+
+func playSoundAt(soundName: String, origin: Node3D) -> void:
+	if origin == null or !is_instance_valid(origin):
+		playSound(soundName)
+		return
+	var stream = fetchSound(soundName)
+	if stream == null:
+		return
+	for k in _positionalVoices.keys():
+		var v = _positionalVoices[k]
+		if v == null or !is_instance_valid(v):
+			_positionalVoices.erase(k)
+	var oid := origin.get_instance_id()
+	if _positionalVoices.has(oid):
+		var prev = _positionalVoices[oid]
+		if prev != null and is_instance_valid(prev):
+			prev.queue_free()
+		_positionalVoices.erase(oid)
+	while _positionalVoices.size() >= ENEMY_VOICE_MAX:
+		var oldest_key = _positionalVoices.keys()[0]
+		var oldest = _positionalVoices[oldest_key]
+		if oldest != null and is_instance_valid(oldest):
+			oldest.queue_free()
+		_positionalVoices.erase(oldest_key)
+	var audio := AudioStreamPlayer3D.new()
+	audio.stream = stream
+	audio.bus = "SFX"
+	audio.max_distance = ENEMY_SOUND_MAX_DIST
+	audio.unit_size = 8.0
+	get_tree().root.add_child(audio)
+	audio.global_position = origin.global_position + Vector3(0, 1.0, 0)
+	audio.play()
+	audio.finished.connect(audio.queue_free)
+	_positionalVoices[oid] = audio

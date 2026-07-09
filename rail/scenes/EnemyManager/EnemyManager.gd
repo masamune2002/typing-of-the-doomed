@@ -22,7 +22,7 @@ func _ready():
 	add_child(_attackTimer)
 
 func _onEncounterStart() -> void:
-	_attackTimer.start(attackSecs)
+	_attackTimer.start(attackSecs * randf_range(0.7, 1.3))
 
 func _handlePlayerChanged(newPlayer : Player) -> void:
 	if playerRef != null and is_instance_valid(playerRef) and playerRef.fireWeapon.is_connected(_handlePlayerFired):
@@ -102,10 +102,10 @@ func _attackTimerTimeout() -> void:
 	if attackingEnemy.alive && !attackingEnemy.dying && attackingEnemy.active:
 		# Melee enemies (like Pinky) handle their own attack timing via movement
 		if attackingEnemy.has_method("isMeleeOnly") and attackingEnemy.isMeleeOnly():
-			_attackTimer.start(attackSecs)
+			_attackTimer.start(attackSecs * randf_range(0.7, 1.3))
 			return
 		attackingEnemy.startAttack(playerRef)
-		_attackTimer.start(attackSecs)
+		_attackTimer.start(attackSecs * randf_range(0.7, 1.3))
 
 
 func _handlePlayerFired(weaponFireType : Enums.WEAPON_FIRE_TYPE, target : Node3D, payload : Variant) -> void:

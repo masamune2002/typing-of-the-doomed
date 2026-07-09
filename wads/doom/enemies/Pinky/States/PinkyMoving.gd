@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 
 	# Random chase sound
 	if randf() < CHASE_SOUND_CHANCE * delta * 35.0:
-		Game.playSound(DoomGame.DEMON_ACTIVE)
+		Game.playSoundAt(DoomGame.DEMON_ACTIVE, parent)
 
 func _pickNewChaseDir() -> void:
 	if _target == null:
