@@ -7,13 +7,12 @@
 [ext_resource type="PackedScene" path="res://rail/scenes/WadPreview/WadPreview.tscn" id="4_wowjn"]
 [ext_resource type="Script" uid="uid://dptfbfdqpn0pt" path="res://rail/resources/Actions/AdvanceToNextStationAction.gd" id="5_rqm1n"]
 [ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="8_ufi0p"]
-[ext_resource type="Script" uid="uid://cwvt2dqr0gxgv" path="res://rail/scenes/RailStation/RailStation.gd" id="9_pi13b"]
 [ext_resource type="Script" uid="uid://cjvj83eu0sl8t" path="res://rail/resources/Conditions/VariableCondition.gd" id="9_ybo54"]
 [ext_resource type="Script" uid="uid://dpqsds1tybnew" path="res://rail/resources/Conditions/NearbyEnemiesClearedCondition.gd" id="10_ufi0p"]
 [ext_resource type="Script" uid="uid://pmiut2p0fl0o" path="res://rail/resources/Actions/LookAtAction.gd" id="11_bckmy"]
 [ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="12_xi6xp"]
 
-[sub_resource type="Resource" id="Resource_74da8"]
+[sub_resource type="Resource" id="Resource_iqtfb"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -38,18 +37,18 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAhIQAvgAAAAAStUa9hIQAvgAAAAAStUa9rAKKvgAAAAByYtW9rAKKvgAAAAByYtW9/V+3vgAAAAAuww2+/V+3vgAAAAAuww2+IKvpvgAAAACcpDS+IKvpvgAAAACcpDS+7isQvwAAAAAg6V6+7isQvwAAAAAg6V6+AG0tvwAAAAAsEoa+AG0tvwAAAAAsEoa+rlJMvwAAAADv9J2+rlJMvwAAAADv9J2+3JZsvwAAAACr5ra+3JZsvwAAAACr5ra+ufmGvwAAAAArsdC+ufmGvwAAAAArsdC+KhGYvwAAAABAHuu+KhGYvwAAAABAHuu+tG6pvwAAAADc+wK/tG6pvwAAAADc+wK/TO+6vwAAAACwgxC/TO+6vwAAAACwgxC/5G/MvwAAAACECx6/5G/MvwAAAACECx6/bs3dvwAAAABAeCu/bs3dvwAAAABAeCu/4OTuvwAAAADLrji/4OTuvwAAAADLrji/KpP/vwAAAAAKlEW/KpP/vwAAAAAKlEW/oNoHwAAAAADoDFK/oNoHwAAAAADoDFK/DJQPwAAAAABK/l2/DJQPwAAAAABK/l2/UOQWwAAAAAAYTWm/UOQWwAAAAAAYTWm/6LkdwAAAAAA53nO/6LkdwAAAAAA53nO/TAMkwAAAAACUln2/TAMkwAAAAACUln2/9q4pwAAAAACJLYO/9q4pwAAAAACJLYO/BOcywAAAAAAIToq/BOcywAAAAAAIToq/TO86wAAAAACwg5C/")
 }]
 
-[sub_resource type="Resource" id="Resource_druni"]
+[sub_resource type="Resource" id="Resource_e3l1x"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_e3l1x"]
+[sub_resource type="Curve3D" id="Curve3D_druni"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.80880785, 0, 0.023778439),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_wr7eg"]
+[sub_resource type="Resource" id="Resource_kfe44"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -58,245 +57,245 @@ script = ExtResource("9_ybo54")
 variable_name = "D74"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_druni"]
+[sub_resource type="Curve3D" id="Curve3D_wr7eg"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6.0000005, 0, 0),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_mfc4m"]
+[sub_resource type="Resource" id="Resource_fl3cu"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_kfe44"]
+[sub_resource type="Curve3D" id="Curve3D_o2ixs"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_lyfk1"]
+[sub_resource type="Resource" id="Resource_7ygyq"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_wr7eg"]
+[sub_resource type="Curve3D" id="Curve3D_2j12i"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_7s6f8"]
+[sub_resource type="Resource" id="Resource_4078x"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_fl3cu"]
+[sub_resource type="Curve3D" id="Curve3D_wxodt"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_inp01"]
+[sub_resource type="Resource" id="Resource_go1py"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_o2ixs"]
+[sub_resource type="Curve3D" id="Curve3D_wkjgr"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.2529073),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_eb2mv"]
+[sub_resource type="Resource" id="Resource_0xalf"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_7ygyq"]
+[sub_resource type="Curve3D" id="Curve3D_f0big"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.537203),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_xdgme"]
+[sub_resource type="Resource" id="Resource_u2nuh"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_2j12i"]
+[sub_resource type="Curve3D" id="Curve3D_bocxh"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.0636196),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_ti8lk"]
+[sub_resource type="Resource" id="Resource_pra3l"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_4078x"]
+[sub_resource type="Curve3D" id="Curve3D_4crsg"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.9605865, 0, 1.9365063),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_o2arh"]
+[sub_resource type="Resource" id="Resource_juj8d"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_wxodt"]
+[sub_resource type="Curve3D" id="Curve3D_3ipja"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.4114075, 0, -0.0059890747),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_g4eto"]
+[sub_resource type="Resource" id="Resource_mlcyq"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_go1py"]
+[sub_resource type="Curve3D" id="Curve3D_lh0d3"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.2381725, 0, 5.107107),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_j616g"]
+[sub_resource type="Resource" id="Resource_aqw72"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_wkjgr"]
+[sub_resource type="Curve3D" id="Curve3D_7usqq"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6.3352165),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_tveal"]
+[sub_resource type="Resource" id="Resource_rgb8d"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_0xalf"]
+[sub_resource type="Curve3D" id="Curve3D_jya7b"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.5304909),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_omfjb"]
+[sub_resource type="Resource" id="Resource_bgvml"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_f0big"]
+[sub_resource type="Curve3D" id="Curve3D_3dt86"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.6830025),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_blws3"]
+[sub_resource type="Resource" id="Resource_vdv8a"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_u2nuh"]
+[sub_resource type="Curve3D" id="Curve3D_oa1hj"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10.603453, 0, 3.0522385),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_6m0vr"]
+[sub_resource type="Resource" id="Resource_iqkd7"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_bocxh"]
+[sub_resource type="Curve3D" id="Curve3D_r4m1s"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.456936, 0, -0.1103363),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_k6qxw"]
+[sub_resource type="Resource" id="Resource_qrnvc"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_pra3l"]
+[sub_resource type="Curve3D" id="Curve3D_xx1ci"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8.251591, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_v7lcn"]
+[sub_resource type="Resource" id="Resource_4xnv3"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_4crsg"]
+[sub_resource type="Curve3D" id="Curve3D_io01h"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.080986, 0, 2.000721),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_arybs"]
+[sub_resource type="Resource" id="Resource_mkb3r"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_juj8d"]
+[sub_resource type="Curve3D" id="Curve3D_c0ut4"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.5224648, 0, 0.05822754),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_oceve"]
+[sub_resource type="Resource" id="Resource_fcne4"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_3ipja"]
+[sub_resource type="Curve3D" id="Curve3D_hpxpv"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_bjwyw"]
+[sub_resource type="Resource" id="Resource_3ay25"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_mlcyq"]
+[sub_resource type="Curve3D" id="Curve3D_6calm"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_wdvhj"]
+[sub_resource type="Resource" id="Resource_cvgmk"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_lh0d3"]
+[sub_resource type="Curve3D" id="Curve3D_upheb"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_uk7oy"]
+[sub_resource type="Resource" id="Resource_2uhr2"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_aqw72"]
+[sub_resource type="Curve3D" id="Curve3D_u5740"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.525099),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_l6kgd"]
+[sub_resource type="Resource" id="Resource_moi62"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -305,14 +304,14 @@ script = ExtResource("9_ybo54")
 variable_name = "D106"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_7usqq"]
+[sub_resource type="Curve3D" id="Curve3D_npmai"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6.010065),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_g03tn"]
+[sub_resource type="Resource" id="Resource_xeivc"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -320,14 +319,14 @@ script = ExtResource("5_rqm1n")
 script = ExtResource("10_ufi0p")
 metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
-[sub_resource type="Curve3D" id="Curve3D_rgb8d"]
+[sub_resource type="Curve3D" id="Curve3D_t38l8"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_bftx6"]
+[sub_resource type="Resource" id="Resource_ma7cl"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -340,14 +339,14 @@ script = ExtResource("9_ybo54")
 variable_name = "key_blue_keycard"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_jya7b"]
+[sub_resource type="Curve3D" id="Curve3D_2odun"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.8515663),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_57u6k"]
+[sub_resource type="Resource" id="Resource_xxigb"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -356,95 +355,95 @@ script = ExtResource("9_ybo54")
 variable_name = "D106"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_bgvml"]
+[sub_resource type="Curve3D" id="Curve3D_4tm63"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6.6803684),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_4sik8"]
+[sub_resource type="Resource" id="Resource_aymdo"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_3dt86"]
+[sub_resource type="Curve3D" id="Curve3D_ckfwb"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.274128, 0, 0.05599594),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_qvha2"]
+[sub_resource type="Resource" id="Resource_xoi7r"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_vdv8a"]
+[sub_resource type="Curve3D" id="Curve3D_2p0ra"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.2812347, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_dp1gf"]
+[sub_resource type="Resource" id="Resource_saywq"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_oa1hj"]
+[sub_resource type="Curve3D" id="Curve3D_45veg"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.5825348, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_g167t"]
+[sub_resource type="Resource" id="Resource_3fym0"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_iqkd7"]
+[sub_resource type="Curve3D" id="Curve3D_qsifm"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6.271206),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_lde6h"]
+[sub_resource type="Resource" id="Resource_x3vfh"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_r4m1s"]
+[sub_resource type="Curve3D" id="Curve3D_fiip5"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -9.727531, 0, 0.18512726),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_swpbl"]
+[sub_resource type="Resource" id="Resource_qwji8"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_qrnvc"]
+[sub_resource type="Curve3D" id="Curve3D_ak800"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11.203938),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_awoy6"]
+[sub_resource type="Resource" id="Resource_cxitj"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_xx1ci"]
+[sub_resource type="Curve3D" id="Curve3D_qb38i"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.4964523, 5.0522494, 10.601343),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_wb8jg"]
+[sub_resource type="Resource" id="Resource_volde"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_4xnv3"]
+[sub_resource type="Curve3D" id="Curve3D_y02qu"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.33568573, 0.07698822, 7.9839706),
 "tilts": PackedFloat32Array(0, 0)
@@ -456,7 +455,7 @@ script = ExtResource("11_bckmy")
 targetNode = NodePath("../D27Marker")
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
 
-[sub_resource type="Resource" id="Resource_n23y6"]
+[sub_resource type="Resource" id="Resource_xglnc"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -465,245 +464,245 @@ script = ExtResource("9_ybo54")
 variable_name = "D27"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_io01h"]
+[sub_resource type="Curve3D" id="Curve3D_wb5bl"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10.064682, -0.20922804, -0.15452194),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fjonj"]
+[sub_resource type="Resource" id="Resource_cvf2p"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_mkb3r"]
+[sub_resource type="Curve3D" id="Curve3D_khrc8"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.6196213, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_xay82"]
+[sub_resource type="Resource" id="Resource_8v4qt"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_c0ut4"]
+[sub_resource type="Curve3D" id="Curve3D_qyi3u"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.8055115, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_rs43p"]
+[sub_resource type="Resource" id="Resource_dtnt0"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_fcne4"]
+[sub_resource type="Curve3D" id="Curve3D_8pcph"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_3xg3w"]
+[sub_resource type="Resource" id="Resource_k6heo"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_hpxpv"]
+[sub_resource type="Curve3D" id="Curve3D_i3n8a"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_cyuxs"]
+[sub_resource type="Resource" id="Resource_3rws0"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_3ay25"]
+[sub_resource type="Curve3D" id="Curve3D_cvcj3"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_bdlxb"]
+[sub_resource type="Resource" id="Resource_piu88"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_6calm"]
+[sub_resource type="Curve3D" id="Curve3D_qft2u"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_h5iqy"]
+[sub_resource type="Resource" id="Resource_o1ujk"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_cvgmk"]
+[sub_resource type="Curve3D" id="Curve3D_db6vo"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_m5hlr"]
+[sub_resource type="Resource" id="Resource_djiq3"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_upheb"]
+[sub_resource type="Curve3D" id="Curve3D_kxxxn"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_3orde"]
+[sub_resource type="Resource" id="Resource_m5w30"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_2uhr2"]
+[sub_resource type="Curve3D" id="Curve3D_7wpyk"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_2kce2"]
+[sub_resource type="Resource" id="Resource_pv7um"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_u5740"]
+[sub_resource type="Curve3D" id="Curve3D_bcijg"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_0yt5k"]
+[sub_resource type="Resource" id="Resource_hbvva"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_moi62"]
+[sub_resource type="Curve3D" id="Curve3D_aasf5"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.079176),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_6k44s"]
+[sub_resource type="Resource" id="Resource_aqnh7"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_npmai"]
+[sub_resource type="Curve3D" id="Curve3D_yrt81"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.306366, 0, -0.14974213),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_qjuc1"]
+[sub_resource type="Resource" id="Resource_ueim2"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_xeivc"]
+[sub_resource type="Curve3D" id="Curve3D_311k7"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.1858864),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_68fi1"]
+[sub_resource type="Resource" id="Resource_00gpr"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_t38l8"]
+[sub_resource type="Curve3D" id="Curve3D_ihthw"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.1153183, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_cgijr"]
+[sub_resource type="Resource" id="Resource_rc86h"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_ma7cl"]
+[sub_resource type="Curve3D" id="Curve3D_4m6ak"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -9.449219, 0, 0.09810257),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_q4qin"]
+[sub_resource type="Resource" id="Resource_1rqjd"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_2odun"]
+[sub_resource type="Curve3D" id="Curve3D_sakrd"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.656517, 0, -0.8500366),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_58jnh"]
+[sub_resource type="Resource" id="Resource_qhbr3"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_xxigb"]
+[sub_resource type="Curve3D" id="Curve3D_jww2o"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.2949829, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_4im5f"]
+[sub_resource type="Resource" id="Resource_whle4"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_4tm63"]
+[sub_resource type="Curve3D" id="Curve3D_d6ujb"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.0000005),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_47orx"]
+[sub_resource type="Resource" id="Resource_jbieg"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_aymdo"]
+[sub_resource type="Curve3D" id="Curve3D_2np7u"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.0481939),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_i6tdj"]
+[sub_resource type="Resource" id="Resource_bhg3o"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_ckfwb"]
+[sub_resource type="Curve3D" id="Curve3D_ctal4"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11.728683, 0, 0.067126274),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_dloql"]
+[sub_resource type="Resource" id="Resource_65e7y"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_xoi7r"]
+[sub_resource type="Curve3D" id="Curve3D_7as3k"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.4449005),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_otrwb"]
+[sub_resource type="Resource" id="Resource_5a0t4"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -717,107 +716,107 @@ script = ExtResource("9_ybo54")
 variable_name = "F52"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_66to67"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19.31334, -2.4500484, -0.323105),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
-
-[sub_resource type="Curve3D" id="Curve3D_2p0ra"]
+[sub_resource type="Curve3D" id="Curve3D_e5t13"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.2098904),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_7wkh8"]
+[sub_resource type="Resource" id="Resource_7rejj"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_saywq"]
+[sub_resource type="Curve3D" id="Curve3D_whr2v"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.3417072),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_nk0os"]
+[sub_resource type="Resource" id="Resource_vgco6"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_45veg"]
+[sub_resource type="Curve3D" id="Curve3D_8vfcr"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8.376549, 0, 0.1483612),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_n5blc"]
+[sub_resource type="Resource" id="Resource_2yp6v"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_3fym0"]
+[sub_resource type="Curve3D" id="Curve3D_y1v33"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.6427155, 0, -1.9887085),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_61nbx"]
+[sub_resource type="Resource" id="Resource_1qiv2"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_qsifm"]
+[sub_resource type="Curve3D" id="Curve3D_i77id"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.4484024, 0, -3.9063473),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fty7e"]
+[sub_resource type="Resource" id="Resource_0y0ae"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_x3vfh"]
+[sub_resource type="Curve3D" id="Curve3D_o4jgt"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.7077484, 0, 0.005252838),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_fxuyq"]
+[sub_resource type="Resource" id="Resource_80m5o"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_fiip5"]
+[sub_resource type="Curve3D" id="Curve3D_phcjv"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -17.758255, 2.4500484, -0.21019745),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -17.758255, 2.4500484, 0.08275032),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_x2sq5"]
+[sub_resource type="Resource" id="Resource_twmvg"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Resource" id="Resource_nukn0"]
+[sub_resource type="Curve3D" id="Curve3D_f3tug"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.34507, 0.028595448, -0.10072708),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_vmx0b"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
 [sub_resource type="Resource" id="Resource_ra0wx"]
 script = ExtResource("9_ybo54")
-variable_name = "D69"
+variable_name = "D58"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_qwji8"]
+[sub_resource type="Curve3D" id="Curve3D_5u0f0"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8678207, 0, -0.007858276),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.200966, 0.25797415, -0.003950119),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_d7eim"]
+[sub_resource type="Resource" id="Resource_atjrv"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -825,7 +824,7 @@ script = ExtResource("5_rqm1n")
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_ak800"]
+[sub_resource type="Curve3D" id="Curve3D_okpdu"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
@@ -836,7 +835,7 @@ point_count = 2
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_cxitj"]
+[sub_resource type="Curve3D" id="Curve3D_cnvp8"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6912308, 0, -0.97993517),
 "tilts": PackedFloat32Array(0, 0)
@@ -852,7 +851,7 @@ script = ExtResource("9_ybo54")
 variable_name = "key_yellow_keycard"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_qb38i"]
+[sub_resource type="Curve3D" id="Curve3D_qhjsp"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.96308136, 0, -6.008235),
 "tilts": PackedFloat32Array(0, 0)
@@ -870,7 +869,7 @@ map_name = "E1M4"
 
 [node name="StationA" parent="Stations" unique_id=1209761739 instance=ExtResource("3_rs")]
 next_stations = Array[NodePath]([NodePath("../StationB")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_74da8")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_iqtfb")])
 disc_color = Color(0.9, 0.7563909, 0.27, 1)
 
 [node name="StationA__TO__StationB" type="Path3D" parent="Stations/StationA" unique_id=394966013]
@@ -885,12 +884,12 @@ mesh = SubResource("ArrayMesh_hhsjc")
 [node name="StationB" parent="Stations" unique_id=1336895331 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9208555, 0, -1.1290188)
 next_stations = Array[NodePath]([NodePath("../Station2")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_druni")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_e3l1x")])
 disc_color = Color(0.9, 0.27, 0.6976672, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9208555, 0, -1.1290188)
 
 [node name="StationB__TO__Station2" type="Path3D" parent="Stations/StationB" unique_id=49827572]
-curve = SubResource("Curve3D_e3l1x")
+curve = SubResource("Curve3D_druni")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station2")
@@ -898,13 +897,13 @@ to_station = NodePath("../../Station2")
 [node name="Station2" parent="Stations" unique_id=1823722660 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7296634, 0, -1.1052403)
 next_stations = Array[NodePath]([NodePath("../Station3")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_wr7eg")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_kfe44")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_f65g0")])
 disc_color = Color(0.27, 0.6938556, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7296634, 0, -1.1052403)
 
 [node name="Station2__TO__Station3" type="Path3D" parent="Stations/Station2" unique_id=1144663546]
-curve = SubResource("Curve3D_druni")
+curve = SubResource("Curve3D_wr7eg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station3")
@@ -912,12 +911,12 @@ to_station = NodePath("../../Station3")
 [node name="Station3" parent="Stations" unique_id=1585161173 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.729664, 0, -1.1052403)
 next_stations = Array[NodePath]([NodePath("../Station4")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_mfc4m")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fl3cu")])
 disc_color = Color(0.9, 0.66524416, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.729664, 0, -1.1052403)
 
 [node name="Station3__TO__Station4" type="Path3D" parent="Stations/Station3" unique_id=855915713]
-curve = SubResource("Curve3D_kfe44")
+curve = SubResource("Curve3D_o2ixs")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station4")
@@ -925,12 +924,12 @@ to_station = NodePath("../../Station4")
 [node name="Station4" parent="Stations" unique_id=107066530 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 1.8947597)
 next_stations = Array[NodePath]([NodePath("../Station5")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lyfk1")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7ygyq")])
 disc_color = Color(0.8367321, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 1.8947597)
 
 [node name="Station4__TO__Station5" type="Path3D" parent="Stations/Station4" unique_id=231269641]
-curve = SubResource("Curve3D_wr7eg")
+curve = SubResource("Curve3D_2j12i")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station5")
@@ -938,12 +937,12 @@ to_station = NodePath("../../Station5")
 [node name="Station5" parent="Stations" unique_id=592173939 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 3.8947597)
 next_stations = Array[NodePath]([NodePath("../Station6")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7s6f8")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4078x")])
 disc_color = Color(0.9, 0.304058, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 3.8947597)
 
 [node name="Station5__TO__Station6" type="Path3D" parent="Stations/Station5" unique_id=87573885]
-curve = SubResource("Curve3D_fl3cu")
+curve = SubResource("Curve3D_wxodt")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station6")
@@ -951,12 +950,12 @@ to_station = NodePath("../../Station6")
 [node name="Station6" parent="Stations" unique_id=719758659 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 6.8947597)
 next_stations = Array[NodePath]([NodePath("../Station7")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_inp01")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_go1py")])
 disc_color = Color(0.27, 0.33037123, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 6.8947597)
 
 [node name="Station6__TO__Station7" type="Path3D" parent="Stations/Station6" unique_id=448527932]
-curve = SubResource("Curve3D_o2ixs")
+curve = SubResource("Curve3D_wkjgr")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station7")
@@ -964,12 +963,12 @@ to_station = NodePath("../../Station7")
 [node name="Station7" parent="Stations" unique_id=1454887360 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 10.147667)
 next_stations = Array[NodePath]([NodePath("../Station8")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_eb2mv")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_0xalf")])
 disc_color = Color(0.75021654, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 10.147667)
 
 [node name="Station7__TO__Station8" type="Path3D" parent="Stations/Station7" unique_id=704151237]
-curve = SubResource("Curve3D_7ygyq")
+curve = SubResource("Curve3D_f0big")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station8")
@@ -977,12 +976,12 @@ to_station = NodePath("../../Station8")
 [node name="Station8" parent="Stations" unique_id=402916829 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 14.68487)
 next_stations = Array[NodePath]([NodePath("../Station9")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xdgme")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_u2nuh")])
 disc_color = Color(0.27, 0.9, 0.38351586, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 14.68487)
 
 [node name="Station8__TO__Station9" type="Path3D" parent="Stations/Station8" unique_id=1462683776]
-curve = SubResource("Curve3D_2j12i")
+curve = SubResource("Curve3D_bocxh")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station9")
@@ -990,12 +989,12 @@ to_station = NodePath("../../Station9")
 [node name="Station9" parent="Stations" unique_id=1287704710 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 18.74849)
 next_stations = Array[NodePath]([NodePath("../Station10")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_ti8lk")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_pra3l")])
 disc_color = Color(0.9, 0.6606205, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 18.74849)
 
 [node name="Station9__TO__Station10" type="Path3D" parent="Stations/Station9" unique_id=1876314906]
-curve = SubResource("Curve3D_4078x")
+curve = SubResource("Curve3D_4crsg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station10")
@@ -1003,12 +1002,12 @@ to_station = NodePath("../../Station10")
 [node name="Station10" parent="Stations" unique_id=1972861318 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.69025, 0, 20.684996)
 next_stations = Array[NodePath]([NodePath("../Station11")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_o2arh")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_juj8d")])
 disc_color = Color(0.6806101, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.69025, 0, 20.684996)
 
 [node name="Station10__TO__Station11" type="Path3D" parent="Stations/Station10" unique_id=1454202682]
-curve = SubResource("Curve3D_wxodt")
+curve = SubResource("Curve3D_3ipja")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station11")
@@ -1016,12 +1015,12 @@ to_station = NodePath("../../Station11")
 [node name="Station11" parent="Stations" unique_id=687596737 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.101658, 0, 20.679007)
 next_stations = Array[NodePath]([NodePath("../Station12")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_g4eto")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_mlcyq")])
 disc_color = Color(0.27, 0.9, 0.32191008, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.101658, 0, 20.679007)
 
 [node name="Station11__TO__Station12" type="Path3D" parent="Stations/Station11" unique_id=100897636]
-curve = SubResource("Curve3D_go1py")
+curve = SubResource("Curve3D_lh0d3")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station12")
@@ -1029,12 +1028,12 @@ to_station = NodePath("../../Station12")
 [node name="Station12" parent="Stations" unique_id=681280328 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 25.786114)
 next_stations = Array[NodePath]([NodePath("../Station13")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_j616g")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aqw72")])
 disc_color = Color(0.9, 0.27, 0.42117342, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 25.786114)
 
 [node name="Station12__TO__Station13" type="Path3D" parent="Stations/Station12" unique_id=1688426867]
-curve = SubResource("Curve3D_wkjgr")
+curve = SubResource("Curve3D_7usqq")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station13")
@@ -1042,12 +1041,12 @@ to_station = NodePath("../../Station13")
 [node name="Station13" parent="Stations" unique_id=351276977 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 32.12133)
 next_stations = Array[NodePath]([NodePath("../Station14")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_tveal")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_rgb8d")])
 disc_color = Color(0.40719038, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 32.12133)
 
 [node name="Station13__TO__Station14" type="Path3D" parent="Stations/Station13" unique_id=88780690]
-curve = SubResource("Curve3D_0xalf")
+curve = SubResource("Curve3D_jya7b")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station14")
@@ -1055,12 +1054,12 @@ to_station = NodePath("../../Station14")
 [node name="Station14" parent="Stations" unique_id=661855280 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 34.65182)
 next_stations = Array[NodePath]([NodePath("../Station15")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_omfjb")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bgvml")])
 disc_color = Color(0.5275215, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 34.65182)
 
 [node name="Station14__TO__Station15" type="Path3D" parent="Stations/Station14" unique_id=879189712]
-curve = SubResource("Curve3D_f0big")
+curve = SubResource("Curve3D_3dt86")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station15")
@@ -1068,12 +1067,12 @@ to_station = NodePath("../../Station15")
 [node name="Station15" parent="Stations" unique_id=291574078 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 37.334824)
 next_stations = Array[NodePath]([NodePath("../Station16")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_blws3")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vdv8a")])
 disc_color = Color(0.64253193, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 37.334824)
 
 [node name="Station15__TO__Station16" type="Path3D" parent="Stations/Station15" unique_id=243186690]
-curve = SubResource("Curve3D_u2nuh")
+curve = SubResource("Curve3D_oa1hj")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station16")
@@ -1081,12 +1080,12 @@ to_station = NodePath("../../Station16")
 [node name="Station16" parent="Stations" unique_id=1220480228 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.943283, 0, 40.387062)
 next_stations = Array[NodePath]([NodePath("../Station17")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_6m0vr")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_iqkd7")])
 disc_color = Color(0.74873644, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.943283, 0, 40.387062)
 
 [node name="Station16__TO__Station17" type="Path3D" parent="Stations/Station16" unique_id=826456618]
-curve = SubResource("Curve3D_bocxh")
+curve = SubResource("Curve3D_r4m1s")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station17")
@@ -1094,12 +1093,12 @@ to_station = NodePath("../../Station17")
 [node name="Station17" parent="Stations" unique_id=610991800 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.40022, 0, 40.276726)
 next_stations = Array[NodePath]([NodePath("../Station18")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_k6qxw")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qrnvc")])
 disc_color = Color(0.9, 0.27, 0.44044998, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.40022, 0, 40.276726)
 
 [node name="Station17__TO__Station18" type="Path3D" parent="Stations/Station17" unique_id=671192966]
-curve = SubResource("Curve3D_pra3l")
+curve = SubResource("Curve3D_xx1ci")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station18")
@@ -1107,12 +1106,12 @@ to_station = NodePath("../../Station18")
 [node name="Station18" parent="Stations" unique_id=930768936 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.65181, 0, 37.276726)
 next_stations = Array[NodePath]([NodePath("../Station19")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_v7lcn")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4xnv3")])
 disc_color = Color(0.7591155, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.65181, 0, 37.276726)
 
 [node name="Station18__TO__Station19" type="Path3D" parent="Stations/Station18" unique_id=1214671339]
-curve = SubResource("Curve3D_4crsg")
+curve = SubResource("Curve3D_io01h")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station19")
@@ -1120,12 +1119,12 @@ to_station = NodePath("../../Station19")
 [node name="Station19" parent="Stations" unique_id=2012574535 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.732796, 0, 39.277447)
 next_stations = Array[NodePath]([NodePath("../Station20")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_arybs")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_mkb3r")])
 disc_color = Color(0.9, 0.6546564, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.732796, 0, 39.277447)
 
 [node name="Station19__TO__Station20" type="Path3D" parent="Stations/Station19" unique_id=1136983328]
-curve = SubResource("Curve3D_juj8d")
+curve = SubResource("Curve3D_c0ut4")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station20")
@@ -1133,12 +1132,12 @@ to_station = NodePath("../../Station20")
 [node name="Station20" parent="Stations" unique_id=2006706293 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 39.335674)
 next_stations = Array[NodePath]([NodePath("../Station21")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_oceve")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fcne4")])
 disc_color = Color(0.5349999, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 39.335674)
 
 [node name="Station20__TO__Station21" type="Path3D" parent="Stations/Station20" unique_id=1138019614]
-curve = SubResource("Curve3D_3ipja")
+curve = SubResource("Curve3D_hpxpv")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station21")
@@ -1146,12 +1145,12 @@ to_station = NodePath("../../Station21")
 [node name="Station21" parent="Stations" unique_id=1488327846 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 36.335674)
 next_stations = Array[NodePath]([NodePath("../Station22")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bjwyw")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3ay25")])
 disc_color = Color(0.60444534, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 36.335674)
 
 [node name="Station21__TO__Station22" type="Path3D" parent="Stations/Station21" unique_id=195761759]
-curve = SubResource("Curve3D_mlcyq")
+curve = SubResource("Curve3D_6calm")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station22")
@@ -1159,12 +1158,12 @@ to_station = NodePath("../../Station22")
 [node name="Station22" parent="Stations" unique_id=404212516 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 33.335674)
 next_stations = Array[NodePath]([NodePath("../Station23")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_wdvhj")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cvgmk")])
 disc_color = Color(0.6747514, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 33.335674)
 
 [node name="Station22__TO__Station23" type="Path3D" parent="Stations/Station22" unique_id=1025613560]
-curve = SubResource("Curve3D_lh0d3")
+curve = SubResource("Curve3D_upheb")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station23")
@@ -1172,12 +1171,12 @@ to_station = NodePath("../../Station23")
 [node name="Station23" parent="Stations" unique_id=263509736 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 30.335674)
 next_stations = Array[NodePath]([NodePath("../Station24")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_uk7oy")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_2uhr2")])
 disc_color = Color(0.7344665, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 30.335674)
 
 [node name="Station23__TO__Station24" type="Path3D" parent="Stations/Station23" unique_id=1446214634]
-curve = SubResource("Curve3D_aqw72")
+curve = SubResource("Curve3D_u5740")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station24")
@@ -1185,13 +1184,13 @@ to_station = NodePath("../../Station24")
 [node name="Station24" parent="Stations" unique_id=1776893317 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 25.810575)
 next_stations = Array[NodePath]([NodePath("../Station25")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_l6kgd")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_moi62")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_e02el")])
 disc_color = Color(0.27, 0.8792082, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 25.810575)
 
 [node name="Station24__TO__Station25" type="Path3D" parent="Stations/Station24" unique_id=871443879]
-curve = SubResource("Curve3D_7usqq")
+curve = SubResource("Curve3D_npmai")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station25")
@@ -1199,13 +1198,13 @@ to_station = NodePath("../../Station25")
 [node name="Station25" parent="Stations" unique_id=2014374400 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.80051)
 next_stations = Array[NodePath]([NodePath("../Station26")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_g03tn")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xeivc")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nd2n7")])
 disc_color = Color(0.73495317, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.80051)
 
 [node name="Station25__TO__Station26" type="Path3D" parent="Stations/Station25" unique_id=1519162829]
-curve = SubResource("Curve3D_rgb8d")
+curve = SubResource("Curve3D_t38l8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station26")
@@ -1213,13 +1212,13 @@ to_station = NodePath("../../Station26")
 [node name="Station26" parent="Stations" unique_id=371703274 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 16.80051)
 next_stations = Array[NodePath]([NodePath("../Station27")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bftx6")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_ma7cl")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_uuo03"), SubResource("Resource_3cgpj")])
 disc_color = Color(0.27, 0.84970504, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 16.80051)
 
 [node name="Station26__TO__Station27" type="Path3D" parent="Stations/Station26" unique_id=301647873]
-curve = SubResource("Curve3D_jya7b")
+curve = SubResource("Curve3D_2odun")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station27")
@@ -1227,13 +1226,13 @@ to_station = NodePath("../../Station27")
 [node name="Station27" parent="Stations" unique_id=2034977934 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.652077)
 next_stations = Array[NodePath]([NodePath("../Station28")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_57u6k")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xxigb")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_3uhra")])
 disc_color = Color(0.27, 0.83378386, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.652077)
 
 [node name="Station27__TO__Station28" type="Path3D" parent="Stations/Station27" unique_id=358227945]
-curve = SubResource("Curve3D_bgvml")
+curve = SubResource("Curve3D_4tm63")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station28")
@@ -1241,12 +1240,12 @@ to_station = NodePath("../../Station28")
 [node name="Station28" parent="Stations" unique_id=730923997 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 26.332445)
 next_stations = Array[NodePath]([NodePath("../Station29")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4sik8")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aymdo")])
 disc_color = Color(0.9, 0.27, 0.6619854, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 26.332445)
 
 [node name="Station28__TO__Station29" type="Path3D" parent="Stations/Station28" unique_id=1633786294]
-curve = SubResource("Curve3D_3dt86")
+curve = SubResource("Curve3D_ckfwb")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station29")
@@ -1254,12 +1253,12 @@ to_station = NodePath("../../Station29")
 [node name="Station29" parent="Stations" unique_id=191808856 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.52939, 0, 26.388441)
 next_stations = Array[NodePath]([NodePath("../Station30")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qvha2")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xoi7r")])
 disc_color = Color(0.27, 0.43215752, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.52939, 0, 26.388441)
 
 [node name="Station29__TO__Station30" type="Path3D" parent="Stations/Station29" unique_id=1497284991]
-curve = SubResource("Curve3D_vdv8a")
+curve = SubResource("Curve3D_2p0ra")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station30")
@@ -1267,12 +1266,12 @@ to_station = NodePath("../../Station30")
 [node name="Station30" parent="Stations" unique_id=262507901 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.81062, 0, 23.388441)
 next_stations = Array[NodePath]([NodePath("../Station31")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_dp1gf")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_saywq")])
 disc_color = Color(0.6586686, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.81062, 0, 23.388441)
 
 [node name="Station30__TO__Station31" type="Path3D" parent="Stations/Station30" unique_id=2086556524]
-curve = SubResource("Curve3D_oa1hj")
+curve = SubResource("Curve3D_45veg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station31")
@@ -1280,12 +1279,12 @@ to_station = NodePath("../../Station31")
 [node name="Station31" parent="Stations" unique_id=799635075 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 20.388441)
 next_stations = Array[NodePath]([NodePath("../Station32")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_g167t")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3fym0")])
 disc_color = Color(0.4213687, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 20.388441)
 
 [node name="Station31__TO__Station32" type="Path3D" parent="Stations/Station31" unique_id=1447029014]
-curve = SubResource("Curve3D_iqkd7")
+curve = SubResource("Curve3D_qsifm")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station32")
@@ -1293,12 +1292,12 @@ to_station = NodePath("../../Station32")
 [node name="Station32" parent="Stations" unique_id=1350507273 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 14.117235)
 next_stations = Array[NodePath]([NodePath("../Station33")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lde6h")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_x3vfh")])
 disc_color = Color(0.34708723, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 14.117235)
 
 [node name="Station32__TO__Station33" type="Path3D" parent="Stations/Station32" unique_id=942354991]
-curve = SubResource("Curve3D_r4m1s")
+curve = SubResource("Curve3D_fiip5")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station33")
@@ -1306,12 +1305,12 @@ to_station = NodePath("../../Station33")
 [node name="Station33" parent="Stations" unique_id=977890404 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 14.302362)
 next_stations = Array[NodePath]([NodePath("../Station34")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_swpbl")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qwji8")])
 disc_color = Color(0.9, 0.27, 0.3594523, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 14.302362)
 
 [node name="Station33__TO__Station34" type="Path3D" parent="Stations/Station33" unique_id=1647983225]
-curve = SubResource("Curve3D_qrnvc")
+curve = SubResource("Curve3D_ak800")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station34")
@@ -1319,12 +1318,12 @@ to_station = NodePath("../../Station34")
 [node name="Station34" parent="Stations" unique_id=496727731 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 25.5063)
 next_stations = Array[NodePath]([NodePath("../Station35")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_awoy6")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cxitj")])
 disc_color = Color(0.9, 0.8975567, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 25.5063)
 
 [node name="Station34__TO__Station35" type="Path3D" parent="Stations/Station34" unique_id=675233995]
-curve = SubResource("Curve3D_xx1ci")
+curve = SubResource("Curve3D_qb38i")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station35")
@@ -1332,12 +1331,12 @@ to_station = NodePath("../../Station35")
 [node name="Station35" parent="Stations" unique_id=1193576351 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.61714, 5.0522494, 36.107643)
 next_stations = Array[NodePath]([NodePath("../Station36")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_wb8jg")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_volde")])
 disc_color = Color(0.4538322, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.61714, 5.0522494, 36.107643)
 
 [node name="Station35__TO__Station36" type="Path3D" parent="Stations/Station35" unique_id=1787358107]
-curve = SubResource("Curve3D_4xnv3")
+curve = SubResource("Curve3D_y02qu")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station36")
@@ -1346,13 +1345,13 @@ to_station = NodePath("../../Station36")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.281456, 5.1292377, 44.091614)
 next_stations = Array[NodePath]([NodePath("../Station38")])
 startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xi6xp")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_n23y6")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xglnc")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_uqt5i")])
 disc_color = Color(0.39447564, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.281456, 5.1292377, 44.091614)
 
 [node name="Station36__TO__Station38" type="Path3D" parent="Stations/Station36" unique_id=886204156]
-curve = SubResource("Curve3D_io01h")
+curve = SubResource("Curve3D_wb5bl")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station38")
@@ -1363,12 +1362,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.24118, 5.1292377, 44.0550
 [node name="Station38" parent="Stations" unique_id=638954213 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.34614, 4.9200096, 43.93709)
 next_stations = Array[NodePath]([NodePath("../Station39")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fjonj")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cvf2p")])
 disc_color = Color(0.27, 0.6337145, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.34614, 4.9200096, 43.93709)
 
 [node name="Station38__TO__Station39" type="Path3D" parent="Stations/Station38" unique_id=2044808482]
-curve = SubResource("Curve3D_mkb3r")
+curve = SubResource("Curve3D_khrc8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station39")
@@ -1376,12 +1375,12 @@ to_station = NodePath("../../Station39")
 [node name="Station39" parent="Stations" unique_id=751607739 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.96576, 4.9200096, 40.93709)
 next_stations = Array[NodePath]([NodePath("../Station40")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xay82")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_8v4qt")])
 disc_color = Color(0.6695683, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.96576, 4.9200096, 40.93709)
 
 [node name="Station39__TO__Station40" type="Path3D" parent="Stations/Station39" unique_id=1680236139]
-curve = SubResource("Curve3D_c0ut4")
+curve = SubResource("Curve3D_qyi3u")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station40")
@@ -1389,12 +1388,12 @@ to_station = NodePath("../../Station40")
 [node name="Station40" parent="Stations" unique_id=1230179770 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 37.93709)
 next_stations = Array[NodePath]([NodePath("../Station41")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_rs43p")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_dtnt0")])
 disc_color = Color(0.9, 0.27, 0.3833398, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 37.93709)
 
 [node name="Station40__TO__Station41" type="Path3D" parent="Stations/Station40" unique_id=1278574552]
-curve = SubResource("Curve3D_fcne4")
+curve = SubResource("Curve3D_8pcph")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station41")
@@ -1402,12 +1401,12 @@ to_station = NodePath("../../Station41")
 [node name="Station41" parent="Stations" unique_id=2067208266 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 34.93709)
 next_stations = Array[NodePath]([NodePath("../Station42")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3xg3w")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_k6heo")])
 disc_color = Color(0.6960522, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 34.93709)
 
 [node name="Station41__TO__Station42" type="Path3D" parent="Stations/Station41" unique_id=1787871758]
-curve = SubResource("Curve3D_hpxpv")
+curve = SubResource("Curve3D_i3n8a")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station42")
@@ -1415,12 +1414,12 @@ to_station = NodePath("../../Station42")
 [node name="Station42" parent="Stations" unique_id=1107009901 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 31.937092)
 next_stations = Array[NodePath]([NodePath("../Station43")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cyuxs")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3rws0")])
 disc_color = Color(0.27, 0.9, 0.85808146, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 31.937092)
 
 [node name="Station42__TO__Station43" type="Path3D" parent="Stations/Station42" unique_id=1192627165]
-curve = SubResource("Curve3D_3ay25")
+curve = SubResource("Curve3D_cvcj3")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station43")
@@ -1428,12 +1427,12 @@ to_station = NodePath("../../Station43")
 [node name="Station43" parent="Stations" unique_id=593742177 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 28.937092)
 next_stations = Array[NodePath]([NodePath("../Station44")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bdlxb")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_piu88")])
 disc_color = Color(0.27, 0.9, 0.41383314, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 28.937092)
 
 [node name="Station43__TO__Station44" type="Path3D" parent="Stations/Station43" unique_id=1066925280]
-curve = SubResource("Curve3D_6calm")
+curve = SubResource("Curve3D_qft2u")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station44")
@@ -1441,12 +1440,12 @@ to_station = NodePath("../../Station44")
 [node name="Station44" parent="Stations" unique_id=2076358858 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 25.937092)
 next_stations = Array[NodePath]([NodePath("../Station45")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_h5iqy")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_o1ujk")])
 disc_color = Color(0.4797784, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 25.937092)
 
 [node name="Station44__TO__Station45" type="Path3D" parent="Stations/Station44" unique_id=704874282]
-curve = SubResource("Curve3D_cvgmk")
+curve = SubResource("Curve3D_db6vo")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station45")
@@ -1454,12 +1453,12 @@ to_station = NodePath("../../Station45")
 [node name="Station45" parent="Stations" unique_id=2046848122 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 22.937092)
 next_stations = Array[NodePath]([NodePath("../Station46")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_m5hlr")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_djiq3")])
 disc_color = Color(0.9, 0.6173041, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 22.937092)
 
 [node name="Station45__TO__Station46" type="Path3D" parent="Stations/Station45" unique_id=1519388568]
-curve = SubResource("Curve3D_upheb")
+curve = SubResource("Curve3D_kxxxn")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station46")
@@ -1467,12 +1466,12 @@ to_station = NodePath("../../Station46")
 [node name="Station46" parent="Stations" unique_id=194464621 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 19.937092)
 next_stations = Array[NodePath]([NodePath("../Station47")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3orde")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_m5w30")])
 disc_color = Color(0.27, 0.9, 0.29124933, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 19.937092)
 
 [node name="Station46__TO__Station47" type="Path3D" parent="Stations/Station46" unique_id=804914454]
-curve = SubResource("Curve3D_2uhr2")
+curve = SubResource("Curve3D_7wpyk")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station47")
@@ -1480,12 +1479,12 @@ to_station = NodePath("../../Station47")
 [node name="Station47" parent="Stations" unique_id=634971135 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 16.937092)
 next_stations = Array[NodePath]([NodePath("../Station48")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_2kce2")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_pv7um")])
 disc_color = Color(0.76416385, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 16.937092)
 
 [node name="Station47__TO__Station48" type="Path3D" parent="Stations/Station47" unique_id=638491719]
-curve = SubResource("Curve3D_u5740")
+curve = SubResource("Curve3D_bcijg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station48")
@@ -1493,12 +1492,12 @@ to_station = NodePath("../../Station48")
 [node name="Station48" parent="Stations" unique_id=776301108 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 13.937092)
 next_stations = Array[NodePath]([NodePath("../Station49")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_0yt5k")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_hbvva")])
 disc_color = Color(0.9, 0.78982335, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 13.937092)
 
 [node name="Station48__TO__Station49" type="Path3D" parent="Stations/Station48" unique_id=477524374]
-curve = SubResource("Curve3D_moi62")
+curve = SubResource("Curve3D_aasf5")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station49")
@@ -1506,12 +1505,12 @@ to_station = NodePath("../../Station49")
 [node name="Station49" parent="Stations" unique_id=1439960138 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 12.857916)
 next_stations = Array[NodePath]([NodePath("../Station50")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_6k44s")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aqnh7")])
 disc_color = Color(0.27, 0.9, 0.6282606, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 12.857916)
 
 [node name="Station49__TO__Station50" type="Path3D" parent="Stations/Station49" unique_id=1231851571]
-curve = SubResource("Curve3D_npmai")
+curve = SubResource("Curve3D_yrt81")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station50")
@@ -1519,12 +1518,12 @@ to_station = NodePath("../../Station50")
 [node name="Station50" parent="Stations" unique_id=1621701315 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 12.708174)
 next_stations = Array[NodePath]([NodePath("../Station51")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qjuc1")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_ueim2")])
 disc_color = Color(0.9, 0.27, 0.38990703, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 12.708174)
 
 [node name="Station50__TO__Station51" type="Path3D" parent="Stations/Station50" unique_id=1372947401]
-curve = SubResource("Curve3D_xeivc")
+curve = SubResource("Curve3D_311k7")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station51")
@@ -1532,12 +1531,12 @@ to_station = NodePath("../../Station51")
 [node name="Station51" parent="Stations" unique_id=1196836375 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 9.522287)
 next_stations = Array[NodePath]([NodePath("../Station52")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_68fi1")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_00gpr")])
 disc_color = Color(0.9, 0.69498074, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 9.522287)
 
 [node name="Station51__TO__Station52" type="Path3D" parent="Stations/Station51" unique_id=1547467232]
-curve = SubResource("Curve3D_t38l8")
+curve = SubResource("Curve3D_ihthw")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station52")
@@ -1545,12 +1544,12 @@ to_station = NodePath("../../Station52")
 [node name="Station52" parent="Stations" unique_id=363213826 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.58022, 4.9200096, 6.5222874)
 next_stations = Array[NodePath]([NodePath("../Station53")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cgijr")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_rc86h")])
 disc_color = Color(0.9, 0.43422586, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.58022, 4.9200096, 6.5222874)
 
 [node name="Station52__TO__Station53" type="Path3D" parent="Stations/Station52" unique_id=2106863627]
-curve = SubResource("Curve3D_ma7cl")
+curve = SubResource("Curve3D_4m6ak")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station53")
@@ -1558,12 +1557,12 @@ to_station = NodePath("../../Station53")
 [node name="Station53" parent="Stations" unique_id=596509220 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.02944, 4.9200096, 6.62039)
 next_stations = Array[NodePath]([NodePath("../Station54")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_q4qin")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_1rqjd")])
 disc_color = Color(0.27, 0.28370458, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.02944, 4.9200096, 6.62039)
 
 [node name="Station53__TO__Station54" type="Path3D" parent="Stations/Station53" unique_id=718374306]
-curve = SubResource("Curve3D_2odun")
+curve = SubResource("Curve3D_sakrd")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station54")
@@ -1571,12 +1570,12 @@ to_station = NodePath("../../Station54")
 [node name="Station54" parent="Stations" unique_id=1851536040 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.68596, 4.9200096, 5.7703533)
 next_stations = Array[NodePath]([NodePath("../Station70")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_58jnh")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qhbr3")])
 disc_color = Color(0.9, 0.893789, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.68596, 4.9200096, 5.7703533)
 
 [node name="Station54__TO__Station70" type="Path3D" parent="Stations/Station54" unique_id=1179482022]
-curve = SubResource("Curve3D_xxigb")
+curve = SubResource("Curve3D_jww2o")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station70")
@@ -1584,12 +1583,12 @@ to_station = NodePath("../../Station70")
 [node name="Station55" parent="Stations" unique_id=2072197774 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 next_stations = Array[NodePath]([NodePath("../Station56")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4im5f")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_whle4")])
 disc_color = Color(0.9, 0.5283291, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 
 [node name="Station55__TO__Station56" type="Path3D" parent="Stations/Station55" unique_id=195783476]
-curve = SubResource("Curve3D_4tm63")
+curve = SubResource("Curve3D_d6ujb")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station56")
@@ -1597,12 +1596,12 @@ to_station = NodePath("../../Station56")
 [node name="Station56" parent="Stations" unique_id=1258935596 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -10.217817)
 next_stations = Array[NodePath]([NodePath("../Station57")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_47orx")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_jbieg")])
 disc_color = Color(0.43022412, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -10.217817)
 
 [node name="Station56__TO__Station57" type="Path3D" parent="Stations/Station56" unique_id=177642573]
-curve = SubResource("Curve3D_aymdo")
+curve = SubResource("Curve3D_2np7u")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station57")
@@ -1610,12 +1609,12 @@ to_station = NodePath("../../Station57")
 [node name="Station57" parent="Stations" unique_id=1534469747 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -11.266011)
 next_stations = Array[NodePath]([NodePath("../Station58")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_i6tdj")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bhg3o")])
 disc_color = Color(0.27, 0.9, 0.8344165, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -11.266011)
 
 [node name="Station57__TO__Station58" type="Path3D" parent="Stations/Station57" unique_id=1153593393]
-curve = SubResource("Curve3D_ckfwb")
+curve = SubResource("Curve3D_ctal4")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station58")
@@ -1623,12 +1622,12 @@ to_station = NodePath("../../Station58")
 [node name="Station58" parent="Stations" unique_id=427668070 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -11.198885)
 next_stations = Array[NodePath]([NodePath("../Station59")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_dloql")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_65e7y")])
 disc_color = Color(0.27, 0.9, 0.49894676, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -11.198885)
 
 [node name="Station58__TO__Station59" type="Path3D" parent="Stations/Station58" unique_id=135545996]
-curve = SubResource("Curve3D_xoi7r")
+curve = SubResource("Curve3D_7as3k")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station59")
@@ -1636,13 +1635,13 @@ to_station = NodePath("../../Station59")
 [node name="Station59" parent="Stations" unique_id=1141450412 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -12.643785)
 next_stations = Array[NodePath]([NodePath("../Station60")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_otrwb")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_5a0t4")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_hsn2e"), SubResource("Resource_f52br")])
 disc_color = Color(0.30435368, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -12.643785)
 
 [node name="Station59__TO__Station60" type="Path3D" parent="Stations/Station59" unique_id=374021381]
-curve = SubResource("Curve3D_2p0ra")
+curve = SubResource("Curve3D_e5t13")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station60")
@@ -1650,12 +1649,12 @@ to_station = NodePath("../../Station60")
 [node name="Station60" parent="Stations" unique_id=1169011611 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -15.853676)
 next_stations = Array[NodePath]([NodePath("../Station61")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7wkh8")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7rejj")])
 disc_color = Color(0.6007528, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -15.853676)
 
 [node name="Station60__TO__Station61" type="Path3D" parent="Stations/Station60" unique_id=682672367]
-curve = SubResource("Curve3D_saywq")
+curve = SubResource("Curve3D_whr2v")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station61")
@@ -1663,12 +1662,12 @@ to_station = NodePath("../../Station61")
 [node name="Station61" parent="Stations" unique_id=1756435266 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -18.195383)
 next_stations = Array[NodePath]([NodePath("../Station62")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_nk0os")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vgco6")])
 disc_color = Color(0.27, 0.9, 0.7623596, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -18.195383)
 
 [node name="Station61__TO__Station62" type="Path3D" parent="Stations/Station61" unique_id=178159075]
-curve = SubResource("Curve3D_45veg")
+curve = SubResource("Curve3D_8vfcr")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station62")
@@ -1676,12 +1675,12 @@ to_station = NodePath("../../Station62")
 [node name="Station62" parent="Stations" unique_id=1119800052 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.557594, 4.9200096, -18.047022)
 next_stations = Array[NodePath]([NodePath("../Station63")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_n5blc")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_2yp6v")])
 disc_color = Color(0.3842221, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.557594, 4.9200096, -18.047022)
 
 [node name="Station62__TO__Station63" type="Path3D" parent="Stations/Station62" unique_id=607898900]
-curve = SubResource("Curve3D_3fym0")
+curve = SubResource("Curve3D_y1v33")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station63")
@@ -1689,12 +1688,12 @@ to_station = NodePath("../../Station63")
 [node name="Station63" parent="Stations" unique_id=1767833680 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.91488, 4.9200096, -20.03573)
 next_stations = Array[NodePath]([NodePath("../Station64")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_61nbx")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_1qiv2")])
 disc_color = Color(0.27, 0.9, 0.4617981, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.91488, 4.9200096, -20.03573)
 
 [node name="Station63__TO__Station64" type="Path3D" parent="Stations/Station63" unique_id=475527203]
-curve = SubResource("Curve3D_qsifm")
+curve = SubResource("Curve3D_i77id")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station64")
@@ -1702,12 +1701,12 @@ to_station = NodePath("../../Station64")
 [node name="Station64" parent="Stations" unique_id=1663326820 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.46648, 4.9200096, -23.942078)
 next_stations = Array[NodePath]([NodePath("../Station65")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fty7e")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_0y0ae")])
 disc_color = Color(0.79805857, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.46648, 4.9200096, -23.942078)
 
 [node name="Station64__TO__Station65" type="Path3D" parent="Stations/Station64" unique_id=307115773]
-curve = SubResource("Curve3D_x3vfh")
+curve = SubResource("Curve3D_o4jgt")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station65")
@@ -1715,80 +1714,77 @@ to_station = NodePath("../../Station65")
 [node name="Station65" parent="Stations" unique_id=1848089644 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.174225, 4.9200096, -23.936825)
 next_stations = Array[NodePath]([NodePath("../Station66")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fxuyq")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_80m5o")])
 disc_color = Color(0.7807889, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.174225, 4.9200096, -23.936825)
 
 [node name="Station65__TO__Station66" type="Path3D" parent="Stations/Station65" unique_id=733298662]
-curve = SubResource("Curve3D_fiip5")
+curve = SubResource("Curve3D_phcjv")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station66")
 
 [node name="Station66" parent="Stations" unique_id=2006114723 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -24.147022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -23.854074)
 next_stations = Array[NodePath]([NodePath("../Station67")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_x2sq5")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_twmvg")])
 disc_color = Color(0.9, 0.27, 0.35703012, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -24.147022)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -23.854074)
 
-[node name="Station66__TO__Station67" type="Path3D" parent="Stations/Station66"]
-curve = SubResource("Curve3D_66to67")
+[node name="Station66__TO__Station67" type="Path3D" parent="Stations/Station66" unique_id=526327904]
+curve = SubResource("Curve3D_f3tug")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station67")
 
 [node name="Station67" parent="Stations" unique_id=1926617413 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.61914, 4.9200096, -24.470127)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.27755, 7.3986535, -23.954802)
 next_stations = Array[NodePath]([NodePath("../Station68")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_nukn0")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vmx0b")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_ra0wx")])
 disc_color = Color(0.27, 0.7709418, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.61914, 4.9200096, -24.470127)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.27755, 7.3986535, -23.954802)
 
 [node name="Station67__TO__Station68" type="Path3D" parent="Stations/Station67" unique_id=1031201068]
-curve = SubResource("Curve3D_qwji8")
+curve = SubResource("Curve3D_5u0f0")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station68")
 
 [node name="Station68" parent="Stations" unique_id=1787934109 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.75132, 4.9200096, -24.477985)
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_d7eim")])
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.478516, 7.6566277, -23.958752)
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_atjrv")])
 disc_color = Color(0.9, 0.27, 0.57138884, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.75132, 4.9200096, -24.477985)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.478516, 7.6566277, -23.958752)
 
-[node name="Station70" type="Node3D" parent="Stations" unique_id=1252103986 instance=ExtResource("3_rs")]
+[node name="Station70" parent="Stations" unique_id=1252103986 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, 2.7703533)
-script = ExtResource("9_pi13b")
 next_stations = Array[NodePath]([NodePath("../@Node3D@29459")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_y02qu")])
 disc_color = Color(0.27, 0.9, 0.5169737, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, 2.7703533)
 
 [node name="Station70__TO___Node3D_29459" type="Path3D" parent="Stations/Station70" unique_id=923420844]
-curve = SubResource("Curve3D_ak800")
+curve = SubResource("Curve3D_okpdu")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../@Node3D@29459")
 
-[node name="@Node3D@29459" type="Node3D" parent="Stations" unique_id=923402844 instance=ExtResource("3_rs")]
+[node name="@Node3D@29459" parent="Stations" unique_id=923402844 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, -0.22964668)
-script = ExtResource("9_pi13b")
 next_stations = Array[NodePath]([NodePath("../Station71")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_wb5bl")])
 disc_color = Color(0.39529783, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, -0.22964668)
 
 [node name="_Node3D_29459__TO__Station71" type="Path3D" parent="Stations/@Node3D@29459" unique_id=2110274595]
-curve = SubResource("Curve3D_cxitj")
+curve = SubResource("Curve3D_cnvp8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station71")
 
-[node name="Station71" type="Node3D" parent="Stations" unique_id=98340597 instance=ExtResource("3_rs")]
+[node name="Station71" parent="Stations" unique_id=98340597 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.699745, 4.9200096, -1.2095819)
-script = ExtResource("9_pi13b")
 next_stations = Array[NodePath]([NodePath("../Station55")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_khrc8")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_yxbun")])
@@ -1796,7 +1792,7 @@ disc_color = Color(0.9, 0.27, 0.2813488, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.699745, 4.9200096, -1.2095819)
 
 [node name="Station71__TO__Station55" type="Path3D" parent="Stations/Station71" unique_id=348634354]
-curve = SubResource("Curve3D_qb38i")
+curve = SubResource("Curve3D_qhjsp")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station55")
