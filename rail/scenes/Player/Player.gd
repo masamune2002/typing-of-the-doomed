@@ -463,29 +463,33 @@ func _getVisibleTargets() -> Array[Node3D]:
 	if camera == null:
 		return targets
 
+	# Close-in-front targets pass even when their anchor point has left the
+	# frustum (door slab in your face, enemy at melee range): their entity
+	# already reads visible via the same bypass and its label is pulled into
+	# view, so the typing system must offer them too.
 	for node in get_tree().get_nodes_in_group("Enemies"):
 		if node is Enemy:
 			var enemy: Enemy = node
 			if enemy.alive and enemy.active and !enemy.dying and enemy.visible_to_player:
-				if _isOnScreen(camera, enemy.global_position + Vector3(0, 1.0, 0)):
+				if _isOnScreen(camera, enemy.global_position + Vector3(0, 1.0, 0)) or Utils.labelCloseBypass(enemy):
 					targets.append(enemy)
 
 	for node in get_tree().get_nodes_in_group("Items"):
 		if node is Item:
 			if node.alive and node.active and node.visible_to_player:
-				if _isOnScreen(camera, node.global_position + Vector3(0, 0.5, 0)):
+				if _isOnScreen(camera, node.global_position + Vector3(0, 0.5, 0)) or Utils.labelCloseBypass(node):
 					targets.append(node)
 
 	for node in get_tree().get_nodes_in_group("Interactables"):
 		if node is Interactable:
 			if node.alive and node.active and node.visible_to_player:
-				if _isOnScreen(camera, node.global_position + Vector3(0, 1.0, 0)):
+				if _isOnScreen(camera, node.global_position + Vector3(0, 1.0, 0)) or Utils.labelCloseBypass(node):
 					targets.append(node)
 
 	for node in get_tree().get_nodes_in_group("Barrels"):
 		if node is ExplodingBarrel:
 			if node.alive and node.active and node.visible_to_player:
-				if _isOnScreen(camera, node.global_position + Vector3(0, 0.5, 0)):
+				if _isOnScreen(camera, node.global_position + Vector3(0, 0.5, 0)) or Utils.labelCloseBypass(node):
 					targets.append(node)
 
 	# Sort by distance (closest first)
