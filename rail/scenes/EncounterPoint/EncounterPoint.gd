@@ -42,6 +42,15 @@ func startEncounter() -> void:
 	_starting = true
 	await _runActions(startActions)
 	_starting = false
+	# End synchronously when the conditions already pass instead of waiting
+	# for the next _process frame: a pass-through rail station otherwise
+	# stops the player for a frame on every hop (velocity drops to zero,
+	# head bob and weapon sway visibly restart). Gated stations still hold
+	# via _process until their conditions come true.
+	if active and !_ending:
+		_checkConditions()
+		if conditionsMet:
+			endEncounter()
 
 func endEncounter() -> void:
 	_ending = true

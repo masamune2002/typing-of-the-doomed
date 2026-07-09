@@ -9,6 +9,11 @@ var fireSound : String = "DSPISTOL"
 @export var bobSpeed : float = 8.0
 @export var swayAmount : float = 0.003
 var _bobTime : float = 0.0
+# Amplitude envelope (0..1): see DoomPlayer head bob — fades the sway out on
+# a stop and back in on resume with continuous phase, instead of snapping the
+# weapon to its origin the first stopped frame.
+var _bobAmp : float = 0.0
+const BOB_FADE := 0.15
 var _originPosition : Vector3
 
 # Called when the node enters the scene tree for the first time.
@@ -43,12 +48,13 @@ func _process(delta: float) -> void:
 		var player = Game.getPlayer()
 		var speed_ratio = player.getMovementSpeedRatio() if player else 1.0
 		_bobTime += delta * bobSpeed * speed_ratio
-		var sway_dir = _getSwayDirection()
-		var bob_offset := Vector3(
-			sin(_bobTime) * swayAmount + sway_dir * swayAmount * 2.0,
-			abs(sin(_bobTime)) * bobAmountY,
-			0.0
-		)
-		position = _originPosition + bob_offset
+		_bobAmp = move_toward(_bobAmp, 1.0, delta / BOB_FADE)
 	else:
-		position = _originPosition
+		_bobAmp = move_toward(_bobAmp, 0.0, delta / BOB_FADE)
+	var sway_dir = _getSwayDirection()
+	var bob_offset := Vector3(
+		sin(_bobTime) * swayAmount + sway_dir * swayAmount * 2.0,
+		abs(sin(_bobTime)) * bobAmountY,
+		0.0
+	) * _bobAmp
+	position = _originPosition + bob_offset

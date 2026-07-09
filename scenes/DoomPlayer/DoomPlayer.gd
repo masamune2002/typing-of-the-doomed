@@ -9,6 +9,11 @@ var _isChangingWeapon : bool = false
 var _headBobTime : float = 0.0
 var _headBobBaseY : float = 0.0
 var _headBobInitialized : bool = false
+# Amplitude envelope (0..1): fades the bob in/out over a short window so a
+# stop settles the camera smoothly and a resume continues the same phase,
+# instead of hard-resetting the sine and snapping to base height.
+var _headBobAmp : float = 0.0
+const HEAD_BOB_FADE := 0.15
 
 func _ready() -> void:
 	if startingWeaponScene == null:
@@ -28,10 +33,10 @@ func _physics_process(delta: float) -> void:
 	var horizSpeed = Vector2(velocity.x, velocity.z).length()
 	if horizSpeed > 0.01 and headBobScale > 0.0:
 		_headBobTime += delta * 10.0 * getMovementSpeedRatio()
-		_cameraRig.position.y = _headBobBaseY + sin(_headBobTime) * 0.3 * headBobScale
+		_headBobAmp = move_toward(_headBobAmp, 1.0, delta / HEAD_BOB_FADE)
 	else:
-		_headBobTime = 0.0
-		_cameraRig.position.y = _headBobBaseY
+		_headBobAmp = move_toward(_headBobAmp, 0.0, delta / HEAD_BOB_FADE)
+	_cameraRig.position.y = _headBobBaseY + sin(_headBobTime) * 0.3 * headBobScale * _headBobAmp
 
 func _cycleWeapon() -> void:
 	if weaponScenes.size() <= 1:
