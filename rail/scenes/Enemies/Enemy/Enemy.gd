@@ -10,6 +10,7 @@ var pipsLabel : Label3D
 var pipsDefeatedLabel : Label3D
 var typedLabel : Label3D
 var debugLabel : Label3D
+var _labelHomes : Array = [] # natural label positions for clampLabelsToView
 @onready var stateLabel : Label3D = $StateLabel
 @onready var stateMachine : StateMachine = $StateMachine
 
@@ -113,6 +114,9 @@ func _initOverlayLabels() -> void:
 	debugLabel.text = name
 	add_child(debugLabel)
 	debugLabel.hide()
+	# Natural label layout; clampLabelsToView shifts the whole group from
+	# these homes when the player is too close to see them (melee range).
+	_labelHomes = [enemyTargetLabel.position, pipsLabel.position, pipsDefeatedLabel.position]
 
 func _applyDoomFont(label: Label3D) -> void:
 	if label == null:
@@ -392,6 +396,7 @@ func _physics_process(_delta: float) -> void:
 	_updateLabelRenderPriority()
 
 	if visible_to_player:
+		Utils.clampLabelsToView(self, [enemyTargetLabel, pipsLabel, pipsDefeatedLabel], _labelHomes)
 		_setFullWordLabel()
 		_updateTypedLabel()
 		enemyTargetLabel.show()
@@ -453,6 +458,11 @@ func _is_on_screen() -> bool:
 	var camera = get_viewport().get_camera_3d()
 	if camera == null:
 		return false
+	# An enemy at melee range (a pinky in your face) pushes its label anchor
+	# out of the frustum — keep it targetable; clampLabelsToView pulls the
+	# label back into view. Enemies behind the player still hide as before.
+	if Utils.labelCloseBypass(self):
+		return true
 	var world_pos = global_position + Vector3(0, 1.0, 0)
 	if camera.is_position_behind(world_pos):
 		return false

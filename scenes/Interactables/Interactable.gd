@@ -19,12 +19,14 @@ var set_variable: String = "" # game variable to set when activated
 var interactable_name: String = "" # stable id used for signal-based gating (set by spawner)
 var interactable_type: InteractableType = InteractableType.DOOR
 var _door_was_open: bool = false # tracks door-open transition for doorOpened signal
+var _labelHomeLocal: Vector3 # natural label position; clampLabelsToView moves it from here
 
 func _ready() -> void:
 	alive = true
 	active = false
 	add_to_group("Interactables")
 	EventBus.startEncounter.connect(activate)
+	_labelHomeLocal = interactableLabel.position
 
 	weakness = TypingWeakness.new()
 	weakness.setup(0)
@@ -162,6 +164,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
+		Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
 		_setFullWordLabel()
 		_updateTypedLabel()
 		interactableLabel.show()
@@ -334,6 +337,11 @@ func _is_on_screen() -> bool:
 	var camera = get_viewport().get_camera_3d()
 	if camera == null:
 		return false
+	# Close targets in front of the player count as on-screen even when the
+	# label anchor has left the frustum (door slab in your face): the label
+	# itself is pulled into view by Utils.clampLabelsToView.
+	if Utils.labelCloseBypass(self):
+		return true
 	var world_pos = global_position + Vector3(0, 1.0, 0)
 	if camera.is_position_behind(world_pos):
 		return false
@@ -351,13 +359,16 @@ func _check_line_of_sight() -> bool:
 	var camera := get_viewport().get_camera_3d()
 	if camera == null:
 		return false
-	var world_pos := global_position + Vector3(0, 1.0, 0)
-	if camera.is_position_behind(world_pos):
-		return false
-	var screen_pos := camera.unproject_position(world_pos)
-	var viewport_size := get_viewport().get_visible_rect().size
-	if screen_pos.x < 0 or screen_pos.x > viewport_size.x or screen_pos.y < 0 or screen_pos.y > viewport_size.y:
-		return false
+	# Same close-range bypass as _is_on_screen; the wall raycast below still
+	# applies, so a close-but-occluded interactable stays hidden.
+	if not Utils.labelCloseBypass(self):
+		var world_pos := global_position + Vector3(0, 1.0, 0)
+		if camera.is_position_behind(world_pos):
+			return false
+		var screen_pos := camera.unproject_position(world_pos)
+		var viewport_size := get_viewport().get_visible_rect().size
+		if screen_pos.x < 0 or screen_pos.x > viewport_size.x or screen_pos.y < 0 or screen_pos.y > viewport_size.y:
+			return false
 	# Lifts are floor geometry — the player stands on them, so a wall raycast
 	# doesn't apply. Distance + on-screen is sufficient.
 	if _isLift():

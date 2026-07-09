@@ -13,6 +13,7 @@ var _prev_visible_to_player: bool = false
 
 var itemDefinition: Dictionary
 var weakness: TypingWeakness
+var _labelHomeLocal: Vector3 # natural label position; clampLabelsToView moves it from here
 
 # Sprite animation
 var _spriteFrames: Array[Texture2D] = []
@@ -28,6 +29,7 @@ func _ready() -> void:
 	active = false
 	add_to_group("Items")
 	EventBus.startEncounter.connect(activate)
+	_labelHomeLocal = itemLabel.position
 
 	weakness = TypingWeakness.new()
 	weakness.setup(0)
@@ -198,6 +200,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
+		Utils.clampLabelsToView(self, [itemLabel], [_labelHomeLocal])
 		_setFullWordLabel()
 		_updateTypedLabel()
 		itemLabel.show()
@@ -227,6 +230,10 @@ func _is_on_screen() -> bool:
 	var camera := get_viewport().get_camera_3d()
 	if camera == null:
 		return false
+	# Close items in front of the player (a key at your feet) stay visible;
+	# their label is pulled into view by Utils.clampLabelsToView.
+	if Utils.labelCloseBypass(self):
+		return true
 	var world_pos := global_position + Vector3(0, 0.5, 0)
 	if camera.is_position_behind(world_pos):
 		return false
