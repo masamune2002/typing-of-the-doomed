@@ -116,6 +116,8 @@ func _initOverlayLabels() -> void:
 	debugLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	debugLabel.position = enemyTargetLabel.position + Vector3(0, -0.3, 0)
 	debugLabel.text = name
+	if has_meta("thing_index"):
+		debugLabel.text += " #%d" % get_meta("thing_index")
 	add_child(debugLabel)
 	debugLabel.hide()
 	# Natural label layout; clampLabelsToView shifts the whole group from

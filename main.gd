@@ -687,7 +687,8 @@ func _spawnEnemiesFromWad() -> void:
 	var enemy_nodes: Array[Node] = []
 	var name_counts = {}
 
-	for thing in things:
+	for thing_idx in things.size():
+		var thing = things[thing_idx]
 		if not wad_game.enemies.has(thing["type"]):
 			continue
 
@@ -708,6 +709,11 @@ func _spawnEnemiesFromWad() -> void:
 		name_counts[base_name] += 1
 		var entity_name = base_name + str(name_counts[base_name])
 		enemy.name = entity_name
+
+		# Stable WAD thing index — matches the `#` column in llm/<MAP>.md, so
+		# level scenes can reference this enemy (e.g. MoveEnemyToMarkerAction)
+		# independent of spawn-order naming.
+		enemy.set_meta("thing_index", thing_idx)
 
 		container.add_child(enemy)
 		enemy_nodes.append(enemy)
