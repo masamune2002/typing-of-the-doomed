@@ -384,6 +384,12 @@ func _is_on_screen() -> bool:
 	if Utils.labelCloseBypass(self):
 		return true
 	var world_pos = global_position + Vector3(0, 1.0, 0)
+	# Eye-level switches: test where the label actually is. The node's own Y
+	# can sit on a ledge/pit floor beside the switch line (E1M2 S124), and an
+	# anchor 5+ units up is only "on screen" when the player looks above the
+	# switch they are staring at.
+	if eye_level_label:
+		world_pos.y = camera.global_position.y
 	if camera.is_position_behind(world_pos):
 		return false
 	var screen_pos = camera.unproject_position(world_pos)
@@ -404,6 +410,8 @@ func _check_line_of_sight() -> bool:
 	# applies, so a close-but-occluded interactable stays hidden.
 	if not Utils.labelCloseBypass(self):
 		var world_pos := global_position + Vector3(0, 1.0, 0)
+		if eye_level_label:
+			world_pos.y = camera.global_position.y
 		if camera.is_position_behind(world_pos):
 			return false
 		var screen_pos := camera.unproject_position(world_pos)
@@ -420,6 +428,8 @@ func _check_line_of_sight() -> bool:
 		return false
 	var from = player.global_position + Vector3(0, 0.85, 0)
 	var to = global_position + Vector3(0, 1.0, 0)
+	if eye_level_label:
+		to.y = camera.global_position.y
 	var pull = (from - to).normalized() * 0.3
 	to += pull
 	var query = PhysicsRayQueryParameters3D.create(from, to)
