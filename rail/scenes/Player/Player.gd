@@ -213,13 +213,15 @@ func _physics_process(delta: float) -> void:
 	var pos_before := global_position
 	move_and_slide()
 
-	# Step-up: if we barely moved in the intended direction, try stepping up
+	# Step-up: if a wall is blocking the intended direction, try stepping up.
+	# The trigger must read the wall normal, not lost movement: a glancing
+	# hit slides along the ledge and keeps most of its speed (cos^2 of the
+	# approach angle), so a "barely moved" test only fires once the approach
+	# is nearly head-on — until then the ledge feels like a wall.
 	if is_on_wall() and input_dir != Vector2.ZERO:
-		var intended_dir := Vector2(move_dir.x, move_dir.z).normalized()
-		var actual_move := Vector2(global_position.x - pos_before.x, global_position.z - pos_before.z)
-		var moved_along_intended := actual_move.dot(intended_dir)
-		var expected_xz := Vector2(move_dir.x, move_dir.z).length() * get_physics_process_delta_time() * 0.5
-		if moved_along_intended < expected_xz:
+		var wall_normal := get_wall_normal()
+		var intended_dir := Vector3(move_dir.x, 0, move_dir.z).normalized()
+		if wall_normal.dot(intended_dir) < -0.05 and _isClimbableStep(wall_normal):
 			# Reset to before the failed move
 			global_position = pos_before
 			# Try: move up, move forward, move down
@@ -238,6 +240,33 @@ func _physics_process(delta: float) -> void:
 
 	# Check for sector damage (nukage, lava, etc.)
 	_checkFloorDamage()
+
+func _isClimbableStep(wall_normal : Vector3) -> bool:
+	# A step-up candidate is blocked at ankle height but clear at
+	# STEP_HEIGHT, probed straight into the wall we are touching (so
+	# glancing approaches test the riser too). This rules out tall walls
+	# and, critically, deck edges: walking off a ledge grinds the capsule
+	# against the slab side BELOW the lip, and a probe firing there resets
+	# the walk-off every frame and wedges the player on the lip (E1M7
+	# sector 35 deck drop). At a lip the ankle ray sees open air.
+	var flat := Vector3(wall_normal.x, 0, wall_normal.z)
+	if flat.length() < 0.3:
+		return false
+	var space := get_world_3d().direct_space_state
+	if space == null:
+		return false
+	var into := -flat.normalized() * 0.6  # capsule radius 0.3 + margin
+	var low_from := global_position + Vector3(0, 0.15, 0)
+	var low := PhysicsRayQueryParameters3D.create(low_from, low_from + into)
+	low.collision_mask = 2
+	low.exclude = [get_rid()]
+	if space.intersect_ray(low).is_empty():
+		return false
+	var high_from := global_position + Vector3(0, STEP_HEIGHT + 0.05, 0)
+	var high := PhysicsRayQueryParameters3D.create(high_from, high_from + into)
+	high.collision_mask = 2
+	high.exclude = [get_rid()]
+	return space.intersect_ray(high).is_empty()
 
 func _checkFloorDamage() -> void:
 	if !is_on_floor():
