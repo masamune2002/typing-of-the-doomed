@@ -512,7 +512,14 @@ func _getVisibleTargets() -> Array[Node3D]:
 	for node in get_tree().get_nodes_in_group("Interactables"):
 		if node is Interactable:
 			if node.alive and node.active and node.visible_to_player:
-				if _isOnScreen(camera, node.global_position + Vector3(0, 1.0, 0)) or Utils.labelCloseBypass(node):
+				# Eye-level switches anchor their label (and visibility) at
+				# camera height on the switch column — screen the candidate
+				# at the same point, or a switch whose node sits on a ledge
+				# floor (E1M2 S124) is never offered to the typing system.
+				var anchor : Vector3 = node.global_position + Vector3(0, 1.0, 0)
+				if node.eye_level_label:
+					anchor.y = camera.global_position.y
+				if _isOnScreen(camera, anchor) or Utils.labelCloseBypass(node):
 					targets.append(node)
 
 	for node in get_tree().get_nodes_in_group("Barrels"):
