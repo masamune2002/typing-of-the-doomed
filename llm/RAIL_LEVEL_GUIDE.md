@@ -211,6 +211,15 @@ The stall report is rich — use all of it:
   door geometry (`curH`/`bottomH`) instead of state enums — but if it
   recurs, instrument `VariableCondition._try_auto_activate` and
   `door.gd activate()` with prints and read the log.
+- A door sector that RESTS AJAR (closed ceiling above its floor, e.g.
+  E1M5 sectors 121/122: floor 80 / ceil 88) is a variant of the same
+  bug: a naive `curH > bottomH` check reads it as open at level load,
+  the var goes true, and the door's Interactable self-hides — so
+  autoplay's auto-activate finds nothing (no `[AUTOACT]` line) while
+  the rail walks into the slab. `Interactable._isDoorOpen` now requires
+  a player-passable gap (~56 raw units, capped by the door's travel).
+  To scan a map for such doors: for each sector in `geo.movable`, flag
+  `0 < ceil - floor < 56`.
 - Useful one-off probes (python3, import wadgeo):
   `geo.point_sector(p)`, `geo.sector_bounds(si)`, `geo.seg_scan(a, b)`,
   `geo.find_path(a, b)`. Dump every RAW beat's sector+floor and eyeball
