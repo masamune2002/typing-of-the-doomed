@@ -21,7 +21,7 @@ const COLOR_TITLE := DoomGame.COLOR_GOLD
 const COLOR_ITEM := DoomGame.COLOR_RED
 const COLOR_SELECTED := DoomGame.COLOR_WHITE
 const SCALE_TARGET_FRAC_Y := 0.85
-const SCALE_TARGET_FRAC_X := 0.90
+const SCALE_TARGET_FRAC_X := 0.45
 const SCALE_MIN := 0.5
 const SCALE_MAX := 12.0
 
