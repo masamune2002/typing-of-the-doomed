@@ -217,7 +217,7 @@ func _makeTitleRow(text: String) -> HBoxContainer:
 
 func _makeItemRow(text: String) -> HBoxContainer:
 	var row := HBoxContainer.new()
-	row.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	row.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	row.add_theme_constant_override("separation", 6)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -233,6 +233,13 @@ func _makeItemRow(text: String) -> HBoxContainer:
 
 	var label := _makeLabel(text, COLOR_ITEM)
 	row.add_child(label)
+
+	# Balance the skull cursor so the text itself is what centers, like
+	# DOOM's menu — without this every line sits half a skull to the right.
+	var balance := Control.new()
+	balance.custom_minimum_size = Vector2(16, 0)
+	balance.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(balance)
 
 	row.set_meta("label", label)
 	row.set_meta("skull", skull)
