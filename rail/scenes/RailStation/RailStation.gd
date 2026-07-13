@@ -64,10 +64,22 @@ func _on_add_next_station() -> void:
 	# otherwise suppress the randomize-on-ready fallback.
 	new_station.disc_color = Color.from_hsv(randf(), 0.7, 0.9)
 
+	# Capture the current next stations before rewiring: the new station is
+	# inserted into the chain (A -> B becomes A -> C -> B), not appended as
+	# a dead end.
+	var old_next := resolve_next_stations()
+
 	# Add as sibling under the same parent (Stations container)
 	get_parent().add_child(new_station)
 	if get_tree() != null and get_tree().edited_scene_root != null:
 		new_station.owner = get_tree().edited_scene_root
+
+	# The new station inherits this station's old next stations (paths must
+	# be relative to the new station, not this one)
+	var inherited: Array[NodePath] = []
+	for s in old_next:
+		inherited.append(new_station.get_path_to(s))
+	new_station.next_stations = inherited
 
 	# Point this station to the new one
 	next_stations = [get_path_to(new_station)]
@@ -81,6 +93,11 @@ func _on_add_next_station() -> void:
 	if !has_advance:
 		var advance := AdvanceToNextStationAction.new()
 		endActions.append(advance)
+
+	# The inserted station needs its own advance action to keep the route
+	# flowing to the inherited next station
+	if !inherited.is_empty():
+		new_station.endActions.append(AdvanceToNextStationAction.new())
 
 	call_deferred("emit_signal", "station_changed")
 	_select_and_focus(new_station)
