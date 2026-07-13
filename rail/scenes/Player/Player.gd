@@ -359,8 +359,10 @@ func startCameraMove(pathToFollow: Path3D, newMoveAction : EncounterAction, rail
 	_moving = true
 
 func _input(event):
-	# Mouse look (disabled when dead — camera is animating down)
-	if _alive and event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	# Mouse look is a DEBUG tool: in normal play the camera is entirely
+	# rail-driven (path direction, look-at actions, target tracking).
+	if _alive and event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED \
+			and SettingsManager.debug_mouselook:
 		_rotH -= event.relative.x * mouseSensitivity
 		_rotV -= event.relative.y * mouseSensitivity
 		_rotV = clamp(_rotV, -PITCH_LIMIT, PITCH_LIMIT)

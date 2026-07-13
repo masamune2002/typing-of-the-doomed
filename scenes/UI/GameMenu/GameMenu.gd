@@ -15,7 +15,7 @@ const MENU_ITEMS_PAUSE = ["RESUME GAME", "SAVE GAME", "LOAD GAME", "LEVEL SELECT
 const MAX_SAVE_NAME_LENGTH = 24
 
 const OPTIONS_ITEMS = ["MASTER VOLUME", "MUSIC VOLUME", "SFX VOLUME", "HEAD BOB", "WEAPON SWAY", "FULLSCREEN", "VSYNC", "DEBUG", "BACK"]
-const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "SKIP DOORS", "SUPERSPEED", "WASD MOVEMENT", "GOD MODE", "BACK"]
+const DEBUG_ITEMS = ["SHOW THING IDS", "TRACKING", "RETICLE", "SHOW STATIONS", "SHOW RAILS", "SKIP ENCOUNTERS", "SKIP DOORS", "SUPERSPEED", "WASD MOVEMENT", "MOUSELOOK", "GOD MODE", "BACK"]
 
 const COLOR_TITLE := DoomGame.COLOR_GOLD
 const COLOR_ITEM := DoomGame.COLOR_RED
@@ -492,6 +492,8 @@ func _getDebugOptionText(opt_name: String) -> String:
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_superspeed else "OFF")
 		"WASD MOVEMENT":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_wasd else "OFF")
+		"MOUSELOOK":
+			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_mouselook else "OFF")
 		"GOD MODE":
 			return opt_name + "  < %s >" % ("ON" if SettingsManager.debug_god_mode else "OFF")
 		"BACK":
@@ -519,6 +521,8 @@ func _adjustDebugOption(direction: int) -> void:
 			SettingsManager.debug_superspeed = !SettingsManager.debug_superspeed
 		"WASD MOVEMENT":
 			SettingsManager.debug_wasd = !SettingsManager.debug_wasd
+		"MOUSELOOK":
+			SettingsManager.debug_mouselook = !SettingsManager.debug_mouselook
 		"GOD MODE":
 			SettingsManager.debug_god_mode = !SettingsManager.debug_god_mode
 	_refreshDebugLabels()

@@ -19,6 +19,7 @@ var debug_skip_encounters : bool = false
 var debug_skip_doors : bool = false
 var debug_superspeed : bool = false
 var debug_wasd : bool = false
+var debug_mouselook : bool = false
 var debug_god_mode : bool = false
 var debug_wasd_paused : bool = false
 var autoplay : bool = false
@@ -147,6 +148,7 @@ func load_settings() -> void:
 	debug_skip_doors = config.get_value("debug", "skip_doors", false)
 	debug_superspeed = config.get_value("debug", "superspeed", false)
 	debug_wasd = config.get_value("debug", "wasd", false)
+	debug_mouselook = config.get_value("debug", "mouselook", false)
 	debug_god_mode = config.get_value("debug", "god_mode", false)
 
 func save_settings() -> void:
@@ -168,6 +170,7 @@ func save_settings() -> void:
 	config.set_value("debug", "skip_doors", debug_skip_doors)
 	config.set_value("debug", "superspeed", debug_superspeed)
 	config.set_value("debug", "wasd", debug_wasd)
+	config.set_value("debug", "mouselook", debug_mouselook)
 	config.set_value("debug", "god_mode", debug_god_mode)
 	config.save(SETTINGS_PATH)
 
