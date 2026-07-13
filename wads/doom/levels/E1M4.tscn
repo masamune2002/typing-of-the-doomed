@@ -820,29 +820,29 @@ point_count = 2
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Resource" id="Resource_y02qu"]
+[sub_resource type="Resource" id="Resource_okpdu"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_okpdu"]
+[sub_resource type="Curve3D" id="Curve3D_cnvp8"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_wb5bl"]
+[sub_resource type="Resource" id="Resource_qhjsp"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
-[sub_resource type="Curve3D" id="Curve3D_cnvp8"]
+[sub_resource type="Curve3D" id="Curve3D_vea88"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6912308, 0, -0.97993517),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_khrc8"]
+[sub_resource type="Resource" id="Resource_p5xjl"]
 resource_local_to_scene = true
 script = ExtResource("5_rqm1n")
 
@@ -851,12 +851,357 @@ script = ExtResource("9_ybo54")
 variable_name = "key_yellow_keycard"
 metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
-[sub_resource type="Curve3D" id="Curve3D_qhjsp"]
+[sub_resource type="Curve3D" id="Curve3D_6j4o7"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.96308136, 0, -6.008235),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
+
+[sub_resource type="Resource" id="Resource_nec1"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec2"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec3"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec4"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec5"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec6"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec7"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec8"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec9"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec10"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec11"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec12"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec13"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec14"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec15"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec16"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec17"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec18"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec19"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec20"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec21"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec22"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec23"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec24"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec25"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec26"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec27"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec28"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec29"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec30"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec31"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec32"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec33"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec34"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec35"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec36"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec37"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec38"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec39"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec40"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec41"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec42"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec43"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec44"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec45"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec46"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec47"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec48"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec49"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec50"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec51"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec52"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec53"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec54"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec55"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec56"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec57"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec58"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec59"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec60"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec61"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec62"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec63"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec64"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec65"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec66"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec67"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec68"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Resource" id="Resource_nec69"]
+script = ExtResource("10_ufi0p")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [node name="RailNetwork" type="Node3D" unique_id=54128059]
 script = ExtResource("1_rn")
@@ -870,6 +1215,7 @@ map_name = "E1M4"
 [node name="StationA" parent="Stations" unique_id=1209761739 instance=ExtResource("3_rs")]
 next_stations = Array[NodePath]([NodePath("../StationB")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_iqtfb")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec1")])
 disc_color = Color(0.9, 0.7563909, 0.27, 1)
 
 [node name="StationA__TO__StationB" type="Path3D" parent="Stations/StationA" unique_id=394966013]
@@ -885,6 +1231,7 @@ mesh = SubResource("ArrayMesh_hhsjc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9208555, 0, -1.1290188)
 next_stations = Array[NodePath]([NodePath("../Station2")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_e3l1x")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec2")])
 disc_color = Color(0.9, 0.27, 0.6976672, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9208555, 0, -1.1290188)
 
@@ -898,7 +1245,7 @@ to_station = NodePath("../../Station2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7296634, 0, -1.1052403)
 next_stations = Array[NodePath]([NodePath("../Station3")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_kfe44")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_f65g0")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_f65g0"), SubResource("Resource_nec3")])
 disc_color = Color(0.27, 0.6938556, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7296634, 0, -1.1052403)
 
@@ -912,6 +1259,7 @@ to_station = NodePath("../../Station3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.729664, 0, -1.1052403)
 next_stations = Array[NodePath]([NodePath("../Station4")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fl3cu")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec4")])
 disc_color = Color(0.9, 0.66524416, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.729664, 0, -1.1052403)
 
@@ -925,6 +1273,7 @@ to_station = NodePath("../../Station4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 1.8947597)
 next_stations = Array[NodePath]([NodePath("../Station5")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7ygyq")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec5")])
 disc_color = Color(0.8367321, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 1.8947597)
 
@@ -938,6 +1287,7 @@ to_station = NodePath("../../Station5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 3.8947597)
 next_stations = Array[NodePath]([NodePath("../Station6")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4078x")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec6")])
 disc_color = Color(0.9, 0.304058, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 3.8947597)
 
@@ -951,6 +1301,7 @@ to_station = NodePath("../../Station6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 6.8947597)
 next_stations = Array[NodePath]([NodePath("../Station7")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_go1py")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec7")])
 disc_color = Color(0.27, 0.33037123, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 6.8947597)
 
@@ -964,6 +1315,7 @@ to_station = NodePath("../../Station7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 10.147667)
 next_stations = Array[NodePath]([NodePath("../Station8")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_0xalf")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec8")])
 disc_color = Color(0.75021654, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 10.147667)
 
@@ -977,6 +1329,7 @@ to_station = NodePath("../../Station8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 14.68487)
 next_stations = Array[NodePath]([NodePath("../Station9")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_u2nuh")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec9")])
 disc_color = Color(0.27, 0.9, 0.38351586, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 14.68487)
 
@@ -990,6 +1343,7 @@ to_station = NodePath("../../Station9")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 18.74849)
 next_stations = Array[NodePath]([NodePath("../Station10")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_pra3l")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec10")])
 disc_color = Color(0.9, 0.6606205, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.729664, 0, 18.74849)
 
@@ -1003,6 +1357,7 @@ to_station = NodePath("../../Station10")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.69025, 0, 20.684996)
 next_stations = Array[NodePath]([NodePath("../Station11")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_juj8d")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec11")])
 disc_color = Color(0.6806101, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.69025, 0, 20.684996)
 
@@ -1016,6 +1371,7 @@ to_station = NodePath("../../Station11")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.101658, 0, 20.679007)
 next_stations = Array[NodePath]([NodePath("../Station12")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_mlcyq")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec12")])
 disc_color = Color(0.27, 0.9, 0.32191008, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.101658, 0, 20.679007)
 
@@ -1029,6 +1385,7 @@ to_station = NodePath("../../Station12")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 25.786114)
 next_stations = Array[NodePath]([NodePath("../Station13")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aqw72")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec13")])
 disc_color = Color(0.9, 0.27, 0.42117342, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 25.786114)
 
@@ -1042,6 +1399,7 @@ to_station = NodePath("../../Station13")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 32.12133)
 next_stations = Array[NodePath]([NodePath("../Station14")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_rgb8d")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec14")])
 disc_color = Color(0.40719038, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 32.12133)
 
@@ -1055,6 +1413,7 @@ to_station = NodePath("../../Station14")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 34.65182)
 next_stations = Array[NodePath]([NodePath("../Station15")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bgvml")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec15")])
 disc_color = Color(0.5275215, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 34.65182)
 
@@ -1068,6 +1427,7 @@ to_station = NodePath("../../Station15")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 37.334824)
 next_stations = Array[NodePath]([NodePath("../Station16")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vdv8a")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec16")])
 disc_color = Color(0.64253193, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.33983, 0, 37.334824)
 
@@ -1081,6 +1441,7 @@ to_station = NodePath("../../Station16")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.943283, 0, 40.387062)
 next_stations = Array[NodePath]([NodePath("../Station17")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_iqkd7")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec17")])
 disc_color = Color(0.74873644, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.943283, 0, 40.387062)
 
@@ -1094,6 +1455,7 @@ to_station = NodePath("../../Station17")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.40022, 0, 40.276726)
 next_stations = Array[NodePath]([NodePath("../Station18")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qrnvc")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec18")])
 disc_color = Color(0.9, 0.27, 0.44044998, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.40022, 0, 40.276726)
 
@@ -1107,6 +1469,7 @@ to_station = NodePath("../../Station18")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.65181, 0, 37.276726)
 next_stations = Array[NodePath]([NodePath("../Station19")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_4xnv3")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec19")])
 disc_color = Color(0.7591155, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.65181, 0, 37.276726)
 
@@ -1120,6 +1483,7 @@ to_station = NodePath("../../Station19")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.732796, 0, 39.277447)
 next_stations = Array[NodePath]([NodePath("../Station20")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_mkb3r")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec20")])
 disc_color = Color(0.9, 0.6546564, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.732796, 0, 39.277447)
 
@@ -1133,6 +1497,7 @@ to_station = NodePath("../../Station20")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 39.335674)
 next_stations = Array[NodePath]([NodePath("../Station21")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_fcne4")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec21")])
 disc_color = Color(0.5349999, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 39.335674)
 
@@ -1146,6 +1511,7 @@ to_station = NodePath("../../Station21")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 36.335674)
 next_stations = Array[NodePath]([NodePath("../Station22")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3ay25")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec22")])
 disc_color = Color(0.60444534, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 36.335674)
 
@@ -1159,6 +1525,7 @@ to_station = NodePath("../../Station22")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 33.335674)
 next_stations = Array[NodePath]([NodePath("../Station23")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cvgmk")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec23")])
 disc_color = Color(0.6747514, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 33.335674)
 
@@ -1172,6 +1539,7 @@ to_station = NodePath("../../Station23")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 30.335674)
 next_stations = Array[NodePath]([NodePath("../Station24")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_2uhr2")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec24")])
 disc_color = Color(0.7344665, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 30.335674)
 
@@ -1185,7 +1553,7 @@ to_station = NodePath("../../Station24")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 25.810575)
 next_stations = Array[NodePath]([NodePath("../Station25")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_moi62")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_e02el")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_e02el"), SubResource("Resource_nec25")])
 disc_color = Color(0.27, 0.8792082, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 25.810575)
 
@@ -1227,7 +1595,7 @@ to_station = NodePath("../../Station27")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.652077)
 next_stations = Array[NodePath]([NodePath("../Station28")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xxigb")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_3uhra")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_3uhra"), SubResource("Resource_nec26")])
 disc_color = Color(0.27, 0.83378386, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 19.652077)
 
@@ -1241,6 +1609,7 @@ to_station = NodePath("../../Station28")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 26.332445)
 next_stations = Array[NodePath]([NodePath("../Station29")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aymdo")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec27")])
 disc_color = Color(0.9, 0.27, 0.6619854, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 26.332445)
 
@@ -1254,6 +1623,7 @@ to_station = NodePath("../../Station29")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.52939, 0, 26.388441)
 next_stations = Array[NodePath]([NodePath("../Station30")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xoi7r")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec28")])
 disc_color = Color(0.27, 0.43215752, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.52939, 0, 26.388441)
 
@@ -1267,6 +1637,7 @@ to_station = NodePath("../../Station30")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.81062, 0, 23.388441)
 next_stations = Array[NodePath]([NodePath("../Station31")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_saywq")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec29")])
 disc_color = Color(0.6586686, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.81062, 0, 23.388441)
 
@@ -1280,6 +1651,7 @@ to_station = NodePath("../../Station31")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 20.388441)
 next_stations = Array[NodePath]([NodePath("../Station32")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3fym0")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec30")])
 disc_color = Color(0.4213687, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 20.388441)
 
@@ -1293,6 +1665,7 @@ to_station = NodePath("../../Station32")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 14.117235)
 next_stations = Array[NodePath]([NodePath("../Station33")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_x3vfh")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec31")])
 disc_color = Color(0.34708723, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.39316, 0, 14.117235)
 
@@ -1306,6 +1679,7 @@ to_station = NodePath("../../Station33")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 14.302362)
 next_stations = Array[NodePath]([NodePath("../Station34")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qwji8")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec32")])
 disc_color = Color(0.9, 0.27, 0.3594523, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 14.302362)
 
@@ -1319,6 +1693,7 @@ to_station = NodePath("../../Station34")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 25.5063)
 next_stations = Array[NodePath]([NodePath("../Station35")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cxitj")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec33")])
 disc_color = Color(0.9, 0.8975567, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.12069, 0, 25.5063)
 
@@ -1332,6 +1707,7 @@ to_station = NodePath("../../Station35")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.61714, 5.0522494, 36.107643)
 next_stations = Array[NodePath]([NodePath("../Station36")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_volde")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec34")])
 disc_color = Color(0.4538322, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.61714, 5.0522494, 36.107643)
 
@@ -1346,7 +1722,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.281456, 5.1292377, 44.091
 next_stations = Array[NodePath]([NodePath("../Station38")])
 startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xi6xp")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_xglnc")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_uqt5i")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_uqt5i"), SubResource("Resource_nec35")])
 disc_color = Color(0.39447564, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.281456, 5.1292377, 44.091614)
 
@@ -1363,6 +1739,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.24118, 5.1292377, 44.0550
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.34614, 4.9200096, 43.93709)
 next_stations = Array[NodePath]([NodePath("../Station39")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_cvf2p")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec36")])
 disc_color = Color(0.27, 0.6337145, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.34614, 4.9200096, 43.93709)
 
@@ -1376,6 +1753,7 @@ to_station = NodePath("../../Station39")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.96576, 4.9200096, 40.93709)
 next_stations = Array[NodePath]([NodePath("../Station40")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_8v4qt")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec37")])
 disc_color = Color(0.6695683, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.96576, 4.9200096, 40.93709)
 
@@ -1389,6 +1767,7 @@ to_station = NodePath("../../Station40")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 37.93709)
 next_stations = Array[NodePath]([NodePath("../Station41")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_dtnt0")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec38")])
 disc_color = Color(0.9, 0.27, 0.3833398, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 37.93709)
 
@@ -1402,6 +1781,7 @@ to_station = NodePath("../../Station41")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 34.93709)
 next_stations = Array[NodePath]([NodePath("../Station42")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_k6heo")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec39")])
 disc_color = Color(0.6960522, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 34.93709)
 
@@ -1415,6 +1795,7 @@ to_station = NodePath("../../Station42")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 31.937092)
 next_stations = Array[NodePath]([NodePath("../Station43")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_3rws0")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec40")])
 disc_color = Color(0.27, 0.9, 0.85808146, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 31.937092)
 
@@ -1428,6 +1809,7 @@ to_station = NodePath("../../Station43")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 28.937092)
 next_stations = Array[NodePath]([NodePath("../Station44")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_piu88")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec41")])
 disc_color = Color(0.27, 0.9, 0.41383314, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 28.937092)
 
@@ -1441,6 +1823,7 @@ to_station = NodePath("../../Station44")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 25.937092)
 next_stations = Array[NodePath]([NodePath("../Station45")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_o1ujk")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec42")])
 disc_color = Color(0.4797784, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 25.937092)
 
@@ -1454,6 +1837,7 @@ to_station = NodePath("../../Station45")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 22.937092)
 next_stations = Array[NodePath]([NodePath("../Station46")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_djiq3")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec43")])
 disc_color = Color(0.9, 0.6173041, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 22.937092)
 
@@ -1467,6 +1851,7 @@ to_station = NodePath("../../Station46")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 19.937092)
 next_stations = Array[NodePath]([NodePath("../Station47")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_m5w30")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec44")])
 disc_color = Color(0.27, 0.9, 0.29124933, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 19.937092)
 
@@ -1480,6 +1865,7 @@ to_station = NodePath("../../Station47")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 16.937092)
 next_stations = Array[NodePath]([NodePath("../Station48")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_pv7um")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec45")])
 disc_color = Color(0.76416385, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 16.937092)
 
@@ -1493,6 +1879,7 @@ to_station = NodePath("../../Station48")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 13.937092)
 next_stations = Array[NodePath]([NodePath("../Station49")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_hbvva")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec46")])
 disc_color = Color(0.9, 0.78982335, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 13.937092)
 
@@ -1506,6 +1893,7 @@ to_station = NodePath("../../Station49")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 12.857916)
 next_stations = Array[NodePath]([NodePath("../Station50")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_aqnh7")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec47")])
 disc_color = Color(0.27, 0.9, 0.6282606, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.77127, 4.9200096, 12.857916)
 
@@ -1519,6 +1907,7 @@ to_station = NodePath("../../Station50")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 12.708174)
 next_stations = Array[NodePath]([NodePath("../Station51")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_ueim2")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec48")])
 disc_color = Color(0.9, 0.27, 0.38990703, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 12.708174)
 
@@ -1532,6 +1921,7 @@ to_station = NodePath("../../Station51")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 9.522287)
 next_stations = Array[NodePath]([NodePath("../Station52")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_00gpr")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec49")])
 disc_color = Color(0.9, 0.69498074, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.464905, 4.9200096, 9.522287)
 
@@ -1545,6 +1935,7 @@ to_station = NodePath("../../Station52")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.58022, 4.9200096, 6.5222874)
 next_stations = Array[NodePath]([NodePath("../Station53")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_rc86h")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec50")])
 disc_color = Color(0.9, 0.43422586, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.58022, 4.9200096, 6.5222874)
 
@@ -1558,6 +1949,7 @@ to_station = NodePath("../../Station53")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.02944, 4.9200096, 6.62039)
 next_stations = Array[NodePath]([NodePath("../Station54")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_1rqjd")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec51")])
 disc_color = Color(0.27, 0.28370458, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.02944, 4.9200096, 6.62039)
 
@@ -1571,6 +1963,7 @@ to_station = NodePath("../../Station54")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.68596, 4.9200096, 5.7703533)
 next_stations = Array[NodePath]([NodePath("../Station70")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qhbr3")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec52")])
 disc_color = Color(0.9, 0.893789, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.68596, 4.9200096, 5.7703533)
 
@@ -1584,6 +1977,7 @@ to_station = NodePath("../../Station70")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 next_stations = Array[NodePath]([NodePath("../Station56")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_whle4")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec53")])
 disc_color = Color(0.9, 0.5283291, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 
@@ -1597,6 +1991,7 @@ to_station = NodePath("../../Station56")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -10.217817)
 next_stations = Array[NodePath]([NodePath("../Station57")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_jbieg")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec54")])
 disc_color = Color(0.43022412, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -10.217817)
 
@@ -1610,6 +2005,7 @@ to_station = NodePath("../../Station57")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -11.266011)
 next_stations = Array[NodePath]([NodePath("../Station58")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_bhg3o")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec55")])
 disc_color = Color(0.27, 0.9, 0.8344165, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -11.266011)
 
@@ -1623,6 +2019,7 @@ to_station = NodePath("../../Station58")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -11.198885)
 next_stations = Array[NodePath]([NodePath("../Station59")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_65e7y")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec56")])
 disc_color = Color(0.27, 0.9, 0.49894676, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -11.198885)
 
@@ -1636,7 +2033,7 @@ to_station = NodePath("../../Station59")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -12.643785)
 next_stations = Array[NodePath]([NodePath("../Station60")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_5a0t4")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_hsn2e"), SubResource("Resource_f52br")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_hsn2e"), SubResource("Resource_f52br"), SubResource("Resource_nec57")])
 disc_color = Color(0.30435368, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -12.643785)
 
@@ -1650,6 +2047,7 @@ to_station = NodePath("../../Station60")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -15.853676)
 next_stations = Array[NodePath]([NodePath("../Station61")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_7rejj")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec58")])
 disc_color = Color(0.6007528, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -15.853676)
 
@@ -1663,6 +2061,7 @@ to_station = NodePath("../../Station61")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -18.195383)
 next_stations = Array[NodePath]([NodePath("../Station62")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vgco6")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec59")])
 disc_color = Color(0.27, 0.9, 0.7623596, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -18.195383)
 
@@ -1676,6 +2075,7 @@ to_station = NodePath("../../Station62")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.557594, 4.9200096, -18.047022)
 next_stations = Array[NodePath]([NodePath("../Station63")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_2yp6v")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec60")])
 disc_color = Color(0.3842221, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.557594, 4.9200096, -18.047022)
 
@@ -1689,6 +2089,7 @@ to_station = NodePath("../../Station63")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.91488, 4.9200096, -20.03573)
 next_stations = Array[NodePath]([NodePath("../Station64")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_1qiv2")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec61")])
 disc_color = Color(0.27, 0.9, 0.4617981, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.91488, 4.9200096, -20.03573)
 
@@ -1702,6 +2103,7 @@ to_station = NodePath("../../Station64")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.46648, 4.9200096, -23.942078)
 next_stations = Array[NodePath]([NodePath("../Station65")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_0y0ae")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec62")])
 disc_color = Color(0.79805857, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.46648, 4.9200096, -23.942078)
 
@@ -1715,6 +2117,7 @@ to_station = NodePath("../../Station65")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.174225, 4.9200096, -23.936825)
 next_stations = Array[NodePath]([NodePath("../Station66")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_80m5o")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec63")])
 disc_color = Color(0.7807889, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.174225, 4.9200096, -23.936825)
 
@@ -1728,6 +2131,7 @@ to_station = NodePath("../../Station66")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -23.854074)
 next_stations = Array[NodePath]([NodePath("../Station67")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_twmvg")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec64")])
 disc_color = Color(0.9, 0.27, 0.35703012, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.93248, 7.370058, -23.854074)
 
@@ -1741,7 +2145,7 @@ to_station = NodePath("../../Station67")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.27755, 7.3986535, -23.954802)
 next_stations = Array[NodePath]([NodePath("../Station68")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_vmx0b")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_ra0wx")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_ra0wx"), SubResource("Resource_nec65")])
 disc_color = Color(0.27, 0.7709418, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.27755, 7.3986535, -23.954802)
 
@@ -1754,18 +2158,20 @@ to_station = NodePath("../../Station68")
 [node name="Station68" parent="Stations" unique_id=1787934109 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.478516, 7.6566277, -23.958752)
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_atjrv")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec66")])
 disc_color = Color(0.9, 0.27, 0.57138884, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.478516, 7.6566277, -23.958752)
 
 [node name="Station70" parent="Stations" unique_id=1252103986 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, 2.7703533)
 next_stations = Array[NodePath]([NodePath("../@Node3D@29459")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_y02qu")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_okpdu")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec67")])
 disc_color = Color(0.27, 0.9, 0.5169737, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, 2.7703533)
 
 [node name="Station70__TO___Node3D_29459" type="Path3D" parent="Stations/Station70" unique_id=923420844]
-curve = SubResource("Curve3D_okpdu")
+curve = SubResource("Curve3D_cnvp8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../@Node3D@29459")
@@ -1773,12 +2179,13 @@ to_station = NodePath("../../@Node3D@29459")
 [node name="@Node3D@29459" parent="Stations" unique_id=923402844 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, -0.22964668)
 next_stations = Array[NodePath]([NodePath("../Station71")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_wb5bl")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_qhjsp")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec68")])
 disc_color = Color(0.39529783, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.390976, 4.9200096, -0.22964668)
 
 [node name="_Node3D_29459__TO__Station71" type="Path3D" parent="Stations/@Node3D@29459" unique_id=2110274595]
-curve = SubResource("Curve3D_cnvp8")
+curve = SubResource("Curve3D_vea88")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station71")
@@ -1786,13 +2193,13 @@ to_station = NodePath("../../Station71")
 [node name="Station71" parent="Stations" unique_id=98340597 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.699745, 4.9200096, -1.2095819)
 next_stations = Array[NodePath]([NodePath("../Station55")])
-endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_khrc8")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_yxbun")])
+endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_p5xjl")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_yxbun"), SubResource("Resource_nec69")])
 disc_color = Color(0.9, 0.27, 0.2813488, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.699745, 4.9200096, -1.2095819)
 
 [node name="Station71__TO__Station55" type="Path3D" parent="Stations/Station71" unique_id=348634354]
-curve = SubResource("Curve3D_qhjsp")
+curve = SubResource("Curve3D_6j4o7")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station55")
