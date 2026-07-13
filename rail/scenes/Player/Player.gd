@@ -78,6 +78,11 @@ func reset() -> void:
 	_alive = true
 	_moveAction = null
 	_deathReady = false
+	# The player body free-falls while idle behind the title screen or during
+	# level transitions; carrying that velocity into a fresh spawn shoots the
+	# body through the floor before the new map's colliders can catch it.
+	velocity = Vector3.ZERO
+	_air_time = 0.0
 	_keys.clear()
 	_clearFireTarget()
 	set_process_input(true)
