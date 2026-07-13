@@ -229,54 +229,67 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Resource" id="Resource_lans1"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans2"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans3"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans4"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans5"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans6"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans7"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans8"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans9"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans10"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans11"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans12"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans13"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [node name="RailNetwork" type="Node3D"]

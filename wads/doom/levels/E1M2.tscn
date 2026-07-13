@@ -1327,322 +1327,402 @@ point_count = 2
 
 [sub_resource type="Resource" id="Resource_lans1"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans2"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans3"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans4"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans5"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans6"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans7"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans8"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans9"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans10"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans11"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans12"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans13"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans14"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans15"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans16"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans17"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans18"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans19"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans20"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans21"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans22"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans23"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans24"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans25"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans26"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans27"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans28"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans29"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans30"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans31"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans32"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans33"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans34"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans35"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans36"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans37"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans38"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans39"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans40"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans41"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans42"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans43"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans44"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans45"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans46"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans47"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans48"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans49"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans50"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans51"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans52"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans53"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans54"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans55"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans56"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans57"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans58"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans59"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans60"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans61"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans62"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans63"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans64"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans65"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans66"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans67"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans68"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans69"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans70"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans71"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans72"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans73"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans74"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans75"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans76"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans77"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans78"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans79"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [sub_resource type="Resource" id="Resource_lans80"]
 script = ExtResource("9_lans")
+blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
 [node name="RailNetwork" type="Node3D" unique_id=1781257739]
