@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bcjw3qf3gtnj6" path="res://rail/resources/Actions/ChangeWeaponAction.gd" id="12_mnnnc"]
 [ext_resource type="PackedScene" path="res://wads/doom/weapons/Shotgun/Shotgun.tscn" id="13_dynht"]
 [ext_resource type="Script" uid="uid://pbvkbscoohxo" path="res://rail/resources/Actions/LookAtNextStationAction.gd" id="9_lans"]
+[ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="90_marker"]
 
 [sub_resource type="Resource" id="Resource_mnnnc"]
 resource_local_to_scene = true
@@ -2529,6 +2530,12 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lookd82switch"]
+script = ExtResource("9_j0y0m")
+targetNode = NodePath("../D82SwitchMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=1784354188]
 script = ExtResource("1_rn")
 say_hello = true
@@ -3468,10 +3475,15 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station58")
 
+[node name="D82SwitchMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0, -7.0, -45.5)
+disc_color = Color(0.2, 0.9, 1, 1)
+
+
 [node name="Station58" parent="Stations" unique_id=1255436118 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.740519, -7.211337, -45.834454)
 next_stations = Array[NodePath]([NodePath("../Station59")])
-startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans59")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans59"), SubResource("Resource_lookd82switch")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_ur4jt")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_kvslr"), SubResource("Resource_nec50")])
 one_shot = true
