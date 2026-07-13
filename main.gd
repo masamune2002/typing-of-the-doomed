@@ -134,13 +134,25 @@ func _startAutoplay(map_name: String) -> void:
 	# Enable autoplay mode flags
 	SettingsManager.autoplay = true
 	SettingsManager.autoplay_map = map_name.to_upper()
-	SettingsManager.debug_skip_encounters = true
-	SettingsManager.debug_skip_doors = true
 	SettingsManager.debug_tracking = true
-	# Autoplay validates the route, not survivability: enemies stay live and
-	# shooting while the rail never fights back, so damage is disabled.
-	SettingsManager.debug_god_mode = true
-	print("[AUTOPLAY] Starting map %s with skip_encounters, skip_doors, god_mode, tracking" % SettingsManager.autoplay_map)
+	if SettingsManager.autoplay_chain:
+		# --playthrough simulates a real typing player: no skips, no god
+		# mode — encounters are fought by AutoplayTyper at a fixed WPM and
+		# items are picked up along the way.
+		SettingsManager.autoplay_typing = true
+		Game.skill = DoomGame.DEFAULT_SKILL
+		var bot := AutoplayTyper.new()
+		bot.name = "AutoplayTyper"
+		add_child(bot)
+		print("[AUTOPLAY] Starting map %s in TYPING PLAYER mode (skill %d, %d keys/sec, real damage)" % [
+			SettingsManager.autoplay_map, Game.skill, int(AutoplayTyper.KEYS_PER_SEC)])
+	else:
+		SettingsManager.debug_skip_encounters = true
+		SettingsManager.debug_skip_doors = true
+		# --map validates the route, not survivability: enemies stay live and
+		# shooting while the rail never fights back, so damage is disabled.
+		SettingsManager.debug_god_mode = true
+		print("[AUTOPLAY] Starting map %s with skip_encounters, skip_doors, god_mode, tracking" % SettingsManager.autoplay_map)
 
 	# Find the map index in wad_game.map_names
 	var map_idx := -1

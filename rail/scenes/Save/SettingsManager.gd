@@ -26,6 +26,8 @@ var autoplay_map : String = ""
 # Chained playthrough (--playthrough): at rail end, advance to the next map
 # with a RailNetwork level instead of quitting.
 var autoplay_chain : bool = false
+var autoplay_typing : bool = false  # --playthrough: simulate a real typing player
+var autoplay_last_hit_msec : int = 0  # last simulated keystroke (stall detector input)
 var _tracking_timer : float = 0.0
 var _last_track_pos : Vector3 = Vector3.INF
 var _stall_time : float = 0.0
@@ -56,7 +58,11 @@ func _process(delta: float) -> void:
 func _checkAutoplayStall(player, gp: Vector3) -> void:
 	# In autoplay the player should always be riding the rail; a frozen
 	# position means the route is blocked (e.g. a station behind a wall).
-	if gp.distance_to(_last_track_pos) > 0.05:
+	# In typing mode, active typing also counts as progress — a long
+	# stationary firefight is not a stall.
+	var typing_recently : bool = autoplay_typing \
+		and Time.get_ticks_msec() - autoplay_last_hit_msec < 10000
+	if gp.distance_to(_last_track_pos) > 0.05 or typing_recently:
 		_last_track_pos = gp
 		_stall_time = 0.0
 		return

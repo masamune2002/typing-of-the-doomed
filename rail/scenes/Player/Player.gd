@@ -69,7 +69,9 @@ func _ready() -> void:
 	Game.setPlayer(self)
 	add_to_group("player")
 	EventBus.releasePlayerTarget.connect(_clearFireTarget)
-	if SettingsManager.autoplay:
+	if SettingsManager.autoplay and !SettingsManager.autoplay_typing:
+		# Route-validation autoplay only: the typing playthrough bot plays
+		# with real damage and types doors open like a player would.
 		interactPressed = true
 		godMode = true
 
