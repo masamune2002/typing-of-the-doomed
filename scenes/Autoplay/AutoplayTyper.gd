@@ -142,10 +142,23 @@ func _printFinal(reason: String) -> void:
 # ── Target selection ─────────────────────────────────────────────────────
 
 func _pickTarget(player: Player) -> Node3D:
-	# A locked target receives every keystroke first, so always finish it
+	# Interactables (doors/lifts/switches) are only fair game when the route
+	# actually demands one: the current station's gate is unmet, or the rail
+	# is physically blocked (door closed in our face mid-ride). Typing every
+	# visible interactable toggles lifts under the player's own feet and
+	# drops them off-route (E1M2's lift shaft).
+	var wants_interactable : bool = \
+		(player.currentEncounter != null and player.currentEncounter.active \
+			and !player.currentEncounter.conditionsMet) \
+		or (player._moving and player._stuck_frames > 30)
+	# A locked target receives every keystroke first, so finish it — unless
+	# it's an interactable we should no longer be touching.
 	var locked = player._currentFireTarget
 	if locked != null and is_instance_valid(locked) and _isTypeable(locked):
-		return locked
+		if locked is Interactable and not wants_interactable:
+			player._clearFireTarget()
+		else:
+			return locked
 	var candidates := player._getVisibleTargets()
 	# Closest enemy is the most urgent threat
 	var best : Node3D = null
@@ -159,9 +172,10 @@ func _pickTarget(player: Player) -> Node3D:
 	if best != null:
 		return best
 	# Then progression (doors/switches/lifts/exits), then loot
-	for c in candidates:
-		if c is Interactable and _isTypeable(c):
-			return c
+	if wants_interactable:
+		for c in candidates:
+			if c is Interactable and _isTypeable(c):
+				return c
 	for c in candidates:
 		if not (c is Enemy) and not (c is Interactable) and _isTypeable(c):
 			return c
