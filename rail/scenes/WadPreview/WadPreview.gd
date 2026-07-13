@@ -75,6 +75,35 @@ var _labels_by_type: Dictionary = {}  # "D" -> Array[Label3D], "L" -> ..., etc.
 var _enemy_things: Array = []  # Stores parsed enemy things with difficulty info
 var _spawn_offset: Vector3 = Vector3.ZERO  # Offset applied to center map
 
+func _ready() -> void:
+	if !Engine.is_editor_hint():
+		return
+	# Load the preview automatically when a WAD is available; the
+	# Load Geometry button stays for manual reloads.
+	_auto_load.call_deferred()
+
+func _auto_load() -> void:
+	if _loader != null:
+		return
+	if wad_path == "" or !FileAccess.file_exists(wad_path):
+		var found := _find_project_wad()
+		if found == "":
+			return
+		wad_path = found
+	_load()
+
+func _find_project_wad() -> String:
+	var dir := DirAccess.open("res://")
+	if dir == null:
+		return ""
+	dir.list_dir_begin()
+	var f := dir.get_next()
+	while f != "":
+		if !dir.current_is_dir() and f.to_lower().ends_with(".wad"):
+			return "res://" + f
+		f = dir.get_next()
+	return ""
+
 const DIFFICULTY_COLORS := [
 	Color(0.6, 1.0, 0.6),    # Difficulty 1 - light green
 	Color(0.6, 0.8, 1.0),    # Difficulty 2 - light blue
