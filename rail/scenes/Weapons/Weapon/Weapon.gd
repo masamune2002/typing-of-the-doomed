@@ -29,12 +29,12 @@ func fire(_inputEvent : InputEvent) -> Variant:
 
 func _isPlayerMoving() -> bool:
 	var player = Game.getPlayer()
-	if player != null and player._moving:
-		return true
-	return Input.is_action_pressed("forward") or Input.is_action_pressed("backward") \
-		or Input.is_action_pressed("strafeLeft") or Input.is_action_pressed("strafeRight")
+	return player != null and player.isMoving()
 
 func _getSwayDirection() -> float:
+	var player = Game.getPlayer()
+	if player == null or not player.isWasdActive():
+		return 0.0
 	var sway := 0.0
 	if Input.is_action_pressed("strafeLeft"):
 		sway += 1.0

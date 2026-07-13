@@ -125,6 +125,16 @@ func getCurrentFireType() -> Enums.WEAPON_FIRE_TYPE:
 		return Enums.WEAPON_FIRE_TYPE.NONE
 	return _currentWeapon.fireType
 
+func isWasdActive() -> bool:
+	# Movement keys only steer the player in debug free-move mode; walk
+	# animations must not treat key presses as movement outside it.
+	return SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused \
+		and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+
+func isMoving() -> bool:
+	# Actual motion — rail drive or real horizontal velocity — not key state.
+	return _moving or Vector2(velocity.x, velocity.z).length() > 0.01
+
 func _physics_process(delta: float) -> void:
 	if !_alive:
 		return
@@ -187,7 +197,7 @@ func _physics_process(delta: float) -> void:
 			move_dir *= AIR_CARRY_FACTOR
 		# Fake input_dir so head bob and step-up work
 		input_dir = Vector2(dir.x, dir.z).normalized()
-	elif SettingsManager.debug_wasd and not SettingsManager.debug_wasd_paused and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	elif isWasdActive():
 		if Input.is_action_pressed("forward"):
 			input_dir.y -= 1
 		if Input.is_action_pressed("backward"):

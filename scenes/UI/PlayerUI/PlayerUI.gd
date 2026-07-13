@@ -222,9 +222,7 @@ func _process(delta : float) -> void:
 	if _weaponIdleFrames.size() > 0 and not _gameOver:
 		var swayScale = SettingsManager.weapon_sway if SettingsManager else 1.0
 		var player = Game.getPlayer()
-		var moving = (player != null and player._moving) \
-			or Input.is_action_pressed("forward") or Input.is_action_pressed("backward") \
-			or Input.is_action_pressed("strafeLeft") or Input.is_action_pressed("strafeRight")
+		var moving = player != null and player.isMoving()
 		var bobOffset := 0.0
 		var swayOffset := 0.0
 		if _weaponFiring:
@@ -235,11 +233,12 @@ func _process(delta : float) -> void:
 			# DOOM-style figure-8: X is cos(angle), Y is sin(angle*2) at half amplitude
 			swayOffset = cos(_bobTime) * _weaponSpriteW * 0.1 * swayScale
 			bobOffset = sin(_bobTime * 2.0) * _weaponSpriteH * 0.05 * swayScale
-			# Extra sway when strafing
-			if Input.is_action_pressed("strafeLeft"):
-				swayOffset += _weaponSpriteW * 0.1 * swayScale
-			if Input.is_action_pressed("strafeRight"):
-				swayOffset -= _weaponSpriteW * 0.1 * swayScale
+			# Extra sway when strafing (only when the keys actually steer)
+			if player.isWasdActive():
+				if Input.is_action_pressed("strafeLeft"):
+					swayOffset += _weaponSpriteW * 0.1 * swayScale
+				if Input.is_action_pressed("strafeRight"):
+					swayOffset -= _weaponSpriteW * 0.1 * swayScale
 			weaponSprite.position.y = _weaponBaseY + bobOffset
 			weaponSprite.position.x = _weaponBaseX + swayOffset
 		else:
