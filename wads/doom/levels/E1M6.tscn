@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://cjvj83eu0sl8t" path="res://rail/resources/Conditions/VariableCondition.gd" id="8_vc"]
 [ext_resource type="Script" uid="uid://dpqsds1tybnew" path="res://rail/resources/Conditions/NearbyEnemiesClearedCondition.gd" id="9_nec"]
 [ext_resource type="Script" uid="uid://pbvkbscoohxo" path="res://rail/resources/Actions/LookAtNextStationAction.gd" id="9_lans"]
+[ext_resource type="Script" uid="uid://pmiut2p0fl0o" path="res://rail/resources/Actions/LookAtAction.gd" id="90_look"]
+[ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="90_marker"]
 
 [sub_resource type="Resource" id="Resource_va53h"]
 resource_local_to_scene = true
@@ -4646,6 +4648,12 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lookd242switch"]
+script = ExtResource("90_look")
+targetNode = NodePath("../D242SwitchMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=1466768981]
 script = ExtResource("1_rn")
 
@@ -6320,10 +6328,15 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station104")
 
+[node name="D242SwitchMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81.0, 0.0, 28.75)
+disc_color = Color(0.2, 0.9, 1, 1)
+
+
 [node name="Station104" parent="Stations" unique_id=981464348 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 81, 0, 27)
 next_stations = Array[NodePath]([NodePath("../Station105")])
-startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans105")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans105"), SubResource("Resource_lookd242switch")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_m2a6t")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_cond_7"), SubResource("Resource_nec105")])
 one_shot = true
