@@ -60,8 +60,29 @@ const MAP_DESCRIPTIONS = {
 
 # ── Thing Flags ──────────────────────────────────────────────────────────
 
-const THING_FLAG_HARD = 0b100       # Appears on Hard (UV) difficulty
+const THING_FLAG_EASY = 0b1         # Appears on skills 1-2 (ITYTD / HNTR)
+const THING_FLAG_MEDIUM = 0b10      # Appears on skill 3 (HMP)
+const THING_FLAG_HARD = 0b100       # Appears on skills 4-5 (UV / NM)
 const THING_FLAG_MULTIPLAYER = 0b10000  # Multiplayer only (not single player)
+
+# ── Difficulty (skill levels) ────────────────────────────────────────────
+
+const SKILL_NAMES : Array[String] = [
+	"I'M TOO YOUNG TO DIE.",
+	"HEY, NOT TOO ROUGH.",
+	"HURT ME PLENTY.",
+	"ULTRA-VIOLENCE.",
+	"NIGHTMARE!",
+]
+const DEFAULT_SKILL = 4  # Ultra-Violence — matches the pre-difficulty-menu behavior
+
+## Which thing flag gates enemy spawns at the given skill (1-5), per DOOM:
+## skills 1-2 use the easy flag, 3 the medium flag, 4-5 the hard flag.
+static func skillThingFlag(skill: int) -> int:
+	match skill:
+		1, 2: return THING_FLAG_EASY
+		3: return THING_FLAG_MEDIUM
+		_: return THING_FLAG_HARD
 
 # ── Keys ─────────────────────────────────────────────────────────────────
 

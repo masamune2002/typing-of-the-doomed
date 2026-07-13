@@ -5,6 +5,9 @@ var wadLoader: WadRuntimeLoader = null
 var wadGame: WadGame = null
 var _doomFont: Font = null
 var _state_vars: Dictionary = {}
+# Selected difficulty (1-5, DOOM skill levels). Chosen from the menu on
+# New Game / Level Select; gates which WAD things spawn.
+var skill: int = 4
 
 func setVar(key: String, value: Variant = true) -> void:
 	_state_vars[key] = value

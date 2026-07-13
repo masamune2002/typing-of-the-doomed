@@ -8,7 +8,7 @@ signal save_requested(slot: int, save_name: String)
 
 var pause_mode : bool = false
 
-enum MenuState { MAIN, LEVEL_SELECT, SAVE_GAME, LOAD_GAME, OPTIONS, DEBUG }
+enum MenuState { MAIN, LEVEL_SELECT, DIFFICULTY_SELECT, SAVE_GAME, LOAD_GAME, OPTIONS, DEBUG }
 
 const MENU_ITEMS_MAIN = ["NEW GAME", "LOAD GAME", "LEVEL SELECT", "OPTIONS", "QUIT GAME"]
 const MENU_ITEMS_PAUSE = ["RESUME GAME", "SAVE GAME", "LOAD GAME", "LEVEL SELECT", "OPTIONS", "QUIT GAME"]
@@ -28,9 +28,14 @@ const SCALE_MAX := 12.0
 var _menu_state : MenuState = MenuState.MAIN
 var _menu_selection : int = 0
 var _level_selection : int = 0
+var _difficulty_selection : int = 2  # default to Hurt Me Plenty, like DOOM
 var _slot_selection : int = 0
 var _options_selection : int = 0
 var _debug_selection : int = 0
+# Map the difficulty prompt will start once a skill is chosen, and whether
+# the prompt was reached through Level Select (for ui_cancel backtracking)
+var _pending_map_idx : int = 0
+var _difficulty_from_level_select : bool = false
 
 var _root : Control = null
 var _scaler : Control = null
@@ -116,6 +121,7 @@ func _buildUI() -> void:
 	var main_items : Array = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
 	_panels[MenuState.MAIN] = _buildSimplePanel(main_items, "")
 	_panels[MenuState.LEVEL_SELECT] = _buildSimplePanel(_levelLines(), "LEVEL SELECT")
+	_panels[MenuState.DIFFICULTY_SELECT] = _buildSimplePanel(DoomGame.SKILL_NAMES, "CHOOSE SKILL LEVEL")
 	_panels[MenuState.SAVE_GAME] = _buildSlotPanel("SAVE GAME")
 	_panels[MenuState.LOAD_GAME] = _buildSlotPanel("LOAD GAME")
 	_panels[MenuState.OPTIONS] = _buildOptionsPanel()
@@ -302,6 +308,7 @@ func _getActiveSelection() -> int:
 	match _menu_state:
 		MenuState.MAIN: return _menu_selection
 		MenuState.LEVEL_SELECT: return _level_selection
+		MenuState.DIFFICULTY_SELECT: return _difficulty_selection
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME: return _slot_selection
 		MenuState.OPTIONS: return _options_selection
 		MenuState.DEBUG: return _debug_selection
@@ -349,6 +356,9 @@ func _showSubmenu(state: MenuState) -> void:
 func _returnToMain() -> void:
 	Game.playSound(DoomGame.MENU_NAVIGATE)
 	_editing_save_name = false
+	if _menu_state == MenuState.DIFFICULTY_SELECT and _difficulty_from_level_select:
+		_showSubmenu(MenuState.LEVEL_SELECT)
+		return
 	if _menu_state == MenuState.DEBUG:
 		SettingsManager.save_settings()
 		_showSubmenu(MenuState.OPTIONS)
@@ -573,6 +583,8 @@ func _menuUp() -> void:
 			_menu_selection = (_menu_selection - 1 + items.size()) % items.size()
 		MenuState.LEVEL_SELECT:
 			_level_selection = (_level_selection - 1 + DoomGame.MAP_NAMES_CONST.size()) % DoomGame.MAP_NAMES_CONST.size()
+		MenuState.DIFFICULTY_SELECT:
+			_difficulty_selection = (_difficulty_selection - 1 + DoomGame.SKILL_NAMES.size()) % DoomGame.SKILL_NAMES.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
 			_slot_selection = (_slot_selection - 1 + SaveManager.MAX_SLOTS) % SaveManager.MAX_SLOTS
 		MenuState.OPTIONS:
@@ -589,6 +601,8 @@ func _menuDown() -> void:
 			_menu_selection = (_menu_selection + 1) % items.size()
 		MenuState.LEVEL_SELECT:
 			_level_selection = (_level_selection + 1) % DoomGame.MAP_NAMES_CONST.size()
+		MenuState.DIFFICULTY_SELECT:
+			_difficulty_selection = (_difficulty_selection + 1) % DoomGame.SKILL_NAMES.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
 			_slot_selection = (_slot_selection + 1) % SaveManager.MAX_SLOTS
 		MenuState.OPTIONS:
@@ -602,7 +616,12 @@ func _menuConfirm() -> void:
 		MenuState.MAIN:
 			_mainMenuConfirm()
 		MenuState.LEVEL_SELECT:
-			game_started.emit(_level_selection)
+			_pending_map_idx = _level_selection
+			_difficulty_from_level_select = true
+			_showSubmenu(MenuState.DIFFICULTY_SELECT)
+		MenuState.DIFFICULTY_SELECT:
+			Game.skill = _difficulty_selection + 1
+			game_started.emit(_pending_map_idx)
 		MenuState.SAVE_GAME:
 			_startSaveNameEdit()
 		MenuState.LOAD_GAME:
@@ -625,7 +644,10 @@ func _mainMenuConfirm() -> void:
 	else:
 		# NEW GAME, LOAD GAME, LEVEL SELECT, OPTIONS, QUIT GAME
 		match _menu_selection:
-			0: game_started.emit(0)
+			0:
+				_pending_map_idx = 0
+				_difficulty_from_level_select = false
+				_showSubmenu(MenuState.DIFFICULTY_SELECT)
 			1: _showSubmenu(MenuState.LOAD_GAME)
 			2: _showSubmenu(MenuState.LEVEL_SELECT)
 			3: _showSubmenu(MenuState.OPTIONS)

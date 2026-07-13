@@ -470,6 +470,7 @@ func _getDeadEntityNames() -> Array:
 func _onSaveLoaded(save_data: Dictionary) -> void:
 	_pending_save_data = save_data
 	_currentMapIdx = save_data.get("map_idx", 0)
+	Game.skill = int(save_data.get("skill", DoomGame.DEFAULT_SKILL))
 	var from_title = _title_screen != null
 	# Close menus
 	if _pause_menu != null:
@@ -692,9 +693,9 @@ func _spawnEnemiesFromWad() -> void:
 		if not wad_game.enemies.has(thing["type"]):
 			continue
 
-		# Filter by Ultraviolence difficulty (bit 2) and exclude multiplayer-only (bit 4)
+		# Filter by the selected skill's spawn flag; exclude multiplayer-only
 		var flags = thing["flags"]
-		if (flags & DoomGame.THING_FLAG_HARD) == 0:
+		if (flags & DoomGame.skillThingFlag(Game.skill)) == 0:
 			continue
 		if (flags & DoomGame.THING_FLAG_MULTIPLAYER) != 0:
 			continue
@@ -735,6 +736,8 @@ func _spawnEnemiesFromWad() -> void:
 			pos.y = floor_info["height"]
 		enemy.global_position = _wadToWorld(pos)
 		_registerEntitySectorRider(enemy, pos)
+
+	print("Spawned %d enemies (skill %d)" % [enemy_nodes.size(), Game.skill])
 
 	# Spawn items from WAD data
 	var item_count = 0
