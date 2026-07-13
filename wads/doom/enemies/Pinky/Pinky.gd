@@ -281,6 +281,16 @@ func cancelTelegraph() -> void:
 	_telegraphTween = null
 	sprite.modulate = Color.WHITE
 
+func _attack(target : Player) -> void:
+	# The telegraph started while visible, but the player may have looked
+	# away since — an off-screen pinky must not land hits the player never
+	# saw coming. Reset to IDLE so the state machine doesn't stall.
+	if !visible_to_player:
+		if stateMachine.currentStateKey == Enums.ENEMY_STATE.ATTACKING:
+			stateMachine.setState(Enums.ENEMY_STATE.IDLE)
+		return
+	super._attack(target)
+
 func isMeleeOnly() -> bool:
 	return true
 

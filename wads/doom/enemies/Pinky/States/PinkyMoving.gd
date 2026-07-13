@@ -50,6 +50,19 @@ func _physics_process(delta: float) -> void:
 	if _target == null or !is_instance_valid(_target) or !parent.alive or parent.dying:
 		return
 
+	# Freeze while off-screen: an unseen pinky can't be typed at, so it
+	# must not close in or attack from behind. It resumes the moment the
+	# player can see it again.
+	if !parent.visible_to_player:
+		parent.velocity.x = 0
+		parent.velocity.z = 0
+		if not parent.is_on_floor():
+			parent.velocity.y -= GRAVITY * delta
+		else:
+			parent.velocity.y = 0
+		parent.move_and_slide()
+		return
+
 	# Check melee range
 	var distance = parent.global_position.distance_to(_target.global_position)
 	if distance <= MELEE_RANGE and _hasLineOfSight():

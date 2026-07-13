@@ -23,6 +23,10 @@ func _physics_process(_delta: float) -> void:
 	var player = Game.getPlayer()
 	if player == null or !is_instance_valid(player):
 		return
+	# Only chase while the player can see (and therefore type at) this
+	# pinky — an unseen pinky sneaking up from behind can't be fought.
+	if !parent.visible_to_player:
+		return
 	var distance = parent.global_position.distance_to(player.global_position)
 	if distance > Pinky.MELEE_RANGE:
 		parent.stateMachine.setState(Enums.ENEMY_STATE.MOVING)
