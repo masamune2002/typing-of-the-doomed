@@ -7,6 +7,10 @@ const MOVE_SPEED := 5.0
 const MELEE_RANGE := 3.0
 const GRAVITY := 20.0
 const CHASE_SOUND_CHANCE := 0.03  # 3% per tic, checked each physics frame
+# DOOM monsters never walk off drops taller than 24 map units (~0.91 world
+# units at the WAD y-scale) — without this, chasing pinkies walk straight
+# into nukage pits and are stuck there for the rest of the level.
+const MAX_DROP := 1.0
 
 # 8 cardinal+diagonal directions (matching DOOM's DI_ enum)
 const DIRECTIONS = [
@@ -94,12 +98,20 @@ func _physics_process(delta: float) -> void:
 	# Try to move in current direction
 	if _move_dir >= 0 and _move_dir < DIRECTIONS.size():
 		var dir = DIRECTIONS[_move_dir].normalized()
-		parent.velocity.x = dir.x * MOVE_SPEED
-		parent.velocity.z = dir.z * MOVE_SPEED
+		# Stop at ledges mid-run: the pick-time probe looks one step ahead,
+		# but a long straight run can still reach an edge between picks.
+		if parent.is_on_floor() and _isLedgeAhead(dir, 0.4):
+			parent.velocity.x = 0
+			parent.velocity.z = 0
+			_move_dir = -1
+			_move_count = 0
+		else:
+			parent.velocity.x = dir.x * MOVE_SPEED
+			parent.velocity.z = dir.z * MOVE_SPEED
 
-		# Face movement direction
-		var look_target = parent.global_position + dir
-		parent.look_at(look_target, Vector3.UP, true)
+			# Face movement direction
+			var look_target = parent.global_position + dir
+			parent.look_at(look_target, Vector3.UP, true)
 	else:
 		parent.velocity.x = 0
 		parent.velocity.z = 0
@@ -193,7 +205,21 @@ func _isDirectionClear(dir_index: int) -> bool:
 	query.collision_mask = 2
 	query.exclude = [parent.get_rid()]
 	var result = space_state.intersect_ray(query)
-	return result.is_empty()
+	if !result.is_empty():
+		return false
+	# No wall — but don't pick a direction that walks off a ledge
+	return !_isLedgeAhead(dir, 1.0)
+
+func _isLedgeAhead(dir: Vector3, ahead: float) -> bool:
+	var space_state = parent.get_world_3d().direct_space_state
+	if space_state == null:
+		return false
+	var from = parent.global_position + dir * ahead + Vector3(0, 0.3, 0)
+	var to = from + Vector3(0, -(0.3 + MAX_DROP), 0)
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = 2
+	query.exclude = [parent.get_rid()]
+	return space_state.intersect_ray(query).is_empty()
 
 func _hasLineOfSight() -> bool:
 	var space_state = parent.get_world_3d().direct_space_state
