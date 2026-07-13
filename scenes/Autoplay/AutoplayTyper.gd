@@ -10,8 +10,14 @@ class_name AutoplayTyper
 
 const KEYS_PER_SEC := 5.0          # ~60 WPM
 const LEVEL_TIMEOUT_SECS := 600.0  # hard backstop: report and quit
+const INTERACTABLE_COOLDOWN_MSEC := 10000  # don't re-type a completed door
 
 var _accum := 0.0
+var _cooldown : Dictionary = {}         # interactable instance id -> msec usable again
+var _last_itarget : Node3D = null       # last interactable we typed at
+var _last_itarget_rem : int = 0         # its remaining chars at our last keystroke
+var _futile : Dictionary = {}           # instance id -> re-arms seen this station
+var _futile_enc : Node = null           # encounter the futility counts belong to
 var _retries : Dictionary = {}     # map name -> deaths used
 var _dead_handled := false
 var _level_time := 0.0
@@ -97,8 +103,36 @@ func _physics_process(delta: float) -> void:
 		return
 	_accum = minf(_accum - 1.0, 1.0)  # never burst more than 1 key per frame
 
+	# A completed interactable re-arms when its door closes; without a
+	# cooldown the bot re-opens it forever and starves item pickups.
+	if _last_itarget != null and (!is_instance_valid(_last_itarget) or !_isTypeable(_last_itarget)):
+		if is_instance_valid(_last_itarget):
+			_cooldown[_last_itarget.get_instance_id()] = Time.get_ticks_msec() + INTERACTABLE_COOLDOWN_MSEC
+		_last_itarget = null
+	elif _last_itarget != null and _remaining(_last_itarget) >= _last_itarget_rem:
+		# Remaining didn't shrink: the word re-armed between our keystrokes
+		# (a 1-char word resets to the same length). Some doors refuse to
+		# move (E1M4's walk-only ambush closets) and reset within a frame —
+		# faster than the completion check above can see. A few strikes and
+		# the door is futile for this station. (Don't null _last_itarget:
+		# stolen keystrokes are possible, so let the count accumulate.)
+		var fid := _last_itarget.get_instance_id()
+		_futile[fid] = _futile.get(fid, 0) + 1
+	# Futility is judged per station: a door that's useless for this gate
+	# may be exactly what the next one needs.
+	if player.currentEncounter != _futile_enc:
+		_futile_enc = player.currentEncounter
+		_futile.clear()
+
 	var target := _pickTarget(player)
+	if target is Interactable:
+		_last_itarget = target
+		_last_itarget_rem = _remaining(target)
 	if target == null:
+		# Nothing typeable on screen. The camera is rail-driven (mouse-look
+		# is a debug tool, not a player ability), so the bot must NOT look
+		# around — if a gate's key or switch is off-screen here, that's a
+		# level bug the stall detector should surface.
 		return
 	var ch := _nextChar(target)
 	if ch == "":
@@ -171,10 +205,25 @@ func _pickTarget(player: Player) -> Node3D:
 				best_d = d
 	if best != null:
 		return best
+	# Keys outrank everything but enemies: gates literally wait on them, and
+	# a dud door must never starve the key pickup.
+	for c in candidates:
+		if c is Item and _isTypeable(c) and c.itemDefinition.get("effect", "") == "key":
+			return c
 	# Then progression (doors/switches/lifts/exits), then loot
 	if wants_interactable:
+		var blocked : bool = player._moving and player._stuck_frames > 30
+		var now := Time.get_ticks_msec()
 		for c in candidates:
 			if c is Interactable and _isTypeable(c):
+				# Recently-completed doors are exhausted leads, and a door
+				# that re-armed twice without its gate passing is a dud
+				# (walk-only ambush closets) — skip both, unless the rail
+				# is physically blocked and needs a door NOW
+				if !blocked and _cooldown.get(c.get_instance_id(), 0) > now:
+					continue
+				if _futile.get(c.get_instance_id(), 0) >= 3:
+					continue
 				return c
 	for c in candidates:
 		if not (c is Enemy) and not (c is Interactable) and _isTypeable(c):
@@ -197,6 +246,16 @@ func _weaknessOf(t: Node3D) -> Weakness:
 	if "weakness" in t:
 		return t.weakness
 	return null
+
+func _remaining(t: Node3D) -> int:
+	var w = _weaknessOf(t)
+	if w == null:
+		return 0
+	var n := 0
+	for hp in w.hitPoints:
+		if hp.full:
+			n += 1
+	return n
 
 func _nextChar(t: Node3D) -> String:
 	var w := _weaknessOf(t)

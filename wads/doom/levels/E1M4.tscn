@@ -1559,6 +1559,12 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lookbluekey"]
+script = ExtResource("11_bckmy")
+targetNode = NodePath("../BlueKeyMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=54128059]
 script = ExtResource("1_rn")
 
@@ -1959,10 +1965,14 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station26")
 
+[node name="BlueKeyMarker" parent="Stations" instance=ExtResource("12_xi6xp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.5, 5.5, 10.0)
+disc_color = Color(0.2, 0.4, 1, 1)
+
 [node name="Station26" parent="Stations" unique_id=371703274 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.25526, 0, 16.80051)
 next_stations = Array[NodePath]([NodePath("../Station27")])
-startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans27")])
+startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans27"), SubResource("Resource_lookbluekey")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_ma7cl")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_uuo03"), SubResource("Resource_3cgpj")])
 disc_color = Color(0.27, 0.84970504, 0.9, 1)
