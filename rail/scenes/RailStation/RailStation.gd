@@ -64,6 +64,10 @@ func _on_add_next_station() -> void:
 	# otherwise suppress the randomize-on-ready fallback.
 	new_station.disc_color = Color.from_hsv(randf(), 0.7, 0.9)
 
+	# Match the generator convention: stations fire once. Re-triggerable
+	# stations re-run their encounter when the player crosses their disc.
+	new_station.one_shot = true
+
 	# Capture the current next stations before rewiring: the new station is
 	# inserted into the chain (A -> B becomes A -> C -> B), not appended as
 	# a dead end.
@@ -94,10 +98,19 @@ func _on_add_next_station() -> void:
 		var advance := AdvanceToNextStationAction.new()
 		endActions.append(advance)
 
-	# The inserted station needs its own advance action to keep the route
-	# flowing to the inherited next station
+	# The inserted station needs an advance action to keep the route flowing
+	# to the inherited next station. The RailStation scene already ships one
+	# in endActions by default — only append if it's ever removed from the
+	# scene. A duplicate advance re-runs the just-completed path on arrival
+	# and drags the player backward.
 	if !inherited.is_empty():
-		new_station.endActions.append(AdvanceToNextStationAction.new())
+		var new_has_advance := false
+		for action in new_station.endActions:
+			if action is AdvanceToNextStationAction:
+				new_has_advance = true
+				break
+		if !new_has_advance:
+			new_station.endActions.append(AdvanceToNextStationAction.new())
 
 	call_deferred("emit_signal", "station_changed")
 	_select_and_focus(new_station)
@@ -137,6 +150,13 @@ func _on_find_prev_station() -> void:
 	push_warning("No previous station found")
 
 func _on_player_entered(player: Player) -> void:
+	# While the rail is driving the player, stations are entered via path
+	# completion (Player watches progress_ratio), never via the trigger
+	# area. Without this guard, riding through the disc of the station
+	# just departed re-runs its encounter, whose advance action restarts
+	# the path — yanking the player backward to the follow point.
+	if player._moving:
+		return
 	if player.currentEncounter != null and player.currentEncounter.active and not blocking:
 		return
 	super._on_player_entered(player)

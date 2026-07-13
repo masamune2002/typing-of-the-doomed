@@ -18,7 +18,11 @@ func run(encounterPoint : EncounterPoint) -> void:
 		finish()
 		return
 	var duration = _speedToDuration()
-	var tween = Game.getPlayer().lookAtPosition(node.global_position, duration)
+	var player = Game.getPlayer()
+	var tween = player.lookAtPosition(node.global_position, duration)
 	if blocking and tween != null:
-		await tween.finished
+		# Don't await the tween itself: setFireTarget/resetCamera kill the
+		# player's look tween mid-flight, and a killed tween never emits
+		# finished — the await would hang the station's action queue forever.
+		await player.get_tree().create_timer(duration).timeout
 	finish()

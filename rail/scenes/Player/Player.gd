@@ -190,9 +190,14 @@ func _physics_process(delta: float) -> void:
 		var target_pos = currentPathFollow.global_position
 		var dir = target_pos - global_position
 		dir.y = 0
-		if dir.length() > 0.01:
+		var dist_to_follow := dir.length()
+		if dist_to_follow > 0.01:
 			dir = dir.normalized()
-		move_dir = dir * _railSpeed * speed_mult
+		# Never step past the follow point in a single tick: overshooting
+		# flips the steering direction next frame, and the player visibly
+		# jerks backward at path handoffs and on stair risers.
+		var step_speed : float = minf(_railSpeed * speed_mult, dist_to_follow / delta)
+		move_dir = dir * step_speed
 		# On longer falls, drop nearly straight instead of arcing forward at
 		# full rail speed: the horizontal carry otherwise lands the player on
 		# ledge lips (e.g. a lift shaft's protruding ceiling-slab collider)
@@ -340,6 +345,14 @@ func startCameraMove(pathToFollow: Path3D, newMoveAction : EncounterAction, rail
 	currentPathFollow.loop = false
 	currentPathFollow.progress = 0.0
 	currentPath.add_child(currentPathFollow)
+	# At a turnaround station the player can stop slightly PAST the path
+	# start (they trail the follow along the arrival direction). Start the
+	# follow at the nearest curve point so the player is never dragged
+	# backward to the station center; capped so a curve that loops back
+	# near the player can't skip ahead.
+	if currentPath.curve != null and currentPath.curve.get_baked_length() > 0.0:
+		var closest := currentPath.curve.get_closest_offset(currentPath.to_local(global_position))
+		currentPathFollow.progress = clampf(closest, 0.0, 2.0)
 	_moveTarget = currentPathFollow.global_position
 	_moving = true
 
