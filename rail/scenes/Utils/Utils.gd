@@ -127,7 +127,10 @@ func clampLabelsToView(entity : Node3D, labels : Array, home_locals : Array) -> 
 # owner, a thin line in the label's font color connects the label back to
 # the target, so it stays obvious what typing at that label will hit.
 
-const LABEL_LINE_MIN_STRAY := 0.05  # ignore sub-centimeter clamp jitter
+# Only draw the line once the label has strayed meaningfully from its home —
+# a slightly-nudged label is still visually attached to its target, and a
+# line there is just noise.
+const LABEL_LINE_MIN_STRAY := 0.75
 
 func makeLabelLeaderLine(entity : Node3D) -> MeshInstance3D:
 	var line := MeshInstance3D.new()
