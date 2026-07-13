@@ -143,7 +143,9 @@ func _activate_wad_node() -> void:
 		_triggerWadNode(linked)
 	Game.playSound(DoomGame.DOOR_OPEN)
 
-func _triggerWadNode(n: Node3D) -> void:
+# n is untyped on purpose: a typed Node3D parameter makes Godot reject a
+# previously-freed object at the call site, before the guard below can run.
+func _triggerWadNode(n) -> void:
 	if n == null or !is_instance_valid(n):
 		return
 	var player = Game.getPlayer()
@@ -179,6 +181,16 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
+	# The backing WAD trigger can be freed at runtime (e.g. SWITCH1 light
+	# nodes queue_free themselves after activating) — retire the wrapper
+	# so the player isn't typing at a dead node.
+	if alive and wadNode != null and !is_instance_valid(wadNode):
+		alive = false
+		interactableLabel.hide()
+		if typedLabel != null:
+			typedLabel.hide()
+		if debugLabel != null:
+			debugLabel.hide()
 	# If door has closed again, re-enable the interactable with the same word
 	_checkDoorOpenedSignal()
 	if !alive and active:
