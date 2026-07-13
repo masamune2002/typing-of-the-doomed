@@ -11,6 +11,7 @@ var pipsDefeatedLabel : Label3D
 var typedLabel : Label3D
 var debugLabel : Label3D
 var _labelHomes : Array = [] # natural label positions for clampLabelsToView
+var _labelLine : MeshInstance3D # leader line shown when the label strays from home
 @onready var stateLabel : Label3D = $StateLabel
 @onready var stateMachine : StateMachine = $StateMachine
 
@@ -123,6 +124,7 @@ func _initOverlayLabels() -> void:
 	# Natural label layout; clampLabelsToView shifts the whole group from
 	# these homes when the player is too close to see them (melee range).
 	_labelHomes = [enemyTargetLabel.position, pipsLabel.position, pipsDefeatedLabel.position]
+	_labelLine = Utils.makeLabelLeaderLine(self)
 
 func _applyDoomFont(label: Label3D) -> void:
 	if label == null:
@@ -403,6 +405,7 @@ func _physics_process(_delta: float) -> void:
 			pipsLabel.hide()
 		if pipsDefeatedLabel != null:
 			pipsDefeatedLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 		return
 
 	# DOOM active sound: occasional random grunt while awake, positional so
@@ -414,10 +417,11 @@ func _physics_process(_delta: float) -> void:
 	_updateLabelRenderPriority()
 
 	if visible_to_player:
-		Utils.clampLabelsToView(self, [enemyTargetLabel, pipsLabel, pipsDefeatedLabel], _labelHomes)
+		var stray : Vector3 = Utils.clampLabelsToView(self, [enemyTargetLabel, pipsLabel, pipsDefeatedLabel], _labelHomes)
 		_setFullWordLabel()
 		_updateTypedLabel()
 		enemyTargetLabel.show()
+		Utils.updateLabelLeaderLine(_labelLine, enemyTargetLabel, global_position + Vector3(0, 1.0, 0), stray)
 		if numHealthBars > 1 and pipsLabel != null:
 			pipsLabel.show()
 		if numHealthBars > 1 and pipsDefeatedLabel != null and _currentHealthBar > 0:
@@ -436,6 +440,7 @@ func _physics_process(_delta: float) -> void:
 			pipsDefeatedLabel.hide()
 		if debugLabel != null:
 			debugLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 
 	if _prev_visible_to_player && !visible_to_player:
 		var player : Player = Game.getPlayer()

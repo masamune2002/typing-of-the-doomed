@@ -27,6 +27,7 @@ var interactable_name: String = "" # stable id used for signal-based gating (set
 var interactable_type: InteractableType = InteractableType.DOOR
 var _door_was_open: bool = false # tracks door-open transition for doorOpened signal
 var _labelHomeLocal: Vector3 # natural label position; clampLabelsToView moves it from here
+var _labelLine: MeshInstance3D # leader line shown when the label strays from home
 
 func _ready() -> void:
 	alive = true
@@ -54,6 +55,8 @@ func _ready() -> void:
 	debugLabel.text = wad_name + " (" + sector_name + ")"
 	add_child(debugLabel)
 	debugLabel.hide()
+
+	_labelLine = Utils.makeLabelLeaderLine(self)
 
 	_setFullWordLabel()
 
@@ -206,10 +209,12 @@ func _physics_process(_delta: float) -> void:
 
 	if !active or !alive:
 		visible_to_player = false
+		Utils.hideLabelLeaderLine(_labelLine)
 		return
 	if not _hasRequiredKey():
 		visible_to_player = false
 		interactableLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
@@ -217,10 +222,16 @@ func _physics_process(_delta: float) -> void:
 			var cam := get_viewport().get_camera_3d()
 			if cam != null:
 				_labelHomeLocal.y = clampf(cam.global_position.y - global_position.y, -10.0, 10.0)
-		Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
+		var stray : Vector3 = Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
 		_setFullWordLabel()
 		_updateTypedLabel()
 		interactableLabel.show()
+		# Anchor the line where the target visually is: switches at the label's
+		# eye height on the panel, doors/lifts at the node itself.
+		var line_anchor := global_position + Vector3(0, 1.0, 0)
+		if eye_level_label:
+			line_anchor = to_global(_labelHomeLocal)
+		Utils.updateLabelLeaderLine(_labelLine, interactableLabel, line_anchor, stray)
 		if debugLabel != null:
 			if SettingsManager.debug_show_thing_ids:
 				_applyDoomFont()
@@ -233,6 +244,7 @@ func _physics_process(_delta: float) -> void:
 			typedLabel.hide()
 		if debugLabel != null:
 			debugLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 
 	if _prev_visible_to_player and not visible_to_player:
 		var player : Player = Game.getPlayer()

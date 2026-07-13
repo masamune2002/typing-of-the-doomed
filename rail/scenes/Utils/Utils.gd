@@ -90,10 +90,12 @@ func labelCloseBypass(entity : Node3D) -> bool:
 	# still hide and release as before.
 	return flat_to.length() < 0.4 or flat_fwd.dot(flat_to) >= 0.0
 
-func clampLabelsToView(entity : Node3D, labels : Array, home_locals : Array) -> void:
+# Returns the delta applied to the label group (ZERO when the labels sit at
+# their natural homes) so callers can draw a leader line to the displaced label.
+func clampLabelsToView(entity : Node3D, labels : Array, home_locals : Array) -> Vector3:
 	var camera : Camera3D = entity.get_viewport().get_camera_3d()
 	if camera == null or labels.is_empty() or home_locals.is_empty():
-		return
+		return Vector3.ZERO
 	var anchor : Vector3 = entity.to_global(home_locals[0])
 	var cam_pos : Vector3 = camera.global_position
 	var forward : Vector3 = -camera.global_transform.basis.z
@@ -118,3 +120,49 @@ func clampLabelsToView(entity : Node3D, labels : Array, home_locals : Array) -> 
 		if label == null or i >= home_locals.size():
 			continue
 		label.global_position = entity.to_global(home_locals[i]) + delta
+	return delta
+
+# ---- Label leader lines ------------------------------------------------
+# When clampLabelsToView pulls a label away from its natural spot above its
+# owner, a thin line in the label's font color connects the label back to
+# the target, so it stays obvious what typing at that label will hit.
+
+const LABEL_LINE_MIN_STRAY := 0.05  # ignore sub-centimeter clamp jitter
+
+func makeLabelLeaderLine(entity : Node3D) -> MeshInstance3D:
+	var line := MeshInstance3D.new()
+	line.mesh = ImmediateMesh.new()
+	# top_level: vertices are written in world space each update, so the
+	# line must not inherit the owner's transform.
+	line.top_level = true
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.vertex_color_use_as_albedo = true
+	mat.no_depth_test = true
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	line.material_override = mat
+	line.visible = false
+	entity.add_child(line)
+	return line
+
+# Call each frame after the label group is positioned and shown; `stray` is
+# the delta returned by clampLabelsToView.
+func updateLabelLeaderLine(line : MeshInstance3D, label : Label3D, anchor : Vector3, stray : Vector3) -> void:
+	if line == null:
+		return
+	if label == null or !label.visible or stray.length() < LABEL_LINE_MIN_STRAY:
+		line.visible = false
+		return
+	line.global_transform = Transform3D.IDENTITY
+	var mesh : ImmediateMesh = line.mesh
+	mesh.clear_surfaces()
+	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+	mesh.surface_set_color(label.modulate)
+	mesh.surface_add_vertex(label.global_position)
+	mesh.surface_add_vertex(anchor)
+	mesh.surface_end()
+	line.visible = true
+
+func hideLabelLeaderLine(line : MeshInstance3D) -> void:
+	if line != null:
+		line.visible = false

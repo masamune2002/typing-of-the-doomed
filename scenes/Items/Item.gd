@@ -14,6 +14,7 @@ var _prev_visible_to_player: bool = false
 var itemDefinition: Dictionary
 var weakness: TypingWeakness
 var _labelHomeLocal: Vector3 # natural label position; clampLabelsToView moves it from here
+var _labelLine: MeshInstance3D # leader line shown when the label strays from home
 
 # Sprite animation
 var _spriteFrames: Array[Texture2D] = []
@@ -56,6 +57,8 @@ func _ready() -> void:
 	debugLabel.text = name + " (" + get_parent().name + ")"
 	add_child(debugLabel)
 	debugLabel.hide()
+
+	_labelLine = Utils.makeLabelLeaderLine(self)
 
 	_setFullWordLabel()
 
@@ -191,19 +194,22 @@ func _canPickUp() -> bool:
 func _physics_process(_delta: float) -> void:
 	if !active or !alive:
 		visible_to_player = false
+		Utils.hideLabelLeaderLine(_labelLine)
 		return
 	if !_canPickUp():
 		visible_to_player = false
 		itemLabel.hide()
 		if typedLabel != null:
 			typedLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
-		Utils.clampLabelsToView(self, [itemLabel], [_labelHomeLocal])
+		var stray : Vector3 = Utils.clampLabelsToView(self, [itemLabel], [_labelHomeLocal])
 		_setFullWordLabel()
 		_updateTypedLabel()
 		itemLabel.show()
+		Utils.updateLabelLeaderLine(_labelLine, itemLabel, global_position + Vector3(0, 0.25, 0), stray)
 		if debugLabel != null:
 			if SettingsManager.debug_show_thing_ids:
 				_applyDoomFont()
@@ -216,6 +222,7 @@ func _physics_process(_delta: float) -> void:
 			typedLabel.hide()
 		if debugLabel != null:
 			debugLabel.hide()
+		Utils.hideLabelLeaderLine(_labelLine)
 
 	if _prev_visible_to_player and not visible_to_player:
 		var player : Player = Game.getPlayer()
