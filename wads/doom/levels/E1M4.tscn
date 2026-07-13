@@ -1565,6 +1565,23 @@ targetNode = NodePath("../BlueKeyMarker")
 blocking = false
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
 
+[sub_resource type="Resource" id="Resource_lookyellowkey"]
+script = ExtResource("11_bckmy")
+targetNode = NodePath("../YellowKeyMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
+[sub_resource type="Resource" id="Resource_yellowkeyvar"]
+script = ExtResource("9_ybo54")
+variable_name = "key_yellow_keycard"
+metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
+
+[sub_resource type="Resource" id="Resource_lookf52switch"]
+script = ExtResource("11_bckmy")
+targetNode = NodePath("../F52SwitchMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=54128059]
 script = ExtResource("1_rn")
 
@@ -2392,12 +2409,21 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station70")
 
+[node name="YellowKeyMarker" parent="Stations" instance=ExtResource("12_xi6xp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.5, 5.0, -5.0)
+disc_color = Color(1, 0.9, 0.2, 1)
+
+[node name="F52SwitchMarker" parent="Stations" instance=ExtResource("12_xi6xp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -97.5, 5.0, -13.25)
+disc_color = Color(0.2, 0.9, 1, 1)
+
+
 [node name="Station55" parent="Stations" unique_id=2072197774 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 next_stations = Array[NodePath]([NodePath("../Station56")])
-startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans55")])
+startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans55"), SubResource("Resource_lookyellowkey")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_whle4")])
-conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec53")])
+conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_nec53"), SubResource("Resource_yellowkeyvar")])
 disc_color = Color(0.9, 0.5283291, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.66283, 4.9200096, -7.217817)
 
@@ -2455,7 +2481,7 @@ to_station = NodePath("../../Station59")
 [node name="Station59" parent="Stations" unique_id=1141450412 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.93414, 4.9200096, -12.643785)
 next_stations = Array[NodePath]([NodePath("../Station60")])
-startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans59")])
+startActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_lans59"), SubResource("Resource_lookf52switch")])
 endActions = Array[ExtResource("4_a6vee")]([SubResource("Resource_5a0t4")])
 conditions = Array[ExtResource("8_ufi0p")]([SubResource("Resource_hsn2e"), SubResource("Resource_f52br"), SubResource("Resource_nec57")])
 disc_color = Color(0.30435368, 0.27, 0.9, 1)
