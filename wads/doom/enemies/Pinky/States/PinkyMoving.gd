@@ -4,7 +4,7 @@ class_name PinkyMoving
 # DOOM Pinky speed: 10 map units per tic, 35 tics/sec = 350 units/sec
 # Our scale: DOOM map units * scaleFactor. Adjust to feel right in-game.
 const MOVE_SPEED := 5.0
-const MELEE_RANGE := 3.0
+const MELEE_RANGE := 4.5  # keep in sync with Pinky.MELEE_RANGE
 const GRAVITY := 20.0
 const CHASE_SOUND_CHANCE := 0.03  # 3% per tic, checked each physics frame
 # DOOM monsters never walk off drops taller than 24 map units (~0.91 world

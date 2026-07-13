@@ -9,7 +9,11 @@ const WALK_FRAMES = ["A", "B", "C", "D"]
 const ATTACK_FRAMES = ["E", "F", "G"]
 const PAIN_FRAMES = ["H"]
 const DEATH_FRAMES = ["I", "J", "K", "L", "M", "N"]
-const MELEE_RANGE := 3.0
+# Engagement distance: pinkies stop and bite from here rather than walking
+# into the player's face — up close the weakness label gets pulled around
+# by the view clamping and is hard to read. Keep in sync with
+# PinkyMoving.MELEE_RANGE.
+const MELEE_RANGE := 4.5
 const ANGLE_ZERO_FRAMES = ["I", "J", "K", "L", "M", "N"]
 const PAIN_DURATION := 6.0 / 35.0
 const FRAME_DURATION = 10.0 / 35.0
