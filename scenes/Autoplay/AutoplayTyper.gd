@@ -21,12 +21,20 @@ var _total_kills := 0
 var _total_pickups := 0
 var _levels_cleared := 0
 var _session_msec : int = 0
+# Captured while they're valid: the exit handler runs mid map-teardown,
+# when autoplay_map already names the next level and the player is gone.
+var _current_map := ""
+var _last_health := -1
+var _last_armor := -1
 
 func _ready() -> void:
 	_session_msec = Time.get_ticks_msec()
 	EventBus.enemyKilled.connect(_onEnemyKilled)
-	EventBus.startEncounter.connect(_onLevelStart)
 	EventBus.levelExitReached.connect(_onLevelExit)
+	# Per-LEVEL reset must key off map creation: EventBus.startEncounter is
+	# re-emitted by every station along the route.
+	if Game.wadLoader != null:
+		Game.wadLoader.mapCreated.connect(_onLevelStart)
 
 func _onEnemyKilled(_enemy) -> void:
 	_level_kills += 1
@@ -37,21 +45,23 @@ func _onItemPicked(_item) -> void:
 	_total_pickups += 1
 
 func _onLevelStart() -> void:
+	_current_map = Game.wadLoader.map_name
 	_level_time = 0.0
 	_level_kills = 0
 	_level_pickups = 0
-	# Items don't announce themselves globally — hook each one's pickup signal
+	# Items don't announce themselves globally — hook each one's pickup
+	# signal. Runs after main's mapCreated handler, so items exist.
+	_hookItems.call_deferred()
+
+func _hookItems() -> void:
 	for item in get_tree().get_nodes_in_group("Items"):
 		if item is Item and not item.pickedUp.is_connected(_onItemPicked):
 			item.pickedUp.connect(_onItemPicked)
 
 func _onLevelExit() -> void:
 	_levels_cleared += 1
-	var player = Game.getPlayer()
-	var hp = player._health if player != null else -1
-	var armor = player._armor if player != null else -1
 	print("[BOT] LEVEL CLEAR %s: kills=%d pickups=%d health=%d armor=%d time=%.0fs" % [
-		SettingsManager.autoplay_map, _level_kills, _level_pickups, hp, armor, _level_time])
+		_current_map, _level_kills, _level_pickups, _last_health, _last_armor, _level_time])
 
 func _physics_process(delta: float) -> void:
 	var player : Player = Game.getPlayer()
@@ -61,8 +71,8 @@ func _physics_process(delta: float) -> void:
 	_level_time += delta
 	if _level_time > LEVEL_TIMEOUT_SECS:
 		print("[BOT] LEVEL TIMEOUT on %s (kills=%d pickups=%d)" % [
-			SettingsManager.autoplay_map, _level_kills, _level_pickups])
-		_printFinal("timed out on %s" % SettingsManager.autoplay_map)
+			_current_map, _level_kills, _level_pickups])
+		_printFinal("timed out on %s" % _current_map)
 		get_tree().quit(1)
 		return
 
@@ -70,6 +80,8 @@ func _physics_process(delta: float) -> void:
 		_handleDeath(player)
 		return
 	_dead_handled = false
+	_last_health = player._health
+	_last_armor = player._armor
 
 	# A blocking dialog eats fire input — acknowledge it like a player would
 	if player._playerUi != null and player._playerUi.dialogBox != null \
@@ -106,7 +118,7 @@ func _handleDeath(player: Player) -> void:
 	if !player._deathReady or _dead_handled:
 		return
 	_dead_handled = true
-	var mn : String = SettingsManager.autoplay_map
+	var mn : String = _current_map
 	var used : int = _retries.get(mn, 0)
 	print("[BOT] DIED on %s after %.0fs (kills=%d pickups=%d, retry %d used)" % [
 		mn, _level_time, _level_kills, _level_pickups, used])
