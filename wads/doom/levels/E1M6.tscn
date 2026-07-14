@@ -4660,6 +4660,12 @@ targetNode = NodePath("../D37SwitchMarker")
 blocking = false
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
 
+[sub_resource type="Resource" id="Resource_lookd28switch"]
+script = ExtResource("90_look")
+targetNode = NodePath("../D28SwitchMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=1466768981]
 script = ExtResource("1_rn")
 
@@ -7896,10 +7902,15 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station201")
 
+[node name="D28SwitchMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.75, -2.7, -86.25)
+disc_color = Color(0.2, 0.9, 1, 1)
+
+
 [node name="Station201" parent="Stations" unique_id=1303815073 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, -2.736, -86)
 next_stations = Array[NodePath]([NodePath("../Station202")])
-startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans202")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans202"), SubResource("Resource_lookd28switch")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_bmtm0")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_cond_14"), SubResource("Resource_nec202")])
 one_shot = true
