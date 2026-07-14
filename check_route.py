@@ -26,6 +26,8 @@ def check(map_name, raw, spawn=None, path_block=(), verbose=True, force_open=())
     blocked = []
     for i in range(len(raw) - 1):
         a, b = raw[i], raw[i + 1]
+        if len(a) > 4 and a[4] and "teleport" in a[4]:
+            continue  # chain break: the player is teleported across this gap
         pa, pb = (a[0], a[1]), (b[0], b[1])
         probs, gates = geo.seg_scan(pa, pb)
         for g in gates:
