@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bkdue27tirmn8" path="res://rail/resources/Actions/SleepAction.gd" id="9_mt7k5"]
 [ext_resource type="Script" uid="uid://cwvt2dqr0gxgv" path="res://rail/scenes/RailStation/RailStation.gd" id="12_yeqif"]
 [ext_resource type="Script" uid="uid://pbvkbscoohxo" path="res://rail/resources/Actions/LookAtNextStationAction.gd" id="9_lans"]
+[ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="90_marker"]
 
 [sub_resource type="Resource" id="Resource_5th7d"]
 resource_local_to_scene = true
@@ -4056,6 +4057,12 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lookbluekey"]
+script = ExtResource("9_gu4co")
+targetNode = NodePath("../BlueKeyMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
 [node name="RailNetwork" type="Node3D" unique_id=1428743192]
 script = ExtResource("1_rn")
 
@@ -5983,10 +5990,15 @@ script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station125")
 
+[node name="BlueKeyMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.0, 0.0, 8.0)
+disc_color = Color(0.2, 0.4, 1, 1)
+
+
 [node name="Station125" parent="Stations" unique_id=1698023877 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 8)
 next_stations = Array[NodePath]([NodePath("../Station126")])
-startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans121")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans121"), SubResource("Resource_lookbluekey")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_lhr3v")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_cond_10"), SubResource("Resource_nec108")])
 one_shot = true
