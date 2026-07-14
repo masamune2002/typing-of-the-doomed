@@ -231,7 +231,10 @@ func _physics_process(_delta: float) -> void:
 	_prev_visible_to_player = visible_to_player
 
 const MAX_PICKUP_DISTANCE: float = 10.0
-const MAX_Y_DIFFERENCE: float = 1.0
+# 1.5 covers waist-high pedestals (E1M7's blue key sits 1.22m up) while
+# still rejecting items a full floor above or below; the wall raycast in
+# _check_line_of_sight handles actual occlusion.
+const MAX_Y_DIFFERENCE: float = 1.5
 
 func _is_on_screen() -> bool:
 	var camera := get_viewport().get_camera_3d()
