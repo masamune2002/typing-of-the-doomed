@@ -25,8 +25,9 @@ PATH_BLOCK = {0, 43, 45, 226, 235, 243}
 
 
 def bake_pedestal(geo):
+    # "Lower to highest adjacent" -> 24 (step island 187), not 0.
     f, c, sp, tag = geo.sectors[186]
-    geo.sectors[186] = (0, c, sp, tag)
+    geo.sectors[186] = (24, c, sp, tag)
 
 
 GEO_PREP = bake_pedestal
@@ -46,6 +47,9 @@ RAW = [
     ( -7.0, -71.0, None, "blue antechamber"),
     (  1.0, -79.0, "F186", "S1 SWITCH 1075: lowers the key pedestal -"
                            " type it here"),
+    (-10.0, -79.0, None, "line up on the step island"),
+    (-15.0, -79.0, None, "head-on over the +24 step (dead-center; corner"
+                         " grazes wedge the capsule)"),
     (-19.0, -83.0, "key_blue_skull", "BLUE SKULL - rail waits for pickup"),
 
     # ===== Retrace north and east to the exit =====
