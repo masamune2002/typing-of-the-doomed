@@ -297,6 +297,17 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lookstairs"]
+script = ExtResource("90_look")
+targetNode = NodePath("../StairsSwitchMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
+[sub_resource type="Resource" id="Resource_d53"]
+script = ExtResource("8_vc")
+variable_name = "D53"
+metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
+
 [sub_resource type="Resource" id="Resource_lookbarons"]
 script = ExtResource("90_look")
 targetNode = NodePath("../BaronMarker")
@@ -363,21 +374,21 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n13"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3.5, -23),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -22),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n14"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 3.5, -18),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n15"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8.5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, -11.5),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -581,6 +592,10 @@ one_shot = true
 disc_color = Color(0.27, 0.58, 0.90, 1)
 
 
+[node name="StairsSwitchMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, -3.0, -145.0)
+disc_color = Color(0.2, 0.9, 1, 1)
+
 [node name="BaronMarker" parent="Stations" instance=ExtResource("90_marker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.0, -96.5)
 disc_color = Color(0.9, 0.2, 0.2, 1)
@@ -606,10 +621,10 @@ from_station = NodePath("..")
 to_station = NodePath("../../Station14")
 
 [node name="Station14" parent="Stations" instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0, 0.5, -135.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.0, -134.0)
 next_stations = Array[NodePath]([NodePath("../Station15")])
-startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n14")])
-conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n14")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n14"), SubResource("Resource_lookstairs")])
+conditions = Array[ExtResource("7_ec")]([SubResource("Resource_d53"), SubResource("Resource_nec_n14")])
 one_shot = true
 disc_color = Color(0.9, 0.5, 0.2, 1)
 
@@ -620,7 +635,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../Station15")
 
 [node name="Station15" parent="Stations" instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0, 0.5, -155.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, 0.5, -152.0)
 next_stations = Array[NodePath]([NodePath("../Station16")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n15")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n15")])
@@ -634,7 +649,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../Station16")
 
 [node name="Station16" parent="Stations" instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0, 0.5, -163.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, 0.5, -163.5)
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_setfinale"), SubResource("Resource_sleepfinale"), SubResource("Resource_teleport3")])
 endActions = Array[ExtResource("4_ea")]([])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n16")])
