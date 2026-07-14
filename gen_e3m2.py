@@ -42,19 +42,19 @@ RAW = [
     ( 30.0, -30.5, None, "ROCKET LAUNCHER"),
     ( 18.5, -41.5, None, "PLASMA RIFLE (ambush)"),
 
-    # ===== South palm + chaingun spur =====
-    ( 28.0, -72.0, None, "stimpack (south finger mouth)"),
-    ( 56.5, -64.5, None, "CHAINGUN (east finger ambush)"),
-    ( 28.0, -72.0, None, "back west"),
+    # NOTE: the south palm + chaingun fingers sit past a +24 rim riser
+    # that wedges the capsule (two autoplay stalls at (29..33,-58)) - the
+    # plateau is entered from the plasma ledge instead.
 
     # ===== Blue key via the middle plateau =====
+    ( 12.0, -44.0, None, "up onto the middle plateau"),
     ( -8.0, -45.0, None, "middle plateau west"),
     (-12.0, -48.0, None, "ledge 56"),
-    (-15.5, -57.0, "key_blue_keycard", "BLUE KEYCARD - rail waits for pickup"),
+    (-15.5, -57.0, "key_blue_skull", "BLUE KEYCARD - rail waits for pickup"),
     (-12.0, -48.0, None, "back up the ledge"),
 
     # ===== Corridor 31, the lowering overlook, the exit finger =====
-    ( 12.0, -44.0, None, "plateau east"),
+    ( 12.0, -44.0, None, "plateau east again"),
     ( 12.0, -48.0, None, "into corridor 31 - the walkover lowers overlook 45"),
     ( -2.0, -58.0, None, "across the lowered overlook"),
     ( -2.0, -64.0, None, "exit strip 35"),
