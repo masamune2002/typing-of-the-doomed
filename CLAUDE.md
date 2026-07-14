@@ -61,11 +61,11 @@ Each WAD map (E1M1, E1M2, etc.) pairs with a `.tscn` in `levels/` by naming conv
 
 ## Level Data Reference (`llm/`)
 
-Detailed reference files for each DOOM E1 map live in `llm/E1M1.md` through `llm/E1M9.md`. **Consult these files** when answering questions about level layout, triggers, doors, enemy placement, key/weapon locations, secret sectors, or sector geometry. Each file contains: player start, enemies (grouped by type with positions), keys, weapons, items, all trigger linedefs with tag cross-references, notable sectors, and secret sectors.
+Detailed reference files for each DOOM E1/E2 map live in `llm/E1M1.md`–`llm/E1M9.md` and `llm/E2M1.md`–`llm/E2M9.md`. **Consult these files** when answering questions about level layout, triggers, doors, enemy placement, key/weapon locations, secret sectors, or sector geometry. Each file contains: player start, enemies (grouped by type with positions), keys, weapons, items, all trigger linedefs with tag cross-references, notable sectors, and secret sectors.
 
-To regenerate these files after WAD changes, run: `godot --headless -- --dump-map E1M1` (uses `_dumpMapData()` in main.gd).
+To regenerate a file after WAD changes: `godot --headless -- --dump-map E2M1 > /tmp/dump_E2M1.txt` (uses `_dumpMapData()` in main.gd), then `python3 dump_to_md.py E2M1` converts the dump into the md format mechanically.
 
-**To build a RailNetwork level for a map, read `llm/RAIL_LEVEL_GUIDE.md` first.** It documents the full pipeline (`gen_e1m6.py`/`gen_e1m7.py` as templates, `wadgeo.py` geometry tooling, `check_route.py` validation, `--map <MAP>` autoplay verification) and the condition rules for keys, switches, doors, and lifts. If the route must ride a lift, follow the guide's "Lifts" section exactly — every rule in it came from a real multi-run debugging session (E1M7).
+**To build a RailNetwork level for a map, read `llm/RAIL_LEVEL_GUIDE.md` first.** It documents the full pipeline (`railgen.py` shared generator + per-map `gen_e*m*.py` scripts, `wadgeo.py` geometry tooling, `probe_map.py` key-order probing, `check_route.py` validation, `--map <MAP>` autoplay verification) and the condition rules for keys, switches, doors, lifts, teleport chain-breaks, and boss finales. If the route must ride a lift, follow the guide's "Lifts" section exactly — every rule in it came from a real multi-run debugging session (E1M7) — and read "Episode 2 additions" for the trap and capsule-snag classes found while building E2.
 
 ## Key Enums (`rail/resources/Enums.gd`)
 
