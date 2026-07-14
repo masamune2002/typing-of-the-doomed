@@ -16,7 +16,7 @@ chaingun/chainsaw pockets (raised/isolated), secrets.
 import railgen
 
 MAP = "E2M5"
-UID = "uid://vg8rt7skzj3fr"
+UID = "uid://b47fvw7b6jpmx"
 SPAWN_X = -48.0
 SPAWN_Z = -74.5
 

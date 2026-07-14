@@ -18,7 +18,7 @@ stays routable but A* only crosses it when there is no dry way.
 import railgen
 
 MAP = "E2M3"
-UID = "uid://tp0wvh5rsrth4"
+UID = "uid://eykw7kiyrgpb"
 SPAWN_X = 15.0
 SPAWN_Z = -59.5
 

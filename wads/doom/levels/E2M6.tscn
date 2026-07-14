@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://rsc3ga3v7ml2b"]
+[gd_scene format=4 uid="uid://ccpl22fvxs308"]
 
 [ext_resource type="Script" uid="uid://cyk7v70xtekvh" path="res://rail/scenes/RailNetwork/RailNetwork.gd" id="1_rn"]
 [ext_resource type="Script" uid="uid://d4j6jipkme5ui" path="res://rail/scenes/RailPath/RailPath.gd" id="2_rp"]

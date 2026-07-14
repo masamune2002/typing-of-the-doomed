@@ -20,7 +20,7 @@ Probed progression (probe_map.py + wadgeo):
 import railgen
 
 MAP = "E2M4"
-UID = "uid://tbyeegtikebj7"
+UID = "uid://ducv075ibksi5"
 SPAWN_X = -24.0
 SPAWN_Z = 81.0
 

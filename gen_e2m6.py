@@ -20,7 +20,7 @@ also passes red door 162, auto-gated; the red skull is already in hand).
 import railgen
 
 MAP = "E2M6"
-UID = "uid://rsc3ga3v7ml2b"
+UID = "uid://ccpl22fvxs308"
 SPAWN_X = 18.5
 SPAWN_Z = -12.5
 

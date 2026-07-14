@@ -22,7 +22,7 @@ secret sectors.
 import railgen
 
 MAP = "E2M2"
-UID = "uid://teblem2ltj959"
+UID = "uid://dwn31felkqr47"
 SPAWN_X = 19.0
 SPAWN_Z = -143.0
 

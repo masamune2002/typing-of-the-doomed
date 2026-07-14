@@ -18,7 +18,7 @@ PATH_BLOCK: all Damage nukage (the rim route stays dry).
 import railgen
 
 MAP = "E2M7"
-UID = "uid://pawwlpx5uny5z"
+UID = "uid://dopbtj7e52dvp"
 SPAWN_X = 44.5
 SPAWN_Z = -55.5
 

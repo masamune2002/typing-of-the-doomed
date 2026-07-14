@@ -17,7 +17,7 @@ D13 per the guide (type at the switch, not the remote door).
 import railgen
 
 MAP = "E2M9"
-UID = "uid://hs2e6ns7xt8ar"
+UID = "uid://dxnjllvyendi0"
 SPAWN_X = 2.0
 SPAWN_Z = 10.0
 
