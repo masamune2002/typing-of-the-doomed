@@ -18,6 +18,7 @@ func setup(difficulty, custom_words: Array = []) -> void:
 		hitPoints.append(newHitPoint)
 	updateLabel()
 	_currentHitPointIndex = 0
+	_skipSpaces()
 
 func receiveHit(payload : Variant) -> bool:
 	if payload is not String && targetTypedText.size() != 0:
@@ -25,6 +26,15 @@ func receiveHit(payload : Variant) -> bool:
 	var keyString : String = payload
 	if _currentHitPointIndex < hitPoints.size() && hitPoints[_currentHitPointIndex].receiveHit(keyString):
 		_currentHitPointIndex = _currentHitPointIndex + 1
+		_skipSpaces()
 		updateLabel()
 		return true
 	return false
+
+## Spaces in multi-word phrases are never typed — they complete
+## automatically as the surrounding letters land.
+func _skipSpaces() -> void:
+	while _currentHitPointIndex < hitPoints.size() \
+			and hitPoints[_currentHitPointIndex].toString() == " ":
+		hitPoints[_currentHitPointIndex].full = false
+		_currentHitPointIndex += 1

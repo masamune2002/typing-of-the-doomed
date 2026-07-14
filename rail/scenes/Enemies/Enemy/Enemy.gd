@@ -467,7 +467,15 @@ func _check_line_of_sight() -> bool:
 	query.collision_mask = 2
 	query.exclude = [self.get_rid(), player.get_rid()]
 	var result = space_state.intersect_ray(query)
-	return result.is_empty()
+	if result.is_empty():
+		return true
+	# Low decorative colliders (E1M8's pentagram floor inlay) clip the
+	# knee-height ray while the enemy towers in plain sight — try again
+	# at head height before declaring it hidden.
+	query = PhysicsRayQueryParameters3D.create(from, global_position + Vector3(0, 2.2, 0))
+	query.collision_mask = 2
+	query.exclude = [self.get_rid(), player.get_rid()]
+	return space_state.intersect_ray(query).is_empty()
 
 func _is_on_screen() -> bool:
 	var camera = get_viewport().get_camera_3d()

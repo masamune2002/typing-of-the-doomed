@@ -30,6 +30,10 @@ func canFire(inputEvent : InputEvent):
 
 func fire(event : InputEvent) -> Variant:
 	if canFire(event):
+		# as_text_key_label() renders the spacebar as "Space", which can
+		# never match the ' ' hit points of multi-word phrases
+		if event.keycode == KEY_SPACE or event.key_label == KEY_SPACE:
+			return " "
 		return(event.as_text_key_label())
 	return null
 

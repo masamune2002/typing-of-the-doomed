@@ -7,6 +7,9 @@ class_name TeleportPlayerAction
 ## WR lines: a mid-ride teleport strands the rail follow point behind.
 
 @export var destination_tag : int = 0
+## Fallback landing spot (e.g. a RailMarker) — geometry_only WAD loading
+## never spawns the WAD's teleport destination things.
+@export var fallback_marker : NodePath
 @export var sound : String = "DSTELEPT"
 
 func run(encounterPoint : EncounterPoint) -> void:
@@ -14,12 +17,16 @@ func run(encounterPoint : EncounterPoint) -> void:
 	if player == null:
 		finish()
 		return
+	var dest : Node3D = null
 	var dests = encounterPoint.get_tree().get_nodes_in_group("destination:%d" % destination_tag)
-	if dests.is_empty():
+	if not dests.is_empty():
+		dest = dests[0] as Node3D
+	elif fallback_marker != NodePath():
+		dest = encounterPoint.get_node_or_null(fallback_marker) as Node3D
+	if dest == null:
 		push_warning("TeleportPlayerAction: no teleport destination with tag %d" % destination_tag)
 		finish()
 		return
-	var dest := dests[0] as Node3D
 	if player._moving:
 		player.stopCameraMove(null)
 	player.velocity = Vector3.ZERO

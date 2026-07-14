@@ -149,8 +149,12 @@ func _physics_process(delta: float) -> void:
 	var ev := InputEventKey.new()
 	ev.pressed = true
 	# TypingGun reads as_text_key_label(), which stringifies key_label —
-	# synthesized events must set it (keycode alone reads as "(Unset)")
-	ev.key_label = OS.find_keycode_from_string(ch.to_upper())
+	# synthesized events must set it (keycode alone reads as "(Unset)").
+	# Spaces in multi-word phrases need the explicit spacebar keycode.
+	if ch == " ":
+		ev.key_label = KEY_SPACE
+	else:
+		ev.key_label = OS.find_keycode_from_string(ch.to_upper())
 	ev.keycode = ev.key_label
 	player._fireWeapon(ev)
 
