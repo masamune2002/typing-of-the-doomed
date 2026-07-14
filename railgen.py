@@ -179,13 +179,16 @@ def gen_color(i, total):
 
 
 def generate(map_name, spawn, raw, uid, path_block=(), out_path=None,
-             wad="DOOM.WAD"):
+             wad="DOOM.WAD", force_open=()):
     from wadgeo import MapGeo
     spawn_x, spawn_z = spawn
     out_path = out_path or f"wads/doom/levels/{map_name}.tscn"
 
     geo = MapGeo(wad, map_name)
     geo.path_block = set(path_block)
+    # Sectors wadgeo can't model as passable (switch-lowered floors) that the
+    # route rides open behind a hand-placed condition (e.g. F<sector>).
+    geo.opened |= set(force_open)
     route = expand_route(geo, raw)
 
     spawn_sec = geo.point_sector((spawn_x, spawn_z))
