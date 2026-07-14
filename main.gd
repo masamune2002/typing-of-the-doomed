@@ -1607,6 +1607,29 @@ func _dumpMapData() -> void:
 					sn.get_child_count()])
 				_dumpGeomChildren(sn, "  ")
 
+	# TEMP diagnostic (env-guarded): raycast a grid over the map and report
+	# points with no floor collision below. DUMP_FLOOR_HOLES="minx,minz,maxx,maxz,step"
+	var holes_spec := OS.get_environment("DUMP_FLOOR_HOLES")
+	if holes_spec != "":
+		var p := holes_spec.split(",")
+		var space := get_viewport().get_world_3d().direct_space_state
+		var holes := 0
+		var total := 0
+		var x := p[0].to_float()
+		while x <= p[2].to_float():
+			var z := p[1].to_float()
+			while z <= p[3].to_float():
+				var wpos = _wadToWorld(Vector3(x, 500.0, z))
+				var q := PhysicsRayQueryParameters3D.create(wpos, wpos + Vector3(0, -1000, 0))
+				var hit := space.intersect_ray(q)
+				total += 1
+				if hit.is_empty():
+					holes += 1
+					print("[HOLE] wad=(%s, %s) no collision below" % [x, z])
+				z += p[4].to_float()
+			x += p[4].to_float()
+		print("[HOLES] %d/%d grid points have no floor collision" % [holes, total])
+
 func _dumpGeomChildren(n: Node, indent: String) -> void:
 	for c in n.get_children():
 		var line := indent + c.name + " (" + c.get_class() + ")"
