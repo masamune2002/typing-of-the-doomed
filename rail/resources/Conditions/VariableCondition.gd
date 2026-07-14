@@ -22,6 +22,8 @@ func _try_auto_activate(resolved_var: String) -> void:
 	# prefer switch/door trigger types - activating a walkover "closer"
 	# sets the variable without ever opening the door.
 	var interactables = (tree as SceneTree).get_nodes_in_group("Interactables")
+	var door_pick: Interactable = null
+	var switch_pick: Interactable = null
 	var fallback: Interactable = null
 	for interactable in interactables:
 		if not interactable is Interactable:
@@ -36,14 +38,22 @@ func _try_auto_activate(resolved_var: String) -> void:
 			continue
 		var ttype = interactable.wadNode.get(WadGame.PROP_TRIGGER_TYPE) \
 			if interactable.wadNode != null and is_instance_valid(interactable.wadNode) else null
-		if ttype in [WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR, WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1]:
-			interactable._activate_wad_node()
-			return
-		if fallback == null:
+		# Several interactables can share a name (E3M4's door 75 has a DR
+		# face plus separate SR open AND close switches). Prefer the door
+		# face itself - activating a "close" switch sets the variable while
+		# leaving the slab shut in the rail's face.
+		if ttype in [WADG.TTYPE.DOOR, WADG.TTYPE.DOOR1]:
+			if door_pick == null:
+				door_pick = interactable
+		elif ttype in [WADG.TTYPE.SWITCH1, WADG.TTYPE.SWITCHR]:
+			if switch_pick == null:
+				switch_pick = interactable
+		elif fallback == null:
 			fallback = interactable
-	if fallback != null:
-		fallback._activate_wad_node()
-		return
+	for pick in [door_pick, switch_pick, fallback]:
+		if pick != null:
+			pick._activate_wad_node()
+			return
 	# Try key items (variable format: key_<key_name>)
 	if resolved_var.begins_with("key_"):
 		var key_name = resolved_var.substr(4)

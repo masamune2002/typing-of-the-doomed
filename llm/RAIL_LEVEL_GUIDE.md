@@ -349,3 +349,38 @@ Block only INESCAPABLE pits by default (climb-out > 24 or ringed by more
 damage); shallow nukage the vanilla route wades (E2M3 crossings, E2M6's
 southeast pool 55) can stay routable — A* prefers dry paths and only wades
 when there is no other way. Keep in-pool beats to enter/exit pairs.
+
+## Episode 3 additions (learned building E3M1-E3M9)
+
+- **E3 keys are SKULLS** (`key_blue_skull` etc.), and the game's item table
+  had vanilla types 38/39 (red/yellow skull) SWAPPED - fixed in
+  DoomGame.gd. If a key station stalls with condsMet=false and no
+  [AUTOACT], check the item table's name/key for that thing type first.
+- **Rising-floor elevators** (S1 type 18 "Floor Raise to Next Higher" on
+  pit walls: both E3M1/E3M9 spawns, E3M7's exit elevator 135): put the
+  F<sector> cond ON the station in the pit; the floor rises with the
+  player. GEO_PREP-bake the raised height for spawn pits (and capture the
+  as-loaded spawn floor first - railgen does this; a baked spawn floor
+  otherwise shifts every station height). Do NOT bake elevators ridden
+  mid-route (the XZ-only lead check tolerates the height change).
+- **Sinking bridges** (W1 type 37 chains, E3M1/E3M9 west bridge): each
+  segment lowers to lava as its line is crossed and the far bank ends
+  40+ above - the rail cannot outrun them; skip or reroute.
+- **A `D<n>` gate can be poisoned by a same-named CLOSE switch**: E3M4's
+  door 75 has a DR face plus separate SR open AND close switches, all
+  spawning interactables named sector_75. Autoplay's auto-activate used
+  to fire the first match (sometimes the close switch: variable set, slab
+  shut, rail wedged). VariableCondition now prefers DOOR faces over
+  switches; if a map still misbehaves, check which interactables share
+  the gate's name.
+- **+24 risers wedge ~half the time** (STEP_HEIGHT is 0.9 units = 23.7):
+  E3M2's south rim, E3M4's 63-strip. Treat any exactly-24 climb on the
+  route as suspect; find a flat or <=16 lane (probe a coordinate grid).
+- **point_sector misattributes near diagonal/one-sided line clusters**
+  (E3M9's yard read as the far teleport box; E3M3's court read as the
+  parapet). When A* produces a "legal" climb that makes no sense, verify
+  with a floor-grid probe before trusting either model.
+- **Warrens-style reveals** (W1 lowers walls map-wide) work with plain
+  walkover sim + an explicit beat pair over the square; remember every
+  SR-lift crossing AFTER the reveal needs its own fresh L-cond (they
+  re-raise; E3M9 return leg).
