@@ -329,7 +329,10 @@ func _addBlockingLineCollisions() -> void:
 			continue
 
 		var body = StaticBody3D.new()
-		body.collision_layer = 2
+		# Layer 16: blocks bodies (player mask includes it) but NOT the
+		# mask-2 sight rays - you can see and type through window bars,
+		# railings, and E1M8's teleport-pen monster blockers.
+		body.collision_layer = 16
 		body.collision_mask = 0
 		body.position = _wadToWorld(Vector3(mid.x, floor_h + height / 2.0, mid.y))
 		body.rotation.y = -angle

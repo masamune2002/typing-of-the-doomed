@@ -69,6 +69,8 @@ func _ready() -> void:
 	# through them. Layer 2 is world/player, so strip it; enemies still
 	# collide with level geometry through their own collision mask.
 	collision_layer &= ~2
+	# Blocking-line walls (layer 16) stop enemy bodies as in DOOM
+	collision_mask |= 16
 	dying = false
 	alive = true
 	stateMachine.setState(Enums.ENEMY_STATE.INACTIVE)

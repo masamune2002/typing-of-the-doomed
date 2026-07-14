@@ -202,7 +202,7 @@ func _isDirectionClear(dir_index: int) -> bool:
 	var from = parent.global_position + Vector3(0, 0.5, 0)
 	var to = from + dir * 1.0
 	var query = PhysicsRayQueryParameters3D.create(from, to)
-	query.collision_mask = 2
+	query.collision_mask = 2 | 16  # walls + blocking-line bars
 	query.exclude = [parent.get_rid()]
 	var result = space_state.intersect_ray(query)
 	if !result.is_empty():

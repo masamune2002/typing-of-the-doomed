@@ -51,6 +51,9 @@ func _ready() -> void:
 	_moving = false
 	_alive = true
 	_moveAction = null
+	# Blocking-line walls (window bars, monster blockers) live on layer 16:
+	# solid to bodies, invisible to sight rays
+	collision_mask |= 16
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if startingWeaponScene != null:
 		var weapon = startingWeaponScene.instantiate()
