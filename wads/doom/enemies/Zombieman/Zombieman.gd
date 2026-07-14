@@ -219,6 +219,9 @@ func _startSpriteDeath() -> void:
 	enemyTargetLabel.hide()
 	EventBus.releasePlayerTarget.emit()
 	EventBus.enemyKilled.emit(self)
+	# The per-enemy died signal drives EnemyManager cleanup and the WAD
+	# npc triggers (E1M8 barons -> tag-666 wall)
+	died.emit(self)
 
 	# Wait for death animation to complete
 	var deathDuration = DEATH_FRAMES.size() * FRAME_DURATION
