@@ -209,12 +209,15 @@ def generate(map_name, spawn, raw, uid, path_block=(), out_path=None,
     # Sectors wadgeo can't model as passable (switch-lowered floors) that the
     # route rides open behind a hand-placed condition (e.g. F<sector>).
     geo.opened |= set(force_open)
+    # The world's y origin is the spawn sector's floor AS LOADED - capture it
+    # before geo_prep bakes moved floors (E3M1's pit elevator), or every
+    # station height shifts by the bake delta and snaps into the void.
+    spawn_floor_asloaded = geo.sectors[geo.point_sector((spawn_x, spawn_z))][0]
     if geo_prep:
         geo_prep(geo)
     route = expand_route(geo, raw)
 
-    spawn_sec = geo.point_sector((spawn_x, spawn_z))
-    spawn_floor = geo.sectors[spawn_sec][0]
+    spawn_floor = spawn_floor_asloaded
     stations = []
     for i, (wx, wz, cond, comment, sp) in enumerate(route):
         sec = geo.point_sector((wx, wz))
