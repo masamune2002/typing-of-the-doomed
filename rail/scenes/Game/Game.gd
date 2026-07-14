@@ -39,6 +39,14 @@ func fetchSprite(spriteName: String) -> Texture2D:
 		return null
 	return wadLoader._loader.get_node("ResourceManager").fetchDoomGraphic(spriteName)
 
+func fetchFlat(flatName: String) -> Texture2D:
+	if wadLoader == null or wadLoader._loader == null:
+		return null
+	var rm = wadLoader._loader.get_node_or_null("ResourceManager")
+	if rm == null or not rm.has_method("fetchFlat"):
+		return null
+	return rm.fetchFlat(flatName)
+
 func getPlayer() -> Player:
 	return player
 
