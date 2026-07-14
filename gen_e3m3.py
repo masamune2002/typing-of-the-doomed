@@ -20,6 +20,9 @@ SPAWN_Z = 39.0
 
 PATH_BLOCK = {11, 13, 51, 68, 70, 104, 113, 145, 157, 161, 183}
 
+# NE court lift 96 (SR-called, gated L96 on the approach beat).
+FORCE_OPEN = {96}
+
 RAW = [
     ( -5.0,  39.0, None, "player start"),
     ( -8.5,  39.0, None, "shotgun (easy skill)"),
@@ -31,13 +34,22 @@ RAW = [
     ( -6.4,  -0.9, None, "gallery south"),
     (  2.1,  -0.9, None, "up to the parapet"),
     (  3.6,   3.1, None, "parapet turn"),
-    ( 16.1,   3.1, None, "parapet east run"),
-    ( 16.6,   6.6, None, "parapet north end"),
-    ( 14.0,   9.0, None, "DROP into the maze court"),
+    ( 16.1,   2.7, None, "parapet east run (hug the inner edge)"),
+    ( 14.5,   8.5, None, "DROP off the north edge into the maze court"),
     (  5.6,  14.6, None, "maze court west"),
     (  0.6,  22.1, None, "down into the key room"),
     ( -2.5,  24.5, "key_blue_skull",
      "BLUE SKULL - rail waits for pickup"),
+
+    # ===== Out of the annex: the NE lift (guide ascent pattern) =====
+    (  0.6,  22.1, None, "back up the steps"),
+    (  5.6,  14.6, None, "maze court again"),
+    ( 16.0,   9.5, "L96", "SR SWITCH 826: calls the lift - type it"),
+    ( 16.0,   7.0, None, "ON the lift"),
+    ( 16.0,   4.5, None, "off onto the parapet"),
+    (  3.6,   2.9, None, "parapet back west"),
+    (  2.1,  -0.9, None, "down the gallery steps"),
+    ( -6.4,  -0.9, None, "gallery south"),
 
     # ===== West halls to the southwest stairs =====
     (-37.0,  -6.0, None, "west halls (imps + demons)"),
@@ -64,8 +76,10 @@ def expand_route(raw):
     from wadgeo import MapGeo
     geo = MapGeo("DOOM.WAD", MAP)
     geo.path_block = set(PATH_BLOCK)
+    geo.opened |= set(FORCE_OPEN)
     return railgen.expand_route(geo, raw)
 
 
 if __name__ == "__main__":
-    railgen.generate(MAP, (SPAWN_X, SPAWN_Z), RAW, UID, PATH_BLOCK)
+    railgen.generate(MAP, (SPAWN_X, SPAWN_Z), RAW, UID, PATH_BLOCK,
+                     force_open=FORCE_OPEN)
