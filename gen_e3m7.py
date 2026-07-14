@@ -3,10 +3,11 @@
 
 E3M7 (Limbo). Full exit route with two teleports and two ride-up floors:
 
-  spawn -> west gallery loop -> BLUE SKULL -> S1 421 (cond F71) raises
-  bridge 71 -> east wing -> blue door 20 (walk-openable + keyed; FORCE_OPEN
-  + hand D20) -> south causeway over the raised bridge -> drop into the
-  blood sea -> west along the shore -> RED SKULL -> pad 847 (tag 22)
+  spawn -> west gallery loop -> BLUE SKULL -> east wing -> blue door 20
+  (walk-openable + keyed; FORCE_OPEN + hand D20) -> south causeway,
+  crossing the trench on its static stairs (the raise-bridge switch
+  shares its name with W1 lower lines and auto-activates wrong) -> drop
+  into the blood sea -> west along the shore -> RED SKULL -> pad 847 (tag 22)
   teleports back to mid-map -> south corridor -> red door 130 -> pad 945
   (tag 18) teleports to the exit courtyard -> descend into the pit onto
   elevator 135 -> S1 859 (cond F135) rides it up -> red door 138 ->
@@ -27,15 +28,8 @@ PATH_BLOCK = set()
 # 71 = switch-raised bridge (F71 typed at the switch, bridge baked below);
 # 20 = walk-openable blue door (hand D20); 135 = ride-up elevator (F135
 # typed aboard - NOT baked, its floor rises with the player).
-FORCE_OPEN = {71, 20, 135}
+FORCE_OPEN = {20, 135}
 
-
-def bake_bridge(geo):
-    f, c, sp, tag = geo.sectors[71]
-    geo.sectors[71] = (0, c, sp, tag)
-
-
-GEO_PREP = bake_bridge
 
 RAW = [
     ( 11.5,  43.5, None, "player start"),
@@ -46,7 +40,6 @@ RAW = [
     (-15.0,  34.0, None, "gallery north"),
     (  1.0,  47.0, None, "key door (auto-gated)"),
     (  5.0,  51.0, "key_blue_skull", "BLUE SKULL - rail waits for pickup"),
-    (-17.0,  51.0, "F71", "S1 SWITCH 421: raises bridge 71 - type it here"),
 
     # ===== East wing, blue door, the south causeway =====
     ( 13.0,  23.0, None, "crossroads again"),
@@ -56,7 +49,12 @@ RAW = [
     ( 45.0, -14.0, "D20", "BLUE DOOR 20 - type it (walk-openable + keyed)"),
     ( 45.0, -19.0, None, "through the door"),
     ( 45.0, -24.0, None, "causeway north"),
-    ( 45.0, -30.0, None, "across the raised bridge"),
+    ( 45.0, -28.0, None, "DROP into the trench (the bridge switch is a"
+                         " dedupe trap; the trench stairs are static)"),
+    ( 40.0, -30.0, None, "trench west"),
+    ( 33.0, -30.5, None, "stair base"),
+    ( 33.0, -36.0, None, "up the west stairs"),
+    ( 39.0, -36.0, None, "south ledge"),
     ( 45.0, -36.0, None, "causeway south"),
     ( 45.0, -43.0, None, "the trap lines lower the bridge behind"),
     ( 45.0, -46.0, None, "ledge"),
@@ -97,10 +95,9 @@ def expand_route(raw):
     geo = MapGeo("DOOM.WAD", MAP)
     geo.path_block = set(PATH_BLOCK)
     geo.opened |= set(FORCE_OPEN)
-    bake_bridge(geo)
     return railgen.expand_route(geo, raw)
 
 
 if __name__ == "__main__":
     railgen.generate(MAP, (SPAWN_X, SPAWN_Z), RAW, UID, PATH_BLOCK,
-                     force_open=FORCE_OPEN, geo_prep=bake_bridge)
+                     force_open=FORCE_OPEN)
