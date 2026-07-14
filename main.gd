@@ -508,7 +508,7 @@ func isPaused() -> bool:
 
 func _onEpisodeFinale() -> void:
 	var ending := EndingScreen.new()
-	ending.text = DoomGame.E1_END_TEXT
+	ending.text = wad_game.getEndText(_wad_file_path)
 	ending.dismissed.connect(_onEndingDismissed)
 	add_child(ending)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

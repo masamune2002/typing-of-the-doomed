@@ -67,6 +67,74 @@ const THING_FLAG_MULTIPLAYER = 0b10000  # Multiplayer only (not single player)
 
 # ── Episode 1 finale ─────────────────────────────────────────────────────
 
+## Vanilla DOOM compiles the episode end texts into the ENGINE — they are
+## not IWAD lumps. WADs override them via a DEHACKED lump (classic `Text`
+## blocks or BEX [STRINGS] E1TEXT); honor that, else use the engine text.
+func getEndText(wad_path: String) -> String:
+	var deh := _readLump(wad_path, "DEHACKED")
+	if deh != "":
+		var t := _dehackedEndText(deh)
+		if t != "":
+			return t
+	return E1_END_TEXT
+
+static func _readLump(wad_path: String, lump_name: String) -> String:
+	var f := FileAccess.open(wad_path, FileAccess.READ)
+	if f == null:
+		return ""
+	f.get_buffer(4)  # IWAD/PWAD magic
+	var numlumps := f.get_32()
+	var dirofs := f.get_32()
+	f.seek(dirofs)
+	var entries := []
+	for i in numlumps:
+		var ofs := f.get_32()
+		var size := f.get_32()
+		var lname := f.get_buffer(8).get_string_from_ascii()
+		if lname.to_upper() == lump_name:
+			entries.append([ofs, size])
+	if entries.is_empty():
+		return ""
+	# last matching lump wins, like DOOM's lump precedence
+	var e = entries[-1]
+	f.seek(e[0])
+	return f.get_buffer(e[1]).get_string_from_ascii()
+
+static func _dehackedEndText(deh: String) -> String:
+	# BEX form: E1TEXT = value with backslash line-continuations and \n escapes
+	var pos := 0
+	var lines := deh.split("\n")
+	var offsets := []  # start offset of each line within deh
+	for l in lines:
+		offsets.append(pos)
+		pos += l.length() + 1
+	var vanilla_prefix := "Once you beat the big badasses"
+	for i in lines.size():
+		var l : String = lines[i].strip_edges()
+		if l.begins_with("E1TEXT"):
+			var eq := l.find("=")
+			if eq >= 0:
+				var val := l.substr(eq + 1).strip_edges()
+				var j := i
+				# A trailing backslash continues the value on the next line;
+				# newlines come only from literal \n escapes
+				while val.ends_with("\\") and j + 1 < lines.size():
+					j += 1
+					val = val.trim_suffix("\\").strip_edges() + lines[j].strip_edges()
+				return val.replace("\\n", "\n")
+		# classic form: `Text <oldlen> <newlen>` then oldlen+newlen packed chars
+		if l.begins_with("Text "):
+			var parts := l.split(" ", false)
+			if parts.size() >= 3 and parts[1].is_valid_int() and parts[2].is_valid_int():
+				var oldlen := parts[1].to_int()
+				var newlen := parts[2].to_int()
+				var payload_start : int = offsets[i] + lines[i].length() + 1
+				if payload_start + oldlen + newlen <= deh.length():
+					var oldtxt := deh.substr(payload_start, oldlen)
+					if oldtxt.begins_with(vanilla_prefix):
+						return deh.substr(payload_start + oldlen, newlen)
+	return ""
+
 const E1_END_TEXT = """ONCE YOU BEAT THE BIG BADASSES AND
 CLEAN OUT THE MOON BASE YOU'RE SUPPOSED
 TO WIN, AREN'T YOU? AREN'T YOU? WHERE'S

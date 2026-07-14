@@ -22,6 +22,8 @@ var _shown := 0.0
 var _revealed := false
 
 func _ready() -> void:
+	# DEHACKED replacements arrive mixed-case; the STCFN font is caps-only
+	text = text.to_upper()
 	layer = 20
 	var vp := get_viewport().get_visible_rect().size
 	var s := vp.y / CANVAS_H
