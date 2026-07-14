@@ -48,6 +48,7 @@ const COLOR_BARREL := Color(1.0, 0.4, 0.1)
 const MAP_NAMES_CONST: Array[String] = [
 	"E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9",
 	"E2M1", "E2M2", "E2M3", "E2M4", "E2M5", "E2M6", "E2M7", "E2M8", "E2M9",
+	"E3M1", "E3M2", "E3M3", "E3M4", "E3M5", "E3M6", "E3M7", "E3M8", "E3M9",
 ]
 const MAP_DESCRIPTIONS = {
 	"E1M1": "Hangar",
@@ -68,6 +69,15 @@ const MAP_DESCRIPTIONS = {
 	"E2M7": "Spawning Vats",
 	"E2M8": "Tower of Babel",
 	"E2M9": "Fortress of Mystery (Secret)",
+	"E3M1": "Hell Keep",
+	"E3M2": "Slough of Despair",
+	"E3M3": "Pandemonium",
+	"E3M4": "House of Pain",
+	"E3M5": "Unholy Cathedral",
+	"E3M6": "Mt. Erebus",
+	"E3M7": "Limbo",
+	"E3M8": "Dis",
+	"E3M9": "Warrens (Secret)",
 }
 
 # ── Thing Flags ──────────────────────────────────────────────────────────
@@ -88,7 +98,10 @@ func getEndText(wad_path: String, episode: int = 1) -> String:
 		var t := _dehackedEndText(deh, episode)
 		if t != "":
 			return t
-	return E2_END_TEXT if episode == 2 else E1_END_TEXT
+	match episode:
+		2: return E2_END_TEXT
+		3: return E3_END_TEXT
+		_: return E1_END_TEXT
 
 static func _readLump(wad_path: String, lump_name: String) -> String:
 	var f := FileAccess.open(wad_path, FileAccess.READ)
@@ -124,6 +137,8 @@ static func _dehackedEndText(deh: String, episode: int = 1) -> String:
 	var vanilla_prefix := "Once you beat the big badasses"
 	if episode == 2:
 		vanilla_prefix = "You've done it! The hideous cyber-"
+	elif episode == 3:
+		vanilla_prefix = "The loathsome spiderdemon that"
 	var bex_key := "E%dTEXT" % episode
 	for i in lines.size():
 		var l : String = lines[i].strip_edges()
@@ -184,6 +199,24 @@ HELL.
 
 NOW, IT'S ON TO THE FINAL CHAPTER OF
 DOOM! -- INFERNO."""
+
+const E3_END_TEXT = """THE LOATHSOME SPIDERDEMON THAT
+MASTERMINDED THE INVASION OF THE MOON
+BASES AND CAUSED SO MUCH DEATH HAS HAD
+ITS ASS KICKED FOR ALL TIME.
+
+A HIDDEN DOORWAY OPENS AND YOU ENTER.
+YOU'VE PROVEN TOO TOUGH FOR HELL TO
+CONTAIN, AND NOW HELL AT LAST PLAYS
+FAIR -- FOR YOU EMERGE FROM THE DOOR
+TO SEE THE GREEN FIELDS OF EARTH!
+HOME AT LAST.
+
+YOU WONDER WHAT'S BEEN HAPPENING ON
+EARTH WHILE YOU WERE BATTLING EVIL
+UNLEASHED. IT'S GOOD THAT NO HELL-
+SPAWN COULD HAVE COME THROUGH THAT
+DOOR WITH YOU..."""
 
 # ── Difficulty (skill levels) ────────────────────────────────────────────
 

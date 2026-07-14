@@ -21,6 +21,9 @@ MAP_TITLES = {
     "E2M4": "Deimos Lab", "E2M5": "Command Center",
     "E2M6": "Halls of the Damned", "E2M7": "Spawning Vats",
     "E2M8": "Tower of Babel", "E2M9": "Fortress of Mystery (Secret)",
+    "E3M1": "Hell Keep", "E3M2": "Slough of Despair", "E3M3": "Pandemonium",
+    "E3M4": "House of Pain", "E3M5": "Unholy Cathedral", "E3M6": "Mt. Erebus",
+    "E3M7": "Limbo", "E3M8": "Dis", "E3M9": "Warrens (Secret)",
 }
 
 ENEMY_NAMES = {
