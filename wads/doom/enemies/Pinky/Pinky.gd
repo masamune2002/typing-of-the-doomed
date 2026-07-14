@@ -272,11 +272,11 @@ func telegraphAndAttackCurrentTarget() -> void:
 	cancelTelegraph()
 	var token: int = _newAttackToken()
 	_telegraphTween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).bind_node(self)
-	_telegraphTween.tween_property(sprite, "modulate", Color(2, 0.5, 0.5, 1), 1.0)
+	_telegraphTween.tween_property(sprite, "modulate", baseTint() * Color(2, 0.5, 0.5, 1), 1.0)
 	_telegraphTween.tween_callback(func():
 		_attackIfValid(token)
 	)
-	_telegraphTween.tween_property(sprite, "modulate", Color.WHITE, 0.25)
+	_telegraphTween.tween_property(sprite, "modulate", baseTint(), 0.25)
 	_telegraphTween.finished.connect(func():
 		_telegraphTween = null
 	)
@@ -286,7 +286,7 @@ func cancelTelegraph() -> void:
 	if _telegraphTween != null && _telegraphTween.is_running():
 		_telegraphTween.kill()
 	_telegraphTween = null
-	sprite.modulate = Color.WHITE
+	sprite.modulate = baseTint()
 
 func _attack(target : Player) -> void:
 	# The telegraph started while visible, but the player may have looked

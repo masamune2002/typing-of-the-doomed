@@ -37,6 +37,11 @@ var painSound : String = ""
 var deathSound : String = ""
 var activeSound : String = ""
 var _startDead : bool = false
+# Sector light at the enemy's position (0..1). Sprites are tinted by it
+# like DOOM lights its sprites, and near-black enemies are hidden from
+# the typing system entirely - you can't type what you can't see.
+var _sector_light : float = 1.0
+const DARK_HIDE_LIGHT := 40.0 / 255.0
 var _hasPlayedSeeSound : bool = false
 # DOOM's A_Chase plays the monster's activesound with a 3/256 roll per
 # chase tic — one grunt every ~8s per awake monster, uncorrelated.
@@ -169,6 +174,17 @@ func setDead() -> void:
 func _showCorpse() -> void:
 	# Override in subclasses to show corpse sprite
 	pass
+
+func setSectorLight(level01 : float) -> void:
+	_sector_light = clampf(level01, 0.0, 1.0)
+	var spr = get("sprite")
+	if spr is Sprite3D:
+		spr.modulate = baseTint()
+
+## The sprite's resting tint under its sector's light. Telegraph flashes
+## multiply against this so they stay dark in dark rooms.
+func baseTint() -> Color:
+	return Color(_sector_light, _sector_light, _sector_light)
 
 func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE, difficultyReduction : int = 0):
 	if _startDead:
@@ -413,7 +429,8 @@ func _physics_process(_delta: float) -> void:
 	if activeSound != "" and randf() < _delta / ACTIVE_SOUND_MEAN_SECS:
 		Game.playSoundAt(activeSound, self)
 
-	visible_to_player = _check_line_of_sight() and _is_on_screen()
+	visible_to_player = _sector_light >= DARK_HIDE_LIGHT \
+		and _check_line_of_sight() and _is_on_screen()
 	_updateLabelRenderPriority()
 
 	if visible_to_player:

@@ -764,6 +764,14 @@ func _spawnEnemiesFromWad() -> void:
 		enemy.global_position = _wadToWorld(pos)
 		_registerEntitySectorRider(enemy, pos)
 
+		# DOOM lights its sprites with the sector light level; a light-0
+		# room (E1M8's finale ambush) hides its monsters completely
+		if floor_info.has("sector") and map_data.has(WadGame.KEY_SECTORS_PARSED):
+			var sec_idx : int = floor_info["sector"]
+			var secs : Array = map_data[WadGame.KEY_SECTORS_PARSED]
+			if sec_idx >= 0 and sec_idx < secs.size():
+				enemy.setSectorLight(float(secs[sec_idx].get("lightLevel", 255.0)) / 255.0)
+
 	print("Spawned %d enemies (skill %d)" % [enemy_nodes.size(), Game.skill])
 
 	# Spawn items from WAD data
