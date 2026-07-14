@@ -178,8 +178,28 @@ def gen_color(i, total):
     return f"Color({r:.2f}, {g:.2f}, {b:.2f}, 1)"
 
 
+def raise_walkovers_are_traps(geo):
+    """Per-map prep: turn W1/WR floor-RAISE walkover lines into avoid-lines.
+
+    wadgeo models raise-walkovers optimistically (raises used as bridges),
+    but on maps like E2M4 they RAISE A BARRIER right where they are crossed
+    (line 287's Floor Raise 24 walls off the dark-maze corridor). Penalize
+    them like closer lines so A* routes around unless there is no other way.
+    """
+    RAISE_SPECIALS = {22, 30, 56, 58, 59, 92, 93, 94, 95, 96, 119}
+    for li in list(geo.walk_opener_lines):
+        special = geo.linedefs[li][3]
+        if special in RAISE_SPECIALS:
+            del geo.walk_opener_lines[li]
+            geo.closer_lines.add(li)
+    # A barrier raised mid-route is a hard failure, not a 120-unit detour
+    # trade-off: make A* treat these (and this map's door-closer lines) as
+    # last-resort only.
+    geo.CLOSER_PENALTY = 2000.0
+
+
 def generate(map_name, spawn, raw, uid, path_block=(), out_path=None,
-             wad="DOOM.WAD", force_open=()):
+             wad="DOOM.WAD", force_open=(), geo_prep=None):
     from wadgeo import MapGeo
     spawn_x, spawn_z = spawn
     out_path = out_path or f"wads/doom/levels/{map_name}.tscn"
@@ -189,6 +209,8 @@ def generate(map_name, spawn, raw, uid, path_block=(), out_path=None,
     # Sectors wadgeo can't model as passable (switch-lowered floors) that the
     # route rides open behind a hand-placed condition (e.g. F<sector>).
     geo.opened |= set(force_open)
+    if geo_prep:
+        geo_prep(geo)
     route = expand_route(geo, raw)
 
     spawn_sec = geo.point_sector((spawn_x, spawn_z))
