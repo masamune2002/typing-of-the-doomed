@@ -128,6 +128,17 @@ func _load() -> void:
 	_loader.map_name = map_name
 	add_child(_loader)
 
+	# Build per-sector meshes in the preview. The loader's default
+	# meshSimplify/merge pass folds same-height floors into anonymous
+	# MeshInstances directly under Geometry, so individual sectors (e.g.
+	# E1M8's spawn closet, sector 9) end up with collision-only nodes and
+	# no inspectable floor. Both knobs are exported by the loader — this
+	# mirrors what its own (unused) createMapPreview() does internally.
+	_loader.init_wad(wad_path)
+	if _loader._loader != null:
+		_loader._loader.meshSimplify = false
+		_loader._loader.mergeMesh = _loader._loader.MERGE.DISABLED
+
 	_loader.mapCreated.connect(_on_map_created)
 	_loader.load_wad(wad_path, 0)
 
