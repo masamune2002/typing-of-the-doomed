@@ -374,21 +374,21 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n13"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -22),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -24),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n14"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 3.5, -18),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, -5, -10),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_n15"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, -11.5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 8.5, -17.5),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -593,7 +593,7 @@ disc_color = Color(0.27, 0.58, 0.90, 1)
 
 
 [node name="StairsSwitchMarker" parent="Stations" instance=ExtResource("90_marker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, -3.0, -145.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, -7.0, -145.0)
 disc_color = Color(0.2, 0.9, 1, 1)
 
 [node name="BaronMarker" parent="Stations" instance=ExtResource("90_marker")]
@@ -621,7 +621,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../Station14")
 
 [node name="Station14" parent="Stations" instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.0, -134.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.0, -136.0)
 next_stations = Array[NodePath]([NodePath("../Station15")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n14"), SubResource("Resource_lookstairs")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_d53"), SubResource("Resource_nec_n14")])
@@ -635,7 +635,7 @@ from_station = NodePath("..")
 to_station = NodePath("../../Station15")
 
 [node name="Station15" parent="Stations" instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, 0.5, -152.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, -8.0, -146.0)
 next_stations = Array[NodePath]([NodePath("../Station16")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n15")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n15")])
