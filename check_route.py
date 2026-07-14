@@ -13,9 +13,12 @@ import importlib
 from wadgeo import MapGeo
 
 
-def check(map_name, raw, spawn=None, path_block=(), verbose=True, force_open=()):
+def check(map_name, raw, spawn=None, path_block=(), verbose=True, force_open=(),
+          geo_prep=None):
     geo = MapGeo("DOOM.WAD", map_name)
     geo.path_block = set(path_block)
+    if geo_prep:
+        geo_prep(geo)
     # Sectors wadgeo can't model as passable (switch-floors, lifts) but which
     # the route rides open - seed them so their hops don't read as blocked.
     geo.opened |= set(force_open)
@@ -57,4 +60,5 @@ if __name__ == "__main__":
     raw = mod.expand_route(mod.RAW) if hasattr(mod, "expand_route") else mod.RAW
     check(map_name, raw, (mod.SPAWN_X, mod.SPAWN_Z),
           getattr(mod, "PATH_BLOCK", ()),
-          force_open=getattr(mod, "FORCE_OPEN", ()))
+          force_open=getattr(mod, "FORCE_OPEN", ()),
+          geo_prep=getattr(mod, "GEO_PREP", None))
