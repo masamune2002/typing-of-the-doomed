@@ -1589,3 +1589,33 @@ func _dumpMapData() -> void:
 			print("[TAG] %d -> sectors=%s" % [tag, str(tag_map[tag])])
 
 	print("[DUMP_END] %s" % mn)
+
+	# TEMP diagnostic (env-guarded): dump the built geometry subtree for
+	# selected sectors, e.g. DUMP_GEOM_SECTORS="0,9,10" -- --dump-map E1M8
+	var geom_secs := OS.get_environment("DUMP_GEOM_SECTORS")
+	if geom_secs != "":
+		var level_nodes = get_tree().get_nodes_in_group(WadGame.GROUP_LEVEL)
+		if not level_nodes.is_empty():
+			var geom = level_nodes[0].get_node_or_null("Geometry")
+			for si in geom_secs.split(","):
+				var sn = geom.get_node_or_null("sector " + si) if geom else null
+				if sn == null:
+					print("[GEOM] sector %s: NO NODE" % si)
+					continue
+				print("[GEOM] sector %s meta floorH=%s ceilH=%s children=%d" % [
+					si, sn.get_meta("floorHeight"), sn.get_meta("ceilingHeight"),
+					sn.get_child_count()])
+				_dumpGeomChildren(sn, "  ")
+
+func _dumpGeomChildren(n: Node, indent: String) -> void:
+	for c in n.get_children():
+		var line := indent + c.name + " (" + c.get_class() + ")"
+		if c is Node3D:
+			line += " pos=%s vis=%s" % [c.position, c.visible]
+			if c.get_script() != null:
+				line += " script=%s" % c.get_script().resource_path.get_file()
+		if c is MeshInstance3D and c.mesh != null:
+			line += " aabb=%s" % c.get_aabb()
+		print(line)
+		if indent.length() < 6:
+			_dumpGeomChildren(c, indent + "  ")
