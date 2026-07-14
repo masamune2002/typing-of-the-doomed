@@ -38,10 +38,13 @@ var deathSound : String = ""
 var activeSound : String = ""
 var _startDead : bool = false
 # Sector light at the enemy's position (0..1). Sprites are tinted by it
-# like DOOM lights its sprites, and near-black enemies are hidden from
-# the typing system entirely - you can't type what you can't see.
+# like DOOM lights its sprites; near-black enemies keep their (fullbright)
+# labels but the words are long unreadable garble - hard to fight what
+# you can't see.
 var _sector_light : float = 1.0
-const DARK_HIDE_LIGHT := 40.0 / 255.0
+const DARK_WORD_LIGHT := 40.0 / 255.0
+const DARK_WORD_CHARS := "abcdefghijklmnopqrstuvwxyz0123456789-=[];'./"
+
 var _hasPlayedSeeSound : bool = false
 # DOOM's A_Chase plays the monster's activesound with a 3/256 roll per
 # chase tic — one grunt every ~8s per awake monster, uncorrelated.
@@ -176,10 +179,25 @@ func _showCorpse() -> void:
 	pass
 
 func setSectorLight(level01 : float) -> void:
+	var was := _sector_light
 	_sector_light = clampf(level01, 0.0, 1.0)
 	var spr = get("sprite")
 	if spr is Sprite3D:
 		spr.modulate = baseTint()
+	# Turning dark re-rolls the weakness into garble (spawn order: the
+	# EnemyManager assigns the normal word before main knows the sector)
+	if _sector_light < DARK_WORD_LIGHT and was >= DARK_WORD_LIGHT \
+			and weaknesses.has(_currentWeaknessType):
+		setWeakness(_currentWeaknessType, _difficultyReduction)
+
+## A long unreadable string of letters, digits and symbols for enemies
+## lurking in near-black sectors.
+func _darkWord() -> String:
+	var n := 12 + difficulty * 2
+	var out := ""
+	for i in n:
+		out += DARK_WORD_CHARS[randi() % DARK_WORD_CHARS.length()]
+	return out
 
 ## The sprite's resting tint under its sector's light. Telegraph flashes
 ## multiply against this so they stay dark in dark rooms.
@@ -196,7 +214,10 @@ func setWeakness(fireType : Enums.WEAPON_FIRE_TYPE, difficultyReduction : int = 
 		# Re-setup weakness with adjusted difficulty
 		var weakness = weaknesses.get(fireType)
 		weakness.hitPoints.clear()
-		weakness.setup(maxi(difficulty - _difficultyReduction, 0))
+		if fireType == Enums.WEAPON_FIRE_TYPE.TYPING and _sector_light < DARK_WORD_LIGHT:
+			weakness.setup(maxi(difficulty - _difficultyReduction, 0), [_darkWord()])
+		else:
+			weakness.setup(maxi(difficulty - _difficultyReduction, 0))
 		_applyDoomFont(enemyTargetLabel)
 		_applyDoomFont(typedLabel)
 		_setFullWordLabel()
@@ -274,7 +295,10 @@ func showFullLabel() -> void:
 func _resetWeakness() -> void:
 	var weakness = weaknesses.get(_currentWeaknessType)
 	weakness.hitPoints.clear()
-	weakness.setup(maxi(difficulty - _difficultyReduction, 0))
+	if _currentWeaknessType == Enums.WEAPON_FIRE_TYPE.TYPING and _sector_light < DARK_WORD_LIGHT:
+		weakness.setup(maxi(difficulty - _difficultyReduction, 0), [_darkWord()])
+	else:
+		weakness.setup(maxi(difficulty - _difficultyReduction, 0))
 	_applyDoomFont(enemyTargetLabel)
 	_applyDoomFont(typedLabel)
 	_setFullWordLabel()
@@ -429,8 +453,7 @@ func _physics_process(_delta: float) -> void:
 	if activeSound != "" and randf() < _delta / ACTIVE_SOUND_MEAN_SECS:
 		Game.playSoundAt(activeSound, self)
 
-	visible_to_player = _sector_light >= DARK_HIDE_LIGHT \
-		and _check_line_of_sight() and _is_on_screen()
+	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	_updateLabelRenderPriority()
 
 	if visible_to_player:

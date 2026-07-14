@@ -28,12 +28,23 @@ func canFire(inputEvent : InputEvent):
 		return true
 	return false
 
+# as_text_key_label() renders punctuation keys as words ("Space",
+# "Minus", ...) that can never match single-character hit points —
+# normalize them to their characters.
+const KEY_CHAR_MAP := {
+	KEY_SPACE: " ", KEY_MINUS: "-", KEY_EQUAL: "=",
+	KEY_BRACKETLEFT: "[", KEY_BRACKETRIGHT: "]",
+	KEY_SEMICOLON: ";", KEY_APOSTROPHE: "'",
+	KEY_COMMA: ",", KEY_PERIOD: ".", KEY_SLASH: "/",
+	KEY_BACKSLASH: "\\", KEY_QUOTELEFT: "`",
+}
+
 func fire(event : InputEvent) -> Variant:
 	if canFire(event):
-		# as_text_key_label() renders the spacebar as "Space", which can
-		# never match the ' ' hit points of multi-word phrases
-		if event.keycode == KEY_SPACE or event.key_label == KEY_SPACE:
-			return " "
+		if KEY_CHAR_MAP.has(event.keycode):
+			return KEY_CHAR_MAP[event.keycode]
+		if KEY_CHAR_MAP.has(event.key_label):
+			return KEY_CHAR_MAP[event.key_label]
 		return(event.as_text_key_label())
 	return null
 

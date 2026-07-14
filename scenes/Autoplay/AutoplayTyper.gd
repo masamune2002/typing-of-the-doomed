@@ -9,6 +9,13 @@ class_name AutoplayTyper
 ## session with a summary.
 
 const KEYS_PER_SEC := 5.0          # ~60 WPM
+const CHAR_KEY_MAP := {
+	" ": KEY_SPACE, "-": KEY_MINUS, "=": KEY_EQUAL,
+	"[": KEY_BRACKETLEFT, "]": KEY_BRACKETRIGHT,
+	";": KEY_SEMICOLON, "'": KEY_APOSTROPHE,
+	",": KEY_COMMA, ".": KEY_PERIOD, "/": KEY_SLASH,
+	"\\": KEY_BACKSLASH, "`": KEY_QUOTELEFT,
+}
 const LEVEL_TIMEOUT_SECS := 600.0  # hard backstop: report and quit
 const INTERACTABLE_COOLDOWN_MSEC := 10000  # don't re-type a completed door
 
@@ -150,9 +157,9 @@ func _physics_process(delta: float) -> void:
 	ev.pressed = true
 	# TypingGun reads as_text_key_label(), which stringifies key_label —
 	# synthesized events must set it (keycode alone reads as "(Unset)").
-	# Spaces in multi-word phrases need the explicit spacebar keycode.
-	if ch == " ":
-		ev.key_label = KEY_SPACE
+	# Punctuation needs explicit keycodes; TypingGun normalizes them back.
+	if CHAR_KEY_MAP.has(ch):
+		ev.key_label = CHAR_KEY_MAP[ch]
 	else:
 		ev.key_label = OS.find_keycode_from_string(ch.to_upper())
 	ev.keycode = ev.key_label
