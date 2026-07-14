@@ -45,7 +45,10 @@ const COLOR_BARREL := Color(1.0, 0.4, 0.1)
 
 # ── Maps ─────────────────────────────────────────────────────────────────
 
-const MAP_NAMES_CONST: Array[String] = ["E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9"]
+const MAP_NAMES_CONST: Array[String] = [
+	"E1M1", "E1M2", "E1M3", "E1M4", "E1M5", "E1M6", "E1M7", "E1M8", "E1M9",
+	"E2M1", "E2M2", "E2M3", "E2M4", "E2M5", "E2M6", "E2M7", "E2M8", "E2M9",
+]
 const MAP_DESCRIPTIONS = {
 	"E1M1": "Hangar",
 	"E1M2": "Nuclear Plant",
@@ -56,6 +59,15 @@ const MAP_DESCRIPTIONS = {
 	"E1M7": "Computer Station",
 	"E1M8": "Phobos Anomaly",
 	"E1M9": "Military Base (Secret)",
+	"E2M1": "Deimos Anomaly",
+	"E2M2": "Containment Area",
+	"E2M3": "Refinery",
+	"E2M4": "Deimos Lab",
+	"E2M5": "Command Center",
+	"E2M6": "Halls of the Damned",
+	"E2M7": "Spawning Vats",
+	"E2M8": "Tower of Babel",
+	"E2M9": "Fortress of Mystery (Secret)",
 }
 
 # ── Thing Flags ──────────────────────────────────────────────────────────
@@ -65,18 +77,18 @@ const THING_FLAG_MEDIUM = 0b10      # Appears on skill 3 (HMP)
 const THING_FLAG_HARD = 0b100       # Appears on skills 4-5 (UV / NM)
 const THING_FLAG_MULTIPLAYER = 0b10000  # Multiplayer only (not single player)
 
-# ── Episode 1 finale ─────────────────────────────────────────────────────
+# ── Episode finales ──────────────────────────────────────────────────────
 
 ## Vanilla DOOM compiles the episode end texts into the ENGINE — they are
 ## not IWAD lumps. WADs override them via a DEHACKED lump (classic `Text`
-## blocks or BEX [STRINGS] E1TEXT); honor that, else use the engine text.
-func getEndText(wad_path: String) -> String:
+## blocks or BEX [STRINGS] E<n>TEXT); honor that, else use the engine text.
+func getEndText(wad_path: String, episode: int = 1) -> String:
 	var deh := _readLump(wad_path, "DEHACKED")
 	if deh != "":
-		var t := _dehackedEndText(deh)
+		var t := _dehackedEndText(deh, episode)
 		if t != "":
 			return t
-	return E1_END_TEXT
+	return E2_END_TEXT if episode == 2 else E1_END_TEXT
 
 static func _readLump(wad_path: String, lump_name: String) -> String:
 	var f := FileAccess.open(wad_path, FileAccess.READ)
@@ -100,18 +112,22 @@ static func _readLump(wad_path: String, lump_name: String) -> String:
 	f.seek(e[0])
 	return f.get_buffer(e[1]).get_string_from_ascii()
 
-static func _dehackedEndText(deh: String) -> String:
-	# BEX form: E1TEXT = value with backslash line-continuations and \n escapes
+static func _dehackedEndText(deh: String, episode: int = 1) -> String:
+	# BEX form: E<n>TEXT = value with backslash line-continuations and \n escapes
 	var pos := 0
 	var lines := deh.split("\n")
 	var offsets := []  # start offset of each line within deh
 	for l in lines:
 		offsets.append(pos)
 		pos += l.length() + 1
+	# The classic `Text` form has no key: match the vanilla text it replaces.
 	var vanilla_prefix := "Once you beat the big badasses"
+	if episode == 2:
+		vanilla_prefix = "You've done it! The hideous cyber-"
+	var bex_key := "E%dTEXT" % episode
 	for i in lines.size():
 		var l : String = lines[i].strip_edges()
-		if l.begins_with("E1TEXT"):
+		if l.begins_with(bex_key):
 			var eq := l.find("=")
 			if eq >= 0:
 				var val := l.substr(eq + 1).strip_edges()
@@ -150,6 +166,24 @@ THE ONLY WAY OUT IS THROUGH.
 TO CONTINUE THE DOOM EXPERIENCE, PLAY
 THE SHORES OF HELL AND ITS AMAZING
 SEQUEL, INFERNO!"""
+
+const E2_END_TEXT = """YOU'VE DONE IT! THE HIDEOUS CYBER-
+DEMON LORD THAT RULED THE LOST DEIMOS
+MOON BASE HAS BEEN SLAIN AND YOU
+ARE TRIUMPHANT! BUT ... WHERE ARE
+YOU? YOU CLAMBER TO THE EDGE OF THE
+MOON AND LOOK DOWN TO SEE THE AWFUL
+TRUTH.
+
+DEIMOS FLOATS ABOVE HELL ITSELF!
+YOU'VE NEVER HEARD OF ANYONE ESCAPING
+FROM HELL, BUT YOU'LL MAKE THE BASTARDS
+SORRY THEY EVER HEARD OF YOU! QUICKLY,
+YOU RAPPEL DOWN TO THE SURFACE OF
+HELL.
+
+NOW, IT'S ON TO THE FINAL CHAPTER OF
+DOOM! -- INFERNO."""
 
 # ── Difficulty (skill levels) ────────────────────────────────────────────
 

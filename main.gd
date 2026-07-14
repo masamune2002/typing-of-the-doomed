@@ -515,7 +515,11 @@ func isPaused() -> bool:
 
 func _onEpisodeFinale() -> void:
 	var ending := EndingScreen.new()
-	ending.text = wad_game.getEndText(_wad_file_path)
+	var map_name : String = wad_game.map_names[_currentMapIdx]
+	var episode := 1
+	if map_name.length() >= 2 and map_name.begins_with("E"):
+		episode = map_name.substr(1, 1).to_int()
+	ending.text = wad_game.getEndText(_wad_file_path, episode)
 	ending.dismissed.connect(_onEndingDismissed)
 	add_child(ending)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
