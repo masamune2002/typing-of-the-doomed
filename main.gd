@@ -140,7 +140,9 @@ func _startAutoplay(map_name: String) -> void:
 		# mode — encounters are fought by AutoplayTyper at a fixed WPM and
 		# items are picked up along the way.
 		SettingsManager.autoplay_typing = true
-		Game.skill = DoomGame.DEFAULT_SKILL
+		# Hurt Me Plenty: at ~60 WPM the UV population (extra pinkies
+		# especially) reliably kills the bot on E1M5.
+		Game.skill = 3
 		var bot := AutoplayTyper.new()
 		bot.name = "AutoplayTyper"
 		add_child(bot)

@@ -186,10 +186,11 @@ func _pickTarget(player: Player) -> Node3D:
 			and !player.currentEncounter.conditionsMet) \
 		or (player._moving and player._stuck_frames > 30)
 	# A locked target receives every keystroke first, so finish it — unless
-	# it's an interactable we should no longer be touching.
+	# it's an interactable we should no longer be touching, or a barrel
+	# (a stray matched char can lock one; finishing it blows up in our face).
 	var locked = player._currentFireTarget
 	if locked != null and is_instance_valid(locked) and _isTypeable(locked):
-		if locked is Interactable and not wants_interactable:
+		if locked is ExplodingBarrel or (locked is Interactable and not wants_interactable):
 			player._clearFireTarget()
 		else:
 			return locked
@@ -226,6 +227,10 @@ func _pickTarget(player: Player) -> Node3D:
 					continue
 				return c
 	for c in candidates:
+		if c is ExplodingBarrel:
+			# Never type barrels: the bot fights at close range and the
+			# splash damage costs more health than the barrel is worth.
+			continue
 		if not (c is Enemy) and not (c is Interactable) and _isTypeable(c):
 			return c
 	return null
