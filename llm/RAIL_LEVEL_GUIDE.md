@@ -6,6 +6,12 @@ whole doc first — every rule in here was learned from a real failure.
 `gen_e1m6.py` is the plain template; `gen_e1m7.py` adds the lift patterns
 and forced-key-order probing described below.
 
+**E2 update:** the nine `gen_e2m*.py` scripts share `railgen.py` (the
+gen_e1m9 expander verbatim + a tscn writer) instead of copying it —
+new maps should import railgen too. See "Episode 2 additions" at the
+bottom for teleport chain-breaks, boss finales, milestone routes, the
+walkover-raise trap, and the capsule-snag class of stalls.
+
 ## The pipeline
 
 1. Copy `gen_e1m6.py` → `gen_e1m7.py` (etc.) and edit:
@@ -248,3 +254,98 @@ The stall report is rich — use all of it:
 - If the user hand-moves a generated station in the editor and it fixes a
   stall, bake the new position back into the generator's RAW (regenerating
   otherwise clobbers it) — the tscn is generated output, not a source file.
+
+## Episode 2 additions (learned building E2M1-E2M9)
+
+### Shared generator: railgen.py
+
+Per-map scripts define `MAP/UID/SPAWN_X/SPAWN_Z/PATH_BLOCK/RAW` (+ optional
+`FORCE_OPEN`, `GEO_PREP`) and call `railgen.generate(...)`. Keep exposing
+`expand_route(raw)` so `check_route.py` can replay the exact route (it also
+honors `FORCE_OPEN` and applies `GEO_PREP` to its own geo).
+
+### Probing: probe_map.py
+
+`python3 probe_map.py E2M4` automates the guide's key-order BFS: spawn/key/
+exit sectors, key-door sectors per color, teleport edges, and a staged
+reachability closure. CAVEATS learned the hard way:
+- its `movable ⇒ passable` rule is optimistic: switch-raised pits (E2M2's
+  exit pit 1), lowered pedestals and lift rides all read "reachable" when
+  they are not. Confirm every probe claim with `geo.find_path` before
+  trusting it (wadgeo is the strict model).
+- a key-door SECTOR can have a keyless DR face on one side and a key face
+  on the other (E2M6's dark-maze door 80): the probe bans the whole sector,
+  wrongly hiding the keyless entry. Check both faces' specials.
+
+### Teleports (TeleportPlayerAction chain breaks)
+
+Walkover teleport pads DO NOT move the rail player (no `teleport()` method)
+— routes may cross pads freely. When progression NEEDS a teleport, mark the
+RAW beat with a 5th element `{"teleport": tag}`: the station ends its rail
+chain with a TeleportPlayerAction and the NEXT beat starts a new chain that
+must sit EXACTLY on the WAD teleport-destination thing (type 14) — the
+player lands inside its trigger area (EncounterPoint body entry, the E1M8
+finale pattern). railgen refuses to generate if the teleport beat is not
+its chain's last station. E2M1 chains four of these; E2M4 uses one.
+
+### Boss finale maps (E2M8)
+
+Vanilla E2M8 has no exit line — the episode ends on the boss kill. Mark the
+last beat `{"finale": max_distance}`: the station waits on
+NearbyEnemiesClearedCondition and runs EpisodeFinaleAction (E2 text wall;
+prints `[AUTOPLAY] DONE ... (episode finale)` in autoplay).
+
+### Milestone routes are a legitimate ship gate
+
+gen_e1m9.py set the precedent; E2M2/E2M4/E2M5/E2M7 follow it. When the
+vanilla endgame runs over crate-top hops after a stair build (E2M2),
+teleporter shuttle booths + a moat with no modelable exit (E2M4), a
+capsule-wedging shelf (E2M5) or interleaved raised tiers (E2M7), end the
+route at a strong verified milestone (keys collected / a key door opened /
+an overlook) and document exactly what was skipped in the gen docstring.
+
+### Walkover floor-RAISES are traps, not bridges
+
+wadgeo's WALK_OPENERS treats W1/WR floor raises optimistically. On E2M4's
+dark maze, crossing line 287 raises a barrier that WALLS OFF the corridor
+for every later pass. `railgen.raise_walkovers_are_traps(geo)` converts
+raise-walkovers into high-penalty avoid-lines (and raises CLOSER_PENALTY to
+2000 - a mid-route barrier is a hard failure, not a 120-unit trade). After
+generating, verify zero trap crossings by scanning the expanded route's
+`geo._crossings` against `geo.closer_lines`.
+
+### Built stairs: bake the floors
+
+Stair-build switches (S1/W1 types 7/8) create floors wadgeo cannot see.
+Write a `GEO_PREP` that rewrites `geo.sectors[i]` to the post-build heights
+(E2M8 `bake_stairs`). The switch's interactable is DOOR-typed (stairs
+script), so the condition is `D<target_sector>`, not `F<n>`. Note the
+four-faced pillar quirk: a face builds the OPPOSITE side's stairs.
+
+### Multi-sector switches and the deduped variable
+
+One S1 line can open several door sectors (E2M1's tag 16 -> doors 6 AND 9).
+The spawned switch interactable dedupes to the LOWEST sector (`sector_6`)
+and typing it sets ALL linked door vars. Hand-place the guide-rule-2 beat
+with `D<lowest>`; the auto-gate's `D9` at the far slab passes via the
+linked vars. Autoplay's auto-activate matches by NAME, so a `D9`-only gate
+stalls autoplay even though real play might squeak by.
+
+### Capsule snags: straight legs skip the clearance check
+
+`expand_chain` only A*-routes a hop when the CENTER line has problems, so a
+"clean" straight leg gets NO player-radius flank check. Two stall flavors:
+- grazing a convex corner (E2M2's crate at (19.5,-127.5), E2M6's chaingun
+  nook): add a waypoint beat ~1.5 units clear of the corner.
+- a knee-high (+8) riser that wedges the capsule while the stall raycast
+  passes OVER it — "no blocker" + frozen at the step line is the signature
+  (E2M5 line 590; step-up handles most +8..+24 risers, this one it doesn't).
+  If re-centering the crossing doesn't fix it, reroute or end the route
+  before it.
+
+### Damage floors
+
+Block only INESCAPABLE pits by default (climb-out > 24 or ringed by more
+damage); shallow nukage the vanilla route wades (E2M3 crossings, E2M6's
+southeast pool 55) can stay routable — A* prefers dry paths and only wades
+when there is no other way. Keep in-pool beats to enter/exit pairs.
