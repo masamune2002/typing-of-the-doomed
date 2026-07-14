@@ -310,9 +310,32 @@ metadata/_custom_type_script = "uid://cjvj83eu0sl8t"
 
 [sub_resource type="Resource" id="Resource_lookbarons"]
 script = ExtResource("90_look")
-targetNode = NodePath("../BaronMarker")
+targetNode = NodePath("../BaronAMarker")
 blocking = false
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
+[sub_resource type="Resource" id="Resource_lookbaronb"]
+script = ExtResource("90_look")
+targetNode = NodePath("../BaronBMarker")
+blocking = false
+metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
+[sub_resource type="Resource" id="Resource_lans_12b"]
+script = ExtResource("9_lans")
+blocking = false
+metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_nec_12b"]
+script = ExtResource("9_nec")
+max_distance = 10.0
+metadata/_custom_type_script = "uid://dpqsds1tybnew"
+
+[sub_resource type="Curve3D" id="Curve3D_n12b"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0, 2.5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [sub_resource type="Resource" id="Resource_lans_n13"]
 script = ExtResource("9_lans")
@@ -367,7 +390,7 @@ metadata/_custom_type_script = "uid://c2yyknt08j3or"
 
 [sub_resource type="Curve3D" id="Curve3D_n12"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04, -10),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.5, 0.04, -12.5),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -584,7 +607,7 @@ to_station = NodePath("../../Station12")
 
 [node name="Station12" parent="Stations" instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.04, -102.0)
-next_stations = Array[NodePath]([NodePath("../Station13")])
+next_stations = Array[NodePath]([NodePath("../Station12b")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans13"), SubResource("Resource_lookbarons")])
 endActions = Array[ExtResource("4_ea")]([SubResource("Resource_adv_12")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec13")])
@@ -596,11 +619,29 @@ disc_color = Color(0.27, 0.58, 0.90, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0, -7.0, -145.0)
 disc_color = Color(0.2, 0.9, 1, 1)
 
-[node name="BaronMarker" parent="Stations" instance=ExtResource("90_marker")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.0, -96.5)
+[node name="BaronAMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, -3.0, -96.5)
 disc_color = Color(0.9, 0.2, 0.2, 1)
 
-[node name="Station12__TO__Station13" type="Path3D" parent="Stations/Station12"]
+[node name="BaronBMarker" parent="Stations" instance=ExtResource("90_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, -3.0, -96.5)
+disc_color = Color(0.9, 0.2, 0.2, 1)
+
+[node name="Station12__TO__Station12b" type="Path3D" parent="Stations/Station12"]
+curve = SubResource("Curve3D_n12b")
+script = ExtResource("2_rp")
+from_station = NodePath("..")
+to_station = NodePath("../../Station12b")
+
+[node name="Station12b" parent="Stations" instance=ExtResource("3_rs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, -3.04, -99.5)
+next_stations = Array[NodePath]([NodePath("../Station13")])
+startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_12b"), SubResource("Resource_lookbaronb")])
+conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_12b")])
+one_shot = true
+disc_color = Color(0.9, 0.3, 0.2, 1)
+
+[node name="Station12b__TO__Station13" type="Path3D" parent="Stations/Station12b"]
 curve = SubResource("Curve3D_n12")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
