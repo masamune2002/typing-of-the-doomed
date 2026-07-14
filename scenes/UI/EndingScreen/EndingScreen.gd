@@ -82,10 +82,13 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		# Mark handled BEFORE emitting: the dismissed handler reloads the
+		# scene, removing this node from the tree mid-call — after which
+		# get_viewport() is null.
+		get_viewport().set_input_as_handled()
 		if !_revealed:
 			_revealed = true
 			_label.visible_characters = -1
 		else:
 			dismissed.emit()
 			queue_free()
-		get_viewport().set_input_as_handled()
