@@ -464,6 +464,10 @@ func _pauseMenuLevelSelected(map_idx: int) -> void:
 		_pause_menu = null
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_currentMapIdx = map_idx
+	# Level select is a fresh start: default health/armor/weapons, no
+	# carry-over (natural level exits still carry state forward)
+	_carry_over_state = {}
+	_skip_state_capture = true
 	EventBus.stopWait.emit()
 	_loadMap(wad_game.map_names[_currentMapIdx])
 

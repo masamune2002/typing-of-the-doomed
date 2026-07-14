@@ -86,6 +86,11 @@ func _input(event: InputEvent) -> void:
 		# scene, removing this node from the tree mid-call — after which
 		# get_viewport() is null.
 		get_viewport().set_input_as_handled()
+		# Only Enter/Space advance — players are usually still typing at
+		# the monsters when this screen appears
+		if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER \
+				and event.keycode != KEY_SPACE:
+			return
 		if !_revealed:
 			_revealed = true
 			_label.visible_characters = -1
