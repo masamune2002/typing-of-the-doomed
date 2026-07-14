@@ -46,6 +46,7 @@ func _ready() -> void:
 	Game.setWadLoader(loader)
 	Game.setWadGame(wad_game)
 	EventBus.levelExitReached.connect(_onLevelExitReached)
+	EventBus.episodeFinale.connect(_onEpisodeFinale)
 	_sector_lighting = SectorLighting.new()
 	add_child(_sector_lighting)
 
@@ -504,6 +505,18 @@ func _onSaveLoaded(save_data: Dictionary) -> void:
 
 func isPaused() -> bool:
 	return _pause_menu != null
+
+func _onEpisodeFinale() -> void:
+	var ending := EndingScreen.new()
+	ending.text = DoomGame.E1_END_TEXT
+	ending.dismissed.connect(_onEndingDismissed)
+	add_child(ending)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _onEndingDismissed() -> void:
+	# Fresh run: clear episode state and reboot into the title screen
+	Game.clearVars()
+	get_tree().reload_current_scene()
 
 func _onLevelExitReached() -> void:
 	if _transitioning:

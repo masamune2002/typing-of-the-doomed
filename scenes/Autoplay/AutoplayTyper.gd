@@ -83,6 +83,12 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if !player._alive:
+		if Game.getVar("episode_finale", false):
+			# The E1M8 teleporter ambush death IS the episode ending
+			print("[BOT] EPISODE FINALE reached on %s — died as scripted" % _current_map)
+			_printFinal("episode complete (E1M8 finale)")
+			get_tree().quit(0)
+			return
 		_handleDeath(player)
 		return
 	_dead_handled = false

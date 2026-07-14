@@ -65,6 +65,24 @@ const THING_FLAG_MEDIUM = 0b10      # Appears on skill 3 (HMP)
 const THING_FLAG_HARD = 0b100       # Appears on skills 4-5 (UV / NM)
 const THING_FLAG_MULTIPLAYER = 0b10000  # Multiplayer only (not single player)
 
+# ── Episode 1 finale ─────────────────────────────────────────────────────
+
+const E1_END_TEXT = """ONCE YOU BEAT THE BIG BADASSES AND
+CLEAN OUT THE MOON BASE YOU'RE SUPPOSED
+TO WIN, AREN'T YOU? AREN'T YOU? WHERE'S
+YOUR FAT REWARD AND TICKET HOME? WHAT
+THE HELL IS THIS? IT'S NOT SUPPOSED TO
+END THIS WAY!
+
+IT STINKS LIKE ROTTEN MEAT, BUT LOOKS
+LIKE THE LOST DEIMOS BASE. LOOKS LIKE
+YOU'RE STUCK ON THE SHORES OF HELL.
+THE ONLY WAY OUT IS THROUGH.
+
+TO CONTINUE THE DOOM EXPERIENCE, PLAY
+THE SHORES OF HELL AND ITS AMAZING
+SEQUEL, INFERNO!"""
+
 # ── Difficulty (skill levels) ────────────────────────────────────────────
 
 const SKILL_NAMES : Array[String] = [

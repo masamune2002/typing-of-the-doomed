@@ -766,6 +766,12 @@ func _die():
 	var deathTween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	deathTween.tween_property(_cameraRig, "position:y", 0.2, 1.0)
 	deathTween.tween_callback(func():
-		_deathReady = true
+		# The scripted episode finale (E1M8's teleporter ambush) ends in the
+		# text wall, not a game-over restart prompt.
+		if Game.getVar("episode_finale", false):
+			EventBus.episodeFinale.emit()
+		else:
+			_deathReady = true
 	)
-	_playerUi.showGameOver()
+	if !Game.getVar("episode_finale", false):
+		_playerUi.showGameOver()
