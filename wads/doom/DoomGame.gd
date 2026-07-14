@@ -280,8 +280,10 @@ func _init():
 		6:    { "name": "YellowKeycard","sprites": ["YKEYA0", "YKEYB0"],                       "effect": "key", "key": YELLOW_CARD,  "sound": ITEM_PICKUP },
 		13:   { "name": "RedKeycard",   "sprites": ["RKEYA0", "RKEYB0"],                       "effect": "key", "key": RED_CARD,     "sound": ITEM_PICKUP },
 		40:   { "name": "BlueSkullKey", "sprites": ["BSKUA0", "BSKUB0"],                       "effect": "key", "key": BLUE_SKULL,   "sound": ITEM_PICKUP },
-		38:   { "name": "YellowSkullKey","sprites": ["YSKUA0", "YSKUB0"],                      "effect": "key", "key": YELLOW_SKULL, "sound": ITEM_PICKUP },
-		39:   { "name": "RedSkullKey",  "sprites": ["RSKUA0", "RSKUB0"],                       "effect": "key", "key": RED_SKULL,    "sound": ITEM_PICKUP },
+		# Vanilla DOOM thing types: 38 = red skull, 39 = yellow skull (they
+		# were swapped here, which stranded every E3 rail on its key beats).
+		38:   { "name": "RedSkullKey",  "sprites": ["RSKUA0", "RSKUB0"],                       "effect": "key", "key": RED_SKULL,    "sound": ITEM_PICKUP },
+		39:   { "name": "YellowSkullKey","sprites": ["YSKUA0", "YSKUB0"],                      "effect": "key", "key": YELLOW_SKULL, "sound": ITEM_PICKUP },
 	}
 
 	decoration_definitions = {
