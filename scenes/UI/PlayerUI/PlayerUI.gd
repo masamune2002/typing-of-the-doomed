@@ -313,6 +313,9 @@ func showPainFlash() -> void:
 func updateKeys(keys: Array[String]) -> void:
 	statusBar.updateKeys(keys)
 
+func updateAmmo(ammo : int) -> void:
+	statusBar.updateAmmo(ammo)
+
 func closeDialogBox() -> void:
 	dialogBox.hide()
 	EventBus.stopWait.emit()

@@ -87,6 +87,29 @@ layout_mode = 2
 stretch_mode = 5
 expand_mode = 3
 
+[node name="AmmoDigits" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+theme_override_constants/separation = 0
+
+[node name="Digit0" type="TextureRect" parent="AmmoDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
+[node name="Digit1" type="TextureRect" parent="AmmoDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
+[node name="Digit2" type="TextureRect" parent="AmmoDigits"]
+texture_filter = 1
+layout_mode = 2
+stretch_mode = 5
+expand_mode = 3
+
 [node name="KillDigits" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 0

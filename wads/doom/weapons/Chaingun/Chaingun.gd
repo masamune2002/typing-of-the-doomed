@@ -13,3 +13,4 @@ func _ready() -> void:
 	burstCount = 3
 	firePhase1Time = 0.07
 	firePhase2Time = 0.07
+	maxAmmo = 40

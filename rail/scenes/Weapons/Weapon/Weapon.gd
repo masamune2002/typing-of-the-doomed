@@ -5,6 +5,22 @@ var fireType : Enums.WEAPON_FIRE_TYPE
 var showReticle : bool
 var fireSound : String = "DSPISTOL"
 
+# Ammo: -1 means infinite (default). Weapons are always instantiated fresh
+# on switch/pickup, so assigning maxAmmo in _ready loads a full clip; when
+# a finite clip runs dry the player falls back to their default weapon.
+var ammo : int = -1
+var maxAmmo : int = -1 :
+	set(value):
+		maxAmmo = value
+		ammo = value
+
+func hasAmmo() -> bool:
+	return ammo != 0
+
+func consumeAmmo() -> void:
+	if ammo > 0:
+		ammo -= 1
+
 @export var bobAmountY : float = 0.006
 @export var bobSpeed : float = 8.0
 @export var swayAmount : float = 0.003

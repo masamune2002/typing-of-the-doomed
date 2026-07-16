@@ -15,3 +15,4 @@ func _ready() -> void:
 	projectileExplosionSprites = ["BFE1A0", "BFE1B0", "BFE1C0", "BFE1D0", "BFE1E0", "BFE1F0"] as Array[String]
 	projectileSpeed = 15.0
 	projectileKillsAll = true
+	maxAmmo = 4

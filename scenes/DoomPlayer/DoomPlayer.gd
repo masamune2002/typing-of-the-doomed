@@ -38,6 +38,19 @@ func _physics_process(delta: float) -> void:
 		_headBobAmp = move_toward(_headBobAmp, 0.0, delta / HEAD_BOB_FADE)
 	_cameraRig.position.y = _headBobBaseY + sin(_headBobTime) * 0.3 * headBobScale * _headBobAmp
 
+func _onAmmoDepleted() -> void:
+	if _isChangingWeapon:
+		return
+	# Deferred so the swap doesn't start inside the firing call stack
+	_fallBackToPistol.call_deferred()
+
+func _fallBackToPistol() -> void:
+	if _isChangingWeapon or _currentWeaponScene == PISTOL_SCENE:
+		return
+	_isChangingWeapon = true
+	await changeWeapon(PISTOL_SCENE)
+	_isChangingWeapon = false
+
 func _cycleWeapon() -> void:
 	if weaponScenes.size() <= 1:
 		return
@@ -72,6 +85,7 @@ func changeWeapon(weaponScene : PackedScene, action : EncounterAction = null) ->
 	EventBus.weaponChanged.emit()
 
 	# Load new weapon's HUD sprites and raise
+	updateAmmoUi()
 	_playerUi.loadWeaponSprites(newWeapon)
 	_playerUi.raiseWeapon()
 	await _playerUi.weaponRaised

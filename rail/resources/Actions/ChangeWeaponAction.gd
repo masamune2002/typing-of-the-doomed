@@ -33,6 +33,7 @@ func run(_encounterPoint : EncounterPoint) -> void:
 	player.addWeapon(weaponScene)
 
 	# Load new sprites and raise
+	player.updateAmmoUi()
 	player._playerUi.loadWeaponSprites(newWeapon)
 	player._playerUi.raiseWeapon(duration)
 	await player._playerUi.weaponRaised

@@ -68,6 +68,7 @@ func _ready() -> void:
 	_armor = playerCharacter.startingArmor
 	_armorType = playerCharacter.startingArmorType
 	_playerUi.setup(playerCharacter)
+	updateAmmoUi()
 	_defaultWeapon.visible = false
 	Game.setPlayer(self)
 	add_to_group("player")
@@ -111,6 +112,7 @@ func reset() -> void:
 	_rotV = 0.0
 	_cameraRig.rotation_degrees = Vector3.ZERO
 	_playerUi.setup(playerCharacter)
+	updateAmmoUi()
 	_defaultWeapon.visible = false
 	Game.setPlayer(self)
 
@@ -409,11 +411,34 @@ func _input(event):
 		_fireWeapon(event)
 
 func _fireWeapon(event : InputEvent):
+	# An empty clip can only exist for the moment the fallback swap is in
+	# flight — don't let those keystrokes fire the dry weapon.
+	if !_currentWeapon.hasAmmo():
+		return
 	if _currentWeapon.canFire(event):
 		var firePayload : Variant = _currentWeapon.fire(event)
 		if firePayload == null:
 			return
 		fireWeapon.emit(_currentWeapon.fireType, _currentFireTarget, firePayload)
+
+## Called by the EnemyManager whenever a shot actually lands (the gun fires
+## visually and audibly). Typing at doors/items doesn't fire the gun and so
+## costs nothing; infinite-ammo weapons (ammo == -1) are unaffected.
+func consumeShot() -> void:
+	if _currentWeapon == null or _currentWeapon.ammo < 0:
+		return
+	_currentWeapon.consumeAmmo()
+	updateAmmoUi()
+	if !_currentWeapon.hasAmmo():
+		_onAmmoDepleted()
+
+## Game-specific players override this to swap to a fallback weapon.
+func _onAmmoDepleted() -> void:
+	pass
+
+func updateAmmoUi() -> void:
+	if _playerUi != null and _currentWeapon != null:
+		_playerUi.updateAmmo(_currentWeapon.ammo)
 
 func setCurrentEncounter(newEncounter : EncounterPoint) -> void:
 	currentEncounter = newEncounter

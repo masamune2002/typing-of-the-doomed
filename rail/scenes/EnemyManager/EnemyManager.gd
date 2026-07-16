@@ -130,9 +130,7 @@ func _handlePlayerFired(weaponFireType : Enums.WEAPON_FIRE_TYPE, target : Node3D
 				var defer = _weaponHasProjectile()
 				if target is Enemy:
 					if target.receiveFire(weaponFireType, payload, defer):
-						_playWeaponSound()
-						playerRef._playerUi.showWeaponFire()
-						_spawnProjectile(target)
+						_shotFired(target)
 				elif target is Item:
 					if target.receiveFire(weaponFireType, payload):
 						playerRef.lookAtPosition(target.global_position)
@@ -141,9 +139,7 @@ func _handlePlayerFired(weaponFireType : Enums.WEAPON_FIRE_TYPE, target : Node3D
 						playerRef.lookAtPosition(target.global_position)
 				elif target is ExplodingBarrel:
 					if target.receiveFire(weaponFireType, payload):
-						_playWeaponSound()
-						playerRef._playerUi.showWeaponFire()
-						_spawnProjectile(target)
+						_shotFired(target)
 				return
 			else:
 				# Target is dead/invalid — clear it and fall through to auto-target
@@ -158,9 +154,7 @@ func _handlePlayerFired(weaponFireType : Enums.WEAPON_FIRE_TYPE, target : Node3D
 			if node.receiveFire(weaponFireType, payload, defer):
 				if node.active and node.alive:
 					playerRef.setFireTarget(node)
-				_playWeaponSound()
-				playerRef._playerUi.showWeaponFire()
-				_spawnProjectile(node)
+				_shotFired(node)
 				return
 	for node in candidates:
 		if node is Item:
@@ -177,10 +171,16 @@ func _handlePlayerFired(weaponFireType : Enums.WEAPON_FIRE_TYPE, target : Node3D
 			if node.receiveFire(weaponFireType, payload):
 				if node.alive:
 					playerRef.setFireTarget(node)
-				_playWeaponSound()
-				playerRef._playerUi.showWeaponFire()
-				_spawnProjectile(node)
+				_shotFired(node)
 				return
+
+# A shot that actually landed: gun sound, HUD fire animation, projectile,
+# and one round of ammo.
+func _shotFired(target : Node3D) -> void:
+	_playWeaponSound()
+	playerRef._playerUi.showWeaponFire()
+	_spawnProjectile(target)
+	playerRef.consumeShot()
 
 func _spawnProjectile(target: Node3D) -> void:
 	if playerRef == null or playerRef._currentWeapon == null:

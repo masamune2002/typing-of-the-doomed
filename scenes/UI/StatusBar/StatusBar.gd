@@ -11,6 +11,8 @@ class_name StatusBar
 @onready var armorContainer : HBoxContainer = $ArmorDigits
 @onready var killDigitsContainer : HBoxContainer = $KillDigits
 @onready var _killDigits : Array[TextureRect] = [$KillDigits/Digit0, $KillDigits/Digit1, $KillDigits/Digit2]
+@onready var ammoDigitsContainer : HBoxContainer = $AmmoDigits
+@onready var _ammoDigits : Array[TextureRect] = [$AmmoDigits/Digit0, $AmmoDigits/Digit1, $AmmoDigits/Digit2]
 @onready var _keySprites : Array[TextureRect] = [$KeySlot0, $KeySlot1, $KeySlot2]
 
 # DOOM STBAR is 320x32 pixels
@@ -51,6 +53,12 @@ var _killCount : int = 0
 # Kill counter position (in the FRAGS area, x=100-138 in DOOM coords)
 const KILLS_X : float = 100.0
 const KILLS_Y : float = 3.0
+
+# Ammo readout — DOOM's big red digits, right edge at x=44 like the original
+# STBAR. -1 means infinite and renders a sideways 8 as the infinity symbol.
+const AMMO_X : float = 2.0
+const AMMO_Y : float = 3.0
+var _currentAmmo : int = -1
 
 # Key display - DOOM STBAR key positions (in 320x32 space)
 # Keys appear in a column on the right side of the status bar
@@ -185,12 +193,38 @@ func _layoutElements() -> void:
 		d.custom_minimum_size = Vector2(digitW, digitH)
 	_updateKillDigits()
 
+	# Ammo digits
+	ammoDigitsContainer.position = Vector2(AMMO_X * scaleX, AMMO_Y * scaleY)
+	for d in _ammoDigits:
+		d.custom_minimum_size = Vector2(digitW, digitH)
+	_updateAmmoDigits()
+
 	_layoutKeys()
 
 func _updateKillDigits() -> void:
 	if _killDigits.size() < 3:
 		return
 	_setDigits(_killDigits, _killCount)
+
+func updateAmmo(ammo : int) -> void:
+	_currentAmmo = ammo
+	_updateAmmoDigits()
+
+func _updateAmmoDigits() -> void:
+	if _ammoDigits.size() < 3 or _digitTextures.size() < 10:
+		return
+	if _currentAmmo < 0:
+		# Infinite ammo: an 8 rotated onto its side reads as the infinity
+		# symbol, in the same STTNUM digit sprites as the rest of the bar.
+		_ammoDigits[0].texture = null
+		_ammoDigits[2].texture = null
+		var mid := _ammoDigits[1]
+		mid.texture = _digitTextures[8]
+		mid.pivot_offset = mid.custom_minimum_size / 2.0
+		mid.rotation = PI / 2.0
+	else:
+		_ammoDigits[1].rotation = 0.0
+		_setDigits(_ammoDigits, _currentAmmo)
 
 func addKill() -> void:
 	_killCount += 1

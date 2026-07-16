@@ -12,3 +12,4 @@ func _ready() -> void:
 	firePhase2Time = 0.35
 	muzzleFlashOffsetX = 0.0
 	difficultyReduction = 1
+	maxAmmo = 16
