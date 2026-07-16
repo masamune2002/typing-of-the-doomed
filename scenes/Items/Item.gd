@@ -91,6 +91,8 @@ func _applyDoomFont() -> void:
 				label.font = doomFont
 				label.font_size = 16
 				label.pixel_size = 0.02
+				# fitLabelsToScreen scales pixel_size down from this base
+				label.set_meta("base_pixel_size", label.pixel_size)
 
 func activate() -> void:
 	active = true
@@ -205,9 +207,11 @@ func _physics_process(_delta: float) -> void:
 		return
 	visible_to_player = _check_line_of_sight() and _is_on_screen()
 	if visible_to_player:
-		var stray : Vector3 = Utils.clampLabelsToView(self, [itemLabel], [_labelHomeLocal])
+		# Text must be current before the fit pass measures its width
 		_setFullWordLabel()
 		_updateTypedLabel()
+		var stray : Vector3 = Utils.clampLabelsToView(self, [itemLabel], [_labelHomeLocal])
+		stray += Utils.fitLabelsToScreen(self, [itemLabel])
 		itemLabel.show()
 		Utils.updateLabelLeaderLine(_labelLine, itemLabel, global_position + Vector3(0, 0.25, 0), stray)
 		if debugLabel != null:

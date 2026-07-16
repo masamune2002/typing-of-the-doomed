@@ -68,6 +68,8 @@ func _applyDoomFont() -> void:
 				label.font = doomFont
 				label.font_size = 16
 				label.pixel_size = 0.02
+				# fitLabelsToScreen scales pixel_size down from this base
+				label.set_meta("base_pixel_size", label.pixel_size)
 
 func activate() -> void:
 	active = true
@@ -222,9 +224,11 @@ func _physics_process(_delta: float) -> void:
 			var cam := get_viewport().get_camera_3d()
 			if cam != null:
 				_labelHomeLocal.y = clampf(cam.global_position.y - global_position.y, -10.0, 10.0)
-		var stray : Vector3 = Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
+		# Text must be current before the fit pass measures its width
 		_setFullWordLabel()
 		_updateTypedLabel()
+		var stray : Vector3 = Utils.clampLabelsToView(self, [interactableLabel], [_labelHomeLocal])
+		stray += Utils.fitLabelsToScreen(self, [interactableLabel])
 		interactableLabel.show()
 		# Anchor the line where the target visually is: switches at the label's
 		# eye height on the panel, doors/lifts at the node itself.
