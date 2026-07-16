@@ -122,6 +122,75 @@ func clampLabelsToView(entity : Node3D, labels : Array, home_locals : Array) -> 
 		label.global_position = entity.to_global(home_locals[i]) + delta
 	return delta
 
+# ---- Label screen fitting -----------------------------------------------
+# A Label3D pulled close to the camera (melee-range enemy) can project wider
+# than the whole viewport — the player sees three giant letters and can't
+# read the word. This shrinks the label group until the primary label fits
+# the screen, then shifts the group so no edge of the text is cut off.
+
+const LABEL_MAX_SCREEN_FRAC := 0.9  # primary label may fill this much of the viewport
+const LABEL_FIT_MARGIN_PX := 12.0   # gap kept between the text and the screen edge
+
+# labels[0] is the primary (weakness) label the fit is measured against; the
+# rest of the group scales and moves with it. Call every frame after
+# clampLabelsToView; returns the extra positional delta applied (add it to
+# the clamp's stray for leader lines).
+func fitLabelsToScreen(entity : Node3D, labels : Array) -> Vector3:
+	if labels.is_empty():
+		return Vector3.ZERO
+	var primary : Label3D = labels[0]
+	if primary == null:
+		return Vector3.ZERO
+	# Reset to natural size before measuring so shrinking never compounds
+	# frame over frame.
+	for label in labels:
+		if label == null:
+			continue
+		if !label.has_meta("base_pixel_size"):
+			label.set_meta("base_pixel_size", label.pixel_size)
+		label.pixel_size = label.get_meta("base_pixel_size")
+	var camera : Camera3D = entity.get_viewport().get_camera_3d()
+	if camera == null or primary.text.is_empty():
+		return Vector3.ZERO
+	var pos : Vector3 = primary.global_position
+	if camera.is_position_behind(pos):
+		return Vector3.ZERO
+	var font : Font = primary.font if primary.font != null else ThemeDB.fallback_font
+	var text_px : Vector2 = font.get_string_size(
+		primary.text, primary.horizontal_alignment, -1, primary.font_size)
+	var half_w_world : float = text_px.x * primary.pixel_size * 0.5
+	var half_h_world : float = text_px.y * primary.pixel_size * 0.5
+	# Projected half-extents: the label billboards, so its text runs along
+	# the camera's right axis and stacks along its up axis.
+	var cam_basis : Basis = camera.global_transform.basis
+	var center_px : Vector2 = camera.unproject_position(pos)
+	var half_w_px : float = center_px.distance_to(
+		camera.unproject_position(pos + cam_basis.x * half_w_world))
+	var half_h_px : float = center_px.distance_to(
+		camera.unproject_position(pos + cam_basis.y * half_h_world))
+	var vp : Vector2 = entity.get_viewport().get_visible_rect().size
+	var factor := 1.0
+	var max_half_w : float = vp.x * LABEL_MAX_SCREEN_FRAC * 0.5
+	if half_w_px > max_half_w:
+		factor = max_half_w / half_w_px
+		half_w_px = max_half_w
+		half_h_px *= factor
+		for label in labels:
+			if label != null:
+				label.pixel_size = label.get_meta("base_pixel_size") * factor
+	# Shift the (possibly shrunk) group so the text sits fully on screen.
+	var target_px := Vector2(
+		clampf(center_px.x, half_w_px + LABEL_FIT_MARGIN_PX, vp.x - half_w_px - LABEL_FIT_MARGIN_PX),
+		clampf(center_px.y, half_h_px + LABEL_FIT_MARGIN_PX, vp.y - half_h_px - LABEL_FIT_MARGIN_PX))
+	if target_px.is_equal_approx(center_px):
+		return Vector3.ZERO
+	var depth : float = -(camera.global_transform.affine_inverse() * pos).z
+	var delta : Vector3 = camera.project_position(target_px, depth) - pos
+	for label in labels:
+		if label != null:
+			label.global_position += delta
+	return delta
+
 # ---- Label leader lines ------------------------------------------------
 # When clampLabelsToView pulls a label away from its natural spot above its
 # owner, a thin line in the label's font color connects the label back to

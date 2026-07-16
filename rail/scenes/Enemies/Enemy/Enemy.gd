@@ -144,6 +144,8 @@ func _applyDoomFont(label: Label3D) -> void:
 		label.font = doomFont
 		label.font_size = 16
 		label.pixel_size = 0.02
+		# fitLabelsToScreen scales pixel_size down from this base each frame
+		label.set_meta("base_pixel_size", label.pixel_size)
 
 func activate() -> void:
 	if _startDead:
@@ -459,9 +461,12 @@ func _physics_process(_delta: float) -> void:
 	_updateLabelRenderPriority()
 
 	if visible_to_player:
-		var stray : Vector3 = Utils.clampLabelsToView(self, [enemyTargetLabel, pipsLabel, pipsDefeatedLabel], _labelHomes)
+		# Text must be current before the fit pass measures its width
 		_setFullWordLabel()
 		_updateTypedLabel()
+		var labelGroup := [enemyTargetLabel, pipsLabel, pipsDefeatedLabel]
+		var stray : Vector3 = Utils.clampLabelsToView(self, labelGroup, _labelHomes)
+		stray += Utils.fitLabelsToScreen(self, labelGroup)
 		enemyTargetLabel.show()
 		Utils.updateLabelLeaderLine(_labelLine, enemyTargetLabel, global_position + Vector3(0, 1.0, 0), stray)
 		if numHealthBars > 1 and pipsLabel != null:

@@ -67,12 +67,25 @@ func _physics_process(delta: float) -> void:
 		parent.move_and_slide()
 		return
 
-	# Check melee range
+	# Check melee range. Inside MIN_RANGE the player is too close for the
+	# weakness label to be readable (the rail can carry them right into a
+	# pinky's face), so back away first and only bite from the band between
+	# MIN_RANGE and MELEE_RANGE.
 	var distance = parent.global_position.distance_to(_target.global_position)
-	if distance <= MELEE_RANGE and _hasLineOfSight():
+	var too_close = distance < Pinky.MIN_RANGE
+	if !too_close and distance <= MELEE_RANGE and _hasLineOfSight():
 		parent.velocity = Vector3.ZERO
 		parent.startAttack(_target)
 		return
+
+	if too_close:
+		_just_attacked = false  # never stand still in the player's face
+		if !_ensureRetreatDir():
+			# Cornered — nowhere to back away to, so bite from here.
+			if distance <= MELEE_RANGE and _hasLineOfSight():
+				parent.velocity = Vector3.ZERO
+				parent.startAttack(_target)
+				return
 
 	# Post-attack pause: face player, don't move
 	if _just_attacked:
@@ -93,7 +106,7 @@ func _physics_process(delta: float) -> void:
 	# Decrement move count; pick new direction when it expires or blocked
 	_move_count -= 1
 	if _move_count < 0:
-		_pickNewChaseDir()
+		_pickNewChaseDir(too_close)
 
 	# Try to move in current direction
 	if _move_dir >= 0 and _move_dir < DIRECTIONS.size():
@@ -109,9 +122,13 @@ func _physics_process(delta: float) -> void:
 			parent.velocity.x = dir.x * MOVE_SPEED
 			parent.velocity.z = dir.z * MOVE_SPEED
 
-			# Face movement direction
-			var look_target = parent.global_position + dir
-			parent.look_at(look_target, Vector3.UP, true)
+			if too_close:
+				# Backing off: keep facing the player, don't turn tail
+				parent.look_at(_target.global_position, Vector3.UP, true)
+			else:
+				# Face movement direction
+				var look_target = parent.global_position + dir
+				parent.look_at(look_target, Vector3.UP, true)
 	else:
 		parent.velocity.x = 0
 		parent.velocity.z = 0
@@ -128,16 +145,32 @@ func _physics_process(delta: float) -> void:
 	# If barely moved (blocked by wall), pick a new direction immediately
 	var moved = parent.global_position.distance_to(pos_before)
 	if moved < MOVE_SPEED * delta * 0.3 and _move_dir >= 0:
-		_pickNewChaseDir()
+		_pickNewChaseDir(too_close)
 
 	# Random chase sound
 	if randf() < CHASE_SOUND_CHANCE * delta * 35.0:
 		Game.playSoundAt(DoomGame.DEMON_ACTIVE, parent)
 
-func _pickNewChaseDir() -> void:
+# Keeps the current direction while it still leads away from the player,
+# otherwise picks a fresh retreat direction. Returns false when every
+# escape route is blocked (walls/ledges) — the caller may bite instead.
+func _ensureRetreatDir() -> bool:
+	var away = parent.global_position - _target.global_position
+	away.y = 0
+	if _move_dir >= 0 and away.length() > 0.001 \
+			and DIRECTIONS[_move_dir].normalized().dot(away.normalized()) > 0.0:
+		return true
+	_pickNewChaseDir(true)
+	return _move_dir >= 0
+
+func _pickNewChaseDir(away : bool = false) -> void:
 	if _target == null:
 		return
 	var delta_pos = _target.global_position - parent.global_position
+	if away:
+		delta_pos = -delta_pos
+	# From here on delta_pos points where the pinky wants to go: toward the
+	# player when chasing, directly away when retreating.
 	var dx = delta_pos.x
 	var dz = delta_pos.z
 
@@ -185,7 +218,13 @@ func _pickNewChaseDir() -> void:
 			try_dirs.append(d)
 
 	# Pick first valid direction (check for walls)
+	var desired = Vector3(dx, 0, dz)
 	for d in try_dirs:
+		# When retreating, the sweep fallback must not send the pinky back
+		# toward the player — sideways is fine, closing in is not.
+		if away and desired.length() > 0.001 \
+				and DIRECTIONS[d].normalized().dot(desired.normalized()) < 0.0:
+			continue
 		if _isDirectionClear(d):
 			_move_dir = d
 			_move_count = randi_range(0, 15)

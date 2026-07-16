@@ -28,5 +28,7 @@ func _physics_process(_delta: float) -> void:
 	if !parent.visible_to_player:
 		return
 	var distance = parent.global_position.distance_to(player.global_position)
-	if distance > Pinky.MELEE_RANGE:
+	# Too far: chase. Too close (the rail carried the player into our face):
+	# hand over to Moving, which backs away to keep the label readable.
+	if distance > Pinky.MELEE_RANGE or distance < Pinky.MIN_RANGE:
 		parent.stateMachine.setState(Enums.ENEMY_STATE.MOVING)

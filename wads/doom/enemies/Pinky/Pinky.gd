@@ -14,6 +14,10 @@ const DEATH_FRAMES = ["I", "J", "K", "L", "M", "N"]
 # by the view clamping and is hard to read. Keep in sync with
 # PinkyMoving.MELEE_RANGE.
 const MELEE_RANGE := 4.5
+# The rail can carry the player right up to a stopped pinky. Inside this
+# range the pinky backs away instead of biting, so the weakness label stays
+# far enough to read.
+const MIN_RANGE := 3.5
 const ANGLE_ZERO_FRAMES = ["I", "J", "K", "L", "M", "N"]
 const PAIN_DURATION := 6.0 / 35.0
 const FRAME_DURATION = 10.0 / 35.0
