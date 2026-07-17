@@ -41,7 +41,14 @@
       "Read(//root/**)",
       "Read(//home/**)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(mv /home/claude/workspace/enemies/doom/* /home/claude/workspace/wads/doom/enemies/)",
+      "Bash(python3 parse_wad_dumps.py)",
+      "Bash(wc *)",
+      "Bash(python3 *)",
+      "Bash(tee /tmp/e1m5_run.log)",
+      "Bash(timeout 120 godot --headless --path . -- --map E1M5)",
+      "Bash(echo \"Exit code: $?\")"
     ]
   }
 }

@@ -221,11 +221,11 @@ DOOR WITH YOU..."""
 # ── Difficulty (skill levels) ────────────────────────────────────────────
 
 const SKILL_NAMES : Array[String] = [
-	"I'M TOO YOUNG TO DIE.",
-	"HEY, NOT TOO ROUGH.",
-	"HURT ME PLENTY.",
-	"ULTRA-VIOLENCE.",
-	"NIGHTMARE!",
+	"I'M TOO YOUNG TO TYPE.",
+	"HEY, NOT TOO SESQUIPEDALIAN.",
+	"TEXT ME PLENTY.",
+	"ULTRA-TYPE-LENCE.",
+	"TYPE-MARE!",
 ]
 const DEFAULT_SKILL = 4  # Ultra-Violence — matches the pre-difficulty-menu behavior
 
