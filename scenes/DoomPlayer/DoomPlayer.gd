@@ -47,6 +47,9 @@ func _onAmmoDepleted() -> void:
 func _fallBackToPistol() -> void:
 	if _isChangingWeapon or _currentWeaponScene == PISTOL_SCENE:
 		return
+	# A spent weapon is lost, not holstered: dropping it from the inventory
+	# lets the player pick the same weapon type up again later.
+	weaponScenes.erase(_currentWeaponScene)
 	_isChangingWeapon = true
 	await changeWeapon(PISTOL_SCENE)
 	_isChangingWeapon = false

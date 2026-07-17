@@ -19,6 +19,9 @@ signal fireWeapon(weapon : Enums.WEAPON_FIRE_TYPE, target : Node3D, payload : Va
 var _alive : bool
 var _health : int
 var _armor : int
+# The scene's exported loadout, snapshotted at ready: reset() restores it so
+# weapons picked up or granted mid-level never leak into the next level.
+var _defaultWeaponScenes : Array[PackedScene] = []
 var _armorType : Enums.ARMOR_TYPE
 var _moving : bool
 var _keys : Array[String] = []
@@ -51,6 +54,7 @@ func _ready() -> void:
 	_moving = false
 	_alive = true
 	_moveAction = null
+	_defaultWeaponScenes = weaponScenes.duplicate()
 	# Blocking-line walls (window bars, monster blockers) live on layer 16:
 	# solid to bodies, invisible to sight rays
 	collision_mask |= 16
@@ -90,6 +94,7 @@ func reset() -> void:
 	velocity = Vector3.ZERO
 	_air_time = 0.0
 	_keys.clear()
+	weaponScenes = _defaultWeaponScenes.duplicate()
 	_clearFireTarget()
 	set_process_input(true)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -784,6 +789,9 @@ func restoreState(data: Dictionary) -> void:
 		_currentWeapon = weapon
 		_currentWeaponScene = scene
 		_playerUi.loadWeaponSprites(weapon)
+	# The restored weapon is a fresh instance with a full clip — the ammo
+	# readout must not keep showing the previous weapon's count.
+	updateAmmoUi()
 
 func _die():
 	_alive = false

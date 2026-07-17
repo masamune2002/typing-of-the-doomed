@@ -660,11 +660,15 @@ func _loadMap(map_name: String) -> void:
 	var old_player = Game.getPlayer()
 	if old_player != null and not _skip_state_capture:
 		_carry_over_state = old_player.getState()
-		# Don't carry over position, rotation, or keys between maps
+		# Don't carry over position, rotation, or keys between maps.
+		# Weapons don't carry either: every level starts with the default
+		# pistol-only kit, and rail actions/pickups grant the rest.
 		_carry_over_state.erase("position")
 		_carry_over_state.erase("camera_rot_h")
 		_carry_over_state.erase("camera_rot_v")
 		_carry_over_state.erase("keys")
+		_carry_over_state.erase("weapon_scenes")
+		_carry_over_state.erase("current_weapon")
 	if old_player != null:
 		old_player.visible = false
 		Game.player = null
