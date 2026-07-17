@@ -19,7 +19,15 @@ var difficulty : int
 var _difficultyReduction : int = 0
 var numHealthBars : int = 1
 var _currentHealthBar : int = 0
-var active : bool
+# Encounter conditions read visible_to_player the same frame an enemy is
+# (re)activated, but the cached value is forced false the whole time it was
+# inactive — recompute it immediately on activation so a just-woken enemy
+# is never mistaken for a cleared one.
+var active : bool :
+	set(value):
+		active = value
+		if active and is_inside_tree():
+			refreshVisibility()
 var dying : bool
 var alive : bool
 var animationLibraryName : String
@@ -457,7 +465,7 @@ func _physics_process(_delta: float) -> void:
 	if activeSound != "" and randf() < _delta / ACTIVE_SOUND_MEAN_SECS:
 		Game.playSoundAt(activeSound, self)
 
-	visible_to_player = _check_line_of_sight() and _is_on_screen()
+	refreshVisibility()
 	_updateLabelRenderPriority()
 
 	if visible_to_player:
@@ -497,6 +505,9 @@ func _physics_process(_delta: float) -> void:
 	_prev_visible_to_player = visible_to_player
 
 const MAX_VISIBILITY_DISTANCE: float = 30.0
+
+func refreshVisibility() -> void:
+	visible_to_player = _check_line_of_sight() and _is_on_screen()
 
 func _check_line_of_sight() -> bool:
 	var player : Player = Game.getPlayer()

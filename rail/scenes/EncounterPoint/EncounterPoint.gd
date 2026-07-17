@@ -25,6 +25,11 @@ var active : bool
 var _waiting : bool = false
 var _checkAfterPhysicsFrame : int = 0
 var _conditionsMetAtMs : int = -1
+# True once a real (unsuspended) check has failed this encounter. Flickers
+# only exist on a blocked->passing transition, so the hold only applies
+# then — stations whose conditions are satisfied from the first fresh
+# check end immediately and the rail rides through without stopping.
+var _everBlocked : bool = false
 
 func _ready() -> void:
 	super()
@@ -58,10 +63,11 @@ func _process(_delta: float) -> void:
 		endEncounter()
 
 func _holdSatisfied() -> bool:
-	# Pass-through stations (no conditions) never hold, and neither do
-	# debug skip runs (autoplay route validation visits hundreds of
-	# stations; 0.5s each would add minutes per map).
-	if conditions == null or conditions.is_empty():
+	# Only encounters that actually blocked need the hold; a station whose
+	# conditions passed from the start is a pass-through and must not stop
+	# the rail. Debug skip runs never hold either (autoplay route
+	# validation visits hundreds of stations; 0.5s each adds minutes).
+	if conditions == null or conditions.is_empty() or !_everBlocked:
 		return true
 	if SettingsManager != null and SettingsManager.debug_skip_encounters:
 		return true
@@ -69,9 +75,13 @@ func _holdSatisfied() -> bool:
 
 func _checkConditions() -> void:
 	if _checksSuspended():
+		# Suspended is "unknown", not "blocked" — it must neither end the
+		# encounter nor arm the hold.
 		conditionsMet = false
 		return
 	conditionsMet = _checkConditionsOnce()
+	if !conditionsMet:
+		_everBlocked = true
 
 func _on_player_entered(player: Player) -> void:
 	player.setCurrentEncounter(self)
@@ -91,26 +101,23 @@ func startEncounter() -> void:
 	active = true
 	_starting = true
 	_conditionsMetAtMs = -1
+	_everBlocked = false
 	for condition in conditions:
 		if condition != null:
 			condition.reset()
 	await _runActions(startActions)
 	_starting = false
 	# End synchronously when the conditions already pass instead of waiting
-	# for the next _process frame: a pass-through rail station otherwise
-	# stops the player for a frame on every hop (velocity drops to zero,
-	# head bob and weapon sway visibly restart). Gated stations skip one
-	# physics frame instead — enemies activated by the start actions have
-	# visible_to_player forced false until their next physics tick, so an
-	# immediate check would read all of them as cleared — and then hold via
-	# _process until their conditions stay true.
+	# for the next _process frame: a station that doesn't gate must never
+	# stop the player, even for a frame (velocity drops to zero, head bob
+	# and weapon sway visibly restart). This reads fresh flags even for
+	# enemies the start actions just activated — Enemy.active's setter
+	# recomputes visible_to_player on activation. Stations that do gate
+	# hold via _process until their conditions stay true.
 	if active and !_ending:
-		if conditions == null or conditions.is_empty():
-			_checkConditions()
-			if conditionsMet:
-				endEncounter()
-		else:
-			_checkAfterPhysicsFrame = maxi(_checkAfterPhysicsFrame, Engine.get_physics_frames() + 1)
+		_checkConditions()
+		if conditionsMet and _holdSatisfied():
+			endEncounter()
 
 func endEncounter() -> void:
 	_ending = true
