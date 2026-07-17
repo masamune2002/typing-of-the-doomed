@@ -5,8 +5,11 @@ const SPRITE_PREFIX = "SKUL"
 const IDLE_FRAMES = ["A", "B"]
 const ATTACK_FRAMES = ["C", "D"]
 const DEATH_FRAMES = ["E", "F", "G", "H", "I", "J"]
+# Vanilla's lost-soul pain frame (E doubles as the first death flash here)
+const PAIN_FRAMES = ["E"]
 const ANGLE_ZERO_FRAMES = ["F", "G", "H", "I", "J"]
 const FRAME_DURATION = 10.0 / 35.0
+const PAIN_DURATION = 6.0 / 35.0
 
 @onready var sprite: Sprite3D = $Sprite3D
 
@@ -133,6 +136,8 @@ func _getFramesForAnimation() -> Array:
 			return IDLE_FRAMES
 		"attack":
 			return ATTACK_FRAMES
+		"pain":
+			return PAIN_FRAMES
 		"death":
 			return DEATH_FRAMES
 		_:
@@ -157,6 +162,18 @@ func activate() -> void:
 	_currentAnimation = "idle"
 	_currentFrameIndex = 0
 	stateMachine.setState(Enums.ENEMY_STATE.IDLE)
+
+func playPain() -> void:
+	if !alive or dying:
+		return
+	var prev_anim = _currentAnimation
+	_currentAnimation = "pain"
+	_currentFrameIndex = 0
+	_updateSprite()
+	await get_tree().create_timer(PAIN_DURATION).timeout
+	if alive and !dying and _currentAnimation == "pain":
+		_currentAnimation = prev_anim
+		_currentFrameIndex = 0
 
 func die() -> void:
 	_currentAnimation = "death"

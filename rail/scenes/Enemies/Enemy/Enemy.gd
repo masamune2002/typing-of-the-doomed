@@ -66,6 +66,17 @@ var _telegraphTween : Tween
 var _telegraphMat : StandardMaterial3D
 var _attackToken : int = 0
 
+# Pain: every typed letter has a chance to stagger the enemy, scaled by how
+# tough it is across the roster's difficulty range (2 = Zombieman ... 5 =
+# Cyberdemon). Finishing a word always staggers (handled on bar advance).
+const PAIN_CHANCE_EASIEST := 0.25
+const PAIN_CHANCE_HARDEST := 0.10
+const PAIN_DIFF_EASY := 2
+const PAIN_DIFF_HARD := 5
+const PAIN_STUN_SECS := 0.5
+var stunned : bool = false
+var _stunToken : int = 0
+
 @warning_ignore("unused_signal")
 signal startedDying
 @warning_ignore("unused_signal")
@@ -253,12 +264,15 @@ func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant, def
 		return false
 	var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
 	_updateTypedLabel()
-	if hit && weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
-		if deferDamage:
-			# Store pending action for when the projectile arrives
-			_pendingHealthBarAdvance = true
-		else:
-			_applyHealthBarAdvance()
+	if hit:
+		if weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
+			if deferDamage:
+				# Store pending action for when the projectile arrives
+				_pendingHealthBarAdvance = true
+			else:
+				_applyHealthBarAdvance()
+		elif randf() < painChance():
+			triggerPain()
 	return hit
 
 var _pendingHealthBarAdvance : bool = false
@@ -274,12 +288,35 @@ func _applyHealthBarAdvance() -> void:
 	if _currentHealthBar >= numHealthBars:
 		die()
 	else:
-		if painSound != "":
-			Game.playSoundAt(painSound, self)
-		if has_method("playPain"):
-			call("playPain")
+		# Finishing a word always staggers as long as bars remain
+		triggerPain()
 		_resetWeakness()
 		_updatePips()
+
+func painChance() -> float:
+	var t := clampf((difficulty - PAIN_DIFF_EASY) / float(PAIN_DIFF_HARD - PAIN_DIFF_EASY), 0.0, 1.0)
+	return lerpf(PAIN_CHANCE_EASIEST, PAIN_CHANCE_HARDEST, t)
+
+## DOOM-style pain state: grunt + flinch animation + a short stun that
+## aborts any attack being wound up and resets the attack cooldown.
+func triggerPain() -> void:
+	if !alive || dying:
+		return
+	var wasAttacking := stateMachine.currentStateKey == Enums.ENEMY_STATE.ATTACKING
+	cancelTelegraph()
+	if wasAttacking:
+		stateMachine.setState(Enums.ENEMY_STATE.IDLE)
+	if painSound != "":
+		Game.playSoundAt(painSound, self)
+	if has_method("playPain"):
+		call("playPain")
+	stunned = true
+	_stunToken += 1
+	var token := _stunToken
+	get_tree().create_timer(PAIN_STUN_SECS).timeout.connect(func():
+		if is_instance_valid(self) and token == _stunToken:
+			stunned = false)
+	EventBus.enemyPained.emit(self, wasAttacking)
 
 func _setFullWordLabel() -> void:
 	var weakness = weaknesses.get(_currentWeaknessType)
@@ -371,7 +408,7 @@ func telegraphAndAttackCurrentTarget() -> void:
 	_runTelegraph(mat, token)
 
 func _canAttack() -> bool:
-	return currentTarget != null && alive && !dying
+	return currentTarget != null && alive && !dying && !stunned
 
 func _getMesh() -> MeshInstance3D:
 	var skeleton: Skeleton3D = %Skeleton3D

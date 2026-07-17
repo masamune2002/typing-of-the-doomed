@@ -12,6 +12,7 @@ var _currentFireType : Enums.WEAPON_FIRE_TYPE
 func _ready():
 	EventBus.wait.connect(_handleWait)
 	EventBus.stopWait.connect(_handleStopWait)
+	EventBus.enemyPained.connect(_handleEnemyPained)
 	EventBus.changeFireType.connect(_handleChangeFireType)
 	EventBus.startEncounter.connect(_onEncounterStart)
 	EventBus.enemySpawned.connect(_handleEnemySpawned)
@@ -88,18 +89,24 @@ func _handleStopWait() -> void:
 	_attackTimer.paused = false
 	waitingEnemies.clear()
 
+func _handleEnemyPained(_enemy : Enemy, wasAttacking : bool) -> void:
+	# A pained enemy loses the attack it was winding up; give the room a
+	# fresh full attack delay instead of leaving a half-elapsed timer.
+	if wasAttacking:
+		_attackTimer.start(attackSecs * randf_range(0.7, 1.3))
+
 func _attackTimerTimeout() -> void:
 	var enemiesGroup : Array[Node]= get_tree().get_nodes_in_group("Enemies")
 	var candidateEnemies : Array[Enemy]= []
 	for potentialEnemy : Node in enemiesGroup:
 			if potentialEnemy is Enemy and is_instance_valid(potentialEnemy):
 				var enemy : Enemy = potentialEnemy
-				if enemy.active && enemy.alive && !enemy.dying && enemy.visible_to_player:
+				if enemy.active && enemy.alive && !enemy.dying && !enemy.stunned && enemy.visible_to_player:
 					candidateEnemies.append(enemy)
 	if candidateEnemies.size() == 0:
 		return
 	var attackingEnemy : Enemy = candidateEnemies.pick_random()
-	if attackingEnemy.alive && !attackingEnemy.dying && attackingEnemy.active:
+	if attackingEnemy.alive && !attackingEnemy.dying && attackingEnemy.active && !attackingEnemy.stunned:
 		# Melee enemies (like Pinky) handle their own attack timing via movement
 		if attackingEnemy.has_method("isMeleeOnly") and attackingEnemy.isMeleeOnly():
 			_attackTimer.start(attackSecs * randf_range(0.7, 1.3))

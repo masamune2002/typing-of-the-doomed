@@ -56,8 +56,8 @@ func _physics_process(delta: float) -> void:
 
 	# Freeze while off-screen: an unseen pinky can't be typed at, so it
 	# must not close in or attack from behind. It resumes the moment the
-	# player can see it again.
-	if !parent.visible_to_player:
+	# player can see it again. Same freeze while pain-stunned.
+	if !parent.visible_to_player or parent.stunned:
 		parent.velocity.x = 0
 		parent.velocity.z = 0
 		if not parent.is_on_floor():
