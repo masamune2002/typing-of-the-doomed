@@ -34,6 +34,8 @@
 
 [ext_resource type="Script" uid="uid://xdgbgwfgyprn" path="res://rail/resources/Actions/LookAtInteractableAction.gd" id="99_lai"]
 
+[ext_resource type="Script" uid="uid://bx2squbgfsomc" path="res://rail/resources/Actions/SleepForTargetsAction.gd" id="99_sft"]
+
 [sub_resource type="Resource" id="Resource_lans1"]
 script = ExtResource("9_lans")
 blocking = false
@@ -573,6 +575,101 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Resource" id="Resource_sft_0"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_1"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_2"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_3"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_4"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_5"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_6"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_7"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_8"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_9"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_10"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_11"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_12"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_13"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_14"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_15"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_16"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_17"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_sft_18"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [node name="RailNetwork" type="Node3D" unique_id=376063425]
 script = ExtResource("1_rn")
 
@@ -585,7 +682,7 @@ map_name = "E1M8"
 [node name="StationA" parent="Stations" unique_id=1667777948 instance=ExtResource("3_rs")]
 next_stations = Array[NodePath]([NodePath("../StationB")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans1")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_1743q")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_0"), SubResource("Resource_1743q")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec1")])
 one_shot = true
 disc_color = Color(0.9, 0.27, 0.27, 1)
@@ -616,7 +713,7 @@ to_station = NodePath("../../Station22")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.637, -3.04, -3.363)
 next_stations = Array[NodePath]([NodePath("../Skirmish1")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans3")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_16ndc")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_1"), SubResource("Resource_16ndc")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec3")])
 one_shot = true
 disc_color = Color(0.64, 0.27, 0.9, 1)
@@ -632,7 +729,7 @@ to_station = NodePath("../../Skirmish1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.637, -3.04, -8.863)
 next_stations = Array[NodePath]([NodePath("../Station4")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans4")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_qcbfd")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_2"), SubResource("Resource_qcbfd")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec4")])
 one_shot = true
 disc_color = Color(0.9, 0.82, 0.27, 1)
@@ -648,7 +745,7 @@ to_station = NodePath("../../Station4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.688, -21)
 next_stations = Array[NodePath]([NodePath("../Station5")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans5")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_dub1t")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_3"), SubResource("Resource_dub1t")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec5")])
 one_shot = true
 disc_color = Color(0.27, 0.79, 0.9, 1)
@@ -664,7 +761,7 @@ to_station = NodePath("../../Station5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.992, -24.5)
 next_stations = Array[NodePath]([NodePath("../Station6")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans6"), SubResource("Resource_lai_1")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_bmvmd")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_4"), SubResource("Resource_bmvmd")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_cond_1"), SubResource("Resource_nec6")])
 one_shot = true
 disc_color = Color(0.9, 0.27, 0.61, 1)
@@ -680,7 +777,7 @@ to_station = NodePath("../../Station6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.992, -27.5)
 next_stations = Array[NodePath]([NodePath("../Station7")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans7")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_30s7u")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_5"), SubResource("Resource_30s7u")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec7")])
 one_shot = true
 disc_color = Color(0.43, 0.9, 0.27, 1)
@@ -696,7 +793,7 @@ to_station = NodePath("../../Station7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.992, -32)
 next_stations = Array[NodePath]([NodePath("../Station8")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans8")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_405d6")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_6"), SubResource("Resource_405d6")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec8")])
 one_shot = true
 disc_color = Color(0.3, 0.27, 0.9, 1)
@@ -712,7 +809,7 @@ to_station = NodePath("../../Station8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.688, -47)
 next_stations = Array[NodePath]([NodePath("../Station9")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans9")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_pffu3")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_7"), SubResource("Resource_pffu3")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec9")])
 one_shot = true
 disc_color = Color(0.9, 0.48, 0.27, 1)
@@ -728,7 +825,7 @@ to_station = NodePath("../../Station9")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -6.688, -80)
 next_stations = Array[NodePath]([NodePath("../Station10")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans10"), SubResource("Resource_lai_2")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_gmnw2")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_8"), SubResource("Resource_gmnw2")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_cond_2"), SubResource("Resource_nec10")])
 one_shot = true
 disc_color = Color(0.27, 0.9, 0.66, 1)
@@ -744,7 +841,7 @@ to_station = NodePath("../../Station10")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -2.736, -84)
 next_stations = Array[NodePath]([NodePath("../Station11")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans11")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_o0ls3")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_9"), SubResource("Resource_o0ls3")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec11")])
 one_shot = true
 disc_color = Color(0.85, 0.27, 0.9, 1)
@@ -775,7 +872,7 @@ to_station = NodePath("../../Station12")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.107138, -2.1367884, -89.219475)
 next_stations = Array[NodePath]([NodePath("../Station12b")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans13"), SubResource("Resource_lookbarons")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_n8acg")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_10"), SubResource("Resource_n8acg")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec13")])
 one_shot = true
 disc_color = Color(0.27, 0.58, 0.9, 1)
@@ -807,7 +904,7 @@ disc_color = Color(0.9, 0.2, 0.2, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.001427, -1.4995234, -91.5)
 next_stations = Array[NodePath]([NodePath("../Station13")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_12b"), SubResource("Resource_lookbaronb")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_h0li7")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_11"), SubResource("Resource_h0li7")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_12b")])
 one_shot = true
 disc_color = Color(0.9, 0.3, 0.2, 1)
@@ -823,7 +920,7 @@ to_station = NodePath("../../Station13")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -3, -96.70946)
 next_stations = Array[NodePath]([NodePath("../Skirmish2")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n13")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_e4crn")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_12"), SubResource("Resource_e4crn")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n13")])
 one_shot = true
 disc_color = Color(0.9, 0.4, 0.2, 1)
@@ -839,7 +936,7 @@ to_station = NodePath("../../Skirmish2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -3, -136)
 next_stations = Array[NodePath]([NodePath("../Station15")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n14")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_1pp5e")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_13"), SubResource("Resource_1pp5e")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n14")])
 one_shot = true
 disc_color = Color(0.9, 0.5, 0.2, 1)
@@ -855,7 +952,7 @@ to_station = NodePath("../../Station15")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.033659, -8, -142.47708)
 next_stations = Array[NodePath]([NodePath("../Station23")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_n15"), SubResource("Resource_lookstairs"), SubResource("Resource_lai_3")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_mplfp")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_14"), SubResource("Resource_mplfp")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_d53"), SubResource("Resource_nec_n15")])
 one_shot = true
 disc_color = Color(0.9, 0.6, 0.2, 1)
@@ -871,7 +968,7 @@ to_station = NodePath("../../Station23")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.001963, -3.013176, -166.02222)
 next_stations = Array[NodePath]([NodePath("")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_setfinale"), SubResource("Resource_sleepfinale"), SubResource("Resource_teleport3")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_vbkse")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_15"), SubResource("Resource_vbkse")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_n16")])
 one_shot = true
 disc_color = Color(0.9, 0.1, 0.1, 1)
@@ -882,7 +979,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4037175, 0, 0.009804964)
 script = ExtResource("16_hr52v")
 next_stations = Array[NodePath]([NodePath("../Station2")])
 blocking = true
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_fiy07")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_16"), SubResource("Resource_fiy07")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_g5bbm")])
 one_shot = true
 disc_color = Color(0.9, 0.8540906, 0.27, 1)
@@ -929,7 +1026,7 @@ to_station = NodePath("../../Station16")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.081, -3.04, -6.419)
 next_stations = Array[NodePath]([NodePath("../Station3")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_Skirmish1"), SubResource("Resource_look_Skirmish1")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_adv_Skirmish1")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_17"), SubResource("Resource_adv_Skirmish1")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_Skirmish1")])
 one_shot = true
 disc_color = Color(1, 0.55, 0.1, 1)
@@ -948,7 +1045,7 @@ disc_color = Color(1, 0.3, 0.1, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0, -3.04, -122.903)
 next_stations = Array[NodePath]([NodePath("../Station14")])
 startActions = Array[ExtResource("4_ea")]([SubResource("Resource_lans_Skirmish2"), SubResource("Resource_look_Skirmish2")])
-endActions = Array[ExtResource("4_ea")]([SubResource("Resource_adv_Skirmish2")])
+endActions = Array[ExtResource("4_ea")]([SubResource("Resource_sft_18"), SubResource("Resource_adv_Skirmish2")])
 conditions = Array[ExtResource("7_ec")]([SubResource("Resource_nec_Skirmish2")])
 one_shot = true
 disc_color = Color(1, 0.55, 0.1, 1)
