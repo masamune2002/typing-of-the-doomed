@@ -1,14 +1,26 @@
 extends SleepAction
 class_name SleepForTargetsAction
 
-## SleepAction that only sleeps while there is something on screen worth
-## firing at (enemy, item, switch...). Put one before an
-## AdvanceToNextStationAction so the player gets a beat to grab visible
-## items before the rail rolls on - and no dead wait when there's nothing.
+## SleepAction that only sleeps while a consumable pickup - health, armor,
+## ammo or a weapon - is on screen for the player to grab. Enemies, doors,
+## switches and barrels don't count: enemies and keys gate their stations
+## via conditions, and the rest aren't worth stopping for. When nothing
+## qualifies this finishes synchronously, so a pass-through station keeps
+## the rail's momentum (see EncounterPoint.startEncounter's sync end).
+
+const PICKUP_EFFECTS : Array[String] = ["health", "armor", "ammo", "weapon"]
 
 func run(encounterPoint : EncounterPoint) -> void:
-	var player = Game.getPlayer()
-	if player == null or player._getVisibleTargets().is_empty():
+	if !_pickupOnScreen():
 		finish()
 		return
 	await super.run(encounterPoint)
+
+static func _pickupOnScreen() -> bool:
+	var player = Game.getPlayer()
+	if player == null:
+		return false
+	for node in player._getVisibleTargets():
+		if node is Item and PICKUP_EFFECTS.has(node.itemDefinition.get("effect", "")):
+			return true
+	return false
