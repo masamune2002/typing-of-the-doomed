@@ -39,6 +39,8 @@ var visible_to_player : bool = false
 var _prev_visible_to_player : bool = false
 var baseDamageMin : int = 5
 var baseDamageMax : int = 10
+# DOOM's MF_NOBLOOD: non-bleeders (Lost Soul) show bullet puffs when hit
+var bleeds : bool = true
 var attackSound : String = "DSPISTOL"
 var seeSound : String = ""
 var painSound : String = ""
@@ -267,6 +269,7 @@ func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant, def
 	var hit = weakness.receiveHit(payload)
 	_updateTypedLabel()
 	if hit:
+		HitSplat.spawnOn(self)
 		if weakness.isHealthBarEmpty():
 			if deferDamage:
 				# Store pending action for when the projectile arrives

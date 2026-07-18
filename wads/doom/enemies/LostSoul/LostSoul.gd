@@ -24,6 +24,7 @@ var _deathComplete: bool = false
 func _ready() -> void:
 	difficulty = 2
 	numHealthBars = 2
+	bleeds = false  # MF_NOBLOOD in vanilla: hits puff instead of bleeding
 	dying = false
 	alive = true
 	baseDamageMin = 5
