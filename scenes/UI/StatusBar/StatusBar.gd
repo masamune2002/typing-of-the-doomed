@@ -36,6 +36,7 @@ const DIGIT_H : float = 16.0
 const PERCENT_W : float = 14.0
 
 var _digitTextures : Array[Texture2D] = []
+var _infinityTexture : Texture2D
 var _percentTexture : Texture2D = null
 
 # DOOM face sprites
@@ -90,6 +91,21 @@ func _loadBarGraphics() -> void:
 	_digitTextures.resize(10)
 	for i in range(10):
 		_digitTextures[i] = Game.fetchSprite("STTNUM%d" % i)
+
+	# Bake the infinity symbol as a genuinely sideways 8. Rotating the
+	# TextureRect at runtime was unreliable: the digits sit in an
+	# HBoxContainer, and every deferred container sort runs
+	# fit_child_in_rect, which resets child rotation — any sort landing
+	# after the rotation write left a plain upright 8.
+	_infinityTexture = null
+	if _digitTextures[8] != null:
+		var img := _digitTextures[8].get_image()
+		if img != null:
+			img = img.duplicate()
+			if img.is_compressed():
+				img.decompress()
+			img.rotate_90(CLOCKWISE)
+			_infinityTexture = ImageTexture.create_from_image(img)
 
 	_percentTexture = Game.fetchSprite("STTPRCNT")
 	healthPercent.texture = _percentTexture
@@ -214,16 +230,12 @@ func _updateAmmoDigits() -> void:
 	if _ammoDigits.size() < 3 or _digitTextures.size() < 10:
 		return
 	if _currentAmmo < 0:
-		# Infinite ammo: an 8 rotated onto its side reads as the infinity
-		# symbol, in the same STTNUM digit sprites as the rest of the bar.
+		# Infinite ammo: a sideways 8 reads as the infinity symbol, baked
+		# from the same STTNUM digit sprites as the rest of the bar.
 		_ammoDigits[0].texture = null
 		_ammoDigits[2].texture = null
-		var mid := _ammoDigits[1]
-		mid.texture = _digitTextures[8]
-		mid.pivot_offset = mid.custom_minimum_size / 2.0
-		mid.rotation = PI / 2.0
+		_ammoDigits[1].texture = _infinityTexture if _infinityTexture != null else _digitTextures[8]
 	else:
-		_ammoDigits[1].rotation = 0.0
 		_setDigits(_ammoDigits, _currentAmmo)
 
 func addKill() -> void:

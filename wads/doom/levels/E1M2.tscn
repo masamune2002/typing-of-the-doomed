@@ -1,45 +1,30 @@
 [gd_scene format=3 uid="uid://cdebtod5tyhx1"]
 
 [ext_resource type="Script" uid="uid://cyk7v70xtekvh" path="res://rail/scenes/RailNetwork/RailNetwork.gd" id="1_rn"]
-
 [ext_resource type="Script" uid="uid://d4j6jipkme5ui" path="res://rail/scenes/RailPath/RailPath.gd" id="2_rp"]
-
 [ext_resource type="PackedScene" uid="uid://biyil85jx6ee0" path="res://rail/scenes/RailStation/RailStation.tscn" id="3_rs"]
-
 [ext_resource type="Script" uid="uid://b0e435ir2m5fv" path="res://rail/resources/EncounterAction.gd" id="3_uwu1q"]
-
 [ext_resource type="PackedScene" path="res://rail/scenes/WadPreview/WadPreview.tscn" id="4_2t32y"]
-
 [ext_resource type="Script" uid="uid://dptfbfdqpn0pt" path="res://rail/resources/Actions/AdvanceToNextStationAction.gd" id="4_38ttb"]
-
-[ext_resource type="Script" uid="uid://bys1vrowv3y8f" path="res://rail/scenes/RailMarker/RailMarker.gd" id="4_khf8k"]
-
 [ext_resource type="Script" uid="uid://bhwlq2o3k4btg" path="res://rail/resources/EncounterCondition.gd" id="7_w4wf6"]
-
 [ext_resource type="Script" uid="uid://cf4daoax0n2d7" path="res://rail/resources/Conditions/DoorOpenCondition.gd" id="8_1av3e"]
-
 [ext_resource type="Script" uid="uid://cjvj83eu0sl8t" path="res://rail/resources/Conditions/VariableCondition.gd" id="8_1f3f5"]
-
 [ext_resource type="Script" uid="uid://pbvkbscoohxo" path="res://rail/resources/Actions/LookAtNextStationAction.gd" id="9_lans"]
-
 [ext_resource type="Script" uid="uid://dpqsds1tybnew" path="res://rail/resources/Conditions/NearbyEnemiesClearedCondition.gd" id="9_nec"]
-
-[ext_resource type="Script" uid="uid://bkdue27tirmn8" path="res://rail/resources/Actions/SleepAction.gd" id="10_1f3f5"]
-
 [ext_resource type="PackedScene" uid="uid://ckj6xvts0psim" path="res://rail/scenes/RailMarker/RailMarker.tscn" id="10_7t81k"]
-
 [ext_resource type="Script" uid="uid://pmiut2p0fl0o" path="res://rail/resources/Actions/LookAtAction.gd" id="12_8p627"]
-
-[ext_resource type="Script" uid="uid://cwvt2dqr0gxgv" path="res://rail/scenes/RailStation/RailStation.gd" id="16_8p627"]
-
 [ext_resource type="Script" uid="uid://xdgbgwfgyprn" path="res://rail/resources/Actions/LookAtInteractableAction.gd" id="99_lai"]
-
 [ext_resource type="Script" uid="uid://bx2squbgfsomc" path="res://rail/resources/Actions/SleepForTargetsAction.gd" id="99_sft"]
 
 [sub_resource type="Resource" id="Resource_lans1"]
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_0"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_emmud"]
 resource_local_to_scene = true
@@ -62,6 +47,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_1"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_ln1fp"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -82,6 +72,11 @@ point_count = 2
 script = ExtResource("12_8p627")
 targetNode = NodePath("../../WadPreview/EnemyMarkers/Marker_Zombieman_2")
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
+
+[sub_resource type="Resource" id="Resource_sft_2"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_g3yiv"]
 resource_local_to_scene = true
@@ -104,6 +99,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_3"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_j4upt"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -124,6 +124,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_4"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_0g0ot"]
 resource_local_to_scene = true
@@ -146,6 +151,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_5"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_5abg7"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -166,6 +176,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_6"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_nex7v"]
 resource_local_to_scene = true
@@ -193,6 +208,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_7"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_ekot4"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -213,6 +233,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_8"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_paouw"]
 resource_local_to_scene = true
@@ -235,6 +260,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_9"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_u0tee"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -256,6 +286,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_10"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_k8tdm"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -271,6 +306,17 @@ _data = {
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
+
+[sub_resource type="Resource" id="Resource_lai_0"]
+script = ExtResource("99_lai")
+variable_name = "key_red_keycard"
+blocking = false
+metadata/_custom_type_script = "uid://xdgbgwfgyprn"
+
+[sub_resource type="Resource" id="Resource_sft_11"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_6p22d"]
 resource_local_to_scene = true
@@ -293,6 +339,11 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Resource" id="Resource_sft_12"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_6fjmo"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -304,7 +355,7 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Curve3D" id="Curve3D_5abg7"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.1039299999999983, 3.658537000000001, 13.734476),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.1039314, 3.658537, 13.734476),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -313,6 +364,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_13"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_3phgb"]
 resource_local_to_scene = true
@@ -335,6 +391,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_14"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_ap1db"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -355,6 +416,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_15"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_4yacq"]
 resource_local_to_scene = true
@@ -382,6 +448,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_16"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_odg8s"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -402,6 +473,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_17"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_3pem3"]
 resource_local_to_scene = true
@@ -424,6 +500,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_18"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_e7gxh"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -444,6 +525,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_19"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_gjsbg"]
 resource_local_to_scene = true
@@ -466,6 +552,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_20"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_efm27"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -481,6 +572,11 @@ _data = {
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
+
+[sub_resource type="Resource" id="Resource_sft_21"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_ivam7"]
 resource_local_to_scene = true
@@ -501,6 +597,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_22"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_snfm2"]
 resource_local_to_scene = true
@@ -528,6 +629,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_23"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_g4kpm"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -549,6 +655,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_24"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_858qe"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -568,6 +679,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_25"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_2d4o5"]
 resource_local_to_scene = true
@@ -590,6 +706,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_26"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_nei5p"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -610,6 +731,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_27"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_mop2d"]
 resource_local_to_scene = true
@@ -632,6 +758,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_28"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_perv7"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -651,6 +782,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_29"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_1dtfx"]
 resource_local_to_scene = true
@@ -673,6 +809,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_30"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_p2buv"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -693,6 +834,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_31"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_tcg21"]
 resource_local_to_scene = true
@@ -715,6 +861,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_32"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_qjqp1"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -735,6 +886,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_33"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_6keya"]
 resource_local_to_scene = true
@@ -757,6 +913,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_34"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_84654"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -777,6 +938,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_35"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_3mopu"]
 resource_local_to_scene = true
@@ -799,6 +965,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_36"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_e1spg"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -819,6 +990,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_37"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_gee23"]
 resource_local_to_scene = true
@@ -841,6 +1017,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_38"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_rq01e"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -861,6 +1042,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_39"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_16rdo"]
 resource_local_to_scene = true
@@ -883,6 +1069,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_40"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_68arv"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -903,6 +1094,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_41"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_widqw"]
 resource_local_to_scene = true
@@ -925,6 +1121,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_42"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_j5lo0"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -945,6 +1146,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_43"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_4cku8"]
 resource_local_to_scene = true
@@ -967,6 +1173,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_44"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_l14la"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -987,6 +1198,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_45"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_d7b42"]
 resource_local_to_scene = true
@@ -1009,6 +1225,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_46"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_xn784"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1020,7 +1241,7 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Curve3D" id="Curve3D_snfm2"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9.077232, 0, -0.023254395),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9.077232, 8.534973, -0.023254395),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -1029,6 +1250,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_47"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_58n3j"]
 resource_local_to_scene = true
@@ -1051,6 +1277,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_48"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_dhbwl"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1072,6 +1303,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_49"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_pnffx"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1083,7 +1319,7 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Curve3D" id="Curve3D_l2r7i"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -9.761986),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.11624718, -9.761986),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -1104,7 +1340,7 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Curve3D" id="Curve3D_858qe"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.6398735),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.1261282, -1.6398735),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -1114,6 +1350,17 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_lai_1"]
+script = ExtResource("99_lai")
+variable_name = "L137"
+blocking = false
+metadata/_custom_type_script = "uid://xdgbgwfgyprn"
+
+[sub_resource type="Resource" id="Resource_sft_51"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_6o2mp"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1121,7 +1368,6 @@ script = ExtResource("4_38ttb")
 [sub_resource type="Resource" id="Resource_jsutm"]
 script = ExtResource("8_1f3f5")
 variable_name = "L137"
-metadata/_custom_type_script = "uid://dshu2r8hehn0a"
 
 [sub_resource type="Resource" id="Resource_nec52"]
 script = ExtResource("9_nec")
@@ -1130,33 +1376,23 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
 [sub_resource type="Curve3D" id="Curve3D_1kak8"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.9319267),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.00023841858, -1.9319267),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_lans53"]
-script = ExtResource("9_lans")
-blocking = false
-metadata/_custom_type_script = "uid://pbvkbscoohxo"
-
-[sub_resource type="Resource" id="Resource_htjp7"]
-script = ExtResource("10_1f3f5")
+[sub_resource type="Resource" id="Resource_sft_52"]
+script = ExtResource("99_sft")
 milliseconds = 1000
-metadata/_custom_type_script = "uid://bkdue27tirmn8"
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_bva62"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
 
-[sub_resource type="Resource" id="Resource_nec53"]
-script = ExtResource("9_nec")
-max_distance = 10.0
-metadata/_custom_type_script = "uid://dpqsds1tybnew"
-
 [sub_resource type="Curve3D" id="Curve3D_2d4o5"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.005249),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8.525331, -4.005249),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -1165,6 +1401,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_53"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_o0r7f"]
 resource_local_to_scene = true
@@ -1187,6 +1428,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_54"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_x7chh"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1207,6 +1453,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_55"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_btrdp"]
 resource_local_to_scene = true
@@ -1229,6 +1480,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_56"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_8y08a"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1250,6 +1506,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_57"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_yx3pm"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1270,6 +1531,17 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_lai_2"]
+script = ExtResource("99_lai")
+variable_name = "D124"
+blocking = false
+metadata/_custom_type_script = "uid://xdgbgwfgyprn"
+
+[sub_resource type="Resource" id="Resource_sft_58"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_r54kn"]
 resource_local_to_scene = true
@@ -1297,6 +1569,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_59"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_w5jq4"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1317,6 +1594,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_60"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_4ic6b"]
 resource_local_to_scene = true
@@ -1339,6 +1621,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_61"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_gkrl3"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1359,6 +1646,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_62"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_7pox5"]
 resource_local_to_scene = true
@@ -1381,6 +1673,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_63"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_eqtsu"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1401,6 +1698,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_64"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_moobb"]
 resource_local_to_scene = true
@@ -1423,6 +1725,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_65"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_d405o"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1443,6 +1750,17 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_lai_3"]
+script = ExtResource("99_lai")
+variable_name = "D55"
+blocking = false
+metadata/_custom_type_script = "uid://xdgbgwfgyprn"
+
+[sub_resource type="Resource" id="Resource_sft_66"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_ch7hh"]
 resource_local_to_scene = true
@@ -1470,6 +1788,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_67"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_f7r0s"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1490,6 +1813,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_68"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_gxdld"]
 resource_local_to_scene = true
@@ -1512,6 +1840,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_69"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_sshdk"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1533,6 +1866,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_70"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_vmog2"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1546,6 +1884,11 @@ metadata/_custom_type_script = "uid://dpqsds1tybnew"
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_71"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_geq32"]
 resource_local_to_scene = true
@@ -1568,6 +1911,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_72"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_jdaan"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1588,6 +1936,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_73"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_lbfgu"]
 resource_local_to_scene = true
@@ -1610,6 +1963,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_74"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_dclmr"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1631,6 +1989,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_75"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_awhag"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1650,6 +2013,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_76"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_rkhky"]
 resource_local_to_scene = true
@@ -1672,6 +2040,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_77"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_md8es"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1692,6 +2065,11 @@ point_count = 2
 script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_78"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_ixorj"]
 resource_local_to_scene = true
@@ -1714,6 +2092,11 @@ script = ExtResource("9_lans")
 blocking = false
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
 
+[sub_resource type="Resource" id="Resource_sft_79"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_0qr2u"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1732,6 +2115,11 @@ point_count = 2
 [sub_resource type="Resource" id="Resource_20mn3"]
 script = ExtResource("9_lans")
 metadata/_custom_type_script = "uid://pbvkbscoohxo"
+
+[sub_resource type="Resource" id="Resource_sft_80"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
 
 [sub_resource type="Resource" id="Resource_ebd43"]
 resource_local_to_scene = true
@@ -1753,6 +2141,11 @@ script = ExtResource("12_8p627")
 targetNode = NodePath("../../WadPreview/EnemyMarkers/Marker_Zombieman_8")
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
 
+[sub_resource type="Resource" id="Resource_sft_81"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
 [sub_resource type="Resource" id="Resource_khycg"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
@@ -1768,30 +2161,6 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_lai_0"]
-script = ExtResource("99_lai")
-variable_name = "key_red_keycard"
-blocking = false
-metadata/_custom_type_script = "uid://xdgbgwfgyprn"
-
-[sub_resource type="Resource" id="Resource_lai_1"]
-script = ExtResource("99_lai")
-variable_name = "L137"
-blocking = false
-metadata/_custom_type_script = "uid://xdgbgwfgyprn"
-
-[sub_resource type="Resource" id="Resource_lai_2"]
-script = ExtResource("99_lai")
-variable_name = "D124"
-blocking = false
-metadata/_custom_type_script = "uid://xdgbgwfgyprn"
-
-[sub_resource type="Resource" id="Resource_lai_3"]
-script = ExtResource("99_lai")
-variable_name = "D55"
-blocking = false
-metadata/_custom_type_script = "uid://xdgbgwfgyprn"
-
 [sub_resource type="Resource" id="Resource_lans_Skirmish1"]
 script = ExtResource("9_lans")
 blocking = false
@@ -1803,7 +2172,12 @@ targetNode = NodePath("../Skirmish1Marker")
 blocking = false
 metadata/_custom_type_script = "uid://pmiut2p0fl0o"
 
-[sub_resource type="Resource" id="Resource_adv_Skirmish1"]
+[sub_resource type="Resource" id="Resource_sft_82"]
+script = ExtResource("99_sft")
+milliseconds = 1000
+metadata/_custom_type_script = "uid://bx2squbgfsomc"
+
+[sub_resource type="Resource" id="Resource_qx1e4"]
 resource_local_to_scene = true
 script = ExtResource("4_38ttb")
 
@@ -1812,431 +2186,15 @@ script = ExtResource("9_nec")
 max_distance = 10.0
 metadata/_custom_type_script = "uid://dpqsds1tybnew"
 
-[sub_resource type="Curve3D" id="Curve3D_Skirmish1"]
+[sub_resource type="Curve3D" id="Curve3D_ebd43"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.25480799999999704, 0.8448469999999997, 3.169867),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.25480652, 0.8448477, 3.169867),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_sft_0"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_1"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_2"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_3"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_4"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_5"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_6"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_7"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_8"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_9"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_10"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_11"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_12"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_13"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_14"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_15"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_16"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_17"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_18"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_19"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_20"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_21"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_22"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_23"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_24"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_25"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_26"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_27"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_28"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_29"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_30"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_31"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_32"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_33"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_34"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_35"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_36"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_37"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_38"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_39"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_40"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_41"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_42"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_43"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_44"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_45"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_46"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_47"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_48"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_49"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_50"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_51"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_52"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_53"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_54"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_55"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_56"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_57"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_58"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_59"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_60"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_61"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_62"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_63"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_64"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_65"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_66"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_67"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_68"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_69"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_70"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_71"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_72"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_73"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_74"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_75"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_76"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_77"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_78"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_79"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_80"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_81"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
-[sub_resource type="Resource" id="Resource_sft_82"]
-script = ExtResource("99_sft")
-milliseconds = 1000
-metadata/_custom_type_script = "uid://bx2squbgfsomc"
-
 [node name="RailNetwork" type="Node3D" unique_id=1781257739]
 script = ExtResource("1_rn")
-view_mode = 1
 
 [node name="WadPreview" parent="." unique_id=83114506 instance=ExtResource("4_2t32y")]
 wad_path = "res://DOOM.WAD"
@@ -2245,405 +2203,325 @@ show_enemies_difficulty_4 = true
 
 [node name="EnemyMarkers" type="Node3D" parent="WadPreview" unique_id=134194629]
 
-[node name="Marker_Zombieman_0" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1046837392 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_0" parent="WadPreview/EnemyMarkers" unique_id=1046837392 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -29)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_1" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1654111186 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_1" parent="WadPreview/EnemyMarkers" unique_id=1654111186 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 0, -8.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_2" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=507498193 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_2" parent="WadPreview/EnemyMarkers" unique_id=507498193 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 0, -8.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_3" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1466661313 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_3" parent="WadPreview/EnemyMarkers" unique_id=1466661313 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -26.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_4" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=729440466 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_4" parent="WadPreview/EnemyMarkers" unique_id=729440466 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -26.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_5" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1194521880 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_5" parent="WadPreview/EnemyMarkers" unique_id=1194521880 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, -27)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_6" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2101833158 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_6" parent="WadPreview/EnemyMarkers" unique_id=2101833158 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0, -28)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_7" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=830329605 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_7" parent="WadPreview/EnemyMarkers" unique_id=830329605 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, -16)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_8" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=560412703 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_8" parent="WadPreview/EnemyMarkers" unique_id=560412703 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -15.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_9" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1804271096 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_9" parent="WadPreview/EnemyMarkers" unique_id=1804271096 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -28.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_10" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2122303871 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_10" parent="WadPreview/EnemyMarkers" unique_id=2122303871 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -24)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_11" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1449044709 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_11" parent="WadPreview/EnemyMarkers" unique_id=1449044709 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.5, 8.512, -18.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_12" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=468165364 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_12" parent="WadPreview/EnemyMarkers" unique_id=468165364 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 8.512, -17)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_13" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=519575550 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_13" parent="WadPreview/EnemyMarkers" unique_id=519575550 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 8.512, -20)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_14" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=27923200 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_14" parent="WadPreview/EnemyMarkers" unique_id=27923200 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 8.512, -18.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_15" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=513399983 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_15" parent="WadPreview/EnemyMarkers" unique_id=513399983 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 0, -30)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_16" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=70306437 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_16" parent="WadPreview/EnemyMarkers" unique_id=70306437 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 3.648, -42.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_17" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1396894756 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_17" parent="WadPreview/EnemyMarkers" unique_id=1396894756 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, -0.91199994, -71.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_18" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1846290183 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_18" parent="WadPreview/EnemyMarkers" unique_id=1846290183 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, -0.91199994, -69.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_19" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=746511963 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_19" parent="WadPreview/EnemyMarkers" unique_id=746511963 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, -0.91199994, -69.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_20" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=341569693 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_20" parent="WadPreview/EnemyMarkers" unique_id=341569693 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, -0.91199994, -67.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_21" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=214852619 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_21" parent="WadPreview/EnemyMarkers" unique_id=214852619 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, -0.91199994, -67.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_22" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=962867743 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_22" parent="WadPreview/EnemyMarkers" unique_id=962867743 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, -0.91199994, -67.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_23" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=355784044 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_23" parent="WadPreview/EnemyMarkers" unique_id=355784044 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 3.344, -64.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_24" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=838291383 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_24" parent="WadPreview/EnemyMarkers" unique_id=838291383 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 3.344, -64.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_25" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=94463442 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_25" parent="WadPreview/EnemyMarkers" unique_id=94463442 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 3.344, -74.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_26" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=97305342 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_26" parent="WadPreview/EnemyMarkers" unique_id=97305342 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -9.728, -80.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_27" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1517575730 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_27" parent="WadPreview/EnemyMarkers" unique_id=1517575730 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 4.8640003, -29.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_28" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=346589864 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_28" parent="WadPreview/EnemyMarkers" unique_id=346589864 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 4.2559996, -27.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_29" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=400149237 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_29" parent="WadPreview/EnemyMarkers" unique_id=400149237 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, -22)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_30" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=544735403 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_30" parent="WadPreview/EnemyMarkers" unique_id=544735403 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 3.648, -38.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_31" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1076432126 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_31" parent="WadPreview/EnemyMarkers" unique_id=1076432126 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.5, 0, -26)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_32" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=872201934 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_32" parent="WadPreview/EnemyMarkers" unique_id=872201934 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, -22)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_33" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1395584180 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_33" parent="WadPreview/EnemyMarkers" unique_id=1395584180 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -20)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_34" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=959497550 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_34" parent="WadPreview/EnemyMarkers" unique_id=959497550 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, -36.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_35" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=92655359 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_35" parent="WadPreview/EnemyMarkers" unique_id=92655359 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -0.30399996, -39.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_36" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1003722662 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_36" parent="WadPreview/EnemyMarkers" unique_id=1003722662 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, -1.52, 16.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_37" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=166402176 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_37" parent="WadPreview/EnemyMarkers" unique_id=166402176 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, -1.52, 2.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_38" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1111418668 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_38" parent="WadPreview/EnemyMarkers" unique_id=1111418668 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, -1.52, 6.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_39" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=370382155 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_39" parent="WadPreview/EnemyMarkers" unique_id=370382155 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, -1.52, 12.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_40" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=553873803 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_40" parent="WadPreview/EnemyMarkers" unique_id=553873803 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53, -1.52, 8.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_41" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1013619368 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_41" parent="WadPreview/EnemyMarkers" unique_id=1013619368 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -1.52, 0.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_42" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1300282087 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_42" parent="WadPreview/EnemyMarkers" unique_id=1300282087 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.52, 20.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_43" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=81366100 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_43" parent="WadPreview/EnemyMarkers" unique_id=81366100 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -1.52, 8.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_44" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=759363002 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_44" parent="WadPreview/EnemyMarkers" unique_id=759363002 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.52, 6.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_45" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2107246019 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_45" parent="WadPreview/EnemyMarkers" unique_id=2107246019 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.52, 26.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_46" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=385078355 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_46" parent="WadPreview/EnemyMarkers" unique_id=385078355 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -1.52, 10.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_47" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=328786377 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_47" parent="WadPreview/EnemyMarkers" unique_id=328786377 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, -1.52, 0.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_48" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=904115792 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_48" parent="WadPreview/EnemyMarkers" unique_id=904115792 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -1.216, -10.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_49" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1537046861 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_49" parent="WadPreview/EnemyMarkers" unique_id=1537046861 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -1.216, -14.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_50" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1561778442 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_50" parent="WadPreview/EnemyMarkers" unique_id=1561778442 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, -1.216, -9.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_51" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=137405504 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_51" parent="WadPreview/EnemyMarkers" unique_id=137405504 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, -1.52, 2.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_52" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2055507119 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_52" parent="WadPreview/EnemyMarkers" unique_id=2055507119 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, -1.52, -4.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_53" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2092876084 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_53" parent="WadPreview/EnemyMarkers" unique_id=2092876084 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, -1.52, 13)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_54" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1420866820 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_54" parent="WadPreview/EnemyMarkers" unique_id=1420866820 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1.52, 15.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_55" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=2087278601 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_55" parent="WadPreview/EnemyMarkers" unique_id=2087278601 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -1.52, 27.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_56" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1635916185 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_56" parent="WadPreview/EnemyMarkers" unique_id=1635916185 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -1.52, 20.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_57" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=548529127 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_57" parent="WadPreview/EnemyMarkers" unique_id=548529127 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -1.216, -1.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_58" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=823753120 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_58" parent="WadPreview/EnemyMarkers" unique_id=823753120 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, -1.216, -17.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_59" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=70204291 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_59" parent="WadPreview/EnemyMarkers" unique_id=70204291 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -6.384, -77.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_60" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=675729910 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_60" parent="WadPreview/EnemyMarkers" unique_id=675729910 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -6.384, -83.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_61" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=551284500 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_61" parent="WadPreview/EnemyMarkers" unique_id=551284500 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -6.384, -80.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_62" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1958140951 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_62" parent="WadPreview/EnemyMarkers" unique_id=1958140951 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -6.384, -84.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_63" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1200848711 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_63" parent="WadPreview/EnemyMarkers" unique_id=1200848711 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -6.384, -76.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_64" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1118655036 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_64" parent="WadPreview/EnemyMarkers" unique_id=1118655036 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -6.384, -80.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_65" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1308878814 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_65" parent="WadPreview/EnemyMarkers" unique_id=1308878814 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56, 7.9040003, -36.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_66" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=456079941 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_66" parent="WadPreview/EnemyMarkers" unique_id=456079941 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54, 7.9040003, -36.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Imp_67" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1295857098 instance=ExtResource("10_7t81k")]
+[node name="Marker_Imp_67" parent="WadPreview/EnemyMarkers" unique_id=1295857098 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 6.6879997, -23.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_68" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=520875743 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_68" parent="WadPreview/EnemyMarkers" unique_id=520875743 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -24)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_69" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1274915203 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_69" parent="WadPreview/EnemyMarkers" unique_id=1274915203 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.5, 2.7359998, 4.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_70" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=927980324 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_70" parent="WadPreview/EnemyMarkers" unique_id=927980324 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 2.7359998, 4.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_71" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=448270729 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_71" parent="WadPreview/EnemyMarkers" unique_id=448270729 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 2.7359998, -7.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_72" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=496932234 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_72" parent="WadPreview/EnemyMarkers" unique_id=496932234 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 2.7359998, -18.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_73" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=863521667 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_73" parent="WadPreview/EnemyMarkers" unique_id=863521667 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 2.7359998, -23.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_74" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1609176745 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_74" parent="WadPreview/EnemyMarkers" unique_id=1609176745 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.5, 2.7359998, -12.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_75" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1287182204 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_75" parent="WadPreview/EnemyMarkers" unique_id=1287182204 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.5, 2.7359998, -33.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Shotgunguy_76" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1359415318 instance=ExtResource("10_7t81k")]
+[node name="Marker_Shotgunguy_76" parent="WadPreview/EnemyMarkers" unique_id=1359415318 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 2.7359998, -34.5)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_77" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=1470521511 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_77" parent="WadPreview/EnemyMarkers" unique_id=1470521511 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 3.952, -40)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
-[node name="Marker_Zombieman_78" type="Node3D" parent="WadPreview/EnemyMarkers" unique_id=889374378 instance=ExtResource("10_7t81k")]
+[node name="Marker_Zombieman_78" parent="WadPreview/EnemyMarkers" unique_id=889374378 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.5, 3.952, -40)
-script = ExtResource("4_khf8k")
 disc_color = Color(1, 0.7, 0.5, 1)
 
 [node name="Stations" type="Node3D" parent="." unique_id=1986329772]
 
 [node name="StationA" parent="Stations" unique_id=1221139740 instance=ExtResource("3_rs")]
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station73")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans1")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_0"), SubResource("Resource_emmud")])
@@ -2652,7 +2530,6 @@ one_shot = true
 disc_color = Color(0.9, 0.39514753, 0.27, 1)
 
 [node name="StationA__TO__Station73" type="Path3D" parent="Stations/StationA" unique_id=1141029408]
-visible = false
 curve = SubResource("Curve3D_8p627")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2660,7 +2537,6 @@ to_station = NodePath("../../Station73")
 
 [node name="StationB" parent="Stations" unique_id=665204161 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station2")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans2")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_1"), SubResource("Resource_ln1fp")])
@@ -2670,7 +2546,6 @@ disc_color = Color(0.27, 0.8347573, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="StationB__TO__Station2" type="Path3D" parent="Stations/StationB" unique_id=803476213]
-visible = false
 curve = SubResource("Curve3D_emmud")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2678,7 +2553,6 @@ to_station = NodePath("../../Station2")
 
 [node name="Station2" parent="Stations" unique_id=1823722660 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4645405, 0, -5.5702906)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station72")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_ynvuj")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_2"), SubResource("Resource_g3yiv")])
@@ -2688,7 +2562,6 @@ disc_color = Color(0.46164492, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4645405, 0, -5.5702906)
 
 [node name="Station2__TO__Station72" type="Path3D" parent="Stations/Station2" unique_id=1498694786]
-visible = false
 curve = SubResource("Curve3D_20mn3")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2696,7 +2569,6 @@ to_station = NodePath("../../Station72")
 
 [node name="Station3" parent="Stations" unique_id=1639771061 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.115345, 0, -20.403133)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station81")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans4")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_3"), SubResource("Resource_j4upt")])
@@ -2706,7 +2578,6 @@ disc_color = Color(0.75567013, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.115345, 0, -20.403133)
 
 [node name="Station3__TO__Station81" type="Path3D" parent="Stations/Station3" unique_id=1239366509]
-visible = false
 curve = SubResource("Curve3D_ln1fp")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2714,7 +2585,6 @@ to_station = NodePath("../../Station81")
 
 [node name="Station4" parent="Stations" unique_id=2065020909 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.115345, 0, -27.366978)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station5")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans5")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_4"), SubResource("Resource_0g0ot")])
@@ -2724,7 +2594,6 @@ disc_color = Color(0.28568953, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.115345, 0, -27.366978)
 
 [node name="Station4__TO__Station5" type="Path3D" parent="Stations/Station4" unique_id=1514405295]
-visible = false
 curve = SubResource("Curve3D_hom6l")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2732,7 +2601,6 @@ to_station = NodePath("../../Station5")
 
 [node name="Station5" parent="Stations" unique_id=1225652292 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.974672, 0, -27.43496)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station6")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans6")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_5"), SubResource("Resource_5abg7")])
@@ -2742,7 +2610,6 @@ disc_color = Color(0.9, 0.58031005, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.974672, 0, -27.43496)
 
 [node name="Station5__TO__Station6" type="Path3D" parent="Stations/Station5" unique_id=1492596791]
-visible = false
 curve = SubResource("Curve3D_ynvuj")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2750,7 +2617,6 @@ to_station = NodePath("../../Station6")
 
 [node name="Station6" parent="Stations" unique_id=237776076 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.028234, 0, -28.766333)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station79")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans7")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_6"), SubResource("Resource_nex7v")])
@@ -2760,7 +2626,6 @@ disc_color = Color(0.27, 0.9, 0.4292236, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.028234, 0, -28.766333)
 
 [node name="Station6__TO__Station79" type="Path3D" parent="Stations/Station6" unique_id=661644497]
-visible = false
 curve = SubResource("Curve3D_g3yiv")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2768,7 +2633,6 @@ to_station = NodePath("../../Station79")
 
 [node name="Station7" parent="Stations" unique_id=973371287 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.514397, 0, -31.194233)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station8")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans8")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_7"), SubResource("Resource_ekot4")])
@@ -2778,7 +2642,6 @@ disc_color = Color(0.9, 0.27, 0.3184539, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.514397, 0, -31.194233)
 
 [node name="Station7__TO__Station8" type="Path3D" parent="Stations/Station7" unique_id=549908548]
-visible = false
 curve = SubResource("Curve3D_v6rtq")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2786,7 +2649,6 @@ to_station = NodePath("../../Station8")
 
 [node name="Station8" parent="Stations" unique_id=1749859894 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.265125, 0, -35.600647)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station9")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans9")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_8"), SubResource("Resource_paouw")])
@@ -2796,7 +2658,6 @@ disc_color = Color(0.9, 0.8352845, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.265125, 0, -35.600647)
 
 [node name="Station8__TO__Station9" type="Path3D" parent="Stations/Station8" unique_id=733653939]
-visible = false
 curve = SubResource("Curve3D_j4upt")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2804,7 +2665,6 @@ to_station = NodePath("../../Station9")
 
 [node name="Station9" parent="Stations" unique_id=1750843660 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 0, -35.525604)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station80")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans10")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_9"), SubResource("Resource_u0tee")])
@@ -2814,7 +2674,6 @@ disc_color = Color(0.27, 0.9, 0.67857313, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 0, -35.525604)
 
 [node name="Station9__TO__Station80" type="Path3D" parent="Stations/Station9" unique_id=1414062743]
-visible = false
 curve = SubResource("Curve3D_uu04u")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2822,7 +2681,6 @@ to_station = NodePath("../../Station80")
 
 [node name="Station10" parent="Stations" unique_id=396732935 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 8.529463, -18.525911)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station11")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans11")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_10"), SubResource("Resource_k8tdm")])
@@ -2832,7 +2690,6 @@ disc_color = Color(0.9, 0.60215527, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 8.529463, -18.525911)
 
 [node name="Station10__TO__Station11" type="Path3D" parent="Stations/Station10" unique_id=53761139]
-visible = false
 curve = SubResource("Curve3D_0g0ot")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2841,12 +2698,12 @@ to_station = NodePath("../../Station11")
 [node name="Station11" parent="Stations" unique_id=658630609 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.814564, 8.529463, -18.617731)
 next_stations = Array[NodePath]([NodePath("../Station12")])
+startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lai_0")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_11"), SubResource("Resource_6p22d")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_7t81k"), SubResource("Resource_nec12")])
 one_shot = true
 disc_color = Color(0.9, 0.6268178, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.814564, 8.529463, -18.617731)
-startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lai_0")])
 
 [node name="Station11__TO__Station12" type="Path3D" parent="Stations/Station11" unique_id=668363116]
 curve = SubResource("Curve3D_52ra2")
@@ -2880,7 +2737,6 @@ disc_color = Color(0.44072694, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.483192, 13.032847, -1.376133)
 
 [node name="Station13__TO__Station14" type="Path3D" parent="Stations/Station13" unique_id=729757545]
-visible = false
 curve = SubResource("Curve3D_c8vvq")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2888,7 +2744,6 @@ to_station = NodePath("../../Station14")
 
 [node name="Station14" parent="Stations" unique_id=11631016 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.622684, 4.3940096, -1.0388775)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station15")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans15")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_14"), SubResource("Resource_ap1db")])
@@ -2898,7 +2753,6 @@ disc_color = Color(0.822159, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.622684, 4.3940096, -1.0388775)
 
 [node name="Station14__TO__Station15" type="Path3D" parent="Stations/Station14" unique_id=1417300986]
-visible = false
 curve = SubResource("Curve3D_nex7v")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2906,7 +2760,6 @@ to_station = NodePath("../../Station15")
 
 [node name="Station15" parent="Stations" unique_id=717709686 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.81874, 2.532032, -3.091212)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station16")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans16")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_15"), SubResource("Resource_4yacq")])
@@ -2916,7 +2769,6 @@ disc_color = Color(0.9, 0.6037623, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.81874, 2.532032, -3.091212)
 
 [node name="Station15__TO__Station16" type="Path3D" parent="Stations/Station15" unique_id=1764108969]
-visible = false
 curve = SubResource("Curve3D_aiyat")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2924,7 +2776,6 @@ to_station = NodePath("../../Station16")
 
 [node name="Station16" parent="Stations" unique_id=331646959 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.172432, 0, -7.3249254)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station17")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans17")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_16"), SubResource("Resource_odg8s")])
@@ -2934,7 +2785,6 @@ disc_color = Color(0.27, 0.69418067, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.172432, 0, -7.3249254)
 
 [node name="Station16__TO__Station17" type="Path3D" parent="Stations/Station16" unique_id=1347464549]
-visible = false
 curve = SubResource("Curve3D_ekot4")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2942,7 +2792,6 @@ to_station = NodePath("../../Station17")
 
 [node name="Station17" parent="Stations" unique_id=151072323 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.382263, 0, -7.965008)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station18")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans18")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_17"), SubResource("Resource_3pem3")])
@@ -2952,7 +2801,6 @@ disc_color = Color(0.27, 0.88037586, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.382263, 0, -7.965008)
 
 [node name="Station17__TO__Station18" type="Path3D" parent="Stations/Station17" unique_id=1380695766]
-visible = false
 curve = SubResource("Curve3D_nlykh")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2960,7 +2808,6 @@ to_station = NodePath("../../Station18")
 
 [node name="Station18" parent="Stations" unique_id=1408871053 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.899628, 0, -5.8637753)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station19")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans19")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_18"), SubResource("Resource_e7gxh")])
@@ -2970,7 +2817,6 @@ disc_color = Color(0.3013307, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.899628, 0, -5.8637753)
 
 [node name="Station18__TO__Station19" type="Path3D" parent="Stations/Station18" unique_id=1902556881]
-visible = false
 curve = SubResource("Curve3D_paouw")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2978,7 +2824,6 @@ to_station = NodePath("../../Station19")
 
 [node name="Station19" parent="Stations" unique_id=1693515152 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2430725, 0, -5.788732)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station20")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans20")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_19"), SubResource("Resource_gjsbg")])
@@ -2988,7 +2833,6 @@ disc_color = Color(0.9, 0.28382212, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2430725, 0, -5.788732)
 
 [node name="Station19__TO__Station20" type="Path3D" parent="Stations/Station19" unique_id=61310051]
-visible = false
 curve = SubResource("Curve3D_dg7y4")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -2996,7 +2840,6 @@ to_station = NodePath("../../Station20")
 
 [node name="Station20" parent="Stations" unique_id=158315221 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.725725, 0, -6.6910295)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station82")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans21")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_20"), SubResource("Resource_efm27")])
@@ -3006,7 +2849,6 @@ disc_color = Color(0.35300466, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.725725, 0, -6.6910295)
 
 [node name="Station20__TO__Station82" type="Path3D" parent="Stations/Station20" unique_id=184908834]
-visible = false
 curve = SubResource("Curve3D_u0tee")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3014,7 +2856,6 @@ to_station = NodePath("../../Station82")
 
 [node name="Station21" parent="Stations" unique_id=1487043821 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.208357, 0, -19.20221)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station22")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_21"), SubResource("Resource_ivam7")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec22")])
@@ -3023,7 +2864,6 @@ disc_color = Color(0.27, 0.7478298, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.208357, 0, -19.20221)
 
 [node name="Station21__TO__Station22" type="Path3D" parent="Stations/Station21" unique_id=1052621641]
-visible = false
 curve = SubResource("Curve3D_tudqs")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3031,7 +2871,6 @@ to_station = NodePath("../../Station22")
 
 [node name="Station22" parent="Stations" unique_id=1037232343 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.925837, 0, -19.246355)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station23")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans23")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_22"), SubResource("Resource_snfm2")])
@@ -3041,7 +2880,6 @@ disc_color = Color(0.27, 0.50717074, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.925837, 0, -19.246355)
 
 [node name="Station22__TO__Station23" type="Path3D" parent="Stations/Station22" unique_id=1667052946]
-visible = false
 curve = SubResource("Curve3D_k8tdm")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3049,7 +2887,6 @@ to_station = NodePath("../../Station23")
 
 [node name="Station23" parent="Stations" unique_id=540155331 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.130919, 0, -19.213917)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station24")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans24")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_23"), SubResource("Resource_g4kpm")])
@@ -3059,7 +2896,6 @@ disc_color = Color(0.68773025, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.130919, 0, -19.213917)
 
 [node name="Station23__TO__Station24" type="Path3D" parent="Stations/Station23" unique_id=1913404286]
-visible = false
 curve = SubResource("Curve3D_wvhj6")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3067,7 +2903,6 @@ to_station = NodePath("../../Station24")
 
 [node name="Station24" parent="Stations" unique_id=1171472162 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.44196, 0, -21.80967)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station25")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans25")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_24"), SubResource("Resource_858qe")])
@@ -3077,7 +2912,6 @@ disc_color = Color(0.27, 0.9, 0.64108723, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.44196, 0, -21.80967)
 
 [node name="Station24__TO__Station25" type="Path3D" parent="Stations/Station24" unique_id=552231496]
-visible = false
 curve = SubResource("Curve3D_6p22d")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3085,7 +2919,6 @@ to_station = NodePath("../../Station25")
 
 [node name="Station25" parent="Stations" unique_id=756594948 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.44196, 0, -25.360916)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station26")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans26")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_25"), SubResource("Resource_2d4o5")])
@@ -3095,7 +2928,6 @@ disc_color = Color(0.27, 0.871774, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.44196, 0, -25.360916)
 
 [node name="Station25__TO__Station26" type="Path3D" parent="Stations/Station25" unique_id=1858789079]
-visible = false
 curve = SubResource("Curve3D_cefbb")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3103,7 +2935,6 @@ to_station = NodePath("../../Station26")
 
 [node name="Station26" parent="Stations" unique_id=1864411007 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.11121, 0, -28.360916)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station27")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans27")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_26"), SubResource("Resource_nei5p")])
@@ -3113,7 +2944,6 @@ disc_color = Color(0.81520396, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.11121, 0, -28.360916)
 
 [node name="Station26__TO__Station27" type="Path3D" parent="Stations/Station26" unique_id=669944017]
-visible = false
 curve = SubResource("Curve3D_6fjmo")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3121,7 +2951,6 @@ to_station = NodePath("../../Station27")
 
 [node name="Station27" parent="Stations" unique_id=223713096 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.000961, 0, -31.360916)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station28")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans28")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_27"), SubResource("Resource_mop2d")])
@@ -3131,7 +2960,6 @@ disc_color = Color(0.8016493, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.000961, 0, -31.360916)
 
 [node name="Station27__TO__Station28" type="Path3D" parent="Stations/Station27" unique_id=601808573]
-visible = false
 curve = SubResource("Curve3D_55asa")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3139,7 +2967,6 @@ to_station = NodePath("../../Station28")
 
 [node name="Station28" parent="Stations" unique_id=203210370 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.000961, 0, -34.360916)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station29")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans29")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_28"), SubResource("Resource_perv7")])
@@ -3149,7 +2976,6 @@ disc_color = Color(0.65433735, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.000961, 0, -34.360916)
 
 [node name="Station28__TO__Station29" type="Path3D" parent="Stations/Station28" unique_id=1013254336]
-visible = false
 curve = SubResource("Curve3D_3phgb")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3157,7 +2983,6 @@ to_station = NodePath("../../Station29")
 
 [node name="Station29" parent="Stations" unique_id=775873008 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.138535, 0, -36.83883)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station30")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans30")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_29"), SubResource("Resource_1dtfx")])
@@ -3167,7 +2992,6 @@ disc_color = Color(0.8551119, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.138535, 0, -36.83883)
 
 [node name="Station29__TO__Station30" type="Path3D" parent="Stations/Station29" unique_id=877258380]
-visible = false
 curve = SubResource("Curve3D_7rkg4")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3175,7 +2999,6 @@ to_station = NodePath("../../Station30")
 
 [node name="Station30" parent="Stations" unique_id=1254713687 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.453732, 0, -39.082207)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station31")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans31")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_30"), SubResource("Resource_p2buv")])
@@ -3185,7 +3008,6 @@ disc_color = Color(0.9, 0.8574463, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.453732, 0, -39.082207)
 
 [node name="Station30__TO__Station31" type="Path3D" parent="Stations/Station30" unique_id=1152423271]
-visible = false
 curve = SubResource("Curve3D_ap1db")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3193,7 +3015,6 @@ to_station = NodePath("../../Station31")
 
 [node name="Station31" parent="Stations" unique_id=400130203 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.859989, 0, -39.428677)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station32")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans32")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_31"), SubResource("Resource_tcg21")])
@@ -3203,7 +3024,6 @@ disc_color = Color(0.6756083, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.859989, 0, -39.428677)
 
 [node name="Station31__TO__Station32" type="Path3D" parent="Stations/Station31" unique_id=153264051]
-visible = false
 curve = SubResource("Curve3D_ds0yf")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3211,7 +3031,6 @@ to_station = NodePath("../../Station32")
 
 [node name="Station32" parent="Stations" unique_id=1682661978 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.859989, 0, -43.384174)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station33")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans33")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_32"), SubResource("Resource_qjqp1")])
@@ -3221,7 +3040,6 @@ disc_color = Color(0.9, 0.27, 0.79062283, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.859989, 0, -43.384174)
 
 [node name="Station32__TO__Station33" type="Path3D" parent="Stations/Station32" unique_id=675851453]
-visible = false
 curve = SubResource("Curve3D_4yacq")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3229,7 +3047,6 @@ to_station = NodePath("../../Station33")
 
 [node name="Station33" parent="Stations" unique_id=1253224211 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.012732, 0, -43.333927)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station34")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans34")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_33"), SubResource("Resource_6keya")])
@@ -3239,7 +3056,6 @@ disc_color = Color(0.27, 0.9, 0.71094626, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.012732, 0, -43.333927)
 
 [node name="Station33__TO__Station34" type="Path3D" parent="Stations/Station33" unique_id=439305376]
-visible = false
 curve = SubResource("Curve3D_kobx5")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3247,7 +3063,6 @@ to_station = NodePath("../../Station34")
 
 [node name="Station34" parent="Stations" unique_id=1183523328 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.012732, 0, -41.482937)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station35")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans35")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_34"), SubResource("Resource_84654")])
@@ -3257,7 +3072,6 @@ disc_color = Color(0.27, 0.9, 0.5520932, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.012732, 0, -41.482937)
 
 [node name="Station34__TO__Station35" type="Path3D" parent="Stations/Station34" unique_id=599788289]
-visible = false
 curve = SubResource("Curve3D_odg8s")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3265,7 +3079,6 @@ to_station = NodePath("../../Station35")
 
 [node name="Station35" parent="Stations" unique_id=531260379 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.971962, 0, -34.486954)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station36")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans36")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_35"), SubResource("Resource_3mopu")])
@@ -3275,7 +3088,6 @@ disc_color = Color(0.9, 0.27, 0.7999361, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.971962, 0, -34.486954)
 
 [node name="Station35__TO__Station36" type="Path3D" parent="Stations/Station35" unique_id=119537666]
-visible = false
 curve = SubResource("Curve3D_yamng")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3283,7 +3095,6 @@ to_station = NodePath("../../Station36")
 
 [node name="Station36" parent="Stations" unique_id=537110560 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.971962, 0, -21.721233)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station37")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans37")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_36"), SubResource("Resource_e1spg")])
@@ -3293,7 +3104,6 @@ disc_color = Color(0.9, 0.34248847, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.971962, 0, -21.721233)
 
 [node name="Station36__TO__Station37" type="Path3D" parent="Stations/Station36" unique_id=1910150395]
-visible = false
 curve = SubResource("Curve3D_3pem3")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3301,7 +3111,6 @@ to_station = NodePath("../../Station37")
 
 [node name="Station37" parent="Stations" unique_id=2091334249 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.9177, 0, -21.707739)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station38")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans38")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_37"), SubResource("Resource_gee23")])
@@ -3311,7 +3120,6 @@ disc_color = Color(0.9, 0.32693264, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.9177, 0, -21.707739)
 
 [node name="Station37__TO__Station38" type="Path3D" parent="Stations/Station37" unique_id=1937602454]
-visible = false
 curve = SubResource("Curve3D_qrs2o")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3319,7 +3127,6 @@ to_station = NodePath("../../Station38")
 
 [node name="Station38" parent="Stations" unique_id=251105005 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.567432, 0, -21.620747)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station39")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans39")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_38"), SubResource("Resource_rq01e")])
@@ -3329,7 +3136,6 @@ disc_color = Color(0.5842278, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.567432, 0, -21.620747)
 
 [node name="Station38__TO__Station39" type="Path3D" parent="Stations/Station38" unique_id=1635395479]
-visible = false
 curve = SubResource("Curve3D_e7gxh")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3337,7 +3143,6 @@ to_station = NodePath("../../Station39")
 
 [node name="Station39" parent="Stations" unique_id=181077338 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.014175, 0, -22.1585)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station40")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans40")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_39"), SubResource("Resource_16rdo")])
@@ -3347,7 +3152,6 @@ disc_color = Color(0.4061891, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.014175, 0, -22.1585)
 
 [node name="Station39__TO__Station40" type="Path3D" parent="Stations/Station39" unique_id=27362785]
-visible = false
 curve = SubResource("Curve3D_6jp5g")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3355,7 +3159,6 @@ to_station = NodePath("../../Station40")
 
 [node name="Station40" parent="Stations" unique_id=2032793384 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -24.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station41")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans41")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_40"), SubResource("Resource_68arv")])
@@ -3365,7 +3168,6 @@ disc_color = Color(0.49323332, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -24.35)
 
 [node name="Station40__TO__Station41" type="Path3D" parent="Stations/Station40" unique_id=369879958]
-visible = false
 curve = SubResource("Curve3D_gjsbg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3373,7 +3175,6 @@ to_station = NodePath("../../Station41")
 
 [node name="Station41" parent="Stations" unique_id=314899331 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -27.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station42")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans42")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_41"), SubResource("Resource_widqw")])
@@ -3383,7 +3184,6 @@ disc_color = Color(0.27, 0.9, 0.7184375, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -27.35)
 
 [node name="Station41__TO__Station42" type="Path3D" parent="Stations/Station41" unique_id=1860294471]
-visible = false
 curve = SubResource("Curve3D_54opm")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3391,7 +3191,6 @@ to_station = NodePath("../../Station42")
 
 [node name="Station42" parent="Stations" unique_id=36090289 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -30.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station43")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans43")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_42"), SubResource("Resource_j5lo0")])
@@ -3401,7 +3200,6 @@ disc_color = Color(0.27, 0.29942524, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -30.35)
 
 [node name="Station42__TO__Station43" type="Path3D" parent="Stations/Station42" unique_id=2111727186]
-visible = false
 curve = SubResource("Curve3D_efm27")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3409,7 +3207,6 @@ to_station = NodePath("../../Station43")
 
 [node name="Station43" parent="Stations" unique_id=1027039091 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -33.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station44")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans44")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_43"), SubResource("Resource_4cku8")])
@@ -3419,7 +3216,6 @@ disc_color = Color(0.9, 0.27, 0.46403915, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -33.35)
 
 [node name="Station43__TO__Station44" type="Path3D" parent="Stations/Station43" unique_id=1043722993]
-visible = false
 curve = SubResource("Curve3D_gguvu")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3427,7 +3223,6 @@ to_station = NodePath("../../Station44")
 
 [node name="Station44" parent="Stations" unique_id=1802077825 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -36.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station45")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans45")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_44"), SubResource("Resource_l14la")])
@@ -3437,7 +3232,6 @@ disc_color = Color(0.27, 0.9, 0.4217846, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -36.35)
 
 [node name="Station44__TO__Station45" type="Path3D" parent="Stations/Station44" unique_id=636904118]
-visible = false
 curve = SubResource("Curve3D_ivam7")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3445,7 +3239,6 @@ to_station = NodePath("../../Station45")
 
 [node name="Station45" parent="Stations" unique_id=393840903 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -39.35)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station46")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans46")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_45"), SubResource("Resource_d7b42")])
@@ -3455,7 +3248,6 @@ disc_color = Color(0.27, 0.9, 0.40447497, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.373924, 0, -39.35)
 
 [node name="Station45__TO__Station46" type="Path3D" parent="Stations/Station45" unique_id=1443601492]
-visible = false
 curve = SubResource("Curve3D_0caik")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3463,7 +3255,6 @@ to_station = NodePath("../../Station46")
 
 [node name="Station46" parent="Stations" unique_id=2132379124 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.611935, 0, -38.013508)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station47")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans47")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_46"), SubResource("Resource_xn784")])
@@ -3473,115 +3264,100 @@ disc_color = Color(0.9, 0.27, 0.2937992, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.611935, 0, -38.013508)
 
 [node name="Station46__TO__Station47" type="Path3D" parent="Stations/Station46" unique_id=1151893685]
-visible = false
 curve = SubResource("Curve3D_snfm2")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station47")
 
 [node name="Station47" parent="Stations" unique_id=1372718154 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 0, -38.036762)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 8.534973, -38.036762)
 next_stations = Array[NodePath]([NodePath("../Station48")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans48")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_47"), SubResource("Resource_58n3j")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec48")])
 one_shot = true
 disc_color = Color(0.27, 0.9, 0.51606643, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 0, -38.036762)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 8.534973, -38.036762)
 
 [node name="Station47__TO__Station48" type="Path3D" parent="Stations/Station47" unique_id=188496658]
-visible = false
 curve = SubResource("Curve3D_amg1l")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station48")
 
 [node name="Station48" parent="Stations" unique_id=1841041677 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 0, -44.05026)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 8.534973, -44.05026)
 next_stations = Array[NodePath]([NodePath("../Station49")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans49")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_48"), SubResource("Resource_dhbwl")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec49")])
 one_shot = true
 disc_color = Color(0.8619214, 0.9, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 0, -44.05026)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.534702, 8.534973, -44.05026)
 
 [node name="Station48__TO__Station49" type="Path3D" parent="Stations/Station48" unique_id=1861093832]
-visible = false
 curve = SubResource("Curve3D_g4kpm")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station49")
 
 [node name="Station49" parent="Stations" unique_id=972370179 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -44.441017)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.534973, -44.441017)
 next_stations = Array[NodePath]([NodePath("../Station50")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans50")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_49"), SubResource("Resource_pnffx")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec50")])
 one_shot = true
 disc_color = Color(0.9, 0.27, 0.31884533, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -44.441017)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.534973, -44.441017)
 
 [node name="Station49__TO__Station50" type="Path3D" parent="Stations/Station49" unique_id=448325769]
-visible = false
 curve = SubResource("Curve3D_l2r7i")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station50")
 
 [node name="Station50" parent="Stations" unique_id=390545636 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -54.203003)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.65122, -54.203003)
 next_stations = Array[NodePath]([NodePath("../Station51")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans51")])
-endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_50"), SubResource("Resource_4jixn")])
+endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_4jixn")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec51")])
 one_shot = true
 disc_color = Color(0.9, 0.44824603, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -54.203003)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.65122, -54.203003)
 
 [node name="Station50__TO__Station51" type="Path3D" parent="Stations/Station50" unique_id=590039064]
-visible = false
 curve = SubResource("Curve3D_858qe")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station51")
 
 [node name="Station51" parent="Stations" unique_id=1301581096 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -55.842876)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.525092, -55.842876)
 next_stations = Array[NodePath]([NodePath("../Station52")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans52"), SubResource("Resource_lai_1")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_51"), SubResource("Resource_6o2mp")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_jsutm"), SubResource("Resource_nec52")])
 one_shot = true
 disc_color = Color(0.27, 0.53239685, 0.9, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -55.842876)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.525092, -55.842876)
 
 [node name="Station51__TO__Station52" type="Path3D" parent="Stations/Station51" unique_id=356544353]
-visible = false
 curve = SubResource("Curve3D_1kak8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station52")
 
 [node name="Station52" parent="Stations" unique_id=1027462780 instance=ExtResource("3_rs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -57.774803)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.525331, -57.774803)
 next_stations = Array[NodePath]([NodePath("../Station53")])
-startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans53"), SubResource("Resource_htjp7")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_52"), SubResource("Resource_bva62")])
-conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec53")])
 one_shot = true
 disc_color = Color(0.9, 0.7046024, 0.27, 1)
-metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -57.774803)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 8.525331, -57.774803)
 
 [node name="Station52__TO__Station53" type="Path3D" parent="Stations/Station52" unique_id=664024526]
-visible = false
 curve = SubResource("Curve3D_2d4o5")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3589,7 +3365,6 @@ to_station = NodePath("../../Station53")
 
 [node name="Station53" parent="Stations" unique_id=2096248487 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -61.780052)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station54")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans54")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_53"), SubResource("Resource_o0r7f")])
@@ -3599,7 +3374,6 @@ disc_color = Color(0.9, 0.27, 0.81766224, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -61.780052)
 
 [node name="Station53__TO__Station54" type="Path3D" parent="Stations/Station53" unique_id=683309984]
-visible = false
 curve = SubResource("Curve3D_x3yv7")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3607,7 +3381,6 @@ to_station = NodePath("../../Station54")
 
 [node name="Station54" parent="Stations" unique_id=1018930361 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -64.78005)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station55")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans55")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_54"), SubResource("Resource_x7chh")])
@@ -3617,7 +3390,6 @@ disc_color = Color(0.9, 0.3071299, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.060684, 0, -64.78005)
 
 [node name="Station54__TO__Station55" type="Path3D" parent="Stations/Station54" unique_id=1701910561]
-visible = false
 curve = SubResource("Curve3D_nei5p")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3625,7 +3397,6 @@ to_station = NodePath("../../Station55")
 
 [node name="Station55" parent="Stations" unique_id=1617429568 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.411484, 0, -65.51825)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station56")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans56")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_55"), SubResource("Resource_btrdp")])
@@ -3635,7 +3406,6 @@ disc_color = Color(0.9, 0.27, 0.6152832, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.411484, 0, -65.51825)
 
 [node name="Station55__TO__Station56" type="Path3D" parent="Stations/Station55" unique_id=348630315]
-visible = false
 curve = SubResource("Curve3D_cyvu5")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3643,7 +3413,6 @@ to_station = NodePath("../../Station56")
 
 [node name="Station56" parent="Stations" unique_id=428922541 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.411484, 0, -67.26169)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station57")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans57")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_56"), SubResource("Resource_8y08a")])
@@ -3653,7 +3422,6 @@ disc_color = Color(0.9, 0.7006783, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.411484, 0, -67.26169)
 
 [node name="Station56__TO__Station57" type="Path3D" parent="Stations/Station56" unique_id=1275982064]
-visible = false
 curve = SubResource("Curve3D_mop2d")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3661,7 +3429,6 @@ to_station = NodePath("../../Station57")
 
 [node name="Station57" parent="Stations" unique_id=1170597267 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.903618, 0, -67.24594)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station58")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans58")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_57"), SubResource("Resource_yx3pm")])
@@ -3671,7 +3438,6 @@ disc_color = Color(0.9, 0.27, 0.47892106, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.903618, 0, -67.24594)
 
 [node name="Station57__TO__Station58" type="Path3D" parent="Stations/Station57" unique_id=1327459897]
-visible = false
 curve = SubResource("Curve3D_l725y")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3679,7 +3445,6 @@ to_station = NodePath("../../Station58")
 
 [node name="Station58" parent="Stations" unique_id=1276445596 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.903618, 0, -69.17787)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station59")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans59"), SubResource("Resource_lai_2")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_58"), SubResource("Resource_r54kn")])
@@ -3689,7 +3454,6 @@ disc_color = Color(0.27, 0.42375034, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.903618, 0, -69.17787)
 
 [node name="Station58__TO__Station59" type="Path3D" parent="Stations/Station58" unique_id=1896286912]
-visible = false
 curve = SubResource("Curve3D_perv7")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3697,7 +3461,6 @@ to_station = NodePath("../../Station59")
 
 [node name="Station59" parent="Stations" unique_id=178258290 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.05551, 0, -73.5915)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station60")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans60")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_59"), SubResource("Resource_w5jq4")])
@@ -3707,7 +3470,6 @@ disc_color = Color(0.9, 0.2935077, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.05551, 0, -73.5915)
 
 [node name="Station59__TO__Station60" type="Path3D" parent="Stations/Station59" unique_id=1900059060]
-visible = false
 curve = SubResource("Curve3D_aav75")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3719,7 +3481,6 @@ one_shot = true
 
 [node name="Station60" parent="Stations" unique_id=1744607254 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.97435, 0, -74.72282)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station61")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans61")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_60"), SubResource("Resource_4ic6b")])
@@ -3729,7 +3490,6 @@ disc_color = Color(0.27, 0.5838524, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.97435, 0, -74.72282)
 
 [node name="Station60__TO__Station61" type="Path3D" parent="Stations/Station60" unique_id=1900060061]
-visible = false
 curve = SubResource("Curve3D_1dtfx")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3737,7 +3497,6 @@ to_station = NodePath("../../Station61")
 
 [node name="Station61" parent="Stations" unique_id=1900000061 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.94223, 0, -78.049095)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station62")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans62")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_61"), SubResource("Resource_gkrl3")])
@@ -3747,7 +3506,6 @@ disc_color = Color(0.9, 0.459, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.94223, 0, -78.049095)
 
 [node name="Station61__TO__Station62" type="Path3D" parent="Stations/Station61" unique_id=1900061062]
-visible = false
 curve = SubResource("Curve3D_xpp75")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3755,7 +3513,6 @@ to_station = NodePath("../../Station62")
 
 [node name="Station62" parent="Stations" unique_id=1900000062 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.023853, 0, -78.05093)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station63")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans63")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_62"), SubResource("Resource_7pox5")])
@@ -3765,7 +3522,6 @@ disc_color = Color(0.774, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.023853, 0, -78.05093)
 
 [node name="Station62__TO__Station63" type="Path3D" parent="Stations/Station62" unique_id=1900062063]
-visible = false
 curve = SubResource("Curve3D_p2buv")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3773,7 +3529,6 @@ to_station = NodePath("../../Station63")
 
 [node name="Station63" parent="Stations" unique_id=1900000063 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.016384, 0, -77.5)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station64")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans64")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_63"), SubResource("Resource_eqtsu")])
@@ -3783,7 +3538,6 @@ disc_color = Color(0.27, 0.9, 0.396, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.016384, 0, -77.5)
 
 [node name="Station63__TO__Station64" type="Path3D" parent="Stations/Station63" unique_id=1900063064]
-visible = false
 curve = SubResource("Curve3D_ybkb8")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3791,7 +3545,6 @@ to_station = NodePath("../../Station64")
 
 [node name="Station64" parent="Stations" unique_id=1900000064 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.32109, 0, -75.44503)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station65")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans65")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_64"), SubResource("Resource_moobb")])
@@ -3801,7 +3554,6 @@ disc_color = Color(0.27, 0.9, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.32109, 0, -75.44503)
 
 [node name="Station64__TO__Station65" type="Path3D" parent="Stations/Station64" unique_id=1900064065]
-visible = false
 curve = SubResource("Curve3D_tcg21")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3809,7 +3561,6 @@ to_station = NodePath("../../Station65")
 
 [node name="Station65" parent="Stations" unique_id=1900000065 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.070938, 0, -79.53505)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station66")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans66")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_65"), SubResource("Resource_d405o")])
@@ -3819,7 +3570,6 @@ disc_color = Color(0.27, 0.396, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.070938, 0, -79.53505)
 
 [node name="Station65__TO__Station66" type="Path3D" parent="Stations/Station65" unique_id=1900065066]
-visible = false
 curve = SubResource("Curve3D_5q7dy")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3827,7 +3577,6 @@ to_station = NodePath("../../Station66")
 
 [node name="Station66" parent="Stations" unique_id=1900000066 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.6062, 0, -80.53122)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station68")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans67"), SubResource("Resource_lai_3")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_66"), SubResource("Resource_ch7hh")])
@@ -3837,7 +3586,6 @@ disc_color = Color(0.63, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.6062, 0, -80.53122)
 
 [node name="Station66__TO__Station68" type="Path3D" parent="Stations/Station66" unique_id=1332587122]
-visible = false
 curve = SubResource("Curve3D_qjqp1")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3845,7 +3593,6 @@ to_station = NodePath("../../Station68")
 
 [node name="Station68" parent="Stations" unique_id=1363459331 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.848265, 0, -80.55445)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station69")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans68")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_67"), SubResource("Resource_f7r0s")])
@@ -3855,7 +3602,6 @@ disc_color = Color(0.3943736, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.848265, 0, -80.55445)
 
 [node name="Station68__TO__Station69" type="Path3D" parent="Stations/Station68" unique_id=1624568310]
-visible = false
 curve = SubResource("Curve3D_i35g2")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3863,7 +3609,6 @@ to_station = NodePath("../../Station69")
 
 [node name="Station69" parent="Stations" unique_id=1854603866 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.035363, 0, -80.51908)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station70")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans69")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_68"), SubResource("Resource_gxdld")])
@@ -3873,7 +3618,6 @@ disc_color = Color(0.50642, 0.27, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.035363, 0, -80.51908)
 
 [node name="Station69__TO__Station70" type="Path3D" parent="Stations/Station69" unique_id=813672538]
-visible = false
 curve = SubResource("Curve3D_6keya")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3881,7 +3625,6 @@ to_station = NodePath("../../Station70")
 
 [node name="Station70" parent="Stations" unique_id=953172684 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.914123, 0, -80.54231)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station71")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans70")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_69"), SubResource("Resource_sshdk")])
@@ -3891,7 +3634,6 @@ disc_color = Color(0.27, 0.29898, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.914123, 0, -80.54231)
 
 [node name="Station70__TO__Station71" type="Path3D" parent="Stations/Station70" unique_id=898953008]
-visible = false
 curve = SubResource("Curve3D_fquwc")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3899,7 +3641,6 @@ to_station = NodePath("../../Station71")
 
 [node name="Station71" parent="Stations" unique_id=194782472 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.914123, 0, -80.54231)
-visible = false
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans71")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_70"), SubResource("Resource_vmog2")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec71")])
@@ -3909,7 +3650,6 @@ metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.914123, 0, -80.
 
 [node name="Station72" parent="Stations" unique_id=282703808 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.44943, 0, -6.50029)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station74")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans72")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_71"), SubResource("Resource_geq32")])
@@ -3919,7 +3659,6 @@ disc_color = Color(0.9, 0.27, 0.6926726, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.44943, 0, -6.50029)
 
 [node name="Station72__TO__Station74" type="Path3D" parent="Stations/Station72" unique_id=326278899]
-visible = false
 curve = SubResource("Curve3D_84654")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3927,7 +3666,6 @@ to_station = NodePath("../../Station74")
 
 [node name="Station73" parent="Stations" unique_id=2023573122 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-visible = false
 next_stations = Array[NodePath]([NodePath("../StationB")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans73")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_72"), SubResource("Resource_jdaan")])
@@ -3937,7 +3675,6 @@ disc_color = Color(0.9, 0.27, 0.4742332, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
 [node name="Station73__TO__StationB" type="Path3D" parent="Stations/Station73" unique_id=1375108896]
-visible = false
 curve = SubResource("Curve3D_5rmyp")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3945,7 +3682,6 @@ to_station = NodePath("../../StationB")
 
 [node name="Station74" parent="Stations" unique_id=1468617712 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.125547, 0, -6.914731)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station75")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans74")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_73"), SubResource("Resource_lbfgu")])
@@ -3955,7 +3691,6 @@ disc_color = Color(0.9, 0.8460111, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.125547, 0, -6.914731)
 
 [node name="Station74__TO__Station75" type="Path3D" parent="Stations/Station74" unique_id=1023532516]
-visible = false
 curve = SubResource("Curve3D_3mopu")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3963,7 +3698,6 @@ to_station = NodePath("../../Station75")
 
 [node name="Station75" parent="Stations" unique_id=1629107507 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.06338, 0, -11.649831)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station76")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans75")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_74"), SubResource("Resource_dclmr")])
@@ -3973,7 +3707,6 @@ disc_color = Color(0.70937175, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.06338, 0, -11.649831)
 
 [node name="Station75__TO__Station76" type="Path3D" parent="Stations/Station75" unique_id=985456967]
-visible = false
 curve = SubResource("Curve3D_dr863")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3981,7 +3714,6 @@ to_station = NodePath("../../Station76")
 
 [node name="Station76" parent="Stations" unique_id=684688898 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.692629, 0, -12.642706)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station77")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans76")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_75"), SubResource("Resource_awhag")])
@@ -3991,7 +3723,6 @@ disc_color = Color(0.9, 0.27, 0.7965727, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.692629, 0, -12.642706)
 
 [node name="Station76__TO__Station77" type="Path3D" parent="Stations/Station76" unique_id=477893818]
-visible = false
 curve = SubResource("Curve3D_e1spg")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -3999,7 +3730,6 @@ to_station = NodePath("../../Station77")
 
 [node name="Station77" parent="Stations" unique_id=326707627 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.360556, 0, -15.642706)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station78")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans77")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_76"), SubResource("Resource_rkhky")])
@@ -4009,7 +3739,6 @@ disc_color = Color(0.9, 0.27, 0.27077624, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.360556, 0, -15.642706)
 
 [node name="Station77__TO__Station78" type="Path3D" parent="Stations/Station77" unique_id=1977498304]
-visible = false
 curve = SubResource("Curve3D_el6ga")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -4017,7 +3746,6 @@ to_station = NodePath("../../Station78")
 
 [node name="Station78" parent="Stations" unique_id=1659655245 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.692629, 0, -18.642706)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station3")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans78")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_77"), SubResource("Resource_md8es")])
@@ -4027,7 +3755,6 @@ disc_color = Color(0.27, 0.838706, 0.9, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.692629, 0, -18.642706)
 
 [node name="Station78__TO__Station3" type="Path3D" parent="Stations/Station78" unique_id=2010817159]
-visible = false
 curve = SubResource("Curve3D_gee23")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -4035,7 +3762,6 @@ to_station = NodePath("../../Station3")
 
 [node name="Station79" parent="Stations" unique_id=1487972601 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.820726, 0, -29.550343)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station7")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans79")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_78"), SubResource("Resource_ixorj")])
@@ -4044,7 +3770,6 @@ disc_color = Color(0.27, 0.9, 0.5539423, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.820726, 0, -29.550343)
 
 [node name="Station79__TO__Station7" type="Path3D" parent="Stations/Station79" unique_id=772156747]
-visible = false
 curve = SubResource("Curve3D_yr38k")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
@@ -4052,7 +3777,6 @@ to_station = NodePath("../../Station7")
 
 [node name="Station80" parent="Stations" unique_id=265362122 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 7.044883, -26.128876)
-visible = false
 next_stations = Array[NodePath]([NodePath("../Station10")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans80")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_79"), SubResource("Resource_0qr2u")])
@@ -4061,16 +3785,13 @@ disc_color = Color(0.27, 0.9, 0.47513095, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.746582, 7.044883, -26.128876)
 
 [node name="Station80__TO__Station10" type="Path3D" parent="Stations/Station80" unique_id=1670067073]
-visible = false
 curve = SubResource("Curve3D_rq01e")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station10")
 
-[node name="Station81" type="Node3D" parent="Stations" unique_id=1509590361 instance=ExtResource("3_rs")]
+[node name="Station81" parent="Stations" unique_id=1509590361 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.965559, 0, -23.86551)
-visible = false
-script = ExtResource("16_8p627")
 next_stations = Array[NodePath]([NodePath("../Station4")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_20mn3")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_80"), SubResource("Resource_ebd43")])
@@ -4080,16 +3801,13 @@ disc_color = Color(0.5726452, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.965559, 0, -23.86551)
 
 [node name="Station81__TO__Station4" type="Path3D" parent="Stations/Station81" unique_id=1923319497]
-visible = false
 curve = SubResource("Curve3D_afugn")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station4")
 
-[node name="Station82" type="Node3D" parent="Stations" unique_id=1840380547 instance=ExtResource("3_rs")]
+[node name="Station82" parent="Stations" unique_id=1840380547 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.398009, 0, -10.946198)
-visible = false
-script = ExtResource("16_8p627")
 next_stations = Array[NodePath]([NodePath("../Station21")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_hom6l")])
 endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_81"), SubResource("Resource_khycg")])
@@ -4099,27 +3817,27 @@ disc_color = Color(0.7846734, 0.9, 0.27, 1)
 metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.398009, 0, -10.946198)
 
 [node name="Station82__TO__Station21" type="Path3D" parent="Stations/Station82" unique_id=835380935]
-visible = false
 curve = SubResource("Curve3D_16rdo")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station21")
 
-[node name="Skirmish1" parent="Stations" instance=ExtResource("3_rs")]
+[node name="Skirmish1" parent="Stations" unique_id=1220114433 instance=ExtResource("3_rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.738, 12.188, -4.546)
 next_stations = Array[NodePath]([NodePath("../Station13")])
 startActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_lans_Skirmish1"), SubResource("Resource_look_Skirmish1")])
-endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_82"), SubResource("Resource_adv_Skirmish1")])
+endActions = Array[ExtResource("3_uwu1q")]([SubResource("Resource_sft_82"), SubResource("Resource_qx1e4")])
 conditions = Array[ExtResource("7_w4wf6")]([SubResource("Resource_nec_Skirmish1")])
 one_shot = true
 disc_color = Color(1, 0.55, 0.1, 1)
+metadata/_last_xform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.738, 12.188, -4.546)
 
-[node name="Skirmish1__TO__Station13" type="Path3D" parent="Stations/Skirmish1"]
-curve = SubResource("Curve3D_Skirmish1")
+[node name="Skirmish1__TO__Station13" type="Path3D" parent="Stations/Skirmish1" unique_id=127375362]
+curve = SubResource("Curve3D_ebd43")
 script = ExtResource("2_rp")
 from_station = NodePath("..")
 to_station = NodePath("../../Station13")
 
-[node name="Skirmish1Marker" parent="Stations" instance=ExtResource("10_7t81k")]
+[node name="Skirmish1Marker" parent="Stations" unique_id=1971512105 instance=ExtResource("10_7t81k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.5, 2.736, 4.5)
 disc_color = Color(1, 0.3, 0.1, 1)
