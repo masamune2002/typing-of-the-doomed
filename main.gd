@@ -1120,6 +1120,7 @@ func _spawnInteractablesFromWad() -> void:
 	var skipped_no_pos = 0
 	var spawned_lift_sectors : Array[int] = []  # one interactable per lift sector
 	var switch_dedupe : Dictionary = {}  # quantized switch pos -> Interactable
+	var door_dedupe : Dictionary = {}  # sector name -> {interactable, rank}
 	for node in all_level_objects:
 		var script_path = node.get_script().resource_path if node.get_script() != null else ""
 		var is_lift = script_path.ends_with(WadGame.SCRIPT_LIFT)
@@ -1182,6 +1183,36 @@ func _spawnInteractablesFromWad() -> void:
 					kept.linked_wad_nodes.append(node)
 				continue
 
+		# One typing wrapper per door sector. A sector driven by several
+		# mover chains (E1M4's hub doors each have an open-stay AND an
+		# open-wait-close door node) otherwise spawns stacked same-named
+		# labels: the player reads one word while the first typed letter
+		# locks onto the other, so typing goes dead — and activate() on a
+		# non-stayOpen node whose state reads OPEN *closes* the door in
+		# their face. Keep one wrapper, preferring a manual face (DR),
+		# then an open-stay mover (its activate can only ever open).
+		var door_key := ""
+		if script_path.ends_with("door.gd") and not is_lift and not is_floor and not is_exit:
+			var parent_name_d = node.get_parent().name as String
+			if parent_name_d.to_lower().begins_with(WadGame.SECTOR_PREFIX_LOWER):
+				var door_rank := 1
+				if ttype == WADG.TTYPE.DOOR or ttype == WADG.TTYPE.DOOR1:
+					door_rank = 3
+				elif node.get("stayOpen") == true:
+					door_rank = 2
+				if door_dedupe.has(parent_name_d):
+					var kept_d : Dictionary = door_dedupe[parent_name_d]
+					if door_rank > kept_d["rank"]:
+						var kept_i : Interactable = kept_d["interactable"]
+						kept_i.wadNode = node
+						var kt = node.get(WadGame.PROP_KEY_TYPE)
+						if kt != null and wad_game.key_type_to_id.has(kt):
+							kept_i.requiredKey = wad_game.key_type_to_id[kt]
+						kept_d["rank"] = door_rank
+					continue
+				door_key = parent_name_d
+				door_dedupe[door_key] = {"interactable": null, "rank": door_rank}
+
 		var interactable = INTERACTABLE_SCENE.instantiate()
 		interactable.wadNode = node
 		interactable.interactable_name = _interactableNameFor(node)
@@ -1205,6 +1236,8 @@ func _spawnInteractablesFromWad() -> void:
 				pass
 		add_child(interactable)
 		interactable.global_position = _wadToWorld(world_pos)
+		if door_key != "":
+			door_dedupe[door_key]["interactable"] = interactable
 		if switch_key != "":
 			switch_dedupe[switch_key] = interactable
 			# Switch words belong on the switch panel at eye height, not
