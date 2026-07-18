@@ -74,6 +74,8 @@ var _attackToken : int = 0
 # 5 = Cyberdemon).
 const PAIN_CHANCES := {2: 0.15, 3: 0.10, 4: 0.07, 5: 0.05}
 const PAIN_STUN_SECS := 0.5
+# Pain (and the killing blow) always splats; other landed hits roll this.
+const SPLAT_CHANCE := 0.5
 var stunned : bool = false
 var _stunToken : int = 0
 
@@ -269,15 +271,17 @@ func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant, def
 	var hit = weakness.receiveHit(payload)
 	_updateTypedLabel()
 	if hit:
-		HitSplat.spawnOn(self)
 		if weakness.isHealthBarEmpty():
+			# Blood arrives with the pain/death on the bar advance (deferred
+			# until the projectile lands for projectile weapons)
 			if deferDamage:
-				# Store pending action for when the projectile arrives
 				_pendingHealthBarAdvance = true
 			else:
 				_applyHealthBarAdvance()
 		elif firstLetter || randf() < painChance():
 			triggerPain()
+		elif randf() < SPLAT_CHANCE:
+			HitSplat.spawnOn(self)
 	return hit
 
 var _pendingHealthBarAdvance : bool = false
@@ -291,6 +295,7 @@ func applyDeferredDamage() -> void:
 func _applyHealthBarAdvance() -> void:
 	_currentHealthBar += 1
 	if _currentHealthBar >= numHealthBars:
+		HitSplat.spawnOn(self)  # the killing blow always bleeds
 		die()
 	else:
 		# Finishing a word always staggers as long as bars remain
@@ -306,6 +311,7 @@ func painChance() -> float:
 func triggerPain() -> void:
 	if !alive || dying:
 		return
+	HitSplat.spawnOn(self)
 	var wasAttacking := stateMachine.currentStateKey == Enums.ENEMY_STATE.ATTACKING
 	cancelTelegraph()
 	if wasAttacking:
