@@ -66,13 +66,11 @@ var _telegraphTween : Tween
 var _telegraphMat : StandardMaterial3D
 var _attackToken : int = 0
 
-# Pain: every typed letter has a chance to stagger the enemy, scaled by how
-# tough it is across the roster's difficulty range (2 = Zombieman ... 5 =
-# Cyberdemon). Finishing a word always staggers (handled on bar advance).
-const PAIN_CHANCE_EASIEST := 0.25
-const PAIN_CHANCE_HARDEST := 0.10
-const PAIN_DIFF_EASY := 2
-const PAIN_DIFF_HARD := 5
+# Pain: the first letter of a weakness word always staggers, finishing a
+# word always staggers (handled on bar advance), and every letter between
+# rolls a chance keyed to the roster's difficulty tiers (2 = Zombieman ...
+# 5 = Cyberdemon).
+const PAIN_CHANCES := {2: 0.15, 3: 0.10, 4: 0.07, 5: 0.05}
 const PAIN_STUN_SECS := 0.5
 var stunned : bool = false
 var _stunToken : int = 0
@@ -262,16 +260,20 @@ func deactivate() -> void:
 func receiveFire(weaponFireType : Enums.WEAPON_FIRE_TYPE, payload : Variant, deferDamage : bool = false) -> bool:
 	if !alive || !active || !visible_to_player || _currentWeaknessType != weaponFireType:
 		return false
-	var hit = weaknesses.get(_currentWeaknessType).receiveHit(payload)
+	var weakness = weaknesses.get(_currentWeaknessType)
+	# hitPoints stay "full" until typed, so an untyped first hitPoint means
+	# this hit is the word's opening letter (words never start with a space)
+	var firstLetter = weakness.hitPoints.size() > 0 && weakness.hitPoints[0].full
+	var hit = weakness.receiveHit(payload)
 	_updateTypedLabel()
 	if hit:
-		if weaknesses.get(_currentWeaknessType).isHealthBarEmpty():
+		if weakness.isHealthBarEmpty():
 			if deferDamage:
 				# Store pending action for when the projectile arrives
 				_pendingHealthBarAdvance = true
 			else:
 				_applyHealthBarAdvance()
-		elif randf() < painChance():
+		elif firstLetter || randf() < painChance():
 			triggerPain()
 	return hit
 
@@ -294,8 +296,7 @@ func _applyHealthBarAdvance() -> void:
 		_updatePips()
 
 func painChance() -> float:
-	var t := clampf((difficulty - PAIN_DIFF_EASY) / float(PAIN_DIFF_HARD - PAIN_DIFF_EASY), 0.0, 1.0)
-	return lerpf(PAIN_CHANCE_EASIEST, PAIN_CHANCE_HARDEST, t)
+	return PAIN_CHANCES[clampi(difficulty, 2, 5)]
 
 ## DOOM-style pain state: grunt + flinch animation + a short stun that
 ## aborts any attack being wound up and resets the attack cooldown.
