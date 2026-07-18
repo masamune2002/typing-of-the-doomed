@@ -7,6 +7,11 @@ AdvanceToNextStationAction, insert a blocking SleepForTargetsAction
 (milliseconds = MS) immediately before the advance: after the encounter
 clears, the player gets a beat to pick up whatever is on screen before the
 rail rolls on - and no wait at all when nothing is visible.
+
+ONE-SHOT MIGRATION - already applied (2026-07-18). The level tscn files are
+hand-tuned after the fact (e.g. E1M2's sleeps were edited in the editor);
+re-running this would double up sleeps and undo those tweaks. Only aim it
+at fresh maps, never the whole glob, without checking first.
 """
 import glob
 import re

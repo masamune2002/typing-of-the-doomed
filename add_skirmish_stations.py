@@ -18,6 +18,11 @@ per-station NearbyEnemiesCleared/LookAtNextStation retrofits):
    startActions, so the camera lands on the thing the player must type.
 
 Usage: python3 add_skirmish_stations.py [--dry-run] [MAP ...]
+
+ONE-SHOT MIGRATION - already applied (2026-07-17). The level tscn files
+carry hand tweaks made in the editor since (station moves, removed sleeps,
+E1M2 adjustments); re-running would duplicate Skirmish stations and stomp
+those. Only aim it at fresh maps, never the whole set, without checking.
 """
 import re
 import sys
