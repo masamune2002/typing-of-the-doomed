@@ -123,35 +123,56 @@ func _buildUI() -> void:
 		var stat_left := 50.0 * ui_scale
 		var val_right := screen_w - 50.0 * ui_scale
 
-		var kills_hdr := _createWadGraphic("WIOSTK", ui_scale)
+		# ui_scale tracks screen HEIGHT, so on narrow screens the header
+		# column can run into the right-aligned value column. Measure the
+		# widest possible row (longest header graphic + widest value the
+		# tally can reach) and shrink the row scale until both columns fit
+		# side by side with a comfortable gap.
+		var row_scale := ui_scale
+		var header_w := 0.0
+		for sprite_name in ["WIOSTK", "WIOSTI", "WISCRT2", "WITIME"]:
+			var tex = Game.fetchSprite(sprite_name)
+			if tex != null:
+				header_w = maxf(header_w, tex.get_width())
+		var value_w := 4 * 10 * 0.72
+		if _doom_font != null:
+			for value_text in ["100%", _formatTime(_time_secs)]:
+				value_w = maxf(value_w, _doom_font.get_string_size(value_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x * 0.72)
+		var col_gap := 16.0  # in DOOM 320x200 pixels, like the widths above
+		var need := (header_w + value_w + col_gap) * ui_scale
+		var avail := val_right - stat_left
+		if need > avail:
+			row_scale = ui_scale * maxf(avail, 1.0) / need
+
+		var kills_hdr := _createWadGraphic("WIOSTK", row_scale)
 		if kills_hdr != null:
 			kills_hdr.position = Vector2(stat_left, 50 * ui_scale)
 			overlay.add_child(kills_hdr)
-		_kills_value = _createScaledLabel("0%%", Color.WHITE, ui_scale)
+		_kills_value = _createScaledLabel("0%%", Color.WHITE, row_scale)
 		_kills_value.position = Vector2(val_right - _kills_value.custom_minimum_size.x, 50 * ui_scale)
 		overlay.add_child(_kills_value)
 
-		var items_hdr := _createWadGraphic("WIOSTI", ui_scale)
+		var items_hdr := _createWadGraphic("WIOSTI", row_scale)
 		if items_hdr != null:
 			items_hdr.position = Vector2(stat_left, 78 * ui_scale)
 			overlay.add_child(items_hdr)
-		_items_value = _createScaledLabel("0%%", Color.WHITE, ui_scale)
+		_items_value = _createScaledLabel("0%%", Color.WHITE, row_scale)
 		_items_value.position = Vector2(val_right - _items_value.custom_minimum_size.x, 78 * ui_scale)
 		overlay.add_child(_items_value)
 
-		var secrets_hdr := _createWadGraphic("WISCRT2", ui_scale)
+		var secrets_hdr := _createWadGraphic("WISCRT2", row_scale)
 		if secrets_hdr != null:
 			secrets_hdr.position = Vector2(stat_left, 106 * ui_scale)
 			overlay.add_child(secrets_hdr)
-		_secrets_value = _createScaledLabel("0%%", Color.WHITE, ui_scale)
+		_secrets_value = _createScaledLabel("0%%", Color.WHITE, row_scale)
 		_secrets_value.position = Vector2(val_right - _secrets_value.custom_minimum_size.x, 106 * ui_scale)
 		overlay.add_child(_secrets_value)
 
-		var time_hdr := _createWadGraphic("WITIME", ui_scale)
+		var time_hdr := _createWadGraphic("WITIME", row_scale)
 		if time_hdr != null:
 			time_hdr.position = Vector2(stat_left, 136 * ui_scale)
 			overlay.add_child(time_hdr)
-		_time_value = _createScaledLabel(_formatTime(_time_secs), Color.WHITE, ui_scale)
+		_time_value = _createScaledLabel(_formatTime(_time_secs), Color.WHITE, row_scale)
 		_time_value.position = Vector2(val_right - _time_value.custom_minimum_size.x, 136 * ui_scale)
 		overlay.add_child(_time_value)
 
