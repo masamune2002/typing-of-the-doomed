@@ -119,9 +119,12 @@ func _buildUI() -> void:
 		_map_name_label.position = Vector2((screen_w - _map_name_label.custom_minimum_size.x) / 2.0, 24 * ui_scale)
 		overlay.add_child(_map_name_label)
 
-		# Stats — DOOM positions: kills Y~50, items Y~78, secrets Y~106, time Y~136
-		var stat_left := 50.0 * ui_scale
-		var val_right := screen_w - 50.0 * ui_scale
+		# Stats — DOOM Y positions: kills ~50, items ~78, secrets ~106, time ~136.
+		# Horizontally the columns hug the screen edges (vanilla's 50px
+		# margins waste too much room on narrow screens): headers flush
+		# left, values flush right, with a sliver of padding.
+		var stat_left := 8.0 * ui_scale
+		var val_right := screen_w - 8.0 * ui_scale
 
 		# ui_scale tracks screen HEIGHT, so on narrow screens the header
 		# column can run into the right-aligned value column. Measure the
