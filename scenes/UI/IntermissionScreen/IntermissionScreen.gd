@@ -177,15 +177,16 @@ func _buildUI() -> void:
 		overlay.add_child(_time_value)
 
 	elif _phase == Phase.NEXT_LEVEL and _next_map_name != "":
-		# "Entering" header — DOOM Y ~50
+		# "Entering" header — top of the screen like vanilla (WI_TITLEY = 2),
+		# mirroring the "Finished" layout of the stats phase
 		_entering_label = _createWadGraphic("WIENTER", ui_scale)
 		if _entering_label != null:
-			_entering_label.position = Vector2((screen_w - _entering_label.custom_minimum_size.x) / 2.0, 50 * ui_scale)
+			_entering_label.position = Vector2((screen_w - _entering_label.custom_minimum_size.x) / 2.0, 2 * ui_scale)
 			overlay.add_child(_entering_label)
 
-		# Next map name — DOOM Y ~76
+		# Next map name — DOOM Y ~24, right under the header
 		_next_map_label = _createScaledLabel(_next_map_name, DoomGame.COLOR_RED, ui_scale)
-		_next_map_label.position = Vector2((screen_w - _next_map_label.custom_minimum_size.x) / 2.0, 76 * ui_scale)
+		_next_map_label.position = Vector2((screen_w - _next_map_label.custom_minimum_size.x) / 2.0, 24 * ui_scale)
 		overlay.add_child(_next_map_label)
 
 func _createWadGraphic(sprite_name: String, ui_scale: float = 1.0) -> TextureRect:
