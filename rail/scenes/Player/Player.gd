@@ -77,23 +77,40 @@ func _ready() -> void:
 	Game.setPlayer(self)
 	add_to_group("player")
 	EventBus.releasePlayerTarget.connect(_clearFireTarget)
+	EventBus.wait.connect(_onWait)
+	EventBus.stopWait.connect(_onStopWait)
 	if SettingsManager.autoplay and !SettingsManager.autoplay_typing:
 		# Route-validation autoplay only: the typing playthrough bot plays
 		# with real damage and types doors open like a player would.
 		interactPressed = true
 		godMode = true
 
+## The wait system (pause menu, dialogs, death) must freeze the rail and
+## the guns, not just enemies and encounter checks.
+var _waiting : bool = false
+
+func _onWait() -> void:
+	_waiting = true
+
+func _onStopWait() -> void:
+	_waiting = false
+
 func reset() -> void:
 	_moving = false
 	_alive = true
 	_moveAction = null
 	_deathReady = false
+	_waiting = false
 	# The player body free-falls while idle behind the title screen or during
 	# level transitions; carrying that velocity into a fresh spawn shoots the
 	# body through the floor before the new map's colliders can catch it.
 	velocity = Vector3.ZERO
 	_air_time = 0.0
 	_keys.clear()
+	# Refresh the readout too, or the old level's keys keep showing on the
+	# status bar after death restarts and level selects
+	if _playerUi != null:
+		_playerUi.updateKeys(_keys)
 	weaponScenes = _defaultWeaponScenes.duplicate()
 	_clearFireTarget()
 	set_process_input(true)
@@ -154,6 +171,8 @@ func isMoving() -> bool:
 
 func _physics_process(delta: float) -> void:
 	if !_alive:
+		return
+	if _waiting:
 		return
 
 	# Continuously track the current fire target
@@ -412,7 +431,9 @@ func _input(event):
 			eventConsumed = true
 			Game.restartLevel()
 
-	if event is InputEvent && _alive && !eventConsumed:
+	# _input still runs while the pause menu is up (set_input_as_handled only
+	# blocks _unhandled_input), so menu keystrokes must not fire the gun
+	if event is InputEvent && _alive && !eventConsumed && !_waiting:
 		_fireWeapon(event)
 
 func _fireWeapon(event : InputEvent):
