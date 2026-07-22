@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Typing of the DOOMed** — a retro rhythm-action typing game built in Godot 4.6 (GDScript). Players fight DOOM-style enemies by typing words or playing MIDI notes. The game loads actual DOOM WAD files for sprites, sounds, and level geometry, then overlays an on-rails encounter system on top.
+**Typing of the DOOMed** — a retro rhythm-action typing game built in Godot 4.7 (GDScript). Players fight DOOM-style enemies by typing words or playing MIDI notes. The game loads actual DOOM WAD files for sprites, sounds, and level geometry, then overlays an on-rails encounter system on top.
 
 ## Running the Project
 
-Open in Godot 4.6+. The main scene is `main.tscn`. A DOOM WAD file (e.g., `DOOM.WAD`) must be available at runtime — the game will prompt to locate one if not found automatically.
+Open in Godot 4.7+. The main scene is `main.tscn`. A DOOM WAD file (e.g., `DOOM.WAD`) must be available at runtime — the game will prompt to locate one if not found automatically.
 
 There is no test framework, linter, or build step beyond Godot's built-in export system.
 
