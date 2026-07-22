@@ -39,7 +39,7 @@ const RIDER_SECTOR_NODE = "sector_node"
 const RIDER_LAST_H = "last_h"
 
 # Bumped with fixes so an exported build's log proves which code it contains
-const BUILD_TAG := "2026-07-22b"
+const BUILD_TAG := "2026-07-22c"
 
 func _ready() -> void:
 	print("[BUILD] %s" % BUILD_TAG)
@@ -75,15 +75,19 @@ func _ready() -> void:
 			_startAutoplay(user_args[i + 1])
 			return
 
-	# Try last used WAD path first
+	# Try last used WAD path first. Deferred: this route otherwise parses
+	# the WAD and instantiates the title screen synchronously inside
+	# main's _ready, before the tree/renderer settle - exported 4.7 builds
+	# crashed there, while the same init from a picker click (deferred
+	# context) worked. Boot routes must not do heavy setup mid-_ready.
 	var last_path = SettingsManager.last_wad_path
 	if last_path != "" and FileAccess.file_exists(last_path):
-		_initWithWad(last_path)
+		_initWithWad.call_deferred(last_path)
 		return
 
 	var wad_files = _findWadFiles()
 	if wad_files.size() == 1:
-		_initWithWad(wad_files[0])
+		_initWithWad.call_deferred(wad_files[0])
 	elif wad_files.size() == 0:
 		_showWadPicker([])
 	else:
