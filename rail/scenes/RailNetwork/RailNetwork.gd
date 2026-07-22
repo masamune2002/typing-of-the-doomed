@@ -216,7 +216,7 @@ func _get_selected_station() -> RailStation:
 	var selected = selection.get_selected_nodes()
 	for node in selected:
 		# Check the node itself or walk up to find a RailStation ancestor
-		var current := node
+		var current : Node = node
 		while current != null and current != self:
 			if current is RailStation:
 				return current as RailStation
