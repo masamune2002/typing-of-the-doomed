@@ -202,7 +202,10 @@ func _initWithWad(wad_path: String) -> void:
 	_showTitleScreen()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause") and _pause_menu == null and _title_screen == null:
+	# No pause menu before a WAD is loaded (the picker owns the screen) or
+	# while the title screen is up
+	if event.is_action_pressed("pause") and _pause_menu == null and _title_screen == null \
+			and _wad_picker == null and _wad_file_path != "":
 		var player = Game.getPlayer()
 		if player != null and player._alive:
 			player._clearFireTarget()

@@ -9,6 +9,10 @@ var _browse_container : VBoxContainer
 var _file_dialog : FileDialog
 
 func _ready() -> void:
+	# The Player's _ready captures the mouse at boot; a picker needs a
+	# cursor to click with (exported builds hit this — dev machines skip
+	# the picker via last_wad_path and never see it)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	# Make this control fill the viewport
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
