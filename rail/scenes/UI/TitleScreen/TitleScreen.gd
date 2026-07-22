@@ -17,9 +17,18 @@ func _ready() -> void:
 		save_loaded.emit(data)
 	)
 	add_child(_menu)
-	_playTitleMusic()
+	# Give the OS audio pipeline a beat before the first MIDI play: starting
+	# the synth inside the process's first frames hard-crashed exported
+	# Windows builds on the auto-boot route, while routes that reached the
+	# title after human-speed picker clicks never did. A second's silence on
+	# the title screen is imperceptible.
+	get_tree().create_timer(TITLE_MUSIC_DELAY).timeout.connect(_playTitleMusic)
+
+const TITLE_MUSIC_DELAY := 1.0
 
 func _playTitleMusic() -> void:
+	if not is_inside_tree():
+		return
 	var loader = Game.wadLoader
 	if loader == null or loader._loader == null:
 		return
@@ -32,11 +41,13 @@ func _playTitleMusic() -> void:
 	var midi_player = ENTG.fetchMidiPlayer(get_tree())
 	ENTG.setMidiPlayerData(midi_player, midi_data)
 	if midi_player != null and is_instance_valid(midi_player):
-		if midi_player.get_parent() == null:
-			midi_player.ready.connect(midi_player.play)
-			get_tree().get_root().call_deferred("add_child", midi_player)
-		else:
+		if midi_player.is_inside_tree():
 			midi_player.play()
+		else:
+			# fetchMidiPlayer already scheduled its own deferred add_child;
+			# adding again here is what spammed "Can't add child 'MidiPlayer'
+			# to 'root', already has a parent" on every boot
+			midi_player.ready.connect(midi_player.play, CONNECT_ONE_SHOT)
 
 func _stopMusic() -> void:
 	var tree = get_tree()
