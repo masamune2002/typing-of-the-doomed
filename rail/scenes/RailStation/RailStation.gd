@@ -120,10 +120,16 @@ func _select_and_focus(node: Node) -> void:
 	_deferred_select.call_deferred(node)
 
 func _deferred_select(node: Node) -> void:
-	var selection := EditorInterface.get_selection()
+	# EditorInterface doesn't exist in export templates: naming the class
+	# directly is a PARSE error there, which takes this script and every
+	# script depending on it down with it. Resolve it by name at runtime.
+	if not Engine.has_singleton("EditorInterface"):
+		return
+	var editor = Engine.get_singleton("EditorInterface")
+	var selection = editor.get_selection()
 	selection.clear()
 	selection.add_node(node)
-	EditorInterface.edit_node(node)
+	editor.edit_node(node)
 
 func _on_find_next_station() -> void:
 	if !Engine.is_editor_hint():

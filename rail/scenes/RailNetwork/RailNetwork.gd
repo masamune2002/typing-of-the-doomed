@@ -207,10 +207,13 @@ func _write_straight_curve(path: RailPath, from: RailStation, to: RailStation) -
 # ---- Editor view mode ----
 
 func _get_selected_station() -> RailStation:
-	var selection := EditorInterface.get_selection()
+	# Resolved by name: EditorInterface is a parse error in export builds
+	if not Engine.has_singleton("EditorInterface"):
+		return null
+	var selection = Engine.get_singleton("EditorInterface").get_selection()
 	if selection == null:
 		return null
-	var selected := selection.get_selected_nodes()
+	var selected = selection.get_selected_nodes()
 	for node in selected:
 		# Check the node itself or walk up to find a RailStation ancestor
 		var current := node
