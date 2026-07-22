@@ -131,14 +131,18 @@ func _probeBarLayout() -> void:
 		return
 	if img.is_compressed():
 		img.decompress()
-	var sx := img.get_width() / STBAR_WIDTH
-	var sy := img.get_height() / STBAR_HEIGHT
+	# Widescreen STBARs (e.g. the Unity re-release assets) are wider than
+	# 320 with the classic art centered and filler on the sides — the same
+	# center-crop KEEP_ASPECT_COVERED renders. Sample in art space: the
+	# height sets the pixel-per-unit scale, the art is centered.
+	var unit := img.get_height() / STBAR_HEIGHT
+	var art_x0 := maxf((img.get_width() - STBAR_WIDTH * unit) / 2.0, 0.0)
 	var band_start := -1
 	var band_end := -1
 	for row in range(2, 30):
 		var bright := 0
 		for col in range(4, 41):
-			if img.get_pixel(int(col * sx), int(row * sy)).get_luminance() > 0.45:
+			if img.get_pixel(int(art_x0 + col * unit), int(row * unit)).get_luminance() > 0.45:
 				bright += 1
 		if bright >= 12:
 			if band_start < 0:
