@@ -38,7 +38,11 @@ const RIDER_NODE = "node"
 const RIDER_SECTOR_NODE = "sector_node"
 const RIDER_LAST_H = "last_h"
 
+# Bumped with fixes so an exported build's log proves which code it contains
+const BUILD_TAG := "2026-07-22b"
+
 func _ready() -> void:
+	print("[BUILD] %s" % BUILD_TAG)
 	var loader := WadRuntimeLoader.new()
 	add_child(loader)
 	loader.mapCreated.connect(_onMapCreated)
@@ -418,8 +422,16 @@ func _loadRailNetwork(map_name: String) -> void:
 		push_error("Failed to load RailNetwork scene: %s" % scene_path)
 		return
 
+	print("[RAIL] loading %s" % scene_path)
 	_current_rail_network = scene.instantiate()
+	if _current_rail_network == null:
+		# A scene whose scripts failed to compile can load but not
+		# instantiate - keep the level playable (free-walk) instead of
+		# taking the game down
+		push_error("RailNetwork scene failed to instantiate: %s" % scene_path)
+		return
 	add_child(_current_rail_network)
+	print("[RAIL] loaded %s" % map_name)
 
 	# Position at player spawn ground height
 	var player = Game.getPlayer()
