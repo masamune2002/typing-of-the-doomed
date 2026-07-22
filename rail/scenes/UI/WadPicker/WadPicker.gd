@@ -17,11 +17,13 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# Full-screen dark background
+	# Full-screen dark background. STOP so stray clicks hover/hit the
+	# background control instead of counting as clicks on empty space,
+	# which would trigger the player's mouse re-capture and hide the cursor
 	var bg = ColorRect.new()
 	bg.color = Color(0.08, 0.08, 0.12, 1.0)
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bg.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(bg)
 
 	# Centered container

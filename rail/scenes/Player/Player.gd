@@ -406,8 +406,12 @@ func _input(event):
 		_clearFireTarget()
 		eventConsumed = true
 
-	# Re-capture mouse on click
-	if event is InputEventMouseButton and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+	# Re-capture mouse on click — but only clicks on empty space (the 3D
+	# view). _input sees every click before the GUI does, so without the
+	# hover check a click on any button (WAD picker, file dialog) steals
+	# the cursor from the very UI being clicked.
+	if event is InputEventMouseButton and event.pressed and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE \
+			and get_viewport().gui_get_hovered_control() == null:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		eventConsumed = true
 
