@@ -194,11 +194,23 @@ func _startAutoplay(map_name: String) -> void:
 	Game.wadLoader.load_wad(_wad_file_path, 0)
 
 func _initWithWad(wad_path: String) -> void:
+	if not FileAccess.file_exists(wad_path) and not wad_path.begins_with("res://"):
+		push_warning("WAD not found: %s" % wad_path)
+		_showWadPicker(_findWadFiles())
+		return
 	_wad_file_path = wad_path
-	SettingsManager.last_wad_path = wad_path
-	SettingsManager.save_settings()
 	Game.wadLoader.init_wad(_wad_file_path)
 	wad_game.detectWadVersion(Game.wadLoader._loader)
+	if wad_game.map_names.is_empty():
+		# Not a usable IWAD (no known maps) — back to the picker rather
+		# than a broken title screen
+		push_warning("No playable maps in %s" % wad_path)
+		_showWadPicker(_findWadFiles())
+		return
+	# Only remember the path once the WAD actually parsed: saving before a
+	# failed load bricks every later launch into retrying the bad WAD
+	SettingsManager.last_wad_path = wad_path
+	SettingsManager.save_settings()
 	_showTitleScreen()
 
 func _unhandled_input(event: InputEvent) -> void:
