@@ -37,6 +37,12 @@ const PERCENT_W : float = 14.0
 
 var _digitTextures : Array[Texture2D] = []
 var _infinityTexture : Texture2D
+
+# Bar-local Y (in 320x32 STBAR space) where the big value digits sit.
+# Vanilla puts them at 3 with the small panel labels along the bottom, but
+# official STBARs vary between releases — _probeBarLayout reads the actual
+# graphic and moves the digits out of the label band if it's on top.
+var _value_y : float = 3.0
 var _percentTexture : Texture2D = null
 
 # DOOM face sprites
@@ -88,6 +94,7 @@ func _onEnemyKilled(_enemy: Enemy) -> void:
 
 func _loadBarGraphics() -> void:
 	background.texture = Game.fetchSprite(DoomGame.STATUS_BAR)
+	_probeBarLayout()
 	_digitTextures.resize(10)
 	for i in range(10):
 		_digitTextures[i] = Game.fetchSprite("STTNUM%d" % i)
@@ -110,6 +117,38 @@ func _loadBarGraphics() -> void:
 	_percentTexture = Game.fetchSprite("STTPRCNT")
 	healthPercent.texture = _percentTexture
 	armorPercent.texture = _percentTexture
+
+## Find the small panel-label band ("AMMO", "HEALTH", ...) in the loaded
+## WAD's own STBAR pixels and keep the value digits out of it. Scans the
+## AMMO panel (x 4..40 in 320x32 space) for rows dominated by bright label
+## pixels; wall-texture noise stays well under the threshold.
+func _probeBarLayout() -> void:
+	_value_y = 3.0
+	if background.texture == null:
+		return
+	var img : Image = background.texture.get_image()
+	if img == null:
+		return
+	if img.is_compressed():
+		img.decompress()
+	var sx := img.get_width() / STBAR_WIDTH
+	var sy := img.get_height() / STBAR_HEIGHT
+	var band_start := -1
+	var band_end := -1
+	for row in range(2, 30):
+		var bright := 0
+		for col in range(4, 41):
+			if img.get_pixel(int(col * sx), int(row * sy)).get_luminance() > 0.45:
+				bright += 1
+		if bright >= 12:
+			if band_start < 0:
+				band_start = row
+			band_end = row
+	if band_start < 0:
+		return
+	if (band_start + band_end) / 2.0 <= 16.0:
+		# Labels along the top: drop the digits below the band
+		_value_y = clampf(band_end + 2.0, 3.0, STBAR_HEIGHT - DIGIT_H - 2.0)
 
 func _loadFaceSprites() -> void:
 	_normalFaces.resize(5)
@@ -188,13 +227,13 @@ func _layoutElements() -> void:
 	var percentW := PERCENT_W * scaleX
 
 	# Health digits position
-	healthContainer.position = Vector2(HEALTH_X * scaleX, HEALTH_Y * scaleY)
+	healthContainer.position = Vector2(HEALTH_X * scaleX, _value_y * scaleY)
 	for d in healthDigits:
 		d.custom_minimum_size = Vector2(digitW, digitH)
 	healthPercent.custom_minimum_size = Vector2(percentW, digitH)
 
 	# Armor digits position
-	armorContainer.position = Vector2(ARMOR_X * scaleX, ARMOR_Y * scaleY)
+	armorContainer.position = Vector2(ARMOR_X * scaleX, _value_y * scaleY)
 	for d in armorDigits:
 		d.custom_minimum_size = Vector2(digitW, digitH)
 	armorPercent.custom_minimum_size = Vector2(percentW, digitH)
@@ -204,13 +243,13 @@ func _layoutElements() -> void:
 	faceSprite.size = Vector2(FACE_W * scaleX, FACE_H * scaleY)
 
 	# Kill counter digits
-	killDigitsContainer.position = Vector2(KILLS_X * scaleX, KILLS_Y * scaleY)
+	killDigitsContainer.position = Vector2(KILLS_X * scaleX, _value_y * scaleY)
 	for d in _killDigits:
 		d.custom_minimum_size = Vector2(digitW, digitH)
 	_updateKillDigits()
 
 	# Ammo digits
-	ammoDigitsContainer.position = Vector2(AMMO_X * scaleX, AMMO_Y * scaleY)
+	ammoDigitsContainer.position = Vector2(AMMO_X * scaleX, _value_y * scaleY)
 	for d in _ammoDigits:
 		d.custom_minimum_size = Vector2(digitW, digitH)
 	_updateAmmoDigits()

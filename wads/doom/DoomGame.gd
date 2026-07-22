@@ -80,6 +80,32 @@ const MAP_DESCRIPTIONS = {
 	"E3M9": "Warrens (Secret)",
 }
 
+# ── WAD version ──────────────────────────────────────────────────────────
+
+## Which DOOM release the loaded IWAD is. Detected the way id's own
+## IdentifyVersion does it: by which map marker lumps the WAD contains —
+## registered DOOM and Ultimate DOOM both ship as DOOM.WAD with identical
+## headers, but only Ultimate has episode 4.
+enum WadVersion { UNKNOWN, SHAREWARE, REGISTERED, ULTIMATE, DOOM2 }
+var wad_version : WadVersion = WadVersion.UNKNOWN
+
+func detectWadVersion(loader) -> void:
+	var maps = loader.maps
+	if maps.has("MAP01"):
+		wad_version = WadVersion.DOOM2
+	elif maps.has("E4M1"):
+		wad_version = WadVersion.ULTIMATE
+	elif maps.has("E3M1") or maps.has("E2M1"):
+		wad_version = WadVersion.REGISTERED
+	elif maps.has("E1M1"):
+		wad_version = WadVersion.SHAREWARE
+	else:
+		wad_version = WadVersion.UNKNOWN
+	# Only offer maps this WAD actually contains: shareware is E1-only, and
+	# Ultimate's E4 has no rail networks yet so it stays off the list too.
+	map_names = MAP_NAMES_CONST.filter(func(m): return maps.has(m))
+	print("[WAD] detected %s (%d playable maps)" % [WadVersion.keys()[wad_version], map_names.size()])
+
 # ── Thing Flags ──────────────────────────────────────────────────────────
 
 const THING_FLAG_EASY = 0b1         # Appears on skills 1-2 (ITYTD / HNTR)

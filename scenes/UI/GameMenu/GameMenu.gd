@@ -140,9 +140,17 @@ func _buildUI() -> void:
 	_updateMenuHighlight()
 	_recomputeScale.call_deferred()
 
+func _mapNames() -> Array:
+	# The list of maps the loaded WAD actually contains (shareware has E1
+	# only; Ultimate's E4 is unsupported) — same list main.gd indexes into.
+	var wg = Game.getWadGame()
+	if wg != null and wg.map_names.size() > 0:
+		return wg.map_names
+	return DoomGame.MAP_NAMES_CONST
+
 func _levelLines() -> Array[String]:
 	var out : Array[String] = []
-	for map_name in DoomGame.MAP_NAMES_CONST:
+	for map_name in _mapNames():
 		var desc = DoomGame.MAP_DESCRIPTIONS.get(map_name, "")
 		out.append(map_name + " - " + desc)
 	return out
@@ -586,7 +594,7 @@ func _menuUp() -> void:
 			var items = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
 			_menu_selection = (_menu_selection - 1 + items.size()) % items.size()
 		MenuState.LEVEL_SELECT:
-			_level_selection = (_level_selection - 1 + DoomGame.MAP_NAMES_CONST.size()) % DoomGame.MAP_NAMES_CONST.size()
+			_level_selection = (_level_selection - 1 + _mapNames().size()) % _mapNames().size()
 		MenuState.DIFFICULTY_SELECT:
 			_difficulty_selection = (_difficulty_selection - 1 + DoomGame.SKILL_NAMES.size()) % DoomGame.SKILL_NAMES.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
@@ -604,7 +612,7 @@ func _menuDown() -> void:
 			var items = MENU_ITEMS_PAUSE if pause_mode else MENU_ITEMS_MAIN
 			_menu_selection = (_menu_selection + 1) % items.size()
 		MenuState.LEVEL_SELECT:
-			_level_selection = (_level_selection + 1) % DoomGame.MAP_NAMES_CONST.size()
+			_level_selection = (_level_selection + 1) % _mapNames().size()
 		MenuState.DIFFICULTY_SELECT:
 			_difficulty_selection = (_difficulty_selection + 1) % DoomGame.SKILL_NAMES.size()
 		MenuState.SAVE_GAME, MenuState.LOAD_GAME:
@@ -683,7 +691,8 @@ func _startSaveNameEdit() -> void:
 	else:
 		var main_scene = get_tree().current_scene
 		if main_scene and "_currentMapIdx" in main_scene:
-			_edit_save_name = DoomGame.MAP_NAMES_CONST[main_scene._currentMapIdx]
+			var names = _mapNames()
+			_edit_save_name = names[main_scene._currentMapIdx] if main_scene._currentMapIdx < names.size() else ""
 		else:
 			_edit_save_name = ""
 	_updateEditLabel()

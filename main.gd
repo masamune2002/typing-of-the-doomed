@@ -180,6 +180,14 @@ func _startAutoplay(map_name: String) -> void:
 
 	_wad_file_path = wad_path
 	Game.wadLoader.init_wad(_wad_file_path)
+	# Detection filters map_names to what the WAD contains — re-resolve the
+	# index against the filtered list
+	wad_game.detectWadVersion(Game.wadLoader._loader)
+	map_idx = wad_game.map_names.find(SettingsManager.autoplay_map)
+	if map_idx < 0:
+		printerr("[AUTOPLAY] ERROR: Map '%s' not in this WAD (%s)" % [SettingsManager.autoplay_map, wad_game.map_names])
+		get_tree().quit(1)
+		return
 	_currentMapIdx = map_idx
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Game.wadLoader.map_name = wad_game.map_names[_currentMapIdx]
@@ -190,6 +198,7 @@ func _initWithWad(wad_path: String) -> void:
 	SettingsManager.last_wad_path = wad_path
 	SettingsManager.save_settings()
 	Game.wadLoader.init_wad(_wad_file_path)
+	wad_game.detectWadVersion(Game.wadLoader._loader)
 	_showTitleScreen()
 
 func _unhandled_input(event: InputEvent) -> void:
