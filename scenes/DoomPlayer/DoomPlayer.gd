@@ -26,6 +26,8 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	if !_alive:
 		return
+	if _waiting:
+		return  # pause/dialog freeze: hold the head bob mid-phase
 	if not _headBobInitialized:
 		_headBobBaseY = _cameraRig.position.y
 		_headBobInitialized = true

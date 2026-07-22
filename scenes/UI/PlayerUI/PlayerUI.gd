@@ -187,6 +187,11 @@ func _startFireAnimation() -> void:
 	_weaponAnimTimer = _firePhase1Time
 
 func _process(delta : float) -> void:
+	# Wait system active (pause menu, dialogs): freeze the fire animation
+	# and the bob/sway exactly where they are
+	var waiting_player = Game.getPlayer()
+	if waiting_player != null and waiting_player._waiting:
+		return
 	if _weaponFiring:
 		_weaponAnimTimer -= delta
 		if _weaponAnimTimer <= 0.0:
