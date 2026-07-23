@@ -1113,6 +1113,12 @@ static func createMidiPlayer(soundFontPath : String= "", loop :bool = true):
 
 	player.process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# A missing soundfont (e.g. the .sf2 left out of an export's include
+	# filter) crashes the synth natively - degrade to silence instead
+	if soundFontPath != "" and not FileAccess.file_exists(soundFontPath):
+		push_error("SoundFont not found: %s - MIDI music disabled" % soundFontPath)
+		soundFontPath = ""
+
 	player.soundfont = soundFontPath
 	player.loop = loop
 	return player

@@ -39,7 +39,7 @@ const RIDER_SECTOR_NODE = "sector_node"
 const RIDER_LAST_H = "last_h"
 
 # Bumped with fixes so an exported build's log proves which code it contains
-const BUILD_TAG := "2026-07-22d"
+const BUILD_TAG := "2026-07-22e"
 
 func _ready() -> void:
 	print("[BUILD] %s" % BUILD_TAG)
