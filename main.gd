@@ -663,28 +663,10 @@ func _showIntermission(finished_map: String, next_map: String, next_idx: int) ->
 	)
 
 func _playIntermissionMusic() -> void:
-	var resource_manager = Game.wadLoader._loader.get_node_or_null("ResourceManager")
-	if resource_manager == null:
-		return
-	var midi_data = resource_manager.fetchMidiOrMus("D_INTER")
-	if midi_data == null:
-		return
-	var midi_player = ENTG.fetchMidiPlayer(get_tree())
-	if midi_player == null:
-		return
-	ENTG.setMidiPlayerData(midi_player, midi_data)
-	midi_player.loop = true  # shared player; the title sets it one-shot
-	if midi_player.is_inside_tree():
-		midi_player.play()
-	else:
-		# fetchMidiPlayer already scheduled its own deferred add_child —
-		# adding again races it and errors
-		midi_player.ready.connect(midi_player.play, CONNECT_ONE_SHOT)
+	Game.playMidiMusic("D_INTER")
 
 func _stopIntermissionMusic() -> void:
-	var midi_player = ENTG.fetchMidiPlayer(get_tree())
-	if midi_player != null:
-		midi_player.stop()
+	Game.stopMidiMusic()
 
 var _carry_over_state : Dictionary = {}
 var _skip_state_capture : bool = false

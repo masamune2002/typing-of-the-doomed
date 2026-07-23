@@ -72,10 +72,12 @@ func _ready() -> void:
 	var doom_font = Game.getDoomFont()
 	if doom_font != null:
 		_label.add_theme_font_override("font", doom_font)
+		# DOOM packs its text screen at 8px rows (16 on this 2x canvas).
+		# Compute the spacing from the font's actual metrics — a hardcoded
+		# value overflows the canvas when the engine version or the loaded
+		# WAD's font reports a different line height.
+		_label.add_theme_constant_override("line_spacing", int(16.0 - doom_font.get_height(16)))
 	_label.add_theme_font_size_override("font_size", 16)
-	# DOOM packs its text screen at 8px rows (16 here); Godot's default
-	# line spacing overflows the 200-row canvas
-	_label.add_theme_constant_override("line_spacing", -8)
 	_label.add_theme_color_override("font_color", DoomGame.COLOR_RED)
 	_label.visible_characters = 0
 	root.add_child(_label)

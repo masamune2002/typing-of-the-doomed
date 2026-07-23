@@ -60,10 +60,16 @@ func playMidiMusic(lumpName: String, loop: bool = true) -> void:
 	var midi_player = ENTG.fetchMidiPlayer(get_tree())
 	if midi_player == null:
 		return
+	# Quiet the synth before swapping songs: assigning smf_data to a playing
+	# player (and setMidiPlayerData's own same-data play(0) path) each
+	# restart playback, so the new song audibly stutter-started 2-3 times.
+	if midi_player.is_inside_tree() and midi_player.playing:
+		midi_player.stop()
 	ENTG.setMidiPlayerData(midi_player, midi_data)
 	midi_player.loop = loop
 	if midi_player.is_inside_tree():
-		midi_player.play()
+		if not midi_player.playing:
+			midi_player.play()
 	else:
 		# fetchMidiPlayer already scheduled its own deferred add_child
 		midi_player.ready.connect(midi_player.play, CONNECT_ONE_SHOT)
