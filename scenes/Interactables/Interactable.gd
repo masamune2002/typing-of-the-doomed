@@ -153,6 +153,7 @@ func _activate_wad_node() -> void:
 func _triggerWadNode(n) -> void:
 	if n == null or !is_instance_valid(n):
 		return
+	_syncStaleDoorState(n)
 	var player = Game.getPlayer()
 	var ttype = n.get(WadGame.PROP_TRIGGER_TYPE)
 	var is_switch = ttype == WADG.TTYPE.SWITCH1 or ttype == WADG.TTYPE.SWITCHR
@@ -167,6 +168,27 @@ func _triggerWadNode(n) -> void:
 		player.interactPressed = true
 		n.bodyIn(player)
 		player.interactPressed = false
+
+# A sector driven by two mover chains (E1M4's hub doors 10/106/133/138: WR
+# open-stay + WR open-wait-close) shares curH through the sector's meta, but
+# each door node keeps a private state enum. door.gd syncs any node's state
+# to OPEN when the shared height reaches the top, but never back to CLOSED at
+# the bottom — so once the OTHER chain has cycled the door, this node is
+# stuck reporting OPEN while the door is physically shut, and activate() on
+# it is a no-op (neither the closer nor the opener branch matches). Typing
+# the label then did nothing while the rail advanced into the shut slab.
+# Re-derive the state from the shared geometry before triggering.
+func _syncStaleDoorState(n) -> void:
+	if n.get_script() == null or !n.get_script().resource_path.ends_with("door.gd"):
+		return
+	if !n.has_method("getCurH"):
+		return
+	var bottomH = n.get("bottomH")
+	if bottomH == null:
+		return
+	# door.gd STATE: OPEN=0, OPENING=1, CLOSED=2, CLOSING=3
+	if n.getCurH() <= bottomH + 0.01 and (n.get("state") == 0 or n.get("state") == 1):
+		n.set("state", 2)
 
 func _sectorVarFor(n: Node) -> String:
 	if n == null or n.get_parent() == null:

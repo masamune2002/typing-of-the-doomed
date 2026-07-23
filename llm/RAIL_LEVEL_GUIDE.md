@@ -226,6 +226,15 @@ The stall report is rich — use all of it:
   a player-passable gap (~56 raw units, capped by the door's travel).
   To scan a map for such doors: for each sector in `geo.movable`, flag
   `0 < ceil - floor < 56`.
+- The mirror image of that bug class: a TYPED activation that does
+  nothing. A sector driven by two mover chains (E1M4 hub doors
+  10/106/133/138: WR open-stay + WR open-wait-close) shares `curH`, but
+  each door node keeps a private state enum that only ever syncs to OPEN
+  at the top, never back to CLOSED. After the other chain cycles the
+  door shut, the wrapped open-stay node still reports OPEN and its
+  `activate()` no-ops — the player types D106 forever while the rail
+  pushes into the slab. Fixed in `Interactable._syncStaleDoorState`
+  (re-derives state from geometry before `_triggerWadNode` dispatches).
 - Useful one-off probes (python3, import wadgeo):
   `geo.point_sector(p)`, `geo.sector_bounds(si)`, `geo.seg_scan(a, b)`,
   `geo.find_path(a, b)`. Dump every RAW beat's sector+floor and eyeball
