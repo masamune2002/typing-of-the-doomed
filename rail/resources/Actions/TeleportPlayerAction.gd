@@ -29,11 +29,14 @@ func run(encounterPoint : EncounterPoint) -> void:
 		return
 	if player._moving:
 		player.stopCameraMove(null)
+	# Vanilla spawns the teleport fog at both ends of the trip
+	TeleportFog.spawnAt(encounterPoint.get_tree(), player.global_position - Vector3(0, 1.0, 0))
 	player.velocity = Vector3.ZERO
 	player.global_position = dest.global_position + Vector3(0, 1.0, 0)
 	var yaw : float = dest.global_rotation_degrees.y
 	player._cameraRig.rotation_degrees.y = yaw
 	player._rotH = yaw
+	TeleportFog.spawnAt(encounterPoint.get_tree(), dest.global_position)
 	if sound != "":
 		Game.playSound(sound)
 	finish()

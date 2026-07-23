@@ -25,6 +25,8 @@ func _ready() -> void:
 	# DEHACKED replacements arrive mixed-case; the STCFN font is caps-only
 	text = text.to_upper()
 	layer = 20
+	# Vanilla scores the episode end text with D_VICTOR (looping)
+	Game.playMidiMusic("D_VICTOR")
 	var vp := get_viewport().get_visible_rect().size
 	var s := vp.y / CANVAS_H
 	var canvas_w := vp.x / s
@@ -95,5 +97,6 @@ func _input(event: InputEvent) -> void:
 			_revealed = true
 			_label.visible_characters = -1
 		else:
+			Game.stopMidiMusic()
 			dismissed.emit()
 			queue_free()

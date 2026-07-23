@@ -47,6 +47,34 @@ func fetchFlat(flatName: String) -> Texture2D:
 		return null
 	return rm.fetchFlat(flatName)
 
+## Play a MUS/MIDI lump from the loaded WAD on the shared MidiPlayer.
+func playMidiMusic(lumpName: String, loop: bool = true) -> void:
+	if wadLoader == null or wadLoader._loader == null:
+		return
+	var rm = wadLoader._loader.get_node_or_null("ResourceManager")
+	if rm == null:
+		return
+	var midi_data = rm.fetchMidiOrMus(lumpName)
+	if midi_data == null:
+		return
+	var midi_player = ENTG.fetchMidiPlayer(get_tree())
+	if midi_player == null:
+		return
+	ENTG.setMidiPlayerData(midi_player, midi_data)
+	midi_player.loop = loop
+	if midi_player.is_inside_tree():
+		midi_player.play()
+	else:
+		# fetchMidiPlayer already scheduled its own deferred add_child
+		midi_player.ready.connect(midi_player.play, CONNECT_ONE_SHOT)
+
+func stopMidiMusic() -> void:
+	var tree = get_tree()
+	if tree.has_meta("midiPlayer"):
+		var midi_player = tree.get_meta("midiPlayer")
+		if midi_player != null and is_instance_valid(midi_player):
+			midi_player.stop()
+
 func getPlayer() -> Player:
 	return player
 
