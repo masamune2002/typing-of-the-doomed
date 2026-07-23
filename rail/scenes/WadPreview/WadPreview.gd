@@ -169,6 +169,7 @@ func _on_map_created() -> void:
 
 	_loader.global_position = -spawn_pos
 	_spawn_offset = spawn_pos
+	_bake_sector_lighting()
 	_create_interactable_labels()
 	_create_trigger_labels()
 	_create_switch_labels()
@@ -474,6 +475,63 @@ func _generate_enemy_markers() -> void:
 		marker.owner = get_tree().edited_scene_root
 		count += 1
 
+
+# The addon's sector materials use `instance uniform`s (per-mesh sectorLight),
+# which makes the renderer allocate a per-instance uniform buffer for every
+# preview mesh. Godot's editor re-allocates those buffers whenever the
+# instances are re-dirtied (selection, node add/remove, transform edits)
+# without freeing them first, spamming
+# "global_shader_uniforms.instance_buffer_pos.has(p_instance)" errors — one
+# per mesh, thousands per event. The preview is static, so bake each mesh's
+# instance values into a shared non-instanced material (cached per source
+# material + light) and drop the instance parameters entirely.
+const _INSTANCE_PARAMS := ["sectorLight", "alpha", "scrolling", "emission", "emission_energy", "tint"]
+
+var _deinstanced_shader_cache: Dictionary = {}  # Shader -> Shader without instance uniforms
+var _baked_material_cache: Dictionary = {}      # "matId|params" -> ShaderMaterial
+
+func _bake_sector_lighting() -> void:
+	if _loader == null:
+		return
+	for gi in _loader.find_children("*", "GeometryInstance3D", true, false):
+		var values := {}
+		for pname in _INSTANCE_PARAMS:
+			var v = gi.get("instance_shader_parameters/" + pname)
+			if v != null:
+				values[pname] = v
+		if gi.material_override is ShaderMaterial and _has_instance_uniforms(gi.material_override.shader):
+			gi.material_override = _baked_material(gi.material_override, values)
+		if gi is MeshInstance3D and gi.mesh != null:
+			for s in gi.mesh.get_surface_count():
+				var mat = gi.get_active_material(s)
+				if mat is ShaderMaterial and _has_instance_uniforms(mat.shader):
+					gi.set_surface_override_material(s, _baked_material(mat, values))
+		elif gi is MultiMeshInstance3D and gi.multimesh != null and gi.multimesh.mesh != null:
+			# A single override covers the whole multimesh; its floors are
+			# single-surface, so surface 0's material is the one that counts.
+			var mm_mat = gi.multimesh.mesh.surface_get_material(0)
+			if gi.material_override == null and mm_mat is ShaderMaterial and _has_instance_uniforms(mm_mat.shader):
+				gi.material_override = _baked_material(mm_mat, values)
+		for pname in values:
+			gi.set("instance_shader_parameters/" + pname, null)
+
+func _has_instance_uniforms(shader: Shader) -> bool:
+	return shader != null and shader.code.contains("instance uniform ")
+
+func _baked_material(mat: ShaderMaterial, values: Dictionary) -> ShaderMaterial:
+	var key := "%d|%s" % [mat.get_instance_id(), values]
+	if _baked_material_cache.has(key):
+		return _baked_material_cache[key]
+	var baked: ShaderMaterial = mat.duplicate()
+	if not _deinstanced_shader_cache.has(mat.shader):
+		var plain: Shader = mat.shader.duplicate()
+		plain.code = plain.code.replace("instance uniform ", "uniform ")
+		_deinstanced_shader_cache[mat.shader] = plain
+	baked.shader = _deinstanced_shader_cache[mat.shader]
+	for pname in values:
+		baked.set_shader_parameter(pname, values[pname])
+	_baked_material_cache[key] = baked
+	return baked
 
 func _clear() -> void:
 	_labels_by_type.clear()
