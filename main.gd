@@ -560,6 +560,7 @@ func _onEpisodeFinale() -> void:
 	if map_name.length() >= 2 and map_name.begins_with("E"):
 		episode = map_name.substr(1, 1).to_int()
 	ending.text = wad_game.getEndText(_wad_file_path, episode)
+	ending.episode = episode
 	ending.dismissed.connect(_onEndingDismissed)
 	add_child(ending)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

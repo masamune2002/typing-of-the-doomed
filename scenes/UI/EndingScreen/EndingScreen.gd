@@ -8,6 +8,12 @@ class_name EndingScreen
 signal dismissed
 
 var text : String = ""
+var episode : int = 1
+
+## Vanilla's post-text finale patch per episode (F_Finale stage 1):
+## E1 the id credits, E2 the victory art, E3 the bunny ending (we show the
+## final PFUB1 scene instead of animating the scroll), E4 the ENDPIC.
+const FINALE_PICS := {1: "CREDIT", 2: "VICTORY2", 3: "PFUB1", 4: "ENDPIC"}
 
 const BG_FLAT := "FLOOR4_8"
 const CHARS_PER_SEC := 35.0 / 3.0  # DOOM types one char every 3 tics
@@ -20,6 +26,7 @@ const TEXT_MARGIN := 20.0
 var _label : Label
 var _shown := 0.0
 var _revealed := false
+var _showing_finale_pic := false
 
 func _ready() -> void:
 	# DEHACKED replacements arrive mixed-case; the STCFN font is caps-only
@@ -93,10 +100,43 @@ func _input(event: InputEvent) -> void:
 		if event.keycode != KEY_ENTER and event.keycode != KEY_KP_ENTER \
 				and event.keycode != KEY_SPACE:
 			return
-		if !_revealed:
-			_revealed = true
-			_label.visible_characters = -1
-		else:
+		if _showing_finale_pic:
 			Game.stopMidiMusic()
 			dismissed.emit()
 			queue_free()
+		elif !_revealed:
+			_revealed = true
+			_label.visible_characters = -1
+		else:
+			_showFinalePic()
+
+## Vanilla follows the text with a full-screen episode patch — the credits
+## after E1 — dismissed by one more key press.
+func _showFinalePic() -> void:
+	var tex = Game.fetchSprite(FINALE_PICS.get(episode, "CREDIT"))
+	if tex == null:
+		# WAD without the patch: end straight from the text
+		Game.stopMidiMusic()
+		dismissed.emit()
+		queue_free()
+		return
+	_showing_finale_pic = true
+	if episode == 3:
+		Game.playMidiMusic("D_BUNNY")  # the bunny ending has its own score
+	var cover := Control.new()
+	cover.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	cover.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(cover)
+	var black := ColorRect.new()
+	black.color = Color.BLACK
+	black.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cover.add_child(black)
+	var pic := TextureRect.new()
+	pic.texture = tex
+	pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	pic.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cover.add_child(pic)
