@@ -24,6 +24,10 @@ class_name RailMarker
 var _has_triggered : bool = false
 var enemies : Array[Enemy]
 
+const _RANGE_RING_HALF_THICKNESS := 0.12
+
+var _range_rings : Array[MeshInstance3D] = []
+
 func _ready() -> void:
 	var area = get_node_or_null("CollisionArea") as Area3D
 	if area and not area.body_entered.is_connected(_onCollisionAreaBodyEntered):
@@ -41,6 +45,54 @@ func _ready() -> void:
 			var enemy : Enemy = child
 			enemy.died.connect(_onEnemyDied)
 			enemies.append(enemy)
+
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		_update_condition_range_rings()
+
+## Editor viz: while this marker is selected, draw a flat ring per
+## NearbyEnemiesClearedCondition at its max_distance. Polled every editor
+## frame so the ring tracks the inspector spinner live; Resources don't
+## emit changed on inspector edits, so there's no signal to listen to.
+func _update_condition_range_rings() -> void:
+	var radii : Array[float] = []
+	if _is_selected_in_editor() and conditions != null:
+		for condition in conditions:
+			if condition is NearbyEnemiesClearedCondition and condition.max_distance > 0.0:
+				radii.append(condition.max_distance)
+	while _range_rings.size() > radii.size():
+		_range_rings.pop_back().queue_free()
+	while _range_rings.size() < radii.size():
+		_range_rings.append(_make_range_ring())
+	for i in radii.size():
+		var torus := _range_rings[i].mesh as TorusMesh
+		if !is_equal_approx(torus.outer_radius, radii[i] + _RANGE_RING_HALF_THICKNESS):
+			torus.inner_radius = maxf(radii[i] - _RANGE_RING_HALF_THICKNESS, 0.01)
+			torus.outer_radius = radii[i] + _RANGE_RING_HALF_THICKNESS
+
+func _is_selected_in_editor() -> bool:
+	# EditorInterface doesn't exist in export templates: naming the class
+	# directly is a parse error there. Resolve it by name at runtime.
+	if not Engine.has_singleton("EditorInterface"):
+		return false
+	return Engine.get_singleton("EditorInterface").get_selection().get_selected_nodes().has(self)
+
+func _make_range_ring() -> MeshInstance3D:
+	var ring := MeshInstance3D.new()
+	var torus := TorusMesh.new()
+	torus.rings = 128
+	torus.ring_segments = 6
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(1.0, 0.55, 0.1, 0.9)
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.no_depth_test = true
+	torus.material = mat
+	ring.mesh = torus
+	ring.position.y = 0.1
+	# No owner: editor-only viz, must never be saved into the scene.
+	add_child(ring)
+	return ring
 
 func _check_initial_overlap() -> void:
 	var area = get_node_or_null("CollisionArea") as Area3D

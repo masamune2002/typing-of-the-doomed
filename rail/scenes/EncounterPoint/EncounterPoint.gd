@@ -51,6 +51,10 @@ func _checksSuspended() -> bool:
 	return _waiting or Engine.get_physics_frames() < _checkAfterPhysicsFrame
 
 func _process(_delta: float) -> void:
+	# In the editor, only RailMarker's condition-range viz should run.
+	if Engine.is_editor_hint():
+		super(_delta)
+		return
 	if !active or _starting or _ending:
 		return
 	_checkConditions()
