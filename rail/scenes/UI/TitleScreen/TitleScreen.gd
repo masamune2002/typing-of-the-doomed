@@ -17,14 +17,7 @@ func _ready() -> void:
 		save_loaded.emit(data)
 	)
 	add_child(_menu)
-	# Give the OS audio pipeline a beat before the first MIDI play: starting
-	# the synth inside the process's first frames hard-crashed exported
-	# Windows builds on the auto-boot route, while routes that reached the
-	# title after human-speed picker clicks never did. A second's silence on
-	# the title screen is imperceptible.
-	get_tree().create_timer(TITLE_MUSIC_DELAY).timeout.connect(_playTitleMusic)
-
-const TITLE_MUSIC_DELAY := 1.0
+	_playTitleMusic()
 
 func _playTitleMusic() -> void:
 	if not is_inside_tree():
@@ -41,6 +34,9 @@ func _playTitleMusic() -> void:
 	var midi_player = ENTG.fetchMidiPlayer(get_tree())
 	ENTG.setMidiPlayerData(midi_player, midi_data)
 	if midi_player != null and is_instance_valid(midi_player):
+		# D_INTRO is the one song that plays once; vanilla's title music
+		# ends and leaves the demo silence
+		midi_player.loop = false
 		if midi_player.is_inside_tree():
 			midi_player.play()
 		else:
@@ -55,3 +51,6 @@ func _stopMusic() -> void:
 		var midi_player = tree.get_meta("midiPlayer")
 		if midi_player != null and is_instance_valid(midi_player):
 			midi_player.stop()
+			# The player is a shared singleton: restore looping so level
+			# and intermission songs behave normally after the title
+			midi_player.loop = true

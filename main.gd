@@ -39,7 +39,7 @@ const RIDER_SECTOR_NODE = "sector_node"
 const RIDER_LAST_H = "last_h"
 
 # Bumped with fixes so an exported build's log proves which code it contains
-const BUILD_TAG := "2026-07-22e"
+const BUILD_TAG := "2026-07-23a"
 
 func _ready() -> void:
 	print("[BUILD] %s" % BUILD_TAG)
@@ -672,6 +672,7 @@ func _playIntermissionMusic() -> void:
 	if midi_player == null:
 		return
 	ENTG.setMidiPlayerData(midi_player, midi_data)
+	midi_player.loop = true  # shared player; the title sets it one-shot
 	if midi_player.is_inside_tree():
 		midi_player.play()
 	else:
